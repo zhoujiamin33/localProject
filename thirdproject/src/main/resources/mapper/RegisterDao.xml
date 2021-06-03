@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.RegisterDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Register">
+    <id column="Register_Id" jdbcType="INTEGER" property="registerId" />
+    <result column="ConsultAnt" jdbcType="VARCHAR" property="consultant" />
+    <result column="Sex" jdbcType="VARCHAR" property="sex" />
+    <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
+    <result column="PlanReturnVisit" jdbcType="TIMESTAMP" property="planreturnvisit" />
+    <result column="AttentState" jdbcType="INTEGER" property="attentstate" />
+    <result column="PayState" jdbcType="INTEGER" property="paystate" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="ConsultContent" jdbcType="VARCHAR" property="consultcontent" />
+    <result column="LastUpdateName" jdbcType="VARCHAR" property="lastupdatename" />
+    <result column="LastUpdateTime" jdbcType="TIMESTAMP" property="lastupdatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="ZSIsExamine" jdbcType="INTEGER" property="zsisexamine" />
+    <result column="ZSExamineTime" jdbcType="TIMESTAMP" property="zsexaminetime" />
+    <result column="ZSExamineName" jdbcType="VARCHAR" property="zsexaminename" />
+    <result column="ZSRevokeTime" jdbcType="TIMESTAMP" property="zsrevoketime" />
+    <result column="ZSRevokeName" jdbcType="VARCHAR" property="zsrevokename" />
+    <result column="JWExamineTime" jdbcType="TIMESTAMP" property="jwexaminetime" />
+    <result column="JWExamineName" jdbcType="VARCHAR" property="jwexaminename" />
+    <result column="JWRevokeTime" jdbcType="TIMESTAMP" property="jwrevoketime" />
+    <result column="JWRevokeName" jdbcType="VARCHAR" property="jwrevokename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Register_Id, ConsultAnt, Sex, Source_Id, PlanReturnVisit, AttentState, PayState, 
+    TimeLiness, AddName, AddTime, ConsultContent, LastUpdateName, LastUpdateTime, DeleteName, 
+    DeleteTime, ZSIsExamine, ZSExamineTime, ZSExamineName, ZSRevokeTime, ZSRevokeName, 
+    JWExamineTime, JWExamineName, JWRevokeTime, JWRevokeName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from register
+    where Register_Id = #{registerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from register
+    where Register_Id = #{registerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">
+    insert into register (ConsultAnt, Sex, Source_Id, 
+      PlanReturnVisit, AttentState, PayState, 
+      TimeLiness, AddName, AddTime, 
+      ConsultContent, LastUpdateName, LastUpdateTime, 
+      DeleteName, DeleteTime, ZSIsExamine, 
+      ZSExamineTime, ZSExamineName, ZSRevokeTime, 
+      ZSRevokeName, JWExamineTime, JWExamineName, 
+      JWRevokeTime, JWRevokeName)
+    values (#{consultant,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{sourceId,jdbcType=INTEGER}, 
+      #{planreturnvisit,jdbcType=TIMESTAMP}, #{attentstate,jdbcType=INTEGER}, #{paystate,jdbcType=INTEGER}, 
+      #{timeliness,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{consultcontent,jdbcType=VARCHAR}, #{lastupdatename,jdbcType=VARCHAR}, #{lastupdatetime,jdbcType=TIMESTAMP}, 
+      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{zsisexamine,jdbcType=INTEGER}, 
+      #{zsexaminetime,jdbcType=TIMESTAMP}, #{zsexaminename,jdbcType=VARCHAR}, #{zsrevoketime,jdbcType=TIMESTAMP}, 
+      #{zsrevokename,jdbcType=VARCHAR}, #{jwexaminetime,jdbcType=TIMESTAMP}, #{jwexaminename,jdbcType=VARCHAR}, 
+      #{jwrevoketime,jdbcType=TIMESTAMP}, #{jwrevokename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">
+    insert into register
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="consultant != null">
+        ConsultAnt,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="sourceId != null">
+        Source_Id,
+      </if>
+      <if test="planreturnvisit != null">
+        PlanReturnVisit,
+      </if>
+      <if test="attentstate != null">
+        AttentState,
+      </if>
+      <if test="paystate != null">
+        PayState,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="consultcontent != null">
+        ConsultContent,
+      </if>
+      <if test="lastupdatename != null">
+        LastUpdateName,
+      </if>
+      <if test="lastupdatetime != null">
+        LastUpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="zsisexamine != null">
+        ZSIsExamine,
+      </if>
+      <if test="zsexaminetime != null">
+        ZSExamineTime,
+      </if>
+      <if test="zsexaminename != null">
+        ZSExamineName,
+      </if>
+      <if test="zsrevoketime != null">
+        ZSRevokeTime,
+      </if>
+      <if test="zsrevokename != null">
+        ZSRevokeName,
+      </if>
+      <if test="jwexaminetime != null">
+        JWExamineTime,
+      </if>
+      <if test="jwexaminename != null">
+        JWExamineName,
+      </if>
+      <if test="jwrevoketime != null">
+        JWRevokeTime,
+      </if>
+      <if test="jwrevokename != null">
+        JWRevokeName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="consultant != null">
+        #{consultant,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null">
+        #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="planreturnvisit != null">
+        #{planreturnvisit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attentstate != null">
+        #{attentstate,jdbcType=INTEGER},
+      </if>
+      <if test="paystate != null">
+        #{paystate,jdbcType=INTEGER},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultcontent != null">
+        #{consultcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatename != null">
+        #{lastupdatename,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null">
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsisexamine != null">
+        #{zsisexamine,jdbcType=INTEGER},
+      </if>
+      <if test="zsexaminetime != null">
+        #{zsexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsexaminename != null">
+        #{zsexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="zsrevoketime != null">
+        #{zsrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsrevokename != null">
+        #{zsrevokename,jdbcType=VARCHAR},
+      </if>
+      <if test="jwexaminetime != null">
+        #{jwexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwexaminename != null">
+        #{jwexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="jwrevoketime != null">
+        #{jwrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwrevokename != null">
+        #{jwrevokename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Register">
+    update register
+    <set>
+      <if test="consultant != null">
+        ConsultAnt = #{consultant,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null">
+        Source_Id = #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="planreturnvisit != null">
+        PlanReturnVisit = #{planreturnvisit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attentstate != null">
+        AttentState = #{attentstate,jdbcType=INTEGER},
+      </if>
+      <if test="paystate != null">
+        PayState = #{paystate,jdbcType=INTEGER},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultcontent != null">
+        ConsultContent = #{consultcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatename != null">
+        LastUpdateName = #{lastupdatename,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null">
+        LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsisexamine != null">
+        ZSIsExamine = #{zsisexamine,jdbcType=INTEGER},
+      </if>
+      <if test="zsexaminetime != null">
+        ZSExamineTime = #{zsexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsexaminename != null">
+        ZSExamineName = #{zsexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="zsrevoketime != null">
+        ZSRevokeTime = #{zsrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsrevokename != null">
+        ZSRevokeName = #{zsrevokename,jdbcType=VARCHAR},
+      </if>
+      <if test="jwexaminetime != null">
+        JWExamineTime = #{jwexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwexaminename != null">
+        JWExamineName = #{jwexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="jwrevoketime != null">
+        JWRevokeTime = #{jwrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwrevokename != null">
+        JWRevokeName = #{jwrevokename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Register_Id = #{registerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Register">
+    update register
+    set ConsultAnt = #{consultant,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      Source_Id = #{sourceId,jdbcType=INTEGER},
+      PlanReturnVisit = #{planreturnvisit,jdbcType=TIMESTAMP},
+      AttentState = #{attentstate,jdbcType=INTEGER},
+      PayState = #{paystate,jdbcType=INTEGER},
+      TimeLiness = #{timeliness,jdbcType=INTEGER},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      ConsultContent = #{consultcontent,jdbcType=VARCHAR},
+      LastUpdateName = #{lastupdatename,jdbcType=VARCHAR},
+      LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      ZSIsExamine = #{zsisexamine,jdbcType=INTEGER},
+      ZSExamineTime = #{zsexaminetime,jdbcType=TIMESTAMP},
+      ZSExamineName = #{zsexaminename,jdbcType=VARCHAR},
+      ZSRevokeTime = #{zsrevoketime,jdbcType=TIMESTAMP},
+      ZSRevokeName = #{zsrevokename,jdbcType=VARCHAR},
+      JWExamineTime = #{jwexaminetime,jdbcType=TIMESTAMP},
+      JWExamineName = #{jwexaminename,jdbcType=VARCHAR},
+      JWRevokeTime = #{jwrevoketime,jdbcType=TIMESTAMP},
+      JWRevokeName = #{jwrevokename,jdbcType=VARCHAR}
+    where Register_Id = #{registerId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.ClassroomDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Classroom">
+    <id column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
+    <result column="ClassRoom_Name" jdbcType="VARCHAR" property="classroomName" />
+    <result column="Cacacity" jdbcType="INTEGER" property="cacacity" />
+    <result column="Place" jdbcType="VARCHAR" property="place" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ClassRoom_Id, ClassRoom_Name, Cacacity, Place, AddName, AddTime, UpdateName, UpdateTime, 
+    DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <select id="findAllRoom" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from classroom
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classroom
+    where ClassRoom_Id = #{classroomId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from classroom
+    where ClassRoom_Id = #{classroomId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="ClassRoom_Id" keyProperty="classroomId" parameterType="com.trkj.thirdproject.entity.Classroom" useGeneratedKeys="true">
+    insert into classroom (ClassRoom_Name, Cacacity, Place, 
+      AddName, AddTime)
+    values (#{classroomName,jdbcType=VARCHAR}, #{cacacity,jdbcType=INTEGER}, #{place,jdbcType=VARCHAR}, 
+      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="ClassRoom_Id" keyProperty="classroomId" parameterType="com.trkj.thirdproject.entity.Classroom" useGeneratedKeys="true">
+    insert into classroom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classroomName != null">
+        ClassRoom_Name,
+      </if>
+      <if test="cacacity != null">
+        Cacacity,
+      </if>
+      <if test="place != null">
+        Place,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classroomName != null">
+        #{classroomName,jdbcType=VARCHAR},
+      </if>
+      <if test="cacacity != null">
+        #{cacacity,jdbcType=INTEGER},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByKey" parameterType="com.trkj.thirdproject.entity.Classroom">
+    update classroom
+    <set>
+      <if test="classroomName != null">
+        ClassRoom_Name = #{classroomName,jdbcType=VARCHAR},
+      </if>
+      <if test="cacacity != null">
+        Cacacity = #{cacacity,jdbcType=INTEGER},
+      </if>
+      <if test="place != null">
+        Place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ClassRoom_Id = #{classroomId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Classroom">
+    update classroom
+    set ClassRoom_Name = #{classroomName,jdbcType=VARCHAR},
+      Cacacity = #{cacacity,jdbcType=INTEGER},
+      Place = #{place,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where ClassRoom_Id = #{classroomId,jdbcType=INTEGER}
+  </update>
+</mapper>

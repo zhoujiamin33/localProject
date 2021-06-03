@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.MenuChildrenDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.MenuChildren">
+    <id column="children_id" jdbcType="INTEGER" property="childrenId" />
+    <result column="Parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="Menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="Menu_path" jdbcType="VARCHAR" property="menuPath" />
+    <result column="Menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <association property="parentId" jdbcType="INTEGER" column="Parent_id">
+      <id column="Parent_id" jdbcType="INTEGER" property="parentId" />
+      <result column="Menu_name" jdbcType="VARCHAR" property="menuName" />
+      <result column="Menu_path" jdbcType="VARCHAR" property="menuPath" />
+      <result column="Menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    children_id, Parent_id, Menu_name, Menu_path, Menu_icon, AddName, AddTime, UpdateName, 
+    UpdateTime, DeleteName, DeleteTime, TimeLiness
+  </sql>
+
+
+  <select id="findChildren" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from menu_children
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menu_children
+    where children_id = #{childrenId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menu_children
+    where children_id = #{childrenId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="children_id" keyProperty="childrenId" parameterType="com.trkj.thirdproject.entity.MenuChildren" useGeneratedKeys="true">
+    insert into menu_children (Parent_id, Menu_name, Menu_path, 
+      Menu_icon, AddName, AddTime, 
+      UpdateName, UpdateTime, DeleteName, 
+      DeleteTime, TimeLiness)
+    values (#{parentId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuPath,jdbcType=VARCHAR}, 
+      #{menuIcon,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, 
+      #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="children_id" keyProperty="childrenId" parameterType="com.trkj.thirdproject.entity.MenuChildren" useGeneratedKeys="true">
+    insert into menu_children
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        Parent_id,
+      </if>
+      <if test="menuName != null">
+        Menu_name,
+      </if>
+      <if test="menuPath != null">
+        Menu_path,
+      </if>
+      <if test="menuIcon != null">
+        Menu_icon,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuPath != null">
+        #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="menuIcon != null">
+        #{menuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.MenuChildren">
+    update menu_children
+    <set>
+      <if test="parentId != null">
+        Parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null">
+        Menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuPath != null">
+        Menu_path = #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="menuIcon != null">
+        Menu_icon = #{menuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where children_id = #{childrenId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.MenuChildren">
+    update menu_children
+    set Parent_id = #{parentId,jdbcType=INTEGER},
+      Menu_name = #{menuName,jdbcType=VARCHAR},
+      Menu_path = #{menuPath,jdbcType=VARCHAR},
+      Menu_icon = #{menuIcon,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where children_id = #{childrenId,jdbcType=INTEGER}
+  </update>
+</mapper>

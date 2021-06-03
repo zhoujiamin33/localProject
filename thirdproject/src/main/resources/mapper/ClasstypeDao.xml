@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.ClasstypeDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Classtype">
+    <id column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
+    <result column="ClassType_Name" jdbcType="VARCHAR" property="classtypeName" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ClassType_Id, ClassType_Name, AddName, AddTime, UpdateName, UpdateTime, DeleteName, 
+    DeleteTime, TimeLiness
+  </sql>
+
+<!-- 查询所有数据 -->
+  <select id="selectAllClassType" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from classtype
+  </select>
+
+
+<!--根据id查询数据-->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classtype
+    where ClassType_Id = #{classtypeId,jdbcType=INTEGER}
+  </select>
+
+<!--  根据姓名模糊查询-->
+<select id="selectByname" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List"/> from classtype
+  <where>
+    <if test="ClassType_Name != null">
+      ClassType_Name like CONCAT(CONCAT('%',#{classtypeName,jdbcType=VARCHAR},'%'))
+    </if>
+  </where>
+  ORDER BY ClassType_Id
+</select>
+
+
+<!--  删除-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from classtype
+    where ClassType_Id = #{classtypeId,jdbcType=INTEGER}
+  </delete>
+
+
+<!--新增-->
+  <insert id="insert" keyColumn="ClassType_Id" keyProperty="classtypeId" parameterType="com.trkj.thirdproject.entity.Classtype" useGeneratedKeys="true">
+    insert into classtype (ClassType_Name, AddName)
+    values (#{classtypeName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
+  </insert>
+
+
+
+<!--根据id修改-->
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Classtype">
+    update classtype
+    set ClassType_Name = #{classtypeName,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where ClassType_Id = #{classtypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,55 @@
+GET http://localhost:8089/threeproject/findEntryFees
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/findDetailCourses/1
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/findClassroom
+Accept: application/json
+
+###
+POST http://localhost:8089/threeproject/addCourse
+Content-Type: application/json
+
+{
+
+}
+
+###
+GET http://localhost:8089/threeproject/findPage/1/2
+Accept: application/json
+
+###
+#模糊查询
+GET http://localhost:8089/threeproject/findbyName/球
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/findPage
+Accept: application/json
+
+
+###
+//查询子级菜单
+GET http://localhost:8089/threeproject/findChildren
+Accept: application/json
+
+###
+#查询父级菜单
+GET http://localhost:8089/threeproject/findParent
+Accept: application/json
+
+###
+#修改课类
+POST http://localhost:8089/threeproject/addcoursetype/绘画/Tsm管理员
+Content-Type: application/json
+
+
+###
+#查询所有课类
+GET http://localhost:8089/threeproject/findcoursetype
+Accept: application/json
+
+###

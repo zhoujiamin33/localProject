@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.CourseDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Course">
+    <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
+    <result column="Course_Name" jdbcType="VARCHAR" property="courseName" />
+    <result column="Course_State" jdbcType="INTEGER" property="courseState" />
+    <result column="Classhours" jdbcType="INTEGER" property="classhours" />
+    <result column="Course_Money" jdbcType="DECIMAL" property="courseMoney" />
+    <result column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+
+    <association javaType="com.trkj.thirdproject.entity.Classtype" property="classtype">
+      <id column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
+      <result column="ClassType_Name" jdbcType="VARCHAR" property="classtypeName" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </association>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
+    c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
+  </sql>
+  <sql id="BaseType">
+    t.ClassType_Id, t.ClassType_Name, t.AddName, t.AddTime, t.UpdateName, t.UpdateTime, t.DeleteName,
+   t.DeleteTime, t.TimeLiness
+  </sql>
+<!--  搜索课程-->
+  <select id="selectAllCourse"  resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />,<include refid="BaseType"/> from course c inner join classtype t on c.ClassType_Id=t.ClassType_Id
+  </select>
+<!--  修改名称、课时量、费用、开设状态-->
+<update id="updateCourse" parameterType="com.trkj.thirdproject.entity.Course">
+  update course
+  <set>
+
+      <if test="courseName!=null">
+        Course_Name=#{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseState!=null">
+        Course_State=#{courseState,jdbcType=INTEGER},
+      </if>
+      <if test="classhours!=null">
+        Classhours=#{classhours,jdbcType=INTEGER},
+      </if>
+      <if test="courseMoney!=null">
+        Course_Money=#{courseMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="updatename!=null">
+        UpdateName=#{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime!=null">
+        UpdateTime=#{updatetime,jdbcType=TIMESTAMP}
+      </if>
+</set>
+  where Course_Id = #{courseId,jdbcType=INTEGER}
+</update>
+
+  <!--  根据id搜索所有课程-->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where Course_Id = #{courseId,jdbcType=INTEGER}
+  </select>
+
+  <!--  根据id删除所有课程-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course
+    where Course_Id = #{courseId,jdbcType=INTEGER}
+  </delete>
+
+  <!--  新增课程-->
+  <insert id="insert" keyColumn="Course_Id" keyProperty="courseId" parameterType="com.trkj.thirdproject.entity.Course" useGeneratedKeys="true">
+    insert into course (Course_Name, Course_State, Classhours, 
+      Course_Money, ClassType_Id, AddName, 
+      AddTime, UpdateName, UpdateTime, 
+      DeleteName, DeleteTime, TimeLiness
+      )
+    values (#{courseName,jdbcType=VARCHAR}, #{courseState,jdbcType=INTEGER}, #{classhours,jdbcType=INTEGER}, 
+      #{courseMoney,jdbcType=DECIMAL}, #{classtypeId,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <insert id="insertCoursetype" keyColumn="Course_Id" keyProperty="courseId" parameterType="com.trkj.thirdproject.entity.Course" useGeneratedKeys="true">
+     insert into course(ClassType_Id,Course_Name, Classhours, Course_Money,AddName) values
+      (#{classtypeId,jdbcType=INTEGER},#{courseName,jdbcType=VARCHAR}, #{classhours,jdbcType=INTEGER},
+      #{courseMoney,jdbcType=DECIMAL},#{addname,jdbcType=VARCHAR})
+  </insert>
+
+<!--根据id修改课程-->
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Course">
+    update course
+    set Course_Name = #{courseName,jdbcType=VARCHAR},
+      Course_State = #{courseState,jdbcType=INTEGER},
+      Classhours = #{classhours,jdbcType=INTEGER},
+      Course_Money = #{courseMoney,jdbcType=DECIMAL},
+      ClassType_Id = #{classtypeId,jdbcType=INTEGER},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where Course_Id = #{courseId,jdbcType=INTEGER}
+  </update>
+</mapper>
