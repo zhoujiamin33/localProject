@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistentConfig">
+    <option name="historyConfigList">
+      <map>
+        <entry key="classroom">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="ClassroomDao" />
+              <option name="daoPackage" value="com.trkj.thirdproject.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Classroom" />
+              <option name="modelPackage" value="com.trkj.thirdproject.entity" />
+              <option name="name" value="classroom" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="ClassRoom_Id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/thirdproject" />
+              <option name="tableName" value="classroom" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="classtype">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="ClasstypeDao" />
+              <option name="daoPackage" value="com.trkj.thirdproject.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Classtype" />
+              <option name="modelPackage" value="com.trkj.thirdproject.entity" />
+              <option name="name" value="classtype" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="ClassType_Id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/thirdproject" />
+              <option name="tableName" value="classtype" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="course">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="CourseDao" />
+              <option name="daoPackage" value="com.trkj.thirdproject.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Course" />
+              <option name="modelPackage" value="com.trkj.thirdproject.entity" />
+              <option name="name" value="course" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="Course_Id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/thirdproject" />
+              <option name="tableName" value="course" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="detailcourse">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="DetailcourseDao" />
+              <option name="daoPackage" value="com.trkj.thirdproject.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Detailcourse" />
+              <option name="modelPackage" value="com.trkj.thirdproject.entity" />
+              <option name="name" value="detailcourse" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="DetailCourse_Id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/thirdproject" />
+              <option name="tableName" value="detailcourse" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="entryfees">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="EntryfeesDao" />
+              <option name="daoPackage" value="com.trkj.thirdproject.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Entryfees" />
+              <option name="modelPackage" value="com.trkj.thirdproject.entity" />
+              <option name="name" value="entryfees" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="Fees_Id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/thirdproject" />
+              <option name="tableName" value="entryfees" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="menu">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="MenuDao" />
+              <option name="daoPackage" value="com.trkj.thirdproject.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Menu" />
+              <option name="modelPackage" value="com.trkj.thirdproject.entity" />
+              <option name="name" value="menu" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="Menu_id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/thirdproject" />
+              <option name="tableName" value="menu" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="menu_children">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="MenuChildrenDao" />
+              <option name="daoPackage" value="com.trkj.thirdproject.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="MenuChildren" />
+              <option name="modelPackage" value="com.trkj.thirdproject.entity" />
+              <option name="name" value="menu_children" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="children_id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/thirdproject" />
+              <option name="tableName" value="menu_children" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="menu_parent">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="MenuParentDao" />
+              <option name="daoPackage" value="com.trkj.thirdproject.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="MenuParent" />
+              <option name="modelPackage" value="com.trkj.thirdproject.entity" />
+              <option name="name" value="menu_parent" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="Parent_id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/thirdproject" />
+              <option name="tableName" value="menu_parent" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="register">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="RegisterDao" />
+              <option name="daoPackage" value="com.trkj.thirdproject.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="Register" />
+              <option name="modelPackage" value="com.trkj.thirdproject.entity" />
+              <option name="name" value="register" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="Register_Id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/thirdproject" />
+              <option name="tableName" value="register" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

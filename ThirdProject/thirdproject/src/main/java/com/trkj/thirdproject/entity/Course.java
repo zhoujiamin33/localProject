@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * course
  * @author 
  */
 @Data
+//@ToString(exclude = "Classtype")
 public class Course implements Serializable {
     /**
      * 课程编号
@@ -76,5 +79,8 @@ public class Course implements Serializable {
      */
     private Integer timeliness;
 
+    private Classtype classtype;
+
     private static final long serialVersionUID = 1L;
+
 }

@@ -1,24 +1,17 @@
 package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Course;
-import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-
-@Mapper
 public interface CourseDao {
-    //查询所有
-    List<Course> selectAllCourse();
-    //修改名称、课时量、费用、开设状态
-    int updateCourse(Course course);
-
     int deleteByPrimaryKey(Integer courseId);
 
-    int insert(Course course);
+    int insert(Course record);
 
-    int insertCoursetype(Course course);
+    int insertSelective(Course record);
 
     Course selectByPrimaryKey(Integer courseId);
 
-    int updateByPrimaryKey(Course course);
+    int updateByPrimaryKeySelective(Course record);
+
+    int updateByPrimaryKey(Course record);
 }
