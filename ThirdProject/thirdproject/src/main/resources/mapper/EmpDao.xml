@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.EmpDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Emp">
+    <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
+    <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+    <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId" />
+    <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber" />
+    <result column="Emp_Name" jdbcType="VARCHAR" property="empName" />
+    <result column="Emp_Sex" jdbcType="CHAR" property="empSex" />
+    <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone" />
+    <result column="E_mail" jdbcType="VARCHAR" property="eMail" />
+    <result column="Birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto" />
+    <result column="Photo" jdbcType="VARCHAR" property="photo" />
+    <result column="Education" jdbcType="VARCHAR" property="education" />
+    <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="WorkersState" jdbcType="INTEGER" property="workersstate" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Addname" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="LeaveName" jdbcType="VARCHAR" property="leavename" />
+    <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime" />
+    <result column="EmpState" jdbcType="INTEGER" property="empstate" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Emp_Id, Position_Id, Dept_Id, Enterprise_Id, JobNumber, Emp_Name, Emp_Sex, Emp_Phone, 
+    E_mail, Birthday, PersonalInformationPhoto, Photo, Education, Graduate, Remarks, 
+    Address, WorkersState, `Password`, Addname, AddTime, UpdateName, UpdateTime, LeaveName, 
+    LeaveTime, EmpState, DeleteName, DeleteTime, LoginState
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from emp
+    where Emp_Id = #{empId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from emp
+    where Emp_Id = #{empId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">
+    insert into emp (Position_Id, Dept_Id, Enterprise_Id, 
+      JobNumber, Emp_Name, Emp_Sex, 
+      Emp_Phone, E_mail, Birthday, 
+      PersonalInformationPhoto, Photo, Education, 
+      Graduate, Remarks, Address, 
+      WorkersState, `Password`, Addname, 
+      AddTime, UpdateName, UpdateTime, 
+      LeaveName, LeaveTime, EmpState, 
+      DeleteName, DeleteTime, LoginState
+      )
+    values (#{positionId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, 
+      #{jobnumber,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, #{empSex,jdbcType=CHAR}, 
+      #{empPhone,jdbcType=VARCHAR}, #{eMail,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{personalinformationphoto,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
+      #{graduate,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{workersstate,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{leavename,jdbcType=VARCHAR}, #{leavetime,jdbcType=TIMESTAMP}, #{empstate,jdbcType=INTEGER}, 
+      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{loginstate,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">
+    insert into emp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="positionId != null">
+        Position_Id,
+      </if>
+      <if test="deptId != null">
+        Dept_Id,
+      </if>
+      <if test="enterpriseId != null">
+        Enterprise_Id,
+      </if>
+      <if test="jobnumber != null">
+        JobNumber,
+      </if>
+      <if test="empName != null">
+        Emp_Name,
+      </if>
+      <if test="empSex != null">
+        Emp_Sex,
+      </if>
+      <if test="empPhone != null">
+        Emp_Phone,
+      </if>
+      <if test="eMail != null">
+        E_mail,
+      </if>
+      <if test="birthday != null">
+        Birthday,
+      </if>
+      <if test="personalinformationphoto != null">
+        PersonalInformationPhoto,
+      </if>
+      <if test="photo != null">
+        Photo,
+      </if>
+      <if test="education != null">
+        Education,
+      </if>
+      <if test="graduate != null">
+        Graduate,
+      </if>
+      <if test="remarks != null">
+        Remarks,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+      <if test="workersstate != null">
+        WorkersState,
+      </if>
+      <if test="password != null">
+        `Password`,
+      </if>
+      <if test="addname != null">
+        Addname,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="leavename != null">
+        LeaveName,
+      </if>
+      <if test="leavetime != null">
+        LeaveTime,
+      </if>
+      <if test="empstate != null">
+        EmpState,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="loginstate != null">
+        LoginState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="positionId != null">
+        #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="jobnumber != null">
+        #{jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="empName != null">
+        #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSex != null">
+        #{empSex,jdbcType=CHAR},
+      </if>
+      <if test="empPhone != null">
+        #{empPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null">
+        #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="personalinformationphoto != null">
+        #{personalinformationphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="graduate != null">
+        #{graduate,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="workersstate != null">
+        #{workersstate,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leavename != null">
+        #{leavename,jdbcType=VARCHAR},
+      </if>
+      <if test="leavetime != null">
+        #{leavetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="empstate != null">
+        #{empstate,jdbcType=INTEGER},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginstate != null">
+        #{loginstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Emp">
+    update emp
+    <set>
+      <if test="positionId != null">
+        Position_Id = #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null">
+        Dept_Id = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseId != null">
+        Enterprise_Id = #{enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="jobnumber != null">
+        JobNumber = #{jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="empName != null">
+        Emp_Name = #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSex != null">
+        Emp_Sex = #{empSex,jdbcType=CHAR},
+      </if>
+      <if test="empPhone != null">
+        Emp_Phone = #{empPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null">
+        E_mail = #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        Birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="personalinformationphoto != null">
+        PersonalInformationPhoto = #{personalinformationphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        Photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        Education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="graduate != null">
+        Graduate = #{graduate,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="workersstate != null">
+        WorkersState = #{workersstate,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        `Password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        Addname = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leavename != null">
+        LeaveName = #{leavename,jdbcType=VARCHAR},
+      </if>
+      <if test="leavetime != null">
+        LeaveTime = #{leavetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="empstate != null">
+        EmpState = #{empstate,jdbcType=INTEGER},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginstate != null">
+        LoginState = #{loginstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Emp_Id = #{empId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Emp">
+    update emp
+    set Position_Id = #{positionId,jdbcType=INTEGER},
+      Dept_Id = #{deptId,jdbcType=INTEGER},
+      Enterprise_Id = #{enterpriseId,jdbcType=INTEGER},
+      JobNumber = #{jobnumber,jdbcType=VARCHAR},
+      Emp_Name = #{empName,jdbcType=VARCHAR},
+      Emp_Sex = #{empSex,jdbcType=CHAR},
+      Emp_Phone = #{empPhone,jdbcType=VARCHAR},
+      E_mail = #{eMail,jdbcType=VARCHAR},
+      Birthday = #{birthday,jdbcType=TIMESTAMP},
+      PersonalInformationPhoto = #{personalinformationphoto,jdbcType=VARCHAR},
+      Photo = #{photo,jdbcType=VARCHAR},
+      Education = #{education,jdbcType=VARCHAR},
+      Graduate = #{graduate,jdbcType=VARCHAR},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      Address = #{address,jdbcType=VARCHAR},
+      WorkersState = #{workersstate,jdbcType=INTEGER},
+      `Password` = #{password,jdbcType=VARCHAR},
+      Addname = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      LeaveName = #{leavename,jdbcType=VARCHAR},
+      LeaveTime = #{leavetime,jdbcType=TIMESTAMP},
+      EmpState = #{empstate,jdbcType=INTEGER},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      LoginState = #{loginstate,jdbcType=INTEGER}
+    where Emp_Id = #{empId,jdbcType=INTEGER}
+  </update>
+</mapper>

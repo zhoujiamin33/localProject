@@ -22,8 +22,10 @@ public class AppCorsConfiguration {
         CorsConfiguration appCorsConfiguration = new CorsConfiguration();
         appCorsConfiguration.addAllowedOrigin("http://localhost:8085");
         appCorsConfiguration.addAllowedOrigin("http://127.0.0.1:8085");
-        appCorsConfiguration.addAllowedOrigin("http://localhost:8082");
-        appCorsConfiguration.addAllowedOrigin("http://127.0.0.1:8082");
+//        appCorsConfiguration.addAllowedOrigin("http://localhost:8082");
+//        appCorsConfiguration.addAllowedOrigin("http://127.0.0.1:8082");
+        appCorsConfiguration.addAllowedOrigin("http://localhost:8088");
+        appCorsConfiguration.addAllowedOrigin("http://127.0.0.1:8088");
         appCorsConfiguration.addAllowedHeader("*"); // 2允许任何头
         appCorsConfiguration.addAllowedMethod("OPTIONS");
         appCorsConfiguration.addAllowedMethod("HEAD");

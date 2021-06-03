@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.BookDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Book">
+    <id column="Book_Id" jdbcType="INTEGER" property="bookId" />
+    <result column="BookName" jdbcType="VARCHAR" property="bookname" />
+    <result column="DeliveryCount" jdbcType="INTEGER" property="deliverycount" />
+    <result column="BookSprice" jdbcType="DECIMAL" property="booksprice" />
+    <result column="BookJprice" jdbcType="DECIMAL" property="bookjprice" />
+    <result column="SafeStock" jdbcType="INTEGER" property="safestock" />
+    <result column="Press" jdbcType="VARCHAR" property="press" />
+    <result column="State" jdbcType="INTEGER" property="state" />
+    <result column="STORAGE" jdbcType="INTEGER" property="storage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Book_Id, BookName, DeliveryCount, BookSprice, BookJprice, SafeStock, Press, `State`, 
+    `STORAGE`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where Book_Id = #{bookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from book
+    where Book_Id = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Book_Id" keyProperty="bookId" parameterType="com.trkj.thirdproject.entity.Book" useGeneratedKeys="true">
+    insert into book (BookName, DeliveryCount, BookSprice, 
+      BookJprice, SafeStock, Press, 
+      `State`, `STORAGE`)
+    values (#{bookname,jdbcType=VARCHAR}, #{deliverycount,jdbcType=INTEGER}, #{booksprice,jdbcType=DECIMAL}, 
+      #{bookjprice,jdbcType=DECIMAL}, #{safestock,jdbcType=INTEGER}, #{press,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{storage,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="Book_Id" keyProperty="bookId" parameterType="com.trkj.thirdproject.entity.Book" useGeneratedKeys="true">
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookname != null">
+        BookName,
+      </if>
+      <if test="deliverycount != null">
+        DeliveryCount,
+      </if>
+      <if test="booksprice != null">
+        BookSprice,
+      </if>
+      <if test="bookjprice != null">
+        BookJprice,
+      </if>
+      <if test="safestock != null">
+        SafeStock,
+      </if>
+      <if test="press != null">
+        Press,
+      </if>
+      <if test="state != null">
+        `State`,
+      </if>
+      <if test="storage != null">
+        `STORAGE`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookname != null">
+        #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverycount != null">
+        #{deliverycount,jdbcType=INTEGER},
+      </if>
+      <if test="booksprice != null">
+        #{booksprice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookjprice != null">
+        #{bookjprice,jdbcType=DECIMAL},
+      </if>
+      <if test="safestock != null">
+        #{safestock,jdbcType=INTEGER},
+      </if>
+      <if test="press != null">
+        #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="storage != null">
+        #{storage,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Book">
+    update book
+    <set>
+      <if test="bookname != null">
+        BookName = #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverycount != null">
+        DeliveryCount = #{deliverycount,jdbcType=INTEGER},
+      </if>
+      <if test="booksprice != null">
+        BookSprice = #{booksprice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookjprice != null">
+        BookJprice = #{bookjprice,jdbcType=DECIMAL},
+      </if>
+      <if test="safestock != null">
+        SafeStock = #{safestock,jdbcType=INTEGER},
+      </if>
+      <if test="press != null">
+        Press = #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `State` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="storage != null">
+        `STORAGE` = #{storage,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Book_Id = #{bookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Book">
+    update book
+    set BookName = #{bookname,jdbcType=VARCHAR},
+      DeliveryCount = #{deliverycount,jdbcType=INTEGER},
+      BookSprice = #{booksprice,jdbcType=DECIMAL},
+      BookJprice = #{bookjprice,jdbcType=DECIMAL},
+      SafeStock = #{safestock,jdbcType=INTEGER},
+      Press = #{press,jdbcType=VARCHAR},
+      `State` = #{state,jdbcType=INTEGER},
+      `STORAGE` = #{storage,jdbcType=INTEGER}
+    where Book_Id = #{bookId,jdbcType=INTEGER}
+  </update>
+</mapper>
