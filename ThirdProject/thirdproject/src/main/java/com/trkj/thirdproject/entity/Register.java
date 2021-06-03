@@ -1,13 +1,16 @@
 package com.trkj.thirdproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * register
  * @author 
  */
+
 @Data
 public class Register implements Serializable {
     /**
@@ -58,6 +61,7 @@ public class Register implements Serializable {
     /**
      * 新增咨询登记当前时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date addtime;
 
     /**
@@ -86,49 +90,33 @@ public class Register implements Serializable {
     private Date deletetime;
 
     /**
-     * 招生是否审批
+     * 学生电话
      */
-    private Integer zsisexamine;
+    private String phone;
 
     /**
-     * 招生审核时间
+     * 课程详细编号
      */
-    private Date zsexaminetime;
+    private Integer detailcourseId;
 
     /**
-     * 招生审核人员
+     * 课程编号
      */
-    private String zsexaminename;
+    private Integer courseId;
 
     /**
-     * 招生撤销审核时间
+     * 接待人
      */
-    private Date zsrevoketime;
+    private Integer empId;
 
-    /**
-     * 招生撤销审核人员
-     */
-    private String zsrevokename;
+    private Course course;
 
-    /**
-     * 教务审核时间
-     */
-    private Date jwexaminetime;
+    private Emp emp;
 
-    /**
-     * 教务审核人
-     */
-    private String jwexaminename;
-
-    /**
-     * 教务审核撤销时间
-     */
-    private Date jwrevoketime;
-
-    /**
-     * 教务审核撤销人
-     */
-    private String jwrevokename;
+    private Source source;
 
     private static final long serialVersionUID = 1L;
+
+
+
 }

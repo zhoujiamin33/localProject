@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.SessionDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Session">
+    <id column="Session_Id" jdbcType="INTEGER" property="sessionId" />
+    <result column="Session_Name" jdbcType="VARCHAR" property="sessionName" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Session_Id, Session_Name, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, 
+    TimeLiness
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from session
+    where Session_Id = #{sessionId,jdbcType=INTEGER}
+  </select>
+    <select id="selectAIISessions" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"/>
+      from Session
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from session
+    where Session_Id = #{sessionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Session_Id" keyProperty="sessionId" parameterType="com.trkj.thirdproject.entity.Session" useGeneratedKeys="true">
+    insert into session (Session_Name, AddName)
+    values (#{sessionName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="Session_Id" keyProperty="sessionId" parameterType="com.trkj.thirdproject.entity.Session" useGeneratedKeys="true">
+    insert into session
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sessionName != null">
+        Session_Name,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sessionName != null">
+        #{sessionName,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Session">
+    update session
+    <set>
+      <if test="sessionName != null">
+        Session_Name = #{sessionName,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Session_Id = #{sessionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Session">
+    update session
+    set Session_Name = #{sessionName,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR}
+    where Session_Id = #{sessionId,jdbcType=INTEGER}
+  </update>
+</mapper>

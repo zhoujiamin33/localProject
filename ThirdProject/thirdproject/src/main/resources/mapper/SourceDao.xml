@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.SourceDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Source">
+    <id column="Source_Id" jdbcType="INTEGER" property="sourceId" />
+    <result column="Source_Name" jdbcType="VARCHAR" property="sourceName" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="LastUpdateName" jdbcType="VARCHAR" property="lastupdatename" />
+    <result column="LastUpdateTime" jdbcType="TIMESTAMP" property="lastupdatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="IsExamine" jdbcType="INTEGER" property="isexamine" />
+    <result column="LastExamineTime" jdbcType="TIMESTAMP" property="lastexaminetime" />
+    <result column="LastExamineName" jdbcType="VARCHAR" property="lastexaminename" />
+    <result column="LastRevokeTime" jdbcType="TIMESTAMP" property="lastrevoketime" />
+    <result column="LastRevokeName" jdbcType="VARCHAR" property="lastrevokename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Source_Id, Source_Name, AddName, AddTime, LastUpdateName, LastUpdateTime,
+    DeleteName, DeleteTime, IsExamine, LastExamineTime, LastExamineName, LastRevokeTime, 
+    LastRevokeName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from source
+    where Source_Id = #{sourceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from source
+    where Source_Id = #{sourceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Source_Id" keyProperty="sourceId" parameterType="com.trkj.thirdproject.entity.Source" useGeneratedKeys="true">
+    insert into source (Source_Name, AddName )
+    values (#{sourceName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="Source_Id" keyProperty="sourceId" parameterType="com.trkj.thirdproject.entity.Source" useGeneratedKeys="true">
+    insert into source
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sourceName != null">
+        Source_Name,
+      </if>+
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="lastupdatename != null">
+        LastUpdateName,
+      </if>
+      <if test="lastupdatetime != null">
+        LastUpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="isexamine != null">
+        IsExamine,
+      </if>
+      <if test="lastexaminetime != null">
+        LastExamineTime,
+      </if>
+      <if test="lastexaminename != null">
+        LastExamineName,
+      </if>
+      <if test="lastrevoketime != null">
+        LastRevokeTime,
+      </if>
+      <if test="lastrevokename != null">
+        LastRevokeName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sourceName != null">
+        #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatename != null">
+        #{lastupdatename,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null">
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isexamine != null">
+        #{isexamine,jdbcType=INTEGER},
+      </if>
+      <if test="lastexaminetime != null">
+        #{lastexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastexaminename != null">
+        #{lastexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="lastrevoketime != null">
+        #{lastrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastrevokename != null">
+        #{lastrevokename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectAIISources" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from source
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Source">
+    update source
+    <set>
+      <if test="sourceName != null">
+        Source_Name = #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatename != null">
+        LastUpdateName = #{lastupdatename,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null">
+        LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isexamine != null">
+        IsExamine = #{isexamine,jdbcType=INTEGER},
+      </if>
+      <if test="lastexaminetime != null">
+        LastExamineTime = #{lastexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastexaminename != null">
+        LastExamineName = #{lastexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="lastrevoketime != null">
+        LastRevokeTime = #{lastrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastrevokename != null">
+        LastRevokeName = #{lastrevokename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Source_Id = #{sourceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Source">
+    update source
+    set Source_Name = #{sourceName,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR}
+    where Source_Id = #{sourceId,jdbcType=INTEGER}
+  </update>
+</mapper>

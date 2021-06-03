@@ -14,7 +14,7 @@
     </appender>
 
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径，这里需要自行修改-->
-    <property name="LOG_PATH" value="F:/logs/crm_manager"/>
+    <property name="LOG_PATH" value="E:/logs/crm_manager"/>
     <!--写入日志到文件的appender-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
