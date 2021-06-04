@@ -22,26 +22,7 @@
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
     <result column="StudyTime" jdbcType="TIMESTAMP" property="studytime" />
-<association property="classes" javaType="com.trkj.thirdproject.entity.Classes">
-  <id column="Classes_Id" jdbcType="INTEGER" property="classesId" />
-  <result column="Classes_Name" jdbcType="VARCHAR" property="classesName" />
-  <result column="Classes_Open" jdbcType="INTEGER" property="classesOpen" />
-  <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
-  <result column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
-  <result column="Teacher_Id" jdbcType="INTEGER" property="teacherId" />
-  <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
-  <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
-  <result column="StartedDate" jdbcType="TIMESTAMP" property="starteddate" />
-  <result column="EndDate" jdbcType="TIMESTAMP" property="enddate" />
-  <result column="LastDate" jdbcType="TIMESTAMP" property="lastdate" />
-  <result column="AddName" jdbcType="VARCHAR" property="addname" />
-  <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
-  <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
-  <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
-  <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
-  <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-  <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-</association>
+
     <association property="source" javaType="com.trkj.thirdproject.entity.Source">
       <id column="Source_Id" jdbcType="INTEGER" property="sourceId" />
       <result column="Source_Name" jdbcType="VARCHAR" property="sourceName" />
@@ -79,6 +60,26 @@
       <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
       <result column="Phone" jdbcType="VARCHAR" property="phone" />
     </association>
+<!--    <collection property="classes" ofType="com.trkj.thirdproject.entity.Classes">-->
+<!--      <id column="Classes_Id" jdbcType="INTEGER" property="classesId" />-->
+<!--      <result column="Classes_Name" jdbcType="VARCHAR" property="classesName" />-->
+<!--      <result column="Classes_Open" jdbcType="INTEGER" property="classesOpen" />-->
+<!--      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />-->
+<!--      <result column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />-->
+<!--      <result column="Teacher_Id" jdbcType="INTEGER" property="teacherId" />-->
+<!--      <result column="Emp_Id" jdbcType="INTEGER" property="empId" />-->
+<!--      <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />-->
+<!--      <result column="StartedDate" jdbcType="TIMESTAMP" property="starteddate" />-->
+<!--      <result column="EndDate" jdbcType="TIMESTAMP" property="enddate" />-->
+<!--      <result column="LastDate" jdbcType="TIMESTAMP" property="lastdate" />-->
+<!--      <result column="AddName" jdbcType="VARCHAR" property="addname" />-->
+<!--      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />-->
+<!--      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />-->
+<!--      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />-->
+<!--      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />-->
+<!--      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />-->
+<!--      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />-->
+<!--    </collection>-->
   </resultMap>
   <sql id="Base_Column_List">
     stu.Student_Id, stu.Student_Name, stu.Student_State, stu.Classes_Id, stu.Source_Id, stu.Register_Id, stu.Sex,
@@ -108,14 +109,21 @@
   </select>
 <!--  查询所有外键查询-->
   <select id="selectAllstudent" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>,<include refid="Base_Column_Source"/>,
-    <include refid="Base_Column_Register"/>,<include refid="Base_Column_Classes"/>
+    select <include refid="Base_Column_List"/>,<include refid="Base_Column_Source"/>
+
     from student stu inner join source s on stu.Source_Id=s.Source_Id
-    inner  join register r on stu.Register_Id=r.Register_Id
-    inner join classes c on stu.Classes_Id=c.Classes_Id
+
     where stu.TimeLiness=0
   </select>
-
+<!--  &lt;!&ndash;  查询所有外键查询&ndash;&gt;-->
+<!--  <select id="selectAllstudent" resultMap="BaseResultMap">-->
+<!--    select <include refid="Base_Column_List"/>,<include refid="Base_Column_Source"/>,-->
+<!--    <include refid="Base_Column_Register"/>-->
+<!--    from student stu inner join source s on stu.Source_Id=s.Source_Id-->
+<!--    inner  join register r on stu.Register_Id=r.Register_Id-->
+<!--    inner join classes c on stu.Classes_Id=c.Classes_Id-->
+<!--    where stu.TimeLiness=0-->
+<!--  </select>-->
 <!--  模糊查询-->
   <select id="slectNameAndPhone" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from student stu

@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -103,6 +104,7 @@ public class Student implements Serializable {
     /**
      * 删除时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date deletetime;
 
     /**
@@ -113,6 +115,7 @@ public class Student implements Serializable {
     /**
      * 就读时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date studytime;
 
     private static final long serialVersionUID = 1L;

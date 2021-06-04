@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -39,6 +40,7 @@ public class Dept implements Serializable {
     /**
      * 新增时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date addtime;
 
     /**
@@ -49,6 +51,7 @@ public class Dept implements Serializable {
     /**
      * 最后修改时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date updatetime;
 
     /**
@@ -59,6 +62,7 @@ public class Dept implements Serializable {
     /**
      * 删除时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date deletetime;
 
     /**

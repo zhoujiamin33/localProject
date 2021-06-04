@@ -16,8 +16,8 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentDao studentDao;
-    @Autowired
-    private SourceDao sourceDao;
+//    @Autowired
+//    private SourceDao sourceDao;
     @Override
     public List<Student> selectAllstudent() {
         log.debug("查询");
@@ -27,7 +27,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student addstudent(Student student) {
         log.debug("新增");
-        student.setStudentNumber("c00"+student.getSourceId()+1);
+        student.setStudentNumber("c00"+student.toString().length()+1);
         studentDao.addstudent(student);
         return student;
     }
@@ -53,9 +53,9 @@ for (Integer c:studentId) {
         return studentDao.slectNameAndPhone(Name, Phone);
     }
 
-    //查询所有值（生源渠道）
-    @Override
-    public List<Source> selectalls() {
-        return sourceDao.selectAIISources();
-    }
+//    //查询所有值（生源渠道）
+//    @Override
+//    public List<Source> selectalls() {
+//        return sourceDao.selectAIISources();
+//    }
 }

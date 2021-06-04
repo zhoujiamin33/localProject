@@ -19,6 +19,6 @@ Student addstudent(Student student);
     List<Student> slectNameAndPhone(String Name, String Phone);
 
 
-    //查询所有值（生源渠道）
-    List<Source> selectalls();
+//    //查询所有值（生源渠道）
+//    List<Source> selectalls();
 }

@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -69,6 +70,7 @@ public class Emp implements Serializable {
     /**
      * 生日
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date birthday;
 
     /**
@@ -119,6 +121,7 @@ public class Emp implements Serializable {
     /**
      * 增加时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date addtime;
 
     /**
@@ -134,16 +137,19 @@ public class Emp implements Serializable {
     /**
      * 离职办理人
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private String leavename;
 
     /**
      * 离职办理时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date leavetime;
 
     /**
      * 职员状态
      */
+
     private Integer empstate;
 
     /**
