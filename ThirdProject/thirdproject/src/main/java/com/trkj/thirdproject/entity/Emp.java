@@ -26,6 +26,15 @@ public class Emp implements Serializable {
      * 部门编号
      */
     private Integer deptId;
+    /**
+     * 职位编号
+     */
+    private Position positionList;
+
+    /**
+     * 部门编号
+     */
+    private Dept deptList;
 
     /**
      * 企业档案编号

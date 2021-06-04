@@ -18,6 +18,6 @@ public interface SourceDao {
     int updateByPrimaryKeySelective(Source record);
 
     int updateByPrimaryKey(Source record);
-
+//<!--  查询所有值-->
     List<Source> selectAIISources();
 }

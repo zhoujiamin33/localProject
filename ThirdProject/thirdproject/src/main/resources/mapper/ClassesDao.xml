@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.ClassesDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Classes">
+    <id column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+    <result column="Classes_Name" jdbcType="VARCHAR" property="classesName" />
+    <result column="Classes_Open" jdbcType="INTEGER" property="classesOpen" />
+    <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+    <result column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
+    <result column="Teacher_Id" jdbcType="INTEGER" property="teacherId" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+    <result column="StartedDate" jdbcType="TIMESTAMP" property="starteddate" />
+    <result column="EndDate" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="LastDate" jdbcType="TIMESTAMP" property="lastdate" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Classes_Id, Classes_Name, Classes_Open, Course_Id, ClassRoom_Id, Teacher_Id, Emp_Id, 
+    DetailCourse_Id, StartedDate, EndDate, LastDate, AddName, AddTime, UpdateName, UpdateTime, 
+    DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classes
+    where Classes_Id = #{classesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from classes
+    where Classes_Id = #{classesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
+    insert into classes (Classes_Name, Classes_Open, Course_Id, 
+      ClassRoom_Id, Teacher_Id, Emp_Id, 
+      DetailCourse_Id, StartedDate, EndDate, 
+      LastDate, AddName, AddTime, 
+      UpdateName, UpdateTime, DeleteName, 
+      DeleteTime, TimeLiness)
+    values (#{classesName,jdbcType=VARCHAR}, #{classesOpen,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{classroomId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, 
+      #{detailcourseId,jdbcType=INTEGER}, #{starteddate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
+      #{lastdate,jdbcType=TIMESTAMP}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, 
+      #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
+    insert into classes
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classesName != null">
+        Classes_Name,
+      </if>
+      <if test="classesOpen != null">
+        Classes_Open,
+      </if>
+      <if test="courseId != null">
+        Course_Id,
+      </if>
+      <if test="classroomId != null">
+        ClassRoom_Id,
+      </if>
+      <if test="teacherId != null">
+        Teacher_Id,
+      </if>
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+      <if test="detailcourseId != null">
+        DetailCourse_Id,
+      </if>
+      <if test="starteddate != null">
+        StartedDate,
+      </if>
+      <if test="enddate != null">
+        EndDate,
+      </if>
+      <if test="lastdate != null">
+        LastDate,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classesName != null">
+        #{classesName,jdbcType=VARCHAR},
+      </if>
+      <if test="classesOpen != null">
+        #{classesOpen,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="classroomId != null">
+        #{classroomId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="detailcourseId != null">
+        #{detailcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="starteddate != null">
+        #{starteddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastdate != null">
+        #{lastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Classes">
+    update classes
+    <set>
+      <if test="classesName != null">
+        Classes_Name = #{classesName,jdbcType=VARCHAR},
+      </if>
+      <if test="classesOpen != null">
+        Classes_Open = #{classesOpen,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        Course_Id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="classroomId != null">
+        ClassRoom_Id = #{classroomId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        Teacher_Id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="detailcourseId != null">
+        DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="starteddate != null">
+        StartedDate = #{starteddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        EndDate = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastdate != null">
+        LastDate = #{lastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Classes_Id = #{classesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Classes">
+    update classes
+    set Classes_Name = #{classesName,jdbcType=VARCHAR},
+      Classes_Open = #{classesOpen,jdbcType=INTEGER},
+      Course_Id = #{courseId,jdbcType=INTEGER},
+      ClassRoom_Id = #{classroomId,jdbcType=INTEGER},
+      Teacher_Id = #{teacherId,jdbcType=INTEGER},
+      Emp_Id = #{empId,jdbcType=INTEGER},
+      DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
+      StartedDate = #{starteddate,jdbcType=TIMESTAMP},
+      EndDate = #{enddate,jdbcType=TIMESTAMP},
+      LastDate = #{lastdate,jdbcType=TIMESTAMP},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where Classes_Id = #{classesId,jdbcType=INTEGER}
+  </update>
+</mapper>

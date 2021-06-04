@@ -16,6 +16,7 @@ import java.util.List;
 public class SourceController {
     @Autowired
     private SourceService sourceService;
+    //查询所有值（生源渠道）
     @GetMapping("/findSource")
     public List<Source>selectAIISources(){
         log.debug("Controller 方法调用");

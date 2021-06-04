@@ -30,45 +30,58 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
+    <association property="positionList" javaType="com.trkj.thirdproject.entity.Position">
+      <id column="Position_Id" jdbcType="INTEGER" property="positionId" />
+      <result column="Position_Name" jdbcType="VARCHAR" property="positionName" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </association>
+    <association property="deptList" javaType="com.trkj.thirdproject.entity.Dept">
+      <id column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+      <result column="Dept_Name" jdbcType="VARCHAR" property="deptName" />
+      <result column="Dept_SortNumber" jdbcType="INTEGER" property="deptSortnumber" />
+      <result column="Superiors_Dept_Id" jdbcType="INTEGER" property="superiorsDeptId" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
-    Emp_Id, Position_Id, Dept_Id, Enterprise_Id, JobNumber, Emp_Name, Emp_Sex, Emp_Phone, 
-    E_mail, Birthday, PersonalInformationPhoto, Photo, Education, Graduate, Remarks, 
-    Address, WorkersState, `Password`, Addname, AddTime, UpdateName, UpdateTime, LeaveName, 
-    LeaveTime, EmpState, DeleteName, DeleteTime, LoginState
+    e.Emp_Id,  e.Position_Id,  e.Dept_Id,  e.Enterprise_Id,  e.JobNumber,  e.Emp_Name,  e.Emp_Sex,  e.Emp_Phone,
+     e.E_mail,  e.Birthday,  e.PersonalInformationPhoto,  e.Photo,  e.Education,  e.Graduate,  e.Remarks,
+     e.Address,  e.WorkersState,  e.`Password`,  e.Addname,  e.AddTime,  e.UpdateName,  e.UpdateTime,  e.LeaveName,
+     e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState
+  </sql>
+  <sql id="Base_Column_List1">
+    d.Dept_Id, d.Dept_Name, d.Dept_SortNumber, d.Superiors_Dept_Id, d.AddName, d.AddTime, d.UpdateName,
+    d.UpdateTime, d.DeleteName, d.DeleteTime, d.TimeLiness
+  </sql>
+  <sql id="Base_Column_List2">
+    p.Position_Id, p.Position_Name, p.AddName, p.AddTime, p.UpdateName, p.UpdateTime, p.DeleteName,
+    p.DeleteTime, p.TimeLiness
+  </sql>
+  <sql id="Base_Column_enterprise">
+    ent.Enterprise_Id, ent.Enterprise_Name, ent.Enclosure_Brand, ent.Enterprise_ShortName, ent.Enterprise_EnglishName,
+    ent.Industry, ent.CompanyType, ent.PostalCode, ent.CompanyAddress, ent.CompanyPhone, ent.FaxPhone, ent.ComanyWeb,
+    ent.E_mail, ent.Representative, ent.RegisterTime, ent.RegisterMoney, ent.EmpNumber, ent.Deposit_Bank, ent.Bank_Number,
+    ent.EnterPrise_Brief, ent.UpdateName, ent.UpdateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from emp
-    where Emp_Id = #{empId,jdbcType=INTEGER}
+    from emp e
+    where e.Emp_Id = #{empId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from emp
-    where Emp_Id = #{empId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">
-    insert into emp (Position_Id, Dept_Id, Enterprise_Id, 
-      JobNumber, Emp_Name, Emp_Sex, 
-      Emp_Phone, E_mail, Birthday, 
-      PersonalInformationPhoto, Photo, Education, 
-      Graduate, Remarks, Address, 
-      WorkersState, `Password`, Addname, 
-      AddTime, UpdateName, UpdateTime, 
-      LeaveName, LeaveTime, EmpState, 
-      DeleteName, DeleteTime, LoginState
-      )
-    values (#{positionId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, 
-      #{jobnumber,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, #{empSex,jdbcType=CHAR}, 
-      #{empPhone,jdbcType=VARCHAR}, #{eMail,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, 
-      #{personalinformationphoto,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
-      #{graduate,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{workersstate,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, 
-      #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
-      #{leavename,jdbcType=VARCHAR}, #{leavetime,jdbcType=TIMESTAMP}, #{empstate,jdbcType=INTEGER}, 
-      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{loginstate,jdbcType=INTEGER}
-      )
-  </insert>
+
   <insert id="insertSelective" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">
     insert into emp
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -325,35 +338,68 @@
     </set>
     where Emp_Id = #{empId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAllEmp"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="Base_Column_List1"/>,<include
+          refid="Base_Column_List2"/>,<include refid="Base_Column_enterprise"/>
+    from emp e inner join Dept d on e.Dept_Id=d.Dept_Id inner join `Position` p on e.Position_Id=p.Position_Id inner join enterprise ent on e.Enterprise_Id=ent.Enterprise_Id
+    where e.EmpState=0
+  </select>
+
+  <!--  模糊查询-->
+  <select id="findalls" resultMap="BaseResultMap">
+    select   <include refid="Base_Column_List" />,<include refid="Base_Column_List1"/>,<include
+          refid="Base_Column_List2"/>
+    from emp e inner join Dept d on e.Dept_Id=d.Dept_Id inner join `Position` p on e.Position_Id=p.Position_Id
+    <where>
+      <if test="empName!=null">
+        Emp_Name like CONCAT(CONCAT('%',#{empName,jdbcType=VARCHAR},'%'))
+      </if>
+      <if test="empSex">
+        Emp_Sex like CONCAT(CONCAT('%',#{empSex,jdbcType=VARCHAR},'%'))
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from emp
+    where Emp_Id = #{empId,jdbcType=INTEGER}
+  </delete>
+  <!--  删除后改变状态该为离职-->
+  <update id="delstuTimeness" parameterType="com.trkj.thirdproject.entity.Student">
+  update emp set LeaveName=#{leavename},LeaveTime=#{leavetime},EmpState=1
+        where Emp_Id = #{empId}
+</update>
+
+  <!--  新增-->
+  <insert id="AddEmp" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">
+    insert into emp (
+      JobNumber, Emp_Name,`Password`, Emp_Sex,Birthday,WorkersState,  Remarks,Position_Id, Dept_Id,Enterprise_Id,
+      E_mail, Emp_Phone,AddName)
+    values (#{jobnumber,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{empSex,jdbcType=CHAR}
+      , #{birthday,jdbcType=TIMESTAMP},
+      #{workersstate,jdbcType=INTEGER},
+      #{remarks,jdbcType=VARCHAR}, #{positionId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER},1,#{eMail,jdbcType=VARCHAR},#{empPhone,jdbcType=VARCHAR}
+     ,#{addname,jdbcType=VARCHAR} )
+  </insert>
+
+  <!--  修改-->
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Emp">
     update emp
     set Position_Id = #{positionId,jdbcType=INTEGER},
       Dept_Id = #{deptId,jdbcType=INTEGER},
-      Enterprise_Id = #{enterpriseId,jdbcType=INTEGER},
       JobNumber = #{jobnumber,jdbcType=VARCHAR},
       Emp_Name = #{empName,jdbcType=VARCHAR},
       Emp_Sex = #{empSex,jdbcType=CHAR},
       Emp_Phone = #{empPhone,jdbcType=VARCHAR},
       E_mail = #{eMail,jdbcType=VARCHAR},
       Birthday = #{birthday,jdbcType=TIMESTAMP},
-      PersonalInformationPhoto = #{personalinformationphoto,jdbcType=VARCHAR},
-      Photo = #{photo,jdbcType=VARCHAR},
-      Education = #{education,jdbcType=VARCHAR},
-      Graduate = #{graduate,jdbcType=VARCHAR},
       Remarks = #{remarks,jdbcType=VARCHAR},
-      Address = #{address,jdbcType=VARCHAR},
       WorkersState = #{workersstate,jdbcType=INTEGER},
       `Password` = #{password,jdbcType=VARCHAR},
-      Addname = #{addname,jdbcType=VARCHAR},
-      AddTime = #{addtime,jdbcType=TIMESTAMP},
-      UpdateName = #{updatename,jdbcType=VARCHAR},
-      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
-      LeaveName = #{leavename,jdbcType=VARCHAR},
-      LeaveTime = #{leavetime,jdbcType=TIMESTAMP},
-      EmpState = #{empstate,jdbcType=INTEGER},
-      DeleteName = #{deletename,jdbcType=VARCHAR},
-      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
-      LoginState = #{loginstate,jdbcType=INTEGER}
+      UpdateName=#{updateName,jdbcType=VARCHAR},
+      UpdateTime=#{updateTime,jdbcType=TIMESTAMP}
     where Emp_Id = #{empId,jdbcType=INTEGER}
   </update>
+
 </mapper>

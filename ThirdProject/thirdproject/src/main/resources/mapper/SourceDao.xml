@@ -6,6 +6,7 @@
     <result column="Source_Name" jdbcType="VARCHAR" property="sourceName" />
     <result column="AddName" jdbcType="VARCHAR" property="addname" />
     <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="ConsultContent" jdbcType="VARCHAR" property="consultcontent" />
     <result column="LastUpdateName" jdbcType="VARCHAR" property="lastupdatename" />
     <result column="LastUpdateTime" jdbcType="TIMESTAMP" property="lastupdatetime" />
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
@@ -27,6 +28,8 @@
     from source
     where Source_Id = #{sourceId,jdbcType=INTEGER}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from source
     where Source_Id = #{sourceId,jdbcType=INTEGER}
@@ -114,6 +117,7 @@
       </if>
     </trim>
   </insert>
+  <!--  查询所有值-->
   <select id="selectAIISources" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from source

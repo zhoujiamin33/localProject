@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.DeptDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Dept">
+    <id column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+    <result column="Dept_Name" jdbcType="VARCHAR" property="deptName" />
+    <result column="Dept_SortNumber" jdbcType="INTEGER" property="deptSortnumber" />
+    <result column="Superiors_Dept_Id" jdbcType="INTEGER" property="superiorsDeptId" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Dept_Id, Dept_Name, Dept_SortNumber, Superiors_Dept_Id, AddName, AddTime, UpdateName, 
+    UpdateTime, DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dept
+    where Dept_Id = #{deptId,jdbcType=INTEGER}
+  </select>
+  <select id="findallDept" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from dept
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dept
+    where Dept_Id = #{deptId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Dept_Id" keyProperty="deptId" parameterType="com.trkj.thirdproject.entity.Dept" useGeneratedKeys="true">
+    insert into dept (Dept_Name, Dept_SortNumber, Superiors_Dept_Id, 
+      AddName, AddTime, UpdateName, 
+      UpdateTime, DeleteName, DeleteTime, 
+      TimeLiness)
+    values (#{deptName,jdbcType=VARCHAR}, #{deptSortnumber,jdbcType=INTEGER}, #{superiorsDeptId,jdbcType=INTEGER}, 
+      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, 
+      #{timeliness,jdbcType=INTEGER})
+  </insert>
+  <insert id="adadept"  parameterType="com.trkj.thirdproject.entity.Dept" useGeneratedKeys="true">
+    insert into dept ( Dept_SortNumber,Dept_Name, Superiors_Dept_Id)
+    values ( #{deptSortnumber,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR},#{superiorsDeptId,jdbcType=INTEGER})
+  </insert>
+  <update id="updatedept"  parameterType="com.trkj.thirdproject.entity.Dept" >
+     update dept
+    set Dept_Name = #{deptName,jdbcType=VARCHAR},
+      Dept_SortNumber = #{deptSortnumber,jdbcType=INTEGER},
+      Superiors_Dept_Id = #{superiorsDeptId,jdbcType=INTEGER}
+          where Dept_Id = #{deptId,jdbcType=INTEGER}
+  </update>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Dept">
+    update dept
+    set Dept_Name = #{deptName,jdbcType=VARCHAR},
+      Dept_SortNumber = #{deptSortnumber,jdbcType=INTEGER},
+      Superiors_Dept_Id = #{superiorsDeptId,jdbcType=INTEGER},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where Dept_Id = #{deptId,jdbcType=INTEGER}
+  </update>
+</mapper>
