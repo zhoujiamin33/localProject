@@ -20,6 +20,7 @@
 <!-- 查询所有数据 -->
   <select id="selectAllClassType" resultMap="BaseResultMap" >
     select <include refid="Base_Column_List"/> from classtype
+    where TimeLiness=0
   </select>
 
 
@@ -44,10 +45,10 @@
 
 
 <!--  删除-->
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from classtype
-    where ClassType_Id = #{classtypeId,jdbcType=INTEGER}
-  </delete>
+  <update id="updateCourseType" >
+  update classtype set TimeLiness=1, DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP}  where ClassType_Id = #{classtypeId,jdbcType=INTEGER}
+</update>
 
 
 <!--新增-->

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,5 +42,13 @@ public class CourseTypeServiceImpl implements CourseTypeService {
         return classtype;
     }
 
+    @Override
+    public int updateCourseType(List<Integer> classtypeId, String deletename, Date deleteTime) {
+        for(int classtypeid:classtypeId){
+
+            classtypedao.updateCourseType(classtypeid,deletename,deleteTime);
+        }
+        return 1;
+    }
 
 }
