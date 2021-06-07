@@ -7,6 +7,7 @@
     <result column="Sex" jdbcType="VARCHAR" property="sex" />
     <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
     <result column="PlanReturnVisit" jdbcType="TIMESTAMP" property="planreturnvisit" />
+    <result column="Consultationmode" jdbcType="VARCHAR" property="consultationmode" />
     <result column="AttentState" jdbcType="INTEGER" property="attentstate" />
     <result column="PayState" jdbcType="INTEGER" property="paystate" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
@@ -22,7 +23,7 @@
     <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
     <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
 
-<!--    员工-->
+    <!--    员工-->
     <association property="emp" javaType="com.trkj.thirdproject.entity.Emp">
       <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
       <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
@@ -54,7 +55,7 @@
       <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
     </association>
 
-<!--    课程-->
+    <!--    课程-->
     <collection property="course" ofType="com.trkj.thirdproject.entity.Course">
       <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
       <result column="Course_Name" jdbcType="VARCHAR" property="courseName" />
@@ -72,7 +73,7 @@
     </collection>
 
 
-<!--    生源渠道-->
+    <!--    生源渠道-->
     <collection property="source" ofType="com.trkj.thirdproject.entity.Source">
       <id column="Source_Id" jdbcType="INTEGER" property="sourceId" />
       <result column="Source_Name" jdbcType="VARCHAR" property="sourceName" />
@@ -91,7 +92,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.AttentState, reg.PayState,
+    reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
     reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id
   </sql>
@@ -111,16 +112,16 @@
     s.DeleteName, s.DeleteTime, s.IsExamine, s.LastExamineTime, s.LastExamineName, s.LastRevokeTime,
     s.LastRevokeName
   </sql>
-
+<!--咨询登记查询-->
   <select id="selectRegister" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />,
     <include refid="course"/>,
     <include refid="source"/>
     from register reg
     inner join course c on c.Course_Id=reg.Course_Id
     inner join source s on s.Source_Id=reg.Source_Id
-    where
+    where  reg.Register_Id=#{registerId,jdbcType=INTEGER}
   </select>
 <!--  咨询登记交的状态为已就读接给学员表中-->
   <select id="showstudent" resultMap="BaseResultMap">
@@ -131,26 +132,29 @@
     from register reg
     inner join course c on c.Course_Id=reg.Course_Id
     inner join source s on s.Source_Id=reg.Source_Id
+    where reg.TimeLiness=0
   </select>
+
+
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from register-->
+<!--    where Register_Id = #{registerId,jdbcType=INTEGER}-->
+<!--  </select>-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from register
     where Register_Id = #{registerId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">
+  <insert id="insertRegister" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">
     insert into register (ConsultAnt, Sex, Source_Id, 
-      PlanReturnVisit, AttentState, PayState, 
-      TimeLiness, AddName, AddTime, 
-      ConsultContent, LastUpdateName, LastUpdateTime, 
-      DeleteName, DeleteTime, phone, 
-      ` DetailCourse_Id`, ` Course_Id`, Emp_Id
-      )
+       Consultationmode, AttentState, AddName,
+       ConsultContent,
+      phone,  Course_Id)
     values (#{consultant,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{sourceId,jdbcType=INTEGER}, 
-      #{planreturnvisit,jdbcType=TIMESTAMP}, #{attentstate,jdbcType=INTEGER}, #{paystate,jdbcType=INTEGER}, 
-      #{timeliness,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
-      #{consultcontent,jdbcType=VARCHAR}, #{lastupdatename,jdbcType=VARCHAR}, #{lastupdatetime,jdbcType=TIMESTAMP}, 
-      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR}, 
-      #{detailcourseId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}
-      )
+      #{consultationmode,jdbcType=VARCHAR}, #{attentstate,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR},
+      #{consultcontent,jdbcType=VARCHAR},  #{phone,jdbcType=VARCHAR},
+      #{courseId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">
     insert into register
@@ -166,6 +170,9 @@
       </if>
       <if test="planreturnvisit != null">
         PlanReturnVisit,
+      </if>
+      <if test="consultationmode != null">
+        Consultationmode,
       </if>
       <if test="attentstate != null">
         AttentState,
@@ -201,10 +208,10 @@
         phone,
       </if>
       <if test="detailcourseId != null">
-        ` DetailCourse_Id`,
+        DetailCourse_Id,
       </if>
       <if test="courseId != null">
-        ` Course_Id`,
+        Course_Id,
       </if>
       <if test="empId != null">
         Emp_Id,
@@ -222,6 +229,9 @@
       </if>
       <if test="planreturnvisit != null">
         #{planreturnvisit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultationmode != null">
+        #{consultationmode,jdbcType=VARCHAR},
       </if>
       <if test="attentstate != null">
         #{attentstate,jdbcType=INTEGER},
@@ -267,6 +277,14 @@
       </if>
     </trim>
   </insert>
+
+  <!--删除后改变时效性-->
+<update id="delstuRegTime" parameterType="com.trkj.thirdproject.entity.Register">
+   update register set TimeLiness=1 ,LastUpdateName = #{lastupdatename},
+   LastUpdateTime = #{lastupdatetime}
+   where Register_Id = #{registerId}
+</update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Register">
     update register
     <set>
@@ -281,6 +299,9 @@
       </if>
       <if test="planreturnvisit != null">
         PlanReturnVisit = #{planreturnvisit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultationmode != null">
+        Consultationmode = #{consultationmode,jdbcType=VARCHAR},
       </if>
       <if test="attentstate != null">
         AttentState = #{attentstate,jdbcType=INTEGER},
@@ -316,10 +337,10 @@
         phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="detailcourseId != null">
-        ` DetailCourse_Id` = #{detailcourseId,jdbcType=INTEGER},
+        DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
       </if>
       <if test="courseId != null">
-        ` Course_Id` = #{courseId,jdbcType=INTEGER},
+        Course_Id = #{courseId,jdbcType=INTEGER},
       </if>
       <if test="empId != null">
         Emp_Id = #{empId,jdbcType=INTEGER},
@@ -332,7 +353,7 @@
     set ConsultAnt = #{consultant,jdbcType=VARCHAR},
       Sex = #{sex,jdbcType=VARCHAR},
       Source_Id = #{sourceId,jdbcType=INTEGER},
-      PlanReturnVisit = #{planreturnvisit,jdbcType=TIMESTAMP},
+      Consultationmode = #{consultationmode,jdbcType=VARCHAR},
       AttentState = #{attentstate,jdbcType=INTEGER},
       PayState = #{paystate,jdbcType=INTEGER},
       TimeLiness = #{timeliness,jdbcType=INTEGER},
@@ -344,8 +365,8 @@
       DeleteName = #{deletename,jdbcType=VARCHAR},
       DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
       phone = #{phone,jdbcType=VARCHAR},
-      ` DetailCourse_Id` = #{detailcourseId,jdbcType=INTEGER},
-      ` Course_Id` = #{courseId,jdbcType=INTEGER},
+      DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
+      Course_Id = #{courseId,jdbcType=INTEGER},
       Emp_Id = #{empId,jdbcType=INTEGER}
     where Register_Id = #{registerId,jdbcType=INTEGER}
   </update>
