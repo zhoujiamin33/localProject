@@ -47,11 +47,11 @@ public class EmpController {
     }
     //模糊查询
     @GetMapping("/findalls")
-    public PageInfo<Emp> findalls(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize, @PathVariable("empName")String empName, @PathVariable("empSex")String empSex){
-        PageHelper.startPage(currentPage,pagesize);
-        List<Emp> entityPage=empService.findalls(empName,empSex);
-        PageInfo<Emp> empPageInfo=new PageInfo<>(entityPage);
-        return empPageInfo;
+    public List<Emp> findalls( @RequestParam("select") String select, @RequestParam("input") String input){
+//        PageHelper.startPage(currentPage,pagesize);
+//        List<Emp> entityPage=
+//        PageInfo<Emp> empPageInfo=new PageInfo<>(entityPage);
+        return empService.findalls(select,input);
 
     }
     //批量删除
@@ -60,6 +60,11 @@ public class EmpController {
         String leavename="tsm管理";
         Date leavetime=new Date();
         empService.delstuTimeness(leavename,leavetime,empId);
+    }
+    //启动和禁用
+    @PutMapping("/updatestate/{workersstate}/{empId}")
+    public void updatestate(@PathVariable("workersstate") Integer workersstate,@PathVariable("empId") List<Integer> empId){
+         empService.updatestate(workersstate, empId);
     }
 
 }

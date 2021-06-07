@@ -22,9 +22,10 @@ public interface EmpDao {
     int updateByPrimaryKey(Emp record);
 //    查询所有
     List<Emp> selectAllEmp();
-    //模糊查询
-    List<Emp> findalls(String empname,String empsex);
+    //模糊查询:select是下拉框中的内容；input是文本输入的内容
+    List<Emp> findalls(@Param("select")String select,@Param("input")String input);
     //批量删除
     int delstuTimeness(@Param("leavename") String leavename, @Param("leavetime") Date leavetime, @Param("empId")  Integer empId);
-
+//启动或禁用
+    int updatestate(@Param("workersstate") Integer workersstate,@Param("empId") Integer empId);
 }

@@ -115,6 +115,9 @@
 
     where stu.TimeLiness=0
   </select>
+
+<!-- 根据咨询登记编号进行查询 -->
+
 <!--  &lt;!&ndash;  查询所有外键查询&ndash;&gt;-->
 <!--  <select id="selectAllstudent" resultMap="BaseResultMap">-->
 <!--    select <include refid="Base_Column_List"/>,<include refid="Base_Column_Source"/>,-->

@@ -2,6 +2,8 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.entity.Classes;
+import com.trkj.thirdproject.entity.Memorandumattachment;
 import com.trkj.thirdproject.entity.Source;
 import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.service.StudentService;
@@ -60,4 +62,24 @@ public class StudentController {
     public List<Student> findNameandPhone(@PathVariable("studentName") String studentName, @PathVariable("studentPhone") String studentPhone){
         return studentService.slectNameAndPhone(studentName, studentPhone);
    }
+    //查询所有外键表：course（课程表）
+    @GetMapping("/findclassall")
+    public List<Classes> findclassall(@RequestParam("classesId") Integer classesId){
+        return studentService.findclass(classesId);
+    }
+//    修改学员交接状态：审核状态为已审核
+    @PutMapping("/editstate")
+    public void editstate(@RequestBody Memorandumattachment record){
+        studentService.updateByPrimaryKeySelective(record);
+    }
+    //根据学员交接查询咨询登记信息:招生审核和教务审核
+    @GetMapping("/findallsou")
+    public void findall(@RequestParam("memorandumattachmentid") Integer memorandumattachmentid){
+        studentService.selectregister(memorandumattachmentid);
+    }
+    //    新增学员交接表:
+    @PostMapping("/Addmentid")
+    public void Addmentid(@RequestBody Memorandumattachment record){
+        studentService.insertSelective(record);
+    }
 }

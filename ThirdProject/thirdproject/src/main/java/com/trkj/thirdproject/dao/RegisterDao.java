@@ -19,8 +19,12 @@ public interface RegisterDao {
 
     int updateByPrimaryKeySelective(Register record);
 
-    int updateByPrimaryKey(Register register);
+
+    int updateByPrimaryKey(Register record);
+//    <!--  咨询登记交的状态为已就读接给学员表中-->
+    List<Register> showstudent();
 
     //删除
     int delstuRegTime(@Param("registerId" ) int Register_Id, @Param( "lastupdatename") String LastUpdateName, @Param("lastupdatetime")Date LastUpdateTime);
 }
+

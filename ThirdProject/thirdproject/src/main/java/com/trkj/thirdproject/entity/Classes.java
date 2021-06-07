@@ -29,11 +29,13 @@ public class Classes implements Serializable {
     /**
      * 课程编号
      */
+    private  Course course;
     private Integer courseId;
 
     /**
      * 教室编号
      */
+    private Classroom classroom;
     private Integer classroomId;
 
     /**

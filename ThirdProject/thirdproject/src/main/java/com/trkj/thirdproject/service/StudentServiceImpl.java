@@ -1,7 +1,11 @@
 package com.trkj.thirdproject.service;
 
+import com.trkj.thirdproject.dao.ClassesDao;
+import com.trkj.thirdproject.dao.MemorandumattachmentDao;
 import com.trkj.thirdproject.dao.SourceDao;
 import com.trkj.thirdproject.dao.StudentDao;
+import com.trkj.thirdproject.entity.Classes;
+import com.trkj.thirdproject.entity.Memorandumattachment;
 import com.trkj.thirdproject.entity.Source;
 import com.trkj.thirdproject.entity.Student;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +20,10 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentDao studentDao;
+    @Autowired
+    private ClassesDao classesDao;
+    @Autowired
+    private MemorandumattachmentDao memorandumattachmentDao;
 //    @Autowired
 //    private SourceDao sourceDao;
     @Override
@@ -51,6 +59,26 @@ for (Integer c:studentId) {
     @Override
     public List<Student> slectNameAndPhone(String Name, String Phone) {
         return studentDao.slectNameAndPhone(Name, Phone);
+    }
+    //查询所有外键表：course（课程表）
+    @Override
+    public List<Classes> findclass(Integer classesId) {
+        return classesDao.findclass(classesId);
+    }
+//修改学员交接状态：审核状态为已审核
+    @Override
+    public int updateByPrimaryKeySelective(Memorandumattachment record) {
+        return memorandumattachmentDao.updateByPrimaryKeySelective(record);
+    }
+//根据学员交接查询咨询登记信息
+    @Override
+    public List<Memorandumattachment> selectregister(Integer memorandumattachmentid) {
+        return memorandumattachmentDao.selectregister(memorandumattachmentid);
+    }
+
+    @Override
+    public int insertSelective(Memorandumattachment record) {
+        return memorandumattachmentDao.insertSelective(record);
     }
 
 //    //查询所有值（生源渠道）
