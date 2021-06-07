@@ -19,8 +19,6 @@ public interface ClasstypeDao {
     List<Classtype> selectByname(String ClasstypeName);
 
 
-    int deleteByPrimaryKey(Integer classtypeId);
-
 //    新增
     int insert(Classtype classtype);
 

@@ -2,6 +2,8 @@ package com.trkj.thirdproject.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -38,6 +40,7 @@ public class Detailcourse implements Serializable {
     /**
      * 新增时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date addtime;
 
     /**

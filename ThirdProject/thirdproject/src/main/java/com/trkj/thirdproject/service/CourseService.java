@@ -3,6 +3,7 @@ package com.trkj.thirdproject.service;
 import com.trkj.thirdproject.entity.Course;
 import com.trkj.thirdproject.entity.Detailcourse;
 
+import java.util.Date;
 import java.util.List;
 
 public interface CourseService {
@@ -14,5 +15,7 @@ public interface CourseService {
 
     //-----------------------------------------------课程详情数据--------------------------------------------------------------
     List<Detailcourse> selectByKey(Integer course_id);
+    Detailcourse addDetails(Detailcourse detailcourse);
 
+    Detailcourse updateByName(Detailcourse detailcourse);
 }

@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.*;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -74,5 +76,20 @@ public class CourseController {
         List<Detailcourse> entityPage=courseservice.selectByKey(courseId);
         PageInfo<Detailcourse> detailcoursePageInfo=new PageInfo<>(entityPage);
         return detailcoursePageInfo;
+    }
+    @PostMapping("/addDetails")
+    public Detailcourse addDetails( @RequestBody Detailcourse detailcourse){
+        log.debug("新增课程详细");
+        log.debug(detailcourse.getDetailcourseName()+detailcourse.getAddname()+detailcourse.getCourseId());
+        courseservice.addDetails(detailcourse);
+        return detailcourse;
+    }
+    @PutMapping("/updateDetails")
+    public Detailcourse upadteDetails( @RequestBody Detailcourse detailcourse){
+        log.debug("修改课程详细");
+        log.debug(detailcourse.getDetailcourseName()+detailcourse.getAddname()+detailcourse.getCourseId());
+        courseservice.updateByName(detailcourse);
+        log.debug("修改成功");
+        return detailcourse;
     }
 }

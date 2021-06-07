@@ -38,15 +38,6 @@
       <result column="LastUpdateTime" jdbcType="TIMESTAMP" property="lastupdatetime" />
       <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-      <result column="ZSIsExamine" jdbcType="INTEGER" property="zsisexamine" />
-      <result column="ZSExamineTime" jdbcType="TIMESTAMP" property="zsexaminetime" />
-      <result column="ZSExamineName" jdbcType="VARCHAR" property="zsexaminename" />
-      <result column="ZSRevokeTime" jdbcType="TIMESTAMP" property="zsrevoketime" />
-      <result column="ZSRevokeName" jdbcType="VARCHAR" property="zsrevokename" />
-      <result column="JWExamineTime" jdbcType="TIMESTAMP" property="jwexaminetime" />
-      <result column="JWExamineName" jdbcType="VARCHAR" property="jwexaminename" />
-      <result column="JWRevokeTime" jdbcType="TIMESTAMP" property="jwrevoketime" />
-      <result column="JWRevokeName" jdbcType="VARCHAR" property="jwrevokename" />
     </collection>
 
   </resultMap>
@@ -58,8 +49,7 @@
   <sql id="register">
      reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.AttentState, reg.PayState,
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
-    reg.DeleteTime, reg.ZSIsExamine, reg.ZSExamineTime, reg.ZSExamineName, reg.ZSRevokeTime, reg.ZSRevokeName,
-    reg.JWExamineTime, reg.JWExamineName, reg.JWRevokeTime, reg.JWRevokeName
+    reg.DeleteTime
   </sql>
   <select id="selectKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

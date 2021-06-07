@@ -39,6 +39,18 @@
       c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
       c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
   </sql>
+
+  <update id="updateByName" parameterType="com.trkj.thirdproject.entity.Detailcourse">
+     update detailcourse set DetailCourse_Name= #{detailcourseName,jdbcType=VARCHAR}, Serial= #{serial,jdbcType=INTEGER}
+     where DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER}
+  </update>
+
+<!--  新增课程详细-->
+  <insert id="addDetails" >
+    insert into detailcourse (Course_Id, DetailCourse_Name, Serial,AddName, AddTime)
+    values (#{courseId,jdbcType=INTEGER}, #{detailcourseName,jdbcType=VARCHAR}, #{serial,jdbcType=INTEGER},
+    #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
   <select id="selectByCourseKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />,

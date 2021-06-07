@@ -19,4 +19,7 @@ public interface DetailcourseDao {
     int updateByPrimaryKeySelective(Detailcourse record);
 
     int updateByPrimaryKey(Detailcourse record);
+    int addDetails(Detailcourse detailcourse);
+
+    int updateByName(Detailcourse detailcourse);
 }

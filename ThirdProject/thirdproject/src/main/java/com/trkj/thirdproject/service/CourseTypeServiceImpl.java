@@ -45,7 +45,6 @@ public class CourseTypeServiceImpl implements CourseTypeService {
     @Override
     public int updateCourseType(List<Integer> classtypeId, String deletename, Date deleteTime) {
         for(int classtypeid:classtypeId){
-
             classtypedao.updateCourseType(classtypeid,deletename,deleteTime);
         }
         return 1;

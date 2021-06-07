@@ -51,4 +51,20 @@ public class CourseServiceImpl implements CourseService {
         log.debug("查询课程详细");
         return detailcoursedao.selectByCourseKey(course_id);
     }
+    @Override
+    public Detailcourse addDetails(Detailcourse detailcourse) {
+        detailcourse.setAddname("Tsm管理员");
+        detailcourse.setAddtime(new Date());
+        log.debug("课程详细名："+detailcourse.getDetailcourseName());
+        detailcoursedao.addDetails(detailcourse);
+
+        return detailcourse;
+    }
+
+    @Override
+    public Detailcourse updateByName(Detailcourse detailcourse) {
+        log.debug("修改课程详细");
+        detailcoursedao.updateByName(detailcourse);
+        return detailcourse;
+    }
 }

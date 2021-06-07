@@ -1,3 +1,15 @@
+POST http://localhost:8089/threeproject/addDetails
+Content-Type: application/json
+
+{
+  "courseId": 1,
+  "detailcourseName": "第一阶段考试",
+  "serial": "501"
+}
+
+
+
+###
 GET http://localhost:8089/threeproject/findEntryFees
 Accept: application/json
 
