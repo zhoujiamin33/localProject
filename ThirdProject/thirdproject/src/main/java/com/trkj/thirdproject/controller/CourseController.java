@@ -44,6 +44,12 @@ public class CourseController {
         courseservice.updateCourse(course);
         return course;
     }
+    @PutMapping("/updatecourseState")
+    public Course updatecourseState(@RequestBody Course course){
+        log.debug("停报");
+        courseservice.updatecourseState(course);
+        return course;
+    }
 
     //----------------------------------------教室表--------------------------------------------------------------------
 
@@ -57,13 +63,13 @@ public class CourseController {
     }
     @PostMapping("/addClassRoom")
     public Classroom addClassRoom( @RequestBody Classroom classroom){
-        log.debug("新增课程");
+        log.debug("新增教室");
         classRoomService.insert(classroom);
         return classroom;
     }
     @PutMapping("/updateClassRoom")
     public Classroom updateClassRoom( @RequestBody Classroom classroom){
-        log.debug("修改课程");
+        log.debug("修改教室");
         classRoomService.updateByKey(classroom);
         return classroom;
     }

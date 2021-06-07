@@ -44,6 +44,15 @@ public class CourseServiceImpl implements CourseService {
         return course;
     }
 
+    @Override
+    public Course updatecourseState(Course course) {
+        course.setUpdatename("Tsm管理员");
+        course.setUpdatetime(new Date());
+        log.debug("课程修改成功！");
+        coursedao.updatecourseState(course);
+        return course;
+    }
+
 
     //----------------------------------------------------课程详情数据----------------------------------------------------------------
     @Override

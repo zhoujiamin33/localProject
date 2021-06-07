@@ -1,3 +1,9 @@
+PUT  http://localhost:8089/threeproject/updatecourseState
+
+###
+
+
+###
 POST http://localhost:8089/threeproject/addDetails
 Content-Type: application/json
 
@@ -10,7 +16,7 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:8089/threeproject/findEntryFees
+GET http://localhost:8089/threeproject/findAlloutstanding
 Accept: application/json
 
 ###

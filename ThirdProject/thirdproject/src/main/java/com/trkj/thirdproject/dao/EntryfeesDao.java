@@ -2,12 +2,16 @@ package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Entryfees;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.hibernate.exception.DataException;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EntryfeesDao {
-    int deleteByPrimaryKey(Integer feesId);
+    int deleteByPrimaryKey(Entryfees entryfees);
 
     int insertentryfees(Entryfees entryfees);
 
@@ -18,4 +22,8 @@ public interface EntryfeesDao {
     int updateByPrimaryKeySelective(Entryfees record);
 
     int updateByPrimaryKey(Entryfees record);
+
+    int updateapproval(Entryfees entryfees);
+
+    int updateRevokeapproval(Entryfees entryfees);
 }
