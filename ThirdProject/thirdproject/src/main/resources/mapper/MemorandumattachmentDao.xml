@@ -15,7 +15,9 @@
     <result column="JWRevokeTime" jdbcType="TIMESTAMP" property="jwrevoketime" />
     <result column="JWRevokeName" jdbcType="VARCHAR" property="jwrevokename" />
 <!--    咨询登记记录-->
-    <collection property="register" ofType="com.trkj.thirdproject.entity.Register">
+
+    <association property="register" javaType="com.trkj.thirdproject.entity.Register">
+
       <id column="Register_Id" jdbcType="INTEGER" property="registerId" />
       <result column="ConsultAnt" jdbcType="VARCHAR" property="consultant" />
       <result column="Sex" jdbcType="VARCHAR" property="sex" />
@@ -35,7 +37,9 @@
       <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
       <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
       <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
-    </collection>
+
+    </association>
+
   </resultMap>
   <sql id="Base_Column_List">
     m.MemorandumAttachment_Id,  m.Register_Id,  m.ZSIsExamine,  m.ZSExamineTime,  m.ZSExamineName,

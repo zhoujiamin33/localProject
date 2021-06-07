@@ -17,5 +17,8 @@ public interface MemorandumattachmentDao {
     int updateByPrimaryKeySelective(Memorandumattachment record);
 
     int updateByPrimaryKey(Memorandumattachment record);
+
+    //<!--  查询所有（咨询登记）-->
+
     List<Memorandumattachment> selectregister(Integer memorandumattachmentid);
 }

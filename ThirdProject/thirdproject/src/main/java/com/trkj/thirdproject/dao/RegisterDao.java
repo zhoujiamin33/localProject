@@ -18,6 +18,7 @@ public interface RegisterDao {
     int updateByPrimaryKeySelective(Register record);
 
     int updateByPrimaryKey(Register record);
-
+//    <!--  咨询登记交的状态为已就读接给学员表中-->
+List<Register> showstudent();
 
 }
