@@ -12,8 +12,6 @@ public interface CourseService {
     Course insertCoursetype(Course course);
     //修改名称、课时量、费用、开设状态
     Course updateCourse(Course course);
-    //修改课程状态、停报
-    Course updatecourseState(Course course);
 
     //-----------------------------------------------课程详情数据--------------------------------------------------------------
     List<Detailcourse> selectByKey(Integer course_id);

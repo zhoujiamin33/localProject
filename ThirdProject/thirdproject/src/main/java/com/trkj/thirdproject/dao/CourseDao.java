@@ -21,6 +21,4 @@ public interface CourseDao {
     Course selectByPrimaryKey(Integer courseId);
 
     int updateByPrimaryKey(Course course);
-    //修改课程状态、停报
-    int updatecourseState(Course course);
 }

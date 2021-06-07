@@ -21,7 +21,6 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    <result column="ApprovalState" jdbcType="INTEGER" property="approvalstate" />
 
     <collection property="register" ofType="com.trkj.thirdproject.entity.Register">
       <id column="Register_Id" jdbcType="INTEGER" property="registerId" />
@@ -29,7 +28,6 @@
       <result column="Sex" jdbcType="VARCHAR" property="sex" />
       <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
       <result column="PlanReturnVisit" jdbcType="TIMESTAMP" property="planreturnvisit" />
-      <result column="Consultationmode" jdbcType="VARCHAR" property="consultationmode" />
       <result column="AttentState" jdbcType="INTEGER" property="attentstate" />
       <result column="PayState" jdbcType="INTEGER" property="paystate" />
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
@@ -40,18 +38,13 @@
       <result column="LastUpdateTime" jdbcType="TIMESTAMP" property="lastupdatetime" />
       <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-      <result column="phone" jdbcType="VARCHAR" property="phone" />
-      <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
-      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
-      <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
-
     </collection>
 
   </resultMap>
   <sql id="Base_Column_List">
     entry.Fees_Id, entry.Fees_Name, entry.Register_Id, entry.Fees_Receivable,entry.Fees_Type, entry.Fees_Advance, entry.Receipts,
     entry.Fees_State, entry.ApprovalName, entry.ApprovalTime, entry.RevokeAppName, entry.RevokeAppTime, entry.AddName, entry.AddTime,
-    entry.UpdateName, entry.UpdateTime, entry.DeleteName, entry.DeleteTime, entry.TimeLiness,entry.approvalstate
+    entry.UpdateName, entry.UpdateTime, entry.DeleteName, entry.DeleteTime, entry.TimeLiness
   </sql>
   <sql id="register">
      reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.AttentState, reg.PayState,
@@ -65,24 +58,10 @@
     from entryfees entry inner join register reg on reg.Register_Id=entry.Register_Id
     where  entry.TimeLiness=0
   </select>
-
-  <update id="updateapproval">
-     update entryfees set ApprovalName=#{approvalname,jdbcType=VARCHAR},ApprovalTime=#{approvaltime,jdbcType=TIMESTAMP},
-     ApprovalState=1
-     where Fees_Id = #{feesId,jdbcType=INTEGER}
-  </update>
-
-
-  <update id="updateRevokeapproval">
-     update entryfees set RevokeAppName=#{revokeappname,jdbcType=VARCHAR},RevokeAppTime=#{revokeapptime,jdbcType=TIMESTAMP},
-     ApprovalState=0
-     where Fees_Id = #{feesId,jdbcType=INTEGER}
-  </update>
-
-  <update id="deleteByPrimaryKey" >
-    update  entryfees set TimeLiness=1 ,DeleteTime=#{deletetime,jdbcType=TIMESTAMP},DeleteName=#{deletename,jdbcType=VARCHAR}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from entryfees
     where Fees_Id = #{feesId,jdbcType=INTEGER}
-  </update>
+  </delete>
   <insert id="insertentryfees" keyColumn="Fees_Id" keyProperty="feesId" parameterType="com.trkj.thirdproject.entity.Entryfees" useGeneratedKeys="true">
     insert into entryfees (Fees_Name, Register_Id, Fees_Receivable, 
       Fees_Type, Fees_Advance, Receipts,AddName)
