@@ -2,6 +2,7 @@ package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Classes;
 import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 
 @Mapper
 public interface ClassesDao {
@@ -16,4 +17,6 @@ public interface ClassesDao {
     int updateByPrimaryKeySelective(Classes record);
 
     int updateByPrimaryKey(Classes record);
+    //查询所有外键表：course
+   List<Classes> findclass(Integer classesId);
 }

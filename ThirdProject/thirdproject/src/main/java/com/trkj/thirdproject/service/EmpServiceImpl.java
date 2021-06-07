@@ -38,8 +38,8 @@ empDao.deleteByPrimaryKey(EmpId);
     }
 
     @Override
-    public List<Emp> findalls(String empname, String empsex) {
-        return empDao.findalls(empname,empsex);
+    public List<Emp> findalls(String select,String input) {
+        return empDao.findalls(select,input);
     }
 //批量删除
     @Override
@@ -47,6 +47,14 @@ empDao.deleteByPrimaryKey(EmpId);
         for (Integer e : empId) {
              empDao.delstuTimeness(leavename, leavetime, e);
         }
+    }
+
+    @Override
+    public void updatestate(Integer workersstate, List<Integer> empId) {
+        for (Integer e : empId) {
+             empDao.updatestate(workersstate, e);
+        }
+
     }
 
 }

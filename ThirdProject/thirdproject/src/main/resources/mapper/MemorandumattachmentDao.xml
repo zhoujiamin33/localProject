@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.MemorandumattachmentDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Memorandumattachment">
+    <id column="MemorandumAttachment_Id" jdbcType="INTEGER" property="memorandumattachmentId" />
+    <result column="Register_Id" jdbcType="INTEGER" property="registerId" />
+    <result column="ZSIsExamine" jdbcType="VARCHAR" property="zsisexamine" />
+    <result column="ZSExamineTime" jdbcType="TIMESTAMP" property="zsexaminetime" />
+    <result column="ZSExamineName" jdbcType="VARCHAR" property="zsexaminename" />
+    <result column="ZSRevokeTime" jdbcType="TIMESTAMP" property="zsrevoketime" />
+    <result column="ZSRevokeName" jdbcType="VARCHAR" property="zsrevokename" />
+    <result column="JWIsExamine" jdbcType="VARCHAR" property="jwisexamine" />
+    <result column="JWExamineTime" jdbcType="TIMESTAMP" property="jwexaminetime" />
+    <result column="JWExamineName" jdbcType="VARCHAR" property="jwexaminename" />
+    <result column="JWRevokeTime" jdbcType="TIMESTAMP" property="jwrevoketime" />
+    <result column="JWRevokeName" jdbcType="VARCHAR" property="jwrevokename" />
+<!--    咨询登记记录-->
+    <collection property="register" ofType="com.trkj.thirdproject.entity.Register">
+      <id column="Register_Id" jdbcType="INTEGER" property="registerId" />
+      <result column="ConsultAnt" jdbcType="VARCHAR" property="consultant" />
+      <result column="Sex" jdbcType="VARCHAR" property="sex" />
+      <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
+      <result column="PlanReturnVisit" jdbcType="TIMESTAMP" property="planreturnvisit" />
+      <result column="AttentState" jdbcType="INTEGER" property="attentstate" />
+      <result column="PayState" jdbcType="INTEGER" property="paystate" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="ConsultContent" jdbcType="VARCHAR" property="consultcontent" />
+      <result column="LastUpdateName" jdbcType="VARCHAR" property="lastupdatename" />
+      <result column="LastUpdateTime" jdbcType="TIMESTAMP" property="lastupdatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="phone" jdbcType="VARCHAR" property="phone" />
+      <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+      <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    m.MemorandumAttachment_Id,  m.Register_Id,  m.ZSIsExamine,  m.ZSExamineTime,  m.ZSExamineName,
+     m.ZSRevokeTime,  m.ZSRevokeName,  m.JWIsExamine,  m.JWExamineTime,  m.JWExamineName,  m.JWRevokeTime,
+     m.JWRevokeName
+  </sql>
+  <sql id="Base_Column_register">
+    reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.AttentState, reg.PayState,
+    reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
+    reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from memorandumattachment
+    where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+  </select>
+
+<!--  查询所有（咨询登记）-->
+  <select id="selectregister" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="Base_Column_register"/>
+    from memorandumattachment m inner join register reg on m.Register_Id=reg.Register_Id
+    where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from memorandumattachment
+    where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="MemorandumAttachment_Id" keyProperty="memorandumattachmentId" parameterType="com.trkj.thirdproject.entity.Memorandumattachment" useGeneratedKeys="true">
+    insert into memorandumattachment (Register_Id, ZSIsExamine, ZSExamineTime, 
+      ZSExamineName, ZSRevokeTime, ZSRevokeName, 
+      JWIsExamine, JWExamineTime, JWExamineName, 
+      JWRevokeTime, JWRevokeName)
+    values (#{registerId,jdbcType=INTEGER}, #{zsisexamine,jdbcType=VARCHAR}, #{zsexaminetime,jdbcType=TIMESTAMP}, 
+      #{zsexaminename,jdbcType=VARCHAR}, #{zsrevoketime,jdbcType=TIMESTAMP}, #{zsrevokename,jdbcType=VARCHAR}, 
+      #{jwisexamine,jdbcType=VARCHAR}, #{jwexaminetime,jdbcType=TIMESTAMP}, #{jwexaminename,jdbcType=VARCHAR}, 
+      #{jwrevoketime,jdbcType=TIMESTAMP}, #{jwrevokename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="MemorandumAttachment_Id" keyProperty="memorandumattachmentId" parameterType="com.trkj.thirdproject.entity.Memorandumattachment" useGeneratedKeys="true">
+    insert into memorandumattachment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="registerId != null">
+        Register_Id,
+      </if>
+      <if test="zsisexamine != null">
+        ZSIsExamine,
+      </if>
+      <if test="zsexaminetime != null">
+        ZSExamineTime,
+      </if>
+      <if test="zsexaminename != null">
+        ZSExamineName,
+      </if>
+      <if test="zsrevoketime != null">
+        ZSRevokeTime,
+      </if>
+      <if test="zsrevokename != null">
+        ZSRevokeName,
+      </if>
+      <if test="jwisexamine != null">
+        JWIsExamine,
+      </if>
+      <if test="jwexaminetime != null">
+        JWExamineTime,
+      </if>
+      <if test="jwexaminename != null">
+        JWExamineName,
+      </if>
+      <if test="jwrevoketime != null">
+        JWRevokeTime,
+      </if>
+      <if test="jwrevokename != null">
+        JWRevokeName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="registerId != null">
+        #{registerId,jdbcType=INTEGER},
+      </if>
+      <if test="zsisexamine != null">
+        #{zsisexamine,jdbcType=VARCHAR},
+      </if>
+      <if test="zsexaminetime != null">
+        #{zsexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsexaminename != null">
+        #{zsexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="zsrevoketime != null">
+        #{zsrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsrevokename != null">
+        #{zsrevokename,jdbcType=VARCHAR},
+      </if>
+      <if test="jwisexamine != null">
+        #{jwisexamine,jdbcType=VARCHAR},
+      </if>
+      <if test="jwexaminetime != null">
+        #{jwexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwexaminename != null">
+        #{jwexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="jwrevoketime != null">
+        #{jwrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwrevokename != null">
+        #{jwrevokename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Memorandumattachment">
+    update memorandumattachment
+    <set>
+      <if test="registerId != null">
+        Register_Id = #{registerId,jdbcType=INTEGER},
+      </if>
+      <if test="zsisexamine != null">
+        ZSIsExamine = #{zsisexamine,jdbcType=VARCHAR},
+      </if>
+      <if test="zsexaminetime != null">
+        ZSExamineTime = #{zsexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsexaminename != null">
+        ZSExamineName = #{zsexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="zsrevoketime != null">
+        ZSRevokeTime = #{zsrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsrevokename != null">
+        ZSRevokeName = #{zsrevokename,jdbcType=VARCHAR},
+      </if>
+      <if test="jwisexamine != null">
+        JWIsExamine = #{jwisexamine,jdbcType=VARCHAR},
+      </if>
+      <if test="jwexaminetime != null">
+        JWExamineTime = #{jwexaminetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwexaminename != null">
+        JWExamineName = #{jwexaminename,jdbcType=VARCHAR},
+      </if>
+      <if test="jwrevoketime != null">
+        JWRevokeTime = #{jwrevoketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwrevokename != null">
+        JWRevokeName = #{jwrevokename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Memorandumattachment">
+    update memorandumattachment
+    set Register_Id = #{registerId,jdbcType=INTEGER},
+      ZSIsExamine = #{zsisexamine,jdbcType=VARCHAR},
+      ZSExamineTime = #{zsexaminetime,jdbcType=TIMESTAMP},
+      ZSExamineName = #{zsexaminename,jdbcType=VARCHAR},
+      ZSRevokeTime = #{zsrevoketime,jdbcType=TIMESTAMP},
+      ZSRevokeName = #{zsrevokename,jdbcType=VARCHAR},
+      JWIsExamine = #{jwisexamine,jdbcType=VARCHAR},
+      JWExamineTime = #{jwexaminetime,jdbcType=TIMESTAMP},
+      JWExamineName = #{jwexaminename,jdbcType=VARCHAR},
+      JWRevokeTime = #{jwrevoketime,jdbcType=TIMESTAMP},
+      JWRevokeName = #{jwrevokename,jdbcType=VARCHAR}
+    where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+  </update>
+</mapper>

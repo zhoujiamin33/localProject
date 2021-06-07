@@ -1,5 +1,7 @@
 package com.trkj.thirdproject.service;
 
+import com.trkj.thirdproject.entity.Classes;
+import com.trkj.thirdproject.entity.Memorandumattachment;
 import com.trkj.thirdproject.entity.Source;
 import com.trkj.thirdproject.entity.Student;
 
@@ -21,4 +23,14 @@ Student addstudent(Student student);
 
 //    //查询所有值（生源渠道）
 //    List<Source> selectalls();
+
+    //查询所有外键表：course（课程表）
+    List<Classes> findclass(Integer classesId);
+
+//    学员交接表的修改
+int updateByPrimaryKeySelective(Memorandumattachment record);
+//查查询所有（咨询登记）
+    List<Memorandumattachment> selectregister(Integer memorandumattachmentid);
+//    新增学员交接
+int insertSelective(Memorandumattachment record);
 }

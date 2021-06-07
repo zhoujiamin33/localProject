@@ -353,11 +353,11 @@
           refid="Base_Column_List2"/>
     from emp e inner join Dept d on e.Dept_Id=d.Dept_Id inner join `Position` p on e.Position_Id=p.Position_Id
     <where>
-      <if test="empName!=null">
-        Emp_Name like CONCAT(CONCAT('%',#{empName,jdbcType=VARCHAR},'%'))
+      <if test="input!=null and select=='empName'">
+        Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
       </if>
-      <if test="empSex">
-        Emp_Sex like CONCAT(CONCAT('%',#{empSex,jdbcType=VARCHAR},'%'))
+      <if test="input!=null and select=='empSex'">
+        and Emp_Sex like CONCAT(CONCAT('%',#{input},'%'))
       </if>
     </where>
   </select>
@@ -401,5 +401,8 @@
       UpdateTime=#{updateTime,jdbcType=TIMESTAMP}
     where Emp_Id = #{empId,jdbcType=INTEGER}
   </update>
-
+<!--启动-->
+<update id="updatestate" parameterType="com.trkj.thirdproject.entity.Emp">
+  update emp set WorkersState = #{workersstate} where Emp_Id = #{empId}
+</update>
 </mapper>
