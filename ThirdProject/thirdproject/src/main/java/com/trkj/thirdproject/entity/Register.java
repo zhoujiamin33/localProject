@@ -1,16 +1,15 @@
 package com.trkj.thirdproject.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 /**
  * register
  * @author 
  */
-
 @Data
 public class Register implements Serializable {
     /**
@@ -36,7 +35,13 @@ public class Register implements Serializable {
     /**
      * 计划首次回访日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date planreturnvisit;
+
+    /**
+     * 咨询方式
+     */
+    private String consultationmode;
 
     /**
      * 咨询状态
@@ -116,7 +121,5 @@ public class Register implements Serializable {
     private Source source;
 
     private static final long serialVersionUID = 1L;
-
-
 
 }
