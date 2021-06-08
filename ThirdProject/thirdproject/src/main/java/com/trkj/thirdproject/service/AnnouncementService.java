@@ -9,5 +9,6 @@ public interface AnnouncementService {
     List<Announcement> findAllAnn();
     Announcement AddAnn(Announcement announcement);
     Announcement UpdateAnn(Announcement announcement);
-    int delAnn(List<Integer> multipleSelection, String ne, Date tm);
+    int delAnn(Announcement announcemen);
+    Announcement AnnState(Announcement announcement);
 }

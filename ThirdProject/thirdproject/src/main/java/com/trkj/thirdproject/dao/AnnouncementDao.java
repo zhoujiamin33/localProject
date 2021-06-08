@@ -23,5 +23,7 @@ public interface AnnouncementDao {
 
     List<Announcement> findAllAnn();
 
-    int delAnn(@Param("updatename") int announcementId, @Param("updatetime") String updatename, @Param("announcementId") Date updatetime);
+    int delAnn(Announcement announcement);
+
+    int AnnState(Announcement announcement);
 }

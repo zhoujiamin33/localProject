@@ -28,16 +28,20 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
     @Override
     public Announcement UpdateAnn(Announcement announcement) {
+        announcement.setUpdatetime(new Date());
         dao.updateByPrimaryKeySelective(announcement);
         return announcement;
     }
 
     @Override
-    public int delAnn(List<Integer> multipleSelection, String ne, Date tm) {
-        for (int AnnId : multipleSelection){
-            log.debug(AnnId+"删除值的ID"+tm);
-            dao.delAnn(AnnId,ne,tm);
-        }
+    public int delAnn(Announcement announcemen) {
+        dao.delAnn(announcemen);
         return 1;
+    }
+
+    @Override
+    public Announcement AnnState(Announcement announcement) {
+        dao.AnnState(announcement);
+        return announcement;
     }
 }

@@ -27,7 +27,7 @@
     UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from announcement
     where Announcement_Id = #{announcementId,jdbcType=INTEGER}
@@ -248,8 +248,29 @@
   <update id="delAnn" parameterType="com.trkj.thirdproject.entity.Announcement">
     update announcement
     set TimeLiness =1,
-        UpdateName = #{updatename,jdbcType=VARCHAR},
-        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP}
+    where Announcement_Id = #{announcementId,jdbcType=INTEGER}
+  </update>
+  <update id="AnnState" parameterType="com.trkj.thirdproject.entity.Announcement">
+    update announcement
+    <set>
+      <if test="announcementState != null">
+        Announcement_State = #{announcementState,jdbcType=INTEGER},
+      </if>
+      <if test="publishname != null">
+        PublishName = #{publishname,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null">
+        PublishTime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="suspendname != null">
+        SuspendName = #{suspendname,jdbcType=VARCHAR},
+      </if>
+      <if test="suspendtime != null">
+        SuspendTime = #{suspendtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
     where Announcement_Id = #{announcementId,jdbcType=INTEGER}
   </update>
 </mapper>

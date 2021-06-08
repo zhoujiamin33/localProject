@@ -1,5 +1,7 @@
 package com.trkj.thirdproject.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Announcement;
 import com.trkj.thirdproject.service.AnnouncementService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +30,31 @@ public class AnnouncementController {
 
         return service.UpdateAnn(announcement);
     }
-    @PutMapping("/delAnn/{multipleSelection}/{name}")
-    public int delAnn(@PathVariable("multipleSelection") List<Integer> multipleSelection, @PathVariable("name")String ne){
-        Date date=new Date();
-        return service.delAnn(multipleSelection,ne,new Date());
+    @PutMapping("/delAnn")
+    public int delAnn(@RequestBody Announcement announcemen){
+        return service.delAnn(announcemen);
+    }
+    @PutMapping("/AnnState")
+    public Announcement AnnState( @RequestBody Announcement announcement){
+        log.debug("启用");
+        announcement.setAnnouncementState(1);
+        announcement.setPublishtime(new Date());
+        return service.AnnState(announcement);
+    }
+    @PutMapping("/SuspendAnn")
+    public Announcement SuspendAnn( @RequestBody Announcement announcement){
+        log.debug("暂停");
+        announcement.setAnnouncementState(2);
+        announcement.setStartTime(new Date());
+        return service.AnnState(announcement);
+    }
+    @GetMapping("/findPageAnn")
+    public PageInfo<Announcement> findPages(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize){
+        log.debug("开始分页！");
+        PageHelper.startPage(currentPage,pagesize);
+        List<Announcement>listann=service.findAllAnn();
+        PageInfo<Announcement> unitPageInfo=new PageInfo<>(listann);
+        log.debug(listann.toString());
+        return unitPageInfo;
     }
 }
