@@ -69,7 +69,7 @@ public class Entryfees implements Serializable {
     /**
      * 撤销审核时间
      */
-    private String revokeapptime;
+    private Date revokeapptime;
 
     /**
      * 新增人员
@@ -105,6 +105,7 @@ public class Entryfees implements Serializable {
      * 时效性
      */
     private Integer timeliness;
+    private Integer approvalstate;
 
     private Register register;
 

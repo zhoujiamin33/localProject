@@ -53,5 +53,22 @@ public class RegisterController {
         Date lastupdatetime=new Date();
         return registerService.delstuRegTime(registerId,lastupdatename,lastupdatetime);
     }
-
+    //查询咨询登记表中咨询状态为有意向的数据
+    @GetMapping("/selectAttentState")
+    public List<Register> selectAttentState(){
+        log.debug("查询有意向");
+        return registerService.selectAttentState();
+    }
+    //根据id查询咨询登记
+    @GetMapping("/selectByregisterId/{registerId}")
+    public Register selectByregisterId(@PathVariable("registerId") int registerId){
+//        log.debug("查询有意向");
+        return  registerService.selectByregisterId(registerId);
+    }
+    //修改咨询登记表的缴费状态
+    @PutMapping("/updatepaystate/{registerId}")
+    public Register updatepaystate(@PathVariable("registerId") Integer  registerId){
+        Register register= registerService.updatepaystate(registerId);
+        return register;
+    }
 }

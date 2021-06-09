@@ -2,6 +2,7 @@ package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Course;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface CourseDao {
 
     int insertCoursetype(Course course);
 
-    Course selectByPrimaryKey(Integer courseId);
-
     int updateByPrimaryKey(Course course);
+
+    Course selectByPrimaryKey(@PathVariable("courseId") Integer courseId);
 }

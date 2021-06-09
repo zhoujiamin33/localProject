@@ -42,7 +42,12 @@ public class CourseController {
         courseservice.updateCourse(course);
         return course;
     }
-
+    //根据id查询课程
+    @GetMapping("/selectByCourseId/{courseId}")
+    public Course selectByCourseId(@PathVariable("courseId") Integer courseId){
+        log.debug("根据id查询课程");
+        return courseservice.selectByPrimaryKey(courseId);
+    }
     //----------------------------------------教室表--------------------------------------------------------------------
 
     @GetMapping("/findClassroom")

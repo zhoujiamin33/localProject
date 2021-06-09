@@ -8,6 +8,7 @@ import com.trkj.thirdproject.entity.Detailcourse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -41,6 +42,12 @@ public class CourseServiceImpl implements CourseService {
         course.setUpdatetime(new Date());
         log.debug("课程修改成功！");
         coursedao.updateCourse(course);
+        return course;
+    }
+
+    @Override
+    public Course selectByPrimaryKey(@PathVariable("courseId") Integer courseId) {
+        Course course= coursedao.selectByPrimaryKey(courseId);
         return course;
     }
 

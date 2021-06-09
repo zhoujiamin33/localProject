@@ -1,3 +1,32 @@
+PUT http://localhost:8089/threeproject/updatepaystate/1
+Accept: application/json
+
+###
+POST http://localhost:8089/threeproject/insertEntry
+Content-Type: application/json
+
+{
+  "feesName": "11",
+  "registerId": 1,
+  "feesReceivable": "1200",
+  "feesType": 0,
+  "feesAdvance": "0",
+  "receipts":"1200"
+}
+
+###
+GET http://localhost:8089/threeproject/selectByCourseId/2
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/selectByregisterId/4
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/selectAttentState
+Accept: application/json
+
+###
 POST http://localhost:8089/threeproject/addDetails
 Content-Type: application/json
 
@@ -10,7 +39,7 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:8089/threeproject/findEntryFees
+GET http://localhost:8089/threeproject/findEntryFees1
 Accept: application/json
 
 ###

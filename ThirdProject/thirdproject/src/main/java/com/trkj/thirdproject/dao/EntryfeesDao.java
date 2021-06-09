@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface EntryfeesDao {
-    int deleteByPrimaryKey(Integer feesId);
+    int deleteByPrimaryKey(Entryfees entryfees);
 
     int insertentryfees(Entryfees entryfees);
 
@@ -18,4 +18,8 @@ public interface EntryfeesDao {
     int updateByPrimaryKeySelective(Entryfees record);
 
     int updateByPrimaryKey(Entryfees record);
+
+    int updateapproval(Entryfees entryfees);
+
+    int updateRevokeapproval(Entryfees entryfees);
 }

@@ -72,8 +72,8 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from course
-    where Course_Id = #{courseId,jdbcType=INTEGER}
+    from course c
+    where c.Course_Id = #{courseId,jdbcType=INTEGER}
   </select>
 
   <!--  根据id删除所有课程-->

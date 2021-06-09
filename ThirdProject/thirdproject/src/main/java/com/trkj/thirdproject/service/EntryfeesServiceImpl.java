@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,8 +24,39 @@ public class EntryfeesServiceImpl implements EntryfeesService {
     @Override
     public Entryfees insertentryfees(Entryfees entryfees) {
         entryfees.setAddname("Tsm管理员");
+        entryfees.setAddtime(new Date());
+        String number = "B";
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String result = number+ dateFormat.format(new Date()) + entryfees.toString().length();
+        entryfees.setFeesName(result);
         entryfeesdao.insertentryfees(entryfees);
         log.debug("新增报班缴费");
         return entryfees;
     }
+
+    @Override
+    public Entryfees updateapproval(Entryfees entryfees) {
+        entryfees.setApprovaltime(new Date());
+        entryfees.setApprovalname("admin");
+        entryfeesdao.updateapproval( entryfees);
+        return entryfees ;
+    }
+
+    @Override
+    public Entryfees updateRevokeapproval(Entryfees entryfees) {
+        entryfees.setRevokeappname("Tsm管理员");
+        entryfees.setRevokeapptime(new Date());
+        entryfeesdao.updateRevokeapproval(entryfees);
+        return entryfees ;
+    }
+
+    @Override
+    public Entryfees deleteByPrimaryKey(Entryfees entryfees) {
+        entryfees.setDeletename("admin");
+        entryfees.setDeletetime(new Date());
+        entryfeesdao.deleteByPrimaryKey(entryfees);
+        return entryfees;
+    }
+
+
 }

@@ -4,6 +4,7 @@ import com.trkj.thirdproject.dao.RegisterDao;
 import com.trkj.thirdproject.entity.Register;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -40,5 +41,21 @@ public class RegisterServiceImpl implements RegisterService {
             registerDao.delstuRegTime(unitid,lastupdatename,lastupdatetime);
         }
         return 1;
+    }
+
+    @Override
+    public List<Register> selectAttentState() {
+        return registerDao.selectAttentState();
+    }
+
+    @Override
+    public Register selectByregisterId(Integer registerId) {
+        log.debug(registerId+"1111111111111");
+        return registerDao.selectByregisterId(registerId);
+    }
+
+    @Override
+    public Register updatepaystate(Integer registerId) {
+        return  registerDao.updatepaystate(registerId);
     }
 }
