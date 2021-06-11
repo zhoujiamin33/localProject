@@ -33,10 +33,6 @@ public class Source implements Serializable {
      */
     private Date addtime;
 
-    /**
-     * 咨询内容
-     */
-    private String consultcontent;
 
     /**
      * 最后修改人员

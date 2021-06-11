@@ -18,8 +18,9 @@
     ClassRoom_Id, ClassRoom_Name, Cacacity, Place, AddName, AddTime, UpdateName, UpdateTime, 
     DeleteName, DeleteTime, TimeLiness
   </sql>
+<!--  查询所有教室-->
   <select id="findAllRoom" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from classroom
+    select <include refid="Base_Column_List"/> from classroom where TimeLiness=0
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

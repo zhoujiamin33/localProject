@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.entity.Book;
 import com.trkj.thirdproject.entity.Bookstorage;
 import com.trkj.thirdproject.service.BookstorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,5 +34,11 @@ public class BookstorageController {
         List<Bookstorage> entityPage=bookstorageService.selectAll();
         PageInfo<Bookstorage> classtypePageInfo=new PageInfo<>(entityPage);
         return classtypePageInfo;
+    }
+
+    //-----------------------------------教材表-----------------------------------------------------------------------------
+    @GetMapping("/findbook")
+    public List<Book> findbook(){
+        return bookstorageService.selectAllBook();
     }
 }

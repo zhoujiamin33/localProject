@@ -15,6 +15,8 @@ public interface CourseService {
     Course updateCourse(Course course);
     //根据id查询课程
     Course selectByPrimaryKey(@PathVariable("courseId") Integer courseId);
+    //根据课类id查询所有课程
+    List<Course> selectByCourseTypeName(String  classtypeName);
 
     //-----------------------------------------------课程详情数据--------------------------------------------------------------
     List<Detailcourse> selectByKey(Integer course_id);

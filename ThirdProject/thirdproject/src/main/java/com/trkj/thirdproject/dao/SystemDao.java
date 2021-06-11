@@ -1,9 +1,11 @@
 package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.System;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface SystemDao {
     int deleteByPrimaryKey(Integer systemId);
 

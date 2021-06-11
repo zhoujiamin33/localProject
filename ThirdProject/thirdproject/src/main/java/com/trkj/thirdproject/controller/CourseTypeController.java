@@ -45,4 +45,9 @@ public class CourseTypeController {
         courseTypeService.updateType(classtype);
         return classtype;
     }
+    //没有分页的查询数据
+    @GetMapping("/findClassType")
+    public List<Classtype> findClassType(){
+        return courseTypeService.selectAllClassType();
+    }
 }

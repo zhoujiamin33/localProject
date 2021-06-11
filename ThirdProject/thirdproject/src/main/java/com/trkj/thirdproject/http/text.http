@@ -1,3 +1,70 @@
+PUT http://localhost:8089/threeproject/updateClass
+Content-Type: application/json
+
+{
+ "courseId": 2,
+  "classroomId": 3,
+  "starteddate": "2021-06-11",
+  "enddate": "2021-09-11",
+  "updatename":"admin",
+  "updatetime": "2021-06-11",
+  "classesId": 1
+}
+
+###
+
+
+###
+POST http://localhost:8089/threeproject/insertClass
+Content-Type: application/json
+
+{
+ "classesName":"2021届春季游泳少儿游泳",
+ "courseId": 1,
+  "classroomId": 1,
+ "teacherId": 2,
+  "empId": 2,
+  "StartedDate": "2021-06-11",
+  "EndDate": "2021-09-11"
+}
+
+###
+GET http://localhost:8089/threeproject/findEmp
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/findAllClassRoom
+Accept: application/json
+
+###
+
+
+GET http://localhost:8089/threeproject/findbook
+Accept: application/json
+
+###
+###查询所有课类
+GET http://localhost:8089/threeproject/findClassType
+Accept: application/json
+
+###
+###根据课类名称查询所有课程
+GET http://localhost:8089/threeproject/selectByCourseTypeId/围棋
+Accept: application/json
+
+###查询所有学期
+GET http://localhost:8089/threeproject/findSemester
+Accept: application/json
+
+###查询所有年届
+GET http://localhost:8089/threeproject/findyear
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/findAllClass
+Accept: application/json
+
+###
 PUT http://localhost:8089/threeproject/updatepaystate/1
 Accept: application/json
 

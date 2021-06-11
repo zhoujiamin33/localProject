@@ -1,7 +1,9 @@
 package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Systemtype;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface SystemtypeDao {
     int deleteByPrimaryKey(Integer systemtypeId);
 

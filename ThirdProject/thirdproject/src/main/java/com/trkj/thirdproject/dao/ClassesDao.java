@@ -7,16 +7,16 @@ import java.util.List;
 @Mapper
 public interface ClassesDao {
     int deleteByPrimaryKey(Integer classesId);
+    //新增班级
+    int insert(Classes classes);
 
-    int insert(Classes record);
-
-    int insertSelective(Classes record);
+    Classes insertSelective(Classes record);
 
     Classes selectByPrimaryKey(Integer classesId);
-
+    //修改班级
     int updateByPrimaryKeySelective(Classes record);
 
     int updateByPrimaryKey(Classes record);
     //查询所有外键表：course
-   List<Classes> findclass(Integer classesId);
+   List<Classes> findAllclass();
 }

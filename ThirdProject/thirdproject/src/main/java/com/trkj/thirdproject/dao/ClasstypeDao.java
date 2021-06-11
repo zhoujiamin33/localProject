@@ -23,8 +23,8 @@ public interface ClasstypeDao {
     int insert(Classtype classtype);
 
 
-
-    Classtype selectByPrimaryKey(Integer classtypeId);
+////根据id查询数据
+//    Classtype selectByPrimaryKey(Integer classtypeId);
 
 
     //修改

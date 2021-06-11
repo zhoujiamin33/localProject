@@ -10,12 +10,14 @@
     <result column="SafeStock" jdbcType="INTEGER" property="safestock" />
     <result column="Press" jdbcType="VARCHAR" property="press" />
     <result column="State" jdbcType="INTEGER" property="state" />
-    <result column="STORAGE" jdbcType="INTEGER" property="storage" />
   </resultMap>
   <sql id="Base_Column_List">
-    Book_Id, BookName, DeliveryCount, BookSprice, BookJprice, SafeStock, Press, `State`, 
-    `STORAGE`
+    Book_Id, BookName, DeliveryCount, BookSprice, BookJprice, SafeStock, Press, `State`
   </sql>
+<!--  查询所有教材-->
+  <select id="selectAllBook" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from book
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

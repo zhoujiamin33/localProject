@@ -1,6 +1,8 @@
 package com.trkj.thirdproject.service;
 
+import com.trkj.thirdproject.dao.BookDao;
 import com.trkj.thirdproject.dao.BookstorageDao;
+import com.trkj.thirdproject.entity.Book;
 import com.trkj.thirdproject.entity.Bookstorage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import java.util.List;
 public class BookstorageServiceImpl implements BookstorageService {
     @Autowired
     private BookstorageDao bookstorageDao;
+    @Autowired
+    private BookDao bookdao;
     @Override
     public List<Bookstorage> selectAll() {
         return bookstorageDao.selectAll();
@@ -22,5 +26,10 @@ public class BookstorageServiceImpl implements BookstorageService {
     public Bookstorage addBookstorage(Bookstorage bookstorage) {
         bookstorageDao.addBookstorage(bookstorage);
         return bookstorage;
+    }
+
+    @Override
+    public List<Book> selectAllBook() {
+        return bookdao.selectAllBook();
     }
 }

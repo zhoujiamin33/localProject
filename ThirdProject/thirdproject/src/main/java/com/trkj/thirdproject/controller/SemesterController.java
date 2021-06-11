@@ -42,6 +42,12 @@ public class SemesterController {
         PageInfo<Semester> classtypePageInfo=new PageInfo<>(entityPage);
         return classtypePageInfo;
     }
+
+    //没有分页的查询所有
+    @GetMapping("/findSemester")
+    public List<Semester> findSemester(){
+      return  semesterService.selectAIISemesters();
+    }
 }
 
 

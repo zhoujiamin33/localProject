@@ -24,8 +24,6 @@ Student addstudent(Student student);
 //    //查询所有值（生源渠道）
 //    List<Source> selectalls();
 
-    //查询所有外键表：course（课程表）
-    List<Classes> findclass(Integer classesId);
 
 //    学员交接表的修改
 int updateByPrimaryKeySelective(Memorandumattachment record);

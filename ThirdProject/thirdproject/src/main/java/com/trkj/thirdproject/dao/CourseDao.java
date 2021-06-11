@@ -22,4 +22,6 @@ public interface CourseDao {
     int updateByPrimaryKey(Course course);
 
     Course selectByPrimaryKey(@PathVariable("courseId") Integer courseId);
+    //根据课类id查询所有课程
+    List<Course> selectByCourseTypeName(String  classtypeName);
 }

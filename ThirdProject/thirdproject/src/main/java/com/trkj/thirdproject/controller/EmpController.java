@@ -22,7 +22,11 @@ public class EmpController {
         List<Emp> entityPage=empService.selectAllEmp();
         PageInfo<Emp> empPageInfo=new PageInfo<>(entityPage);
         return empPageInfo;
-
+    }
+    //没有分页的查询所有员工
+    @GetMapping("/findEmp")
+    public List<Emp> findEmp(){
+        return empService.selectAllEmp();
     }
     @PostMapping("/emp")
     public Emp Addemp(@RequestBody Emp emp){

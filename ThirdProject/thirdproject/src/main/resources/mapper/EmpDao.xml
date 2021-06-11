@@ -343,7 +343,10 @@
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_List1"/>,<include
           refid="Base_Column_List2"/>,<include refid="Base_Column_enterprise"/>
-    from emp e inner join Dept d on e.Dept_Id=d.Dept_Id inner join `Position` p on e.Position_Id=p.Position_Id inner join enterprise ent on e.Enterprise_Id=ent.Enterprise_Id
+    from emp e
+    inner join Dept d on e.Dept_Id=d.Dept_Id
+    inner join `Position` p on e.Position_Id=p.Position_Id
+    inner join enterprise ent on e.Enterprise_Id=ent.Enterprise_Id
     where e.EmpState=0
   </select>
 

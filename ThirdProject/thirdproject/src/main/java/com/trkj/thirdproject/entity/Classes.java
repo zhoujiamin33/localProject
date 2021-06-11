@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,6 +21,10 @@ public class Classes implements Serializable {
      * 班级名称
      */
     private String classesName;
+    /**
+     * 班级号
+     */
+    private String classesNumber;
 
     /**
      * 开班状态
@@ -46,6 +51,7 @@ public class Classes implements Serializable {
     /**
      * 班主任编号
      */
+    private Emp emp;
     private Integer empId;
 
     /**
@@ -56,16 +62,19 @@ public class Classes implements Serializable {
     /**
      * 培训开始时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date starteddate;
 
     /**
      * 培训计划结束日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date enddate;
 
     /**
      * 培训最终结束日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date lastdate;
 
     /**
@@ -76,6 +85,7 @@ public class Classes implements Serializable {
     /**
      * 新增时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date addtime;
 
     /**
@@ -86,22 +96,30 @@ public class Classes implements Serializable {
     /**
      * 最后修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatetime;
 
     /**
      * 最后删除人员
      */
+
     private String deletename;
 
     /**
      * 最后删除时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date deletetime;
 
     /**
      * 时效性
      */
     private Integer timeliness;
+    /**
+     * 教材编号
+     */
+    private Book book;
+    private Integer userbookId;
 
     private static final long serialVersionUID = 1L;
 }

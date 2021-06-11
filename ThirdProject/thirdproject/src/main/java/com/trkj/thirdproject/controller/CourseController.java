@@ -48,6 +48,12 @@ public class CourseController {
         log.debug("根据id查询课程");
         return courseservice.selectByPrimaryKey(courseId);
     }
+    //根据课类名称查询课程
+    @GetMapping("/selectByCourseTypeId/{courseTypeName}")
+    public List<Course> selectByCourseTypeId(@PathVariable("courseTypeName") String  courseTypeName){
+        log.debug("根据课类名称查询课程");
+        return courseservice.selectByCourseTypeName(courseTypeName);
+    }
     //----------------------------------------教室表--------------------------------------------------------------------
 
     @GetMapping("/findClassroom")
@@ -57,6 +63,10 @@ public class CourseController {
         List<Classroom> entityPage=classRoomService.findAllRoom();
         PageInfo<Classroom> classroomPageInfo=new PageInfo<>(entityPage);
         return classroomPageInfo;
+    }
+    @GetMapping("/findAllClassRoom")
+    public List<Classroom> findAllClassRoom(){
+        return classRoomService.findAllRoom();
     }
     @PostMapping("/addClassRoom")
     public Classroom addClassRoom( @RequestBody Classroom classroom){

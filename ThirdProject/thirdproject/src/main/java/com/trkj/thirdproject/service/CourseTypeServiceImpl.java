@@ -42,6 +42,12 @@ public class CourseTypeServiceImpl implements CourseTypeService {
         return classtype;
     }
 
+//    @Override
+//    public Classtype selectByPrimaryKey(Integer classtypeId) {
+//        Classtype classtype=classtypedao.selectByPrimaryKey(classtypeId);
+//        return  classtype;
+//    }
+
     @Override
     public int updateCourseType(List<Integer> classtypeId, String deletename, Date deleteTime) {
         for(int classtypeid:classtypeId){

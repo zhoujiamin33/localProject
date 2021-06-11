@@ -20,7 +20,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 //    查询
-    @GetMapping("findstudent")
+    @GetMapping("/findstudent")
     public PageInfo<Student> findstudent(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         log.debug("开始查询");
         PageHelper.startPage(currentPage,pagesize);
@@ -62,11 +62,11 @@ public class StudentController {
     public List<Student> findNameandPhone(@PathVariable("studentName") String studentName, @PathVariable("studentPhone") String studentPhone){
         return studentService.slectNameAndPhone(studentName, studentPhone);
    }
-    //查询所有外键表：course（课程表）
-    @GetMapping("/findclassall")
-    public List<Classes> findclassall(@RequestParam("classesId") Integer classesId){
-        return studentService.findclass(classesId);
-    }
+//    //查询所有外键表：course（课程表）
+//    @GetMapping("/findclassall")
+//    public List<Classes> findclassall(@RequestParam("classesId") Integer classesId){
+//        return studentService.findclass(classesId);
+//    }
 //    修改学员交接状态：审核状态为已审核
     @PutMapping("/editstate")
     public void editstate(@RequestBody Memorandumattachment record){

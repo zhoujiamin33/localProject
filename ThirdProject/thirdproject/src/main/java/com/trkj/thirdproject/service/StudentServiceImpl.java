@@ -60,11 +60,6 @@ for (Integer c:studentId) {
     public List<Student> slectNameAndPhone(String Name, String Phone) {
         return studentDao.slectNameAndPhone(Name, Phone);
     }
-    //查询所有外键表：course（课程表）
-    @Override
-    public List<Classes> findclass(Integer classesId) {
-        return classesDao.findclass(classesId);
-    }
 //修改学员交接状态：审核状态为已审核
     @Override
     public int updateByPrimaryKeySelective(Memorandumattachment record) {

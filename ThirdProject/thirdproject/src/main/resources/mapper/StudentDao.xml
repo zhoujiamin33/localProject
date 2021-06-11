@@ -28,7 +28,7 @@
       <result column="Source_Name" jdbcType="VARCHAR" property="sourceName" />
       <result column="AddName" jdbcType="VARCHAR" property="addname" />
       <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
-      <result column="ConsultContent" jdbcType="VARCHAR" property="consultcontent" />
+<!--      <result column="ConsultContent" jdbcType="VARCHAR" property="consultcontent" />-->
       <result column="LastUpdateName" jdbcType="VARCHAR" property="lastupdatename" />
       <result column="LastUpdateTime" jdbcType="TIMESTAMP" property="lastupdatetime" />
       <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
@@ -39,6 +39,7 @@
       <result column="LastRevokeTime" jdbcType="TIMESTAMP" property="lastrevoketime" />
       <result column="LastRevokeName" jdbcType="VARCHAR" property="lastrevokename" />
     </association>
+<!--    咨询表-->
     <association property="register" javaType="com.trkj.thirdproject.entity.Register">
       <id column="Register_Id" jdbcType="INTEGER" property="registerId" />
       <result column="ConsultAnt" jdbcType="VARCHAR" property="consultant" />
@@ -87,7 +88,7 @@
     stu.UpdateName, stu.UpdateTime, stu.DeleteName, stu.DeleteTime, stu.TimeLiness, stu.StudyTime
   </sql>
   <sql id="Base_Column_Source">
-    s.Source_Id, s.Source_Name, s.AddName, s.AddTime, s.ConsultContent, s.LastUpdateName, s.LastUpdateTime,
+    s.Source_Id, s.Source_Name, s.AddName, s.AddTime, s.LastUpdateName, s.LastUpdateTime,
     s.DeleteName, s.DeleteTime, s.IsExamine, s.LastExamineTime, s.LastExamineName, s.LastRevokeTime,
     s.LastRevokeName
   </sql>

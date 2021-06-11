@@ -37,6 +37,13 @@
     t.ClassType_Id, t.ClassType_Name, t.AddName, t.AddTime, t.UpdateName, t.UpdateTime, t.DeleteName,
    t.DeleteTime, t.TimeLiness
   </sql>
+<!--  根据课类名称查询所有课程-->
+  <select id="selectByCourseTypeName" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />,<include refid="BaseType"/>
+    from course c
+    inner join classtype t on c.ClassType_Id=t.ClassType_Id
+    where t.ClassType_Name=#{classtypeName,jdbcType=VARCHAR}
+  </select>
 <!--  搜索课程-->
   <select id="selectAllCourse"  resultMap="BaseResultMap">
     select  <include refid="Base_Column_List" />,<include refid="BaseType"/> from course c inner join classtype t on c.ClassType_Id=t.ClassType_Id

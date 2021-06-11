@@ -42,4 +42,9 @@ public class SessionController {
         PageInfo<Session> classtypePageInfo=new PageInfo<>(entityPage);
         return classtypePageInfo;
     }
+    //没有分页的查询所有年届
+    @GetMapping("/findyear")
+    public List<Session> findyear(){
+        return sessionService.selectAIISessions();
+    }
 }

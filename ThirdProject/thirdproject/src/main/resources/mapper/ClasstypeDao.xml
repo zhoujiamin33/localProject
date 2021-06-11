@@ -24,14 +24,6 @@
   </select>
 
 
-<!--根据id查询数据-->
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from classtype
-    where ClassType_Id = #{classtypeId,jdbcType=INTEGER}
-  </select>
-
 <!--  根据姓名模糊查询-->
 <select id="selectByname" resultMap="BaseResultMap">
   select <include refid="Base_Column_List"/> from classtype
