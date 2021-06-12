@@ -2,6 +2,8 @@ package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Classes;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 @Mapper
@@ -19,4 +21,6 @@ public interface ClassesDao {
     int updateByPrimaryKey(Classes record);
     //查询所有外键表：course
    List<Classes> findAllclass();
+   //班级表中的多条件查询
+   List<Classes> selectByContion(@Param("value")String value,@Param("input") String input);
 }

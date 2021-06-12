@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Studentoutstanding">
     <id column="outstanding_Id" jdbcType="INTEGER" property="outstandingId" />
     <result column="Fees_Id" jdbcType="INTEGER" property="feesId" />
+<!--    单据号-->
     <result column="outstanding_Name" jdbcType="VARCHAR" property="outstandingName" />
     <result column="outstanding_Date" jdbcType="TIMESTAMP" property="outstandingDate" />
     <result column="AlongMoney" jdbcType="DECIMAL" property="alongmoney" />
@@ -86,36 +87,57 @@
      reg.DeleteTime
   </sql>
 
+<!--多条件查询-->
+<select id="selectBycontion">
+  select
+  <include refid="outstanding" />,
+  <include refid="entryfees"/>,
+  <include refid="register"/>
+  from studentoutstanding s
+  inner join register reg on entry.Register_Id=reg.Register_Id
+  inner join entryfees entry on entry.Fees_Id=s.Fees_Id
+  <where>
+    <if test="select='单据号' and input!=null">
+      s.outstanding_Name like CONCAT(CONCAT('%',#{input},'%'))
+    </if>
+    <if test="select='姓名' and input!=null">
+      s.outstanding_Name like CONCAT(CONCAT('%',#{input},'%'))
+    </if>
+  </where>
+  order by AddTime desc
+</select>
+
+<!--  在报班缴费中查询缴费方式未预交费的数据-->
   <select id="selectoutonentry" resultMap="BaseResultMap">
     select <include refid="entryfees"/> ,<include refid="register"/> from entryfees entry
     inner join register reg on entry.Register_Id=reg.Register_Id
     where entry.Fees_Type=1 and entry.TimeLiness=0
+    order by entry.AddTime desc
   </select>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="outstanding" />
-    from studentoutstanding
-    where outstanding_Id = #{outstandingId,jdbcType=INTEGER}
+<!--查询所有欠费补缴数据-->
+  <select id="selectoutstanding" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select <include refid="outstanding"/>
+    from studentoutstanding s where  s.TimeLiness=0
+    order by s.AddTime desc
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from studentoutstanding
     where outstanding_Id = #{outstandingId,jdbcType=INTEGER}
   </delete>
+
+  <!--  新增欠费补缴-->
+<!--  AlongMoney补缴金额，Accumulated累计欠费-->
   <insert id="insert" keyColumn="outstanding_Id" keyProperty="outstandingId" parameterType="com.trkj.thirdproject.entity.Studentoutstanding" useGeneratedKeys="true">
     insert into studentoutstanding (Fees_Id, outstanding_Name, outstanding_Date, 
-      AlongMoney, Accumulated, AddName, 
-      AddTime, UpdateName, UpdateTime, 
-      DeleteName, DeleteTime, ApprovalName, 
-      ApprovalTime, RevokeAppName, RevokeAppTime, 
-      TimeLiness)
+      AlongMoney, Accumulated, AddName,AddTime)
     values (#{feesId,jdbcType=INTEGER}, #{outstandingName,jdbcType=VARCHAR}, #{outstandingDate,jdbcType=TIMESTAMP}, 
-      #{alongmoney,jdbcType=DECIMAL}, #{accumulated,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR}, 
-      #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
-      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{approvalname,jdbcType=VARCHAR}, 
-      #{approvaltime,jdbcType=TIMESTAMP}, #{revokeappname,jdbcType=VARCHAR}, #{revokeapptime,jdbcType=TIMESTAMP}, 
-      #{timeliness,jdbcType=INTEGER})
+      #{alongmoney,jdbcType=DECIMAL}, #{accumulated,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR},#{addtime,jdbcType=TIMESTAMP})
   </insert>
+
+
   <insert id="insertSelective" keyColumn="outstanding_Id" keyProperty="outstandingId" parameterType="com.trkj.thirdproject.entity.Studentoutstanding" useGeneratedKeys="true">
     insert into studentoutstanding
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -219,6 +241,8 @@
       </if>
     </trim>
   </insert>
+
+
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Studentoutstanding">
     update studentoutstanding
     <set>
@@ -273,6 +297,8 @@
     </set>
     where outstanding_Id = #{outstandingId,jdbcType=INTEGER}
   </update>
+
+
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Studentoutstanding">
     update studentoutstanding
     set Fees_Id = #{feesId,jdbcType=INTEGER},

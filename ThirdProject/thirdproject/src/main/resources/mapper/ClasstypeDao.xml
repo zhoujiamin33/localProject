@@ -21,6 +21,7 @@
   <select id="selectAllClassType" resultMap="BaseResultMap" >
     select <include refid="Base_Column_List"/> from classtype
     where TimeLiness=0
+    order by AddTime desc
   </select>
 
 
@@ -32,7 +33,7 @@
       ClassType_Name like CONCAT(CONCAT('%',#{classtypeName,jdbcType=VARCHAR},'%'))
     </if>
   </where>
-  ORDER BY ClassType_Id
+  order by AddTime desc
 </select>
 
 

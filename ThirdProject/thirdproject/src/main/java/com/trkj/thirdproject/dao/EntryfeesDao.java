@@ -22,4 +22,6 @@ public interface EntryfeesDao {
     int updateapproval(Entryfees entryfees);
 
     int updateRevokeapproval(Entryfees entryfees);
+    //根据id查询
+    Entryfees selectByfeeid(Integer feeId);
 }

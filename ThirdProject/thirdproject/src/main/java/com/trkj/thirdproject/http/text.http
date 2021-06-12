@@ -1,3 +1,40 @@
+POST http://localhost:8089/threeproject/insertoutstanding
+Content-Type: application/json
+
+{
+"feesId": 9,
+"alongmoney": "1000",
+"accumulated": "20000",
+"addname": "admin"
+}
+
+###
+GET http://localhost:8089/threeproject/selectoutstanding
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/findAlloutstanding
+Accept: application/json
+
+###
+POST http://localhost:8089/threeproject/insertoutstanding
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:8089/threeproject/selectByfeeidtoentry/1
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/selectByfeeid/1
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/selectByContion/班级名称/游泳
+Accept: application/json
+
+###
 PUT http://localhost:8089/threeproject/updateClass
 Content-Type: application/json
 

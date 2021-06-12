@@ -20,13 +20,13 @@
   </sql>
 <!--  查询所有教室-->
   <select id="findAllRoom" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from classroom where TimeLiness=0
+    select <include refid="Base_Column_List"/> from classroom where TimeLiness=0  order by AddTime desc
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from classroom
-    where ClassRoom_Id = #{classroomId,jdbcType=INTEGER}
+    where ClassRoom_Id = #{classroomId,jdbcType=INTEGER}  order by AddTime desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from classroom

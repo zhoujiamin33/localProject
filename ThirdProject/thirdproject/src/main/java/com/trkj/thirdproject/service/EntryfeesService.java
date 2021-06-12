@@ -14,5 +14,6 @@ public interface EntryfeesService {
     Entryfees updateRevokeapproval(Entryfees entryfees);
     //删除
     Entryfees deleteByPrimaryKey(Entryfees entryfees);
-
+    //根据id查询
+    Entryfees selectByfeeid(Integer feeId);
 }

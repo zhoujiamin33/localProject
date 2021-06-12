@@ -6,6 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,5 +20,26 @@ public class OutStandingServiceImpl implements OutStandingService {
     @Override
     public List<Studentoutstanding> selectoutonentry() {
         return outstandingdao.selectoutonentry();
+    }
+//新增欠费补缴
+    @Override
+    public Studentoutstanding insert(Studentoutstanding studentoutstanding) {
+        String number = "BJ";
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String result = number+ dateFormat.format(new Date()) + studentoutstanding.toString().length();
+        studentoutstanding.setOutstandingName(result);
+        studentoutstanding.setOutstandingDate(new Date());
+         outstandingdao.insert(studentoutstanding);
+         return studentoutstanding;
+    }
+
+    @Override
+    public List<Studentoutstanding> selectBycontion(String select, String input) {
+        return outstandingdao.selectBycontion(select, input);
+    }
+
+    @Override
+    public List<Studentoutstanding> selectoutstanding() {
+        return outstandingdao.selectoutstanding();
     }
 }

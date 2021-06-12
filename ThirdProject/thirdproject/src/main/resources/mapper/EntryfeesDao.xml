@@ -29,6 +29,7 @@
       <result column="Sex" jdbcType="VARCHAR" property="sex" />
       <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
       <result column="PlanReturnVisit" jdbcType="TIMESTAMP" property="planreturnvisit" />
+      <result column="Consultationmode" jdbcType="VARCHAR" property="consultationmode" />
       <result column="AttentState" jdbcType="INTEGER" property="attentstate" />
       <result column="PayState" jdbcType="INTEGER" property="paystate" />
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
@@ -39,6 +40,28 @@
       <result column="LastUpdateTime" jdbcType="TIMESTAMP" property="lastupdatetime" />
       <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="phone" jdbcType="VARCHAR" property="phone" />
+      <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+      <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+
+      <!--    课程-->
+      <association property="course" javaType="com.trkj.thirdproject.entity.Course">
+        <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
+        <result column="Course_Name" jdbcType="VARCHAR" property="courseName" />
+        <result column="Course_State" jdbcType="INTEGER" property="courseState" />
+        <result column="Classhours" jdbcType="INTEGER" property="classhours" />
+        <result column="Course_Money" jdbcType="DECIMAL" property="courseMoney" />
+        <result column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
+        <result column="AddName" jdbcType="VARCHAR" property="addname" />
+        <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+        <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+        <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+        <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+        <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      </association>
+
     </collection>
 
   </resultMap>
@@ -48,9 +71,14 @@
     entry.UpdateName, entry.UpdateTime, entry.DeleteName, entry.DeleteTime, entry.TimeLiness,entry.ApprovalState
   </sql>
   <sql id="register">
-     reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.AttentState, reg.PayState,
+    reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
-    reg.DeleteTime
+    reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id
+  </sql>
+
+  <sql id="course">
+    c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
+    c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
   </sql>
 
   <update id="updateapproval">
@@ -59,6 +87,18 @@
      where Fees_Id = #{feesId,jdbcType=INTEGER}
   </update>
 
+<!--根据id查询-->
+<select id="selectByfeeid" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />,
+  <include refid="register"/>,
+  <include refid="course"/>
+  from entryfees entry
+  inner join register reg on reg.Register_Id=entry.Register_Id
+  inner join course c on  reg.Course_Id=c.Course_Id
+  where  entry.TimeLiness=0 and Fees_Id = #{feesId,jdbcType=INTEGER}
+  order by entry.AddTime desc
+</select>
 
 
   <update id="updateRevokeapproval">
@@ -73,6 +113,7 @@
     <include refid="register"/>
     from entryfees entry inner join register reg on reg.Register_Id=entry.Register_Id
     where  entry.TimeLiness=0
+    order by entry.AddTime desc
   </select>
 
 
@@ -87,6 +128,8 @@
     values (#{feesName,jdbcType=VARCHAR}, #{registerId,jdbcType=INTEGER}, #{feesReceivable,jdbcType=DECIMAL}, 
       #{feesType,jdbcType=INTEGER}, #{feesAdvance,jdbcType=DECIMAL}, #{receipts,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR},#{addtime,jdbcType=TIMESTAMP})
   </insert>
+
+
   <insert id="insertSelective" keyColumn="Fees_Id" keyProperty="feesId" parameterType="com.trkj.thirdproject.entity.Entryfees" useGeneratedKeys="true">
     insert into entryfees
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -202,6 +245,8 @@
       </if>
     </trim>
   </insert>
+
+
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Entryfees">
     update entryfees
     <set>
@@ -262,6 +307,9 @@
     </set>
     where Fees_Id = #{feesId,jdbcType=INTEGER}
   </update>
+
+
+
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Entryfees">
     update entryfees
     set Fees_Name = #{feesName,jdbcType=VARCHAR},

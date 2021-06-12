@@ -38,7 +38,7 @@
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
     </association>
-
+<!--    员工表-->
     <association property="emp" javaType="com.trkj.thirdproject.entity.Emp">
       <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
       <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
@@ -69,6 +69,7 @@
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
       <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
     </association>
+<!--    教材表-->
     <association property="book" javaType="com.trkj.thirdproject.entity.Book">
       <id column="Book_Id" jdbcType="INTEGER" property="bookId" />
       <result column="BookName" jdbcType="VARCHAR" property="bookname" />
@@ -79,7 +80,24 @@
       <result column="Press" jdbcType="VARCHAR" property="press" />
       <result column="State" jdbcType="INTEGER" property="state" />
     </association>
+    <association property="classroom" javaType="com.trkj.thirdproject.entity.Classroom">
+      <id column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
+      <result column="ClassRoom_Name" jdbcType="VARCHAR" property="classroomName" />
+      <result column="Cacacity" jdbcType="INTEGER" property="cacacity" />
+      <result column="Place" jdbcType="VARCHAR" property="place" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </association>
   </resultMap>
+  <sql id="classRoom">
+    cr.ClassRoom_Id, cr.ClassRoom_Name, cr.Cacacity, cr.Place, cr.AddName, cr.AddTime, cr.UpdateName, cr.UpdateTime,
+    cr.DeleteName, cr.DeleteTime, cr.TimeLiness
+  </sql>
   <sql id="emp">
      e.Emp_Id,  e.Position_Id,  e.Dept_Id,  e.Enterprise_Id,  e.JobNumber,  e.Emp_Name,  e.Emp_Sex,  e.Emp_Phone,
      e.E_mail,  e.Birthday,  e.PersonalInformationPhoto,  e.Photo,  e.Education,  e.Graduate,  e.Remarks,
@@ -99,11 +117,39 @@
     b.Book_Id, b.BookName, b.DeliveryCount, b.BookSprice, b.BookJprice, b.SafeStock, b.Press, b.`State`
   </sql>
 
+
+<!--  多条件查询-->
+  <select id="selectByContion" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_course"/>,
+    <include refid="emp"/>,
+    <include refid="classRoom"/>,
+    <include refid="book"/>
+    from classes cl
+    inner join course c on cl.Course_Id=c.Course_Id
+    inner join emp e on e.Emp_Id=cl.Emp_Id
+    inner join book b on b.Book_Id=cl.User_BookId
+    inner join classroom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    <where>
+      <if test="value=='班级名称' and input!=null">
+        cl.Classes_Name like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+      <if test="value=='班级编号' and input!=null">
+        cl.Classes_Number like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+      <if test="value=='上课教师' and input!=null">
+        e.Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+    </where>
+    order by cl.AddTime desc
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from classes
     where Classes_Id = #{classesId,jdbcType=INTEGER}
+    order by AddTime desc
   </select>
 <!--  查询所有班级-->
   <select id="findAllclass"  resultMap="BaseResultMap">
@@ -111,11 +157,13 @@
     <include refid="Base_Column_List" />,
     <include refid="Base_Column_course"/>,
     <include refid="emp"/>,
+    <include refid="classRoom"/>,
     <include refid="book"/>
     from classes cl
     inner join course c on cl.Course_Id=c.Course_Id
     inner join emp e on e.Emp_Id=cl.Emp_Id
     inner join book b on b.Book_Id=cl.User_BookId
+    inner join classroom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
     where cl.TimeLiness=0
     order  by cl.AddTime desc
   </select>

@@ -56,7 +56,7 @@
     </association>
 
     <!--    课程-->
-    <collection property="course" ofType="com.trkj.thirdproject.entity.Course">
+    <association property="course" javaType="com.trkj.thirdproject.entity.Course">
       <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
       <result column="Course_Name" jdbcType="VARCHAR" property="courseName" />
       <result column="Course_State" jdbcType="INTEGER" property="courseState" />
@@ -70,11 +70,11 @@
       <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    </collection>
+    </association>
 
 
     <!--    生源渠道-->
-    <collection property="source" ofType="com.trkj.thirdproject.entity.Source">
+    <association property="source" javaType="com.trkj.thirdproject.entity.Source">
       <id column="Source_Id" jdbcType="INTEGER" property="sourceId" />
       <result column="Source_Name" jdbcType="VARCHAR" property="sourceName" />
       <result column="AddName" jdbcType="VARCHAR" property="addname" />
@@ -88,7 +88,7 @@
       <result column="LastExamineName" jdbcType="VARCHAR" property="lastexaminename" />
       <result column="LastRevokeTime" jdbcType="TIMESTAMP" property="lastrevoketime" />
       <result column="LastRevokeName" jdbcType="VARCHAR" property="lastrevokename" />
-    </collection>
+    </association>
   </resultMap>
 
   <sql id="Base_Column_List">

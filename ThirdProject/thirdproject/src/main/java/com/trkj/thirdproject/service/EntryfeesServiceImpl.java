@@ -58,5 +58,11 @@ public class EntryfeesServiceImpl implements EntryfeesService {
         return entryfees;
     }
 
+    @Override
+    public Entryfees selectByfeeid(Integer feeId) {
+        Entryfees entryfees=entryfeesdao.selectByfeeid(feeId);
+        return entryfees;
+    }
+
 
 }

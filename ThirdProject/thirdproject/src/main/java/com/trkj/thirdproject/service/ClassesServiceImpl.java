@@ -39,4 +39,9 @@ public class ClassesServiceImpl implements ClassesService {
         classesdao.updateByPrimaryKeySelective(classes);
         return classes;
     }
+
+    @Override
+    public List<Classes> selectByContion(String value, String input) {
+       return classesdao.selectByContion(value, input);
+    }
 }
