@@ -38,8 +38,8 @@ empDao.deleteByPrimaryKey(EmpId);
     }
 
     @Override
-    public List<Emp> findalls(String select,String input) {
-        return empDao.findalls(select,input);
+    public List<Emp> findalls(String index,String value) {
+        return empDao.findalls(index,value);
     }
 //批量删除
     @Override

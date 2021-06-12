@@ -16,7 +16,8 @@ public interface RegisterDao {
 
     int insertSelective(Register record);
 
-    List<Register> selectRegister();
+    //学员表中查看详情获取课程顾问：根据咨询编号查询
+    Register selectRegister(Integer RegisterId);
 
     int updateByPrimaryKeySelective(Register record);
 
@@ -24,7 +25,7 @@ public interface RegisterDao {
     //   咨询登记交的状态为已就读接给学员表中
     List<Register> showstudent();
     //根据id查询咨询登记
-    Register selectByregisterId(@PathVariable("registerId") Integer registerId);
+    Register selectByregisterId(Integer registerId);
 
     //删除
     int delstuRegTime(@Param("registerId" ) int Register_Id, @Param( "lastupdatename") String LastUpdateName, @Param("lastupdatetime")Date LastUpdateTime);
@@ -34,6 +35,8 @@ public interface RegisterDao {
 
     //修改咨询登记的缴费状态
     Register updatepaystate(Integer registerId );
+    //<!--查询出咨询登记为已缴费已就读学员的信息-->
+    List<Register> selectPay_AttentState();
 
 }
 

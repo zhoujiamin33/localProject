@@ -20,7 +20,7 @@ public class Memorandumattachment implements Serializable {
     /**
      * 咨询登记编号
      */
-    private Register register;
+    private List<Register> register;
     private Integer registerId;
 
     /**

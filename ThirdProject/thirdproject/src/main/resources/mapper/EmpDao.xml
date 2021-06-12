@@ -356,11 +356,17 @@
           refid="Base_Column_List2"/>
     from emp e inner join Dept d on e.Dept_Id=d.Dept_Id inner join `Position` p on e.Position_Id=p.Position_Id
     <where>
-      <if test="input!=null and select=='empName'">
-        Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
+      <if test="value!=null and index=='Emp_Name'">
+        Emp_Name like CONCAT(CONCAT('%',#{value},'%'))
       </if>
-      <if test="input!=null and select=='empSex'">
-        and Emp_Sex like CONCAT(CONCAT('%',#{input},'%'))
+      <if test="value!=null and index=='Emp_Sex'">
+        Emp_Sex like CONCAT(CONCAT('%',#{value},'%'))
+      </if>
+      <if test="index=='JobNumber' and value!=null">
+        JobNumber like CONCAT(CONCAT('%',#{value},'%'))
+      </if>
+      <if test="index=='WorkersState' and value!=null">
+        WorkersState like CONCAT(CONCAT('%',#{value},'%'))
       </if>
     </where>
   </select>

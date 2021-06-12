@@ -51,11 +51,11 @@ public class EmpController {
     }
     //模糊查询
     @GetMapping("/findalls")
-    public List<Emp> findalls( @RequestParam("select") String select, @RequestParam("input") String input){
-//        PageHelper.startPage(currentPage,pagesize);
-//        List<Emp> entityPage=
-//        PageInfo<Emp> empPageInfo=new PageInfo<>(entityPage);
-        return empService.findalls(select,input);
+    public PageInfo<Emp> findalls(@RequestParam("index") String index, @RequestParam("value") String value,@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Emp> entityPage=empService.findalls(index,value);
+        PageInfo<Emp> empPageInfo=new PageInfo<>(entityPage);
+        return empPageInfo;
 
     }
     //批量删除

@@ -21,4 +21,8 @@ public interface MemorandumattachmentDao {
     //<!--  查询所有（咨询登记）-->
 
     List<Memorandumattachment> selectregister(Integer memorandumattachmentid);
+
+    //<!--  在学员交接表查询所有（咨询登记）-->
+
+    List<Memorandumattachment> selectregister();
 }

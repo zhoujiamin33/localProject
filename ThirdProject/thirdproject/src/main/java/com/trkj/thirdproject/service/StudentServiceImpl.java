@@ -1,13 +1,7 @@
 package com.trkj.thirdproject.service;
 
-import com.trkj.thirdproject.dao.ClassesDao;
-import com.trkj.thirdproject.dao.MemorandumattachmentDao;
-import com.trkj.thirdproject.dao.SourceDao;
-import com.trkj.thirdproject.dao.StudentDao;
-import com.trkj.thirdproject.entity.Classes;
-import com.trkj.thirdproject.entity.Memorandumattachment;
-import com.trkj.thirdproject.entity.Source;
-import com.trkj.thirdproject.entity.Student;
+import com.trkj.thirdproject.dao.*;
+import com.trkj.thirdproject.entity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +18,11 @@ public class StudentServiceImpl implements StudentService {
     private ClassesDao classesDao;
     @Autowired
     private MemorandumattachmentDao memorandumattachmentDao;
-//    @Autowired
+    @Autowired
+    private RegisterDao registerDao;
+    @Autowired
+    private StudentstatusDao studentstatusDao;//学员状态表
+    //    @Autowired
 //    private SourceDao sourceDao;
     @Override
     public List<Student> selectAllstudent() {
@@ -33,20 +31,34 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Studentstatus selecttudentstsatus(Integer studentId) {
+        Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
+        return studentstatus;
+    }
+
+    //查询学员编号
+    @Override
+    public Student selectstudentId(Integer studentId) {
+        Student student=studentDao.selectByPrimaryKey(studentId);
+        return student;
+    }
+
+    @Override
     public Student addstudent(Student student) {
         log.debug("新增");
-        student.setStudentNumber("c00"+student.toString().length()+1);
+
+
         studentDao.addstudent(student);
         return student;
     }
-//删除
+    //删除
     @Override
-    public void delstuTimeness(String deletename, Date deletetime, List<Integer>  studentId) {
-for (Integer c:studentId) {
-    studentDao.delstuTimeness(deletename, deletetime, c);
-}
+    public void delstuTimeness(String deletename, Date deletetime,Integer studentId) {
+
+        studentDao.delstuTimeness(deletename, deletetime, studentId);
+
     }
-//修改
+    //修改
     @Override
     public Student updatestudent(Student student) {
         student.setUpdatename("tsm管理");
@@ -57,28 +69,57 @@ for (Integer c:studentId) {
     }
     //模糊查询根据姓名和电话
     @Override
-    public List<Student> slectNameAndPhone(String Name, String Phone) {
-        return studentDao.slectNameAndPhone(Name, Phone);
+    public List<Student> slectName(String index,String value) {
+        return studentDao.slectName(index, value);
     }
-//修改学员交接状态：审核状态为已审核
+
+//    @Override
+//    public List<Student> slectPhone(String studentPhone) {
+//        return studentDao.slectPhone(studentPhone);
+//    }
+
+
+
+    //查询所有外键表：course（课程表）
+//    @Override
+//    public Classes findclass(Integer classesId) {
+//        return classesDao.selectByPrimaryKey(classesId);
+//    }
+    //修改学员交接状态：审核状态为已审核
     @Override
     public int updateByPrimaryKeySelective(Memorandumattachment record) {
         return memorandumattachmentDao.updateByPrimaryKeySelective(record);
     }
-//根据学员交接查询咨询登记信息
+    //在学员交接表查询咨询登记信息
     @Override
-    public List<Memorandumattachment> selectregister(Integer memorandumattachmentid) {
-        return memorandumattachmentDao.selectregister(memorandumattachmentid);
+    public List<Memorandumattachment> selectregister() {
+        return memorandumattachmentDao.selectregister();
     }
 
     @Override
     public int insertSelective(Memorandumattachment record) {
+//        招生部里查询出已缴费就读的人员；
+        List<Register> list=  registerDao.selectPay_AttentState();
+        record.setRegister(list);
         return memorandumattachmentDao.insertSelective(record);
     }
 
-//    //查询所有值（生源渠道）
-//    @Override
-//    public List<Source> selectalls() {
-//        return sourceDao.selectAIISources();
-//    }
+    //学员表中查看详情获取课程顾问：根据咨询编号
+    @Override
+    public Register selectRegister(Integer RegisterId) {
+        Register register=registerDao.selectRegister(RegisterId);
+        return register;
+
+    }
+
+    //<!--  根据学员表里的班级id查询班级信息：如果没有分班呢？班级记录表李会显示请选择班级-->
+    @Override
+    public Classes selectByPrimaryKey(Integer classesId) {
+        Classes classes= classesDao.selectByPrimaryKey(classesId);
+        return classes;
+    }
+
+
+
+
 }

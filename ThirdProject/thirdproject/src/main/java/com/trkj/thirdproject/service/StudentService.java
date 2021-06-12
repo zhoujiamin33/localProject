@@ -1,34 +1,43 @@
 package com.trkj.thirdproject.service;
 
-import com.trkj.thirdproject.entity.Classes;
-import com.trkj.thirdproject.entity.Memorandumattachment;
-import com.trkj.thirdproject.entity.Source;
-import com.trkj.thirdproject.entity.Student;
+import com.trkj.thirdproject.entity.*;
 
 import java.util.Date;
 import java.util.List;
 
 public interface StudentService {
-//    查看所有
-    List<Student> selectAllstudent();
-//    新增
-Student addstudent(Student student);
+    //查询学员编号
+    Studentstatus selecttudentstsatus(Integer studentId);
+    Student selectstudentId(Integer studentId);
+    //    新增
+    Student addstudent(Student student);
     //删除
-    void delstuTimeness(String deletename, Date deletetime, List<Integer>  studentId);
+    void delstuTimeness(String deletename, Date deletetime, Integer  studentId);
     //    修改
     Student updatestudent(Student student);
     //模糊查询根据姓名和电话
-    List<Student> slectNameAndPhone(String Name, String Phone);
+    List<Student> slectName(String index,String value);
+//    List<Student> slectPhone(String studentPhone);
 
 
 //    //查询所有值（生源渠道）
 //    List<Source> selectalls();
 
+    //查询所有外键表：course（课程表）
 
-//    学员交接表的修改
-int updateByPrimaryKeySelective(Memorandumattachment record);
-//查查询所有（咨询登记）
-    List<Memorandumattachment> selectregister(Integer memorandumattachmentid);
-//    新增学员交接
-int insertSelective(Memorandumattachment record);
+    //    学员交接表的修改
+    int updateByPrimaryKeySelective(Memorandumattachment record);
+    //在学员交接表查查询所有（咨询登记）
+    List<Memorandumattachment> selectregister();
+    //    新增学员交接
+    int insertSelective(Memorandumattachment record);
+
+    //学员表中查看详情获取课程顾问：根据咨询编号
+    Register selectRegister(Integer RegisterId);
+
+    //<!--  根据学员表里的班级id查询班级信息：如果没有分班呢？班级记录表李会显示请选择班级-->
+    Classes selectByPrimaryKey(Integer classesId);
+    //<!--  根据学员表里的班级id查询班级信息：如果没有分班呢？班级记录表李会显示请选择班级-->
+//    查看所有
+    List<Student> selectAllstudent();
 }

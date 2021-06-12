@@ -16,7 +16,7 @@
     <result column="JWRevokeName" jdbcType="VARCHAR" property="jwrevokename" />
 <!--    咨询登记记录-->
 
-    <association property="register" javaType="com.trkj.thirdproject.entity.Register">
+    <collection property="register" ofType="com.trkj.thirdproject.entity.Register">
 
       <id column="Register_Id" jdbcType="INTEGER" property="registerId" />
       <result column="ConsultAnt" jdbcType="VARCHAR" property="consultant" />
@@ -38,7 +38,8 @@
       <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
       <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
 
-    </association>
+    </collection>
+
 
   </resultMap>
   <sql id="Base_Column_List">

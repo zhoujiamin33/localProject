@@ -27,7 +27,10 @@ public interface StudentDao {
 //    修改
     int updatestudent(Student student);
     //模糊查询根据姓名和电话
-    List<Student> slectNameAndPhone(String Name, String Phone);
+    List<Student> slectName(@Param("index") String index,@Param("value") String value);
+    //<!--  根据学员表里的班级id查询班级信息：如果没有分班呢？班级记录表李会显示请选择班级-->
+//    List<Student> selectAllclass();
+
 
 
 }

@@ -18,7 +18,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
 
     public List<Register> selectRegister() {
-        return registerDao.selectRegister();
+        return registerDao.showstudent();
     }
 
     @Override

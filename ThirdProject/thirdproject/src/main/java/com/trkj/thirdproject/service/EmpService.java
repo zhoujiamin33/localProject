@@ -15,7 +15,7 @@ public interface EmpService {
     //修改
     Emp updateEmp(Emp emp);
     //模糊查询
-    List<Emp> findalls(String select,String input);
+    List<Emp> findalls(String index,String value);
     //批量删除
     void delstuTimeness( String leavename, Date leavetime,List<Integer> empId);
 
