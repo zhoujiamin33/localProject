@@ -41,13 +41,13 @@
   </sql>
 
   <update id="updateByName" parameterType="com.trkj.thirdproject.entity.Detailcourse">
-     update detailcourse set DetailCourse_Name= #{detailcourseName,jdbcType=VARCHAR}, Serial= #{serial,jdbcType=INTEGER}
+     update DetailCourse set DetailCourse_Name= #{detailcourseName,jdbcType=VARCHAR}, Serial= #{serial,jdbcType=INTEGER}
      where DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER}
   </update>
 
 <!--  新增课程详细-->
   <insert id="addDetails" >
-    insert into detailcourse (Course_Id, DetailCourse_Name, Serial,AddName, AddTime)
+    insert into DetailCourse (Course_Id, DetailCourse_Name, Serial,AddName, AddTime)
     values (#{courseId,jdbcType=INTEGER}, #{detailcourseName,jdbcType=VARCHAR}, #{serial,jdbcType=INTEGER},
     #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
   </insert>
@@ -55,15 +55,15 @@
     select 
     <include refid="Base_Column_List" />,
     <include refid="Course"/>
-    from detailcourse d inner join course c on c.Course_Id=d.Course_Id
+    from DetailCourse d inner join course c on c.Course_Id=d.Course_Id
     where d.TimeLiness = 0 and c.Course_Id = #{courseId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from detailcourse
+    delete from DetailCourse
     where DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="DetailCourse_Id" keyProperty="detailcourseId" parameterType="com.trkj.thirdproject.entity.Detailcourse" useGeneratedKeys="true">
-    insert into detailcourse (Course_Id, DetailCourse_Name, Serial, 
+    insert into DetailCourse (Course_Id, DetailCourse_Name, Serial,
       AddName, AddTime, UpdateName, 
       UpdateTime, DeleteName, DeleteTime, 
       TimeLiness)
@@ -73,7 +73,7 @@
       #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="DetailCourse_Id" keyProperty="detailcourseId" parameterType="com.trkj.thirdproject.entity.Detailcourse" useGeneratedKeys="true">
-    insert into detailcourse
+    insert into DetailCourse
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="courseId != null">
         Course_Id,
@@ -140,7 +140,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Detailcourse">
-    update detailcourse
+    update DetailCourse
     <set>
       <if test="courseId != null">
         Course_Id = #{courseId,jdbcType=INTEGER},
@@ -176,7 +176,7 @@
     where DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Detailcourse">
-    update detailcourse
+    update DetailCourse
     set Course_Id = #{courseId,jdbcType=INTEGER},
       DetailCourse_Name = #{detailcourseName,jdbcType=VARCHAR},
       Serial = #{serial,jdbcType=INTEGER},

@@ -30,7 +30,7 @@ public class StudentController {
     @Autowired
     private SourceService sourceService;
     //    查询
-    @GetMapping("selectAllclass")
+    @GetMapping("/selectAllclass")
     public PageInfo<Student> findstudent(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         log.debug("开始查询");
         PageHelper.startPage(currentPage,pagesize);
@@ -40,7 +40,7 @@ public class StudentController {
     }
 
     //查询班级表中的值
-    @GetMapping("findClassId/{classesId}")
+    @GetMapping("/findClassId/{classesId}")
     public Classes findClassId(@PathVariable("classesId") Integer classesId){
         log.debug("开始查询");
         Classes classes= studentService.selectByPrimaryKey(classesId);

@@ -16,20 +16,20 @@
   </sql>
 <!--  查询所有教材-->
   <select id="selectAllBook" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from book
+    select <include refid="Base_Column_List"/> from Book
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from book
+    from Book
     where Book_Id = #{bookId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from book
+    delete from Book
     where Book_Id = #{bookId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Book_Id" keyProperty="bookId" parameterType="com.trkj.thirdproject.entity.Book" useGeneratedKeys="true">
-    insert into book (BookName, DeliveryCount, BookSprice, 
+    insert into Book (BookName, DeliveryCount, BookSprice,
       BookJprice, SafeStock, Press, 
       `State`, `STORAGE`)
     values (#{bookname,jdbcType=VARCHAR}, #{deliverycount,jdbcType=INTEGER}, #{booksprice,jdbcType=DECIMAL}, 
@@ -37,7 +37,7 @@
       #{state,jdbcType=INTEGER}, #{storage,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Book_Id" keyProperty="bookId" parameterType="com.trkj.thirdproject.entity.Book" useGeneratedKeys="true">
-    insert into book
+    insert into Book
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="bookname != null">
         BookName,
@@ -92,7 +92,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Book">
-    update book
+    update Book
     <set>
       <if test="bookname != null">
         BookName = #{bookname,jdbcType=VARCHAR},
@@ -122,7 +122,7 @@
     where Book_Id = #{bookId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Book">
-    update book
+    update Book
     set BookName = #{bookname,jdbcType=VARCHAR},
       DeliveryCount = #{deliverycount,jdbcType=INTEGER},
       BookSprice = #{booksprice,jdbcType=DECIMAL},

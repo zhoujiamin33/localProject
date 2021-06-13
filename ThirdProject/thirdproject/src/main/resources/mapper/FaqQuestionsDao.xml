@@ -21,19 +21,19 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from faq_questions
+    from FAQ_Questions
     where FAQ_Id = #{faqId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from faq_questions
+    delete from FAQ_Questions
     where FAQ_Id = #{faqId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="FAQ_Id" keyProperty="faqId" parameterType="com.trkj.thirdproject.entity.FaqQuestions" useGeneratedKeys="true">
-    insert into faq_questions (Problem, Answer, AddName, ClickCount)
+    insert into FAQ_Questions (Problem, Answer, AddName, ClickCount)
     values (#{problem,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{clickcount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="FAQ_Id" keyProperty="faqId" parameterType="com.trkj.thirdproject.entity.FaqQuestions" useGeneratedKeys="true">
-    insert into faq_questions
+    insert into FAQ_Questions
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="problem != null">
         Problem,
@@ -101,10 +101,10 @@
   </insert>
   <select id="selectAIIFaqQuestions" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from faq_questions
+    from FAQ_Questions
   </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.FaqQuestions">
-    update faq_questions
+    update FAQ_Questions
     <set>
       <if test="problem != null">
         Problem = #{problem,jdbcType=VARCHAR},
@@ -140,7 +140,7 @@
     where FAQ_Id = #{faqId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.FaqQuestions">
-    update faq_questions
+    update FAQ_Questions
     set Problem = #{problem,jdbcType=VARCHAR},
       Answer = #{answer,jdbcType=VARCHAR},
       AddName = #{addname,jdbcType=VARCHAR}

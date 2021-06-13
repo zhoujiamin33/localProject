@@ -19,21 +19,21 @@
     DeleteName, DeleteTime, TimeLiness
   </sql>
   <select id="findParent" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from menu_parent
+    select <include refid="Base_Column_List"/> from Menu_Parent
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from menu_parent
+    from Menu_Parent
     where Parent_id = #{parentId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from menu_parent
+    delete from Menu_Parent
     where Parent_id = #{parentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Parent_id" keyProperty="parentId" parameterType="com.trkj.thirdproject.entity.MenuParent" useGeneratedKeys="true">
-    insert into menu_parent (Menu_name, Menu_path, Menu_icon, 
+    insert into Menu_Parent (Menu_name, Menu_path, Menu_icon,
       AddName, AddTime, UpdateName, 
       UpdateTime, DeleteName, DeleteTime, 
       TimeLiness)
@@ -43,7 +43,7 @@
       #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Parent_id" keyProperty="parentId" parameterType="com.trkj.thirdproject.entity.MenuParent" useGeneratedKeys="true">
-    insert into menu_parent
+    insert into Menu_Parent
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="menuName != null">
         Menu_name,
@@ -110,7 +110,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.MenuParent">
-    update menu_parent
+    update Menu_Parent
     <set>
       <if test="menuName != null">
         Menu_name = #{menuName,jdbcType=VARCHAR},
@@ -146,7 +146,7 @@
     where Parent_id = #{parentId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.MenuParent">
-    update menu_parent
+    update Menu_Parent
     set Menu_name = #{menuName,jdbcType=VARCHAR},
       Menu_path = #{menuPath,jdbcType=VARCHAR},
       Menu_icon = #{menuIcon,jdbcType=VARCHAR},

@@ -38,13 +38,13 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_List_2"/>
-    from suggest s inner join dept d on s.Dept_Id=d.Dept_Id
+    from Suggest s inner join dept d on s.Dept_Id=d.Dept_Id
     where s.Suggest_Id = #{suggestId,jdbcType=INTEGER}
   </select>
   <select id="findNameSuggest" parameterType="java.lang.String" resultType="com.trkj.thirdproject.entity.Suggest">
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_List_2"/>
-    from suggest s inner join dept d on s.Dept_Id=d.Dept_Id
+    from Suggest s inner join dept d on s.Dept_Id=d.Dept_Id
     where
       <if test="Suggest_Name != null">
         s.Suggest_Name like concat('%',concat(#{suggestName,jdbcType=VARCHAR},'%'))
@@ -56,16 +56,16 @@
   <select id="findAllSuggest" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_List_2"/>
-    from suggest s inner join dept d on s.Dept_Id=d.Dept_Id
+    from Suggest s inner join dept d on s.Dept_Id=d.Dept_Id
     where s.TimeLiness=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from suggest
+    delete from Suggest
     where Suggest_Id = #{suggestId,jdbcType=INTEGER}
   </delete>
 
   <insert id="insert" keyColumn="Suggest_Id" keyProperty="suggestId" parameterType="com.trkj.thirdproject.entity.Suggest" useGeneratedKeys="true">
-    insert into suggest (Suggest_Name, Dept_Id, AddName, 
+    insert into Suggest (Suggest_Name, Dept_Id, AddName,
       AddTime, UpdateName, UpdateTime, 
       DeleteName, DeleteTime
       )
@@ -75,7 +75,7 @@
       )
   </insert>
   <insert id="insertSelective" keyColumn="Suggest_Id" keyProperty="suggestId" parameterType="com.trkj.thirdproject.entity.Suggest" useGeneratedKeys="true">
-    insert into suggest
+    insert into Suggest
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="suggestName != null">
         Suggest_Name,
@@ -130,7 +130,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Suggest">
-    update suggest
+    update Suggest
     <set>
       <if test="suggestName != null">
         Suggest_Name = #{suggestName,jdbcType=VARCHAR},
@@ -163,7 +163,7 @@
     where Suggest_Id = #{suggestId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Suggest">
-    update suggest
+    update Suggest
     set Suggest_Name = #{suggestName,jdbcType=VARCHAR},
       Dept_Id = #{deptId,jdbcType=INTEGER},
       AddName = #{addname,jdbcType=VARCHAR},
@@ -176,7 +176,7 @@
     where Suggest_Id = #{suggestId,jdbcType=INTEGER}
   </update>
   <update id="DelAuggest" parameterType="com.trkj.thirdproject.entity.Suggest">
-    update suggest
+    update Suggest
     set DeleteName = #{deletename,jdbcType=VARCHAR},
       DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
       TimeLiness = 1
@@ -184,7 +184,7 @@
   </update>
 
   <update id="UpdateSuggest" parameterType="com.trkj.thirdproject.entity.Suggest">
-    update suggest
+    update Suggest
     <set>
       <if test="suggestName != null">
         Suggest_Name = #{suggestName,jdbcType=VARCHAR},

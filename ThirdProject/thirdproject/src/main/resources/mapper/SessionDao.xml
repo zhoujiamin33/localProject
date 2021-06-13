@@ -19,23 +19,23 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from session
+    from `Session`
     where Session_Id = #{sessionId,jdbcType=INTEGER}
   </select>
     <select id="selectAIISessions" resultMap="BaseResultMap">
       select <include refid="Base_Column_List"/>
-      from Session
+      from `Session`
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from session
+    delete from `Session`
     where Session_Id = #{sessionId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Session_Id" keyProperty="sessionId" parameterType="com.trkj.thirdproject.entity.Session" useGeneratedKeys="true">
-    insert into session (Session_Name, AddName)
+    insert into `Session` (Session_Name, AddName)
     values (#{sessionName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="Session_Id" keyProperty="sessionId" parameterType="com.trkj.thirdproject.entity.Session" useGeneratedKeys="true">
-    insert into session
+    insert into `Session`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="sessionName != null">
         Session_Name,
@@ -90,7 +90,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Session">
-    update session
+    update `Session`
     <set>
       <if test="sessionName != null">
         Session_Name = #{sessionName,jdbcType=VARCHAR},
@@ -120,7 +120,7 @@
     where Session_Id = #{sessionId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Session">
-    update session
+    update `Session`
     set Session_Name = #{sessionName,jdbcType=VARCHAR},
       AddName = #{addname,jdbcType=VARCHAR}
     where Session_Id = #{sessionId,jdbcType=INTEGER}

@@ -21,19 +21,19 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from dept
+    from Dept
     where Dept_Id = #{deptId,jdbcType=INTEGER}
   </select>
   <select id="findallDept" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from dept where TimeLiness=0
+    from Dept where TimeLiness=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from dept
+    delete from Dept
     where Dept_Id = #{deptId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Dept_Id" keyProperty="deptId" parameterType="com.trkj.thirdproject.entity.Dept" useGeneratedKeys="true">
-    insert into dept (Dept_Name, Dept_SortNumber, Superiors_Dept_Id, 
+    insert into Dept (Dept_Name, Dept_SortNumber, Superiors_Dept_Id,
       AddName, AddTime, UpdateName, 
       UpdateTime, DeleteName, DeleteTime, 
       TimeLiness)
@@ -43,11 +43,11 @@
       #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="adadept"  parameterType="com.trkj.thirdproject.entity.Dept" useGeneratedKeys="true">
-    insert into dept ( Dept_SortNumber,Dept_Name, Superiors_Dept_Id)
+    insert into Dept ( Dept_SortNumber,Dept_Name, Superiors_Dept_Id)
     values ( #{deptSortnumber,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR},#{superiorsDeptId,jdbcType=INTEGER})
   </insert>
   <update id="updatedept"  parameterType="com.trkj.thirdproject.entity.Dept" >
-     update dept
+     update Dept
     set Dept_Name = #{deptName,jdbcType=VARCHAR},
       Dept_SortNumber = #{deptSortnumber,jdbcType=INTEGER},
       Superiors_Dept_Id = #{superiorsDeptId,jdbcType=INTEGER}
@@ -56,7 +56,7 @@
 
 
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Dept">
-    update dept
+    update Dept
     set Dept_Name = #{deptName,jdbcType=VARCHAR},
       Dept_SortNumber = #{deptSortnumber,jdbcType=INTEGER},
       Superiors_Dept_Id = #{superiorsDeptId,jdbcType=INTEGER},

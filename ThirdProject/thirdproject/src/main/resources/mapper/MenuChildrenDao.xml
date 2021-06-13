@@ -35,21 +35,21 @@
 
 
   <select id="findChildren" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from menu_children
+    select <include refid="Base_Column_List"/> from Menu_children
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from menu_children
+    from Menu_children
     where children_id = #{childrenId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from menu_children
+    delete from Menu_children
     where children_id = #{childrenId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="children_id" keyProperty="childrenId" parameterType="com.trkj.thirdproject.entity.MenuChildren" useGeneratedKeys="true">
-    insert into menu_children (Parent_id, Menu_name, Menu_path, 
+    insert into Menu_children (Parent_id, Menu_name, Menu_path,
       Menu_icon, AddName, AddTime, 
       UpdateName, UpdateTime, DeleteName, 
       DeleteTime, TimeLiness)
@@ -59,7 +59,7 @@
       #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="children_id" keyProperty="childrenId" parameterType="com.trkj.thirdproject.entity.MenuChildren" useGeneratedKeys="true">
-    insert into menu_children
+    insert into Menu_children
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="parentId != null">
         Parent_id,
@@ -132,7 +132,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.MenuChildren">
-    update menu_children
+    update Menu_children
     <set>
       <if test="parentId != null">
         Parent_id = #{parentId,jdbcType=INTEGER},
@@ -171,7 +171,7 @@
     where children_id = #{childrenId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.MenuChildren">
-    update menu_children
+    update Menu_children
     set Parent_id = #{parentId,jdbcType=INTEGER},
       Menu_name = #{menuName,jdbcType=VARCHAR},
       Menu_path = #{menuPath,jdbcType=VARCHAR},

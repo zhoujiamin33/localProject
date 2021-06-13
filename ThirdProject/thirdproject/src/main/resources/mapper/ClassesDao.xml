@@ -126,7 +126,7 @@
     <include refid="emp"/>,
     <include refid="classRoom"/>,
     <include refid="book"/>
-    from classes cl
+    from Classes cl
     inner join course c on cl.Course_Id=c.Course_Id
     inner join emp e on e.Emp_Id=cl.Emp_Id
     inner join book b on b.Book_Id=cl.User_BookId
@@ -147,7 +147,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from classes
+    from Classes
     where Classes_Id = #{classesId,jdbcType=INTEGER}
     order by AddTime desc
   </select>
@@ -159,7 +159,7 @@
     <include refid="emp"/>,
     <include refid="classRoom"/>,
     <include refid="book"/>
-    from classes cl
+    from Classes cl
     inner join course c on cl.Course_Id=c.Course_Id
     inner join emp e on e.Emp_Id=cl.Emp_Id
     inner join book b on b.Book_Id=cl.User_BookId
@@ -168,18 +168,18 @@
     order  by cl.AddTime desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from classes
+    delete from Classes
     where Classes_Id = #{classesId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
-    insert into classes (Classes_Name, Course_Id,Classes_Number,
+    insert into Classes (Classes_Name, Course_Id,Classes_Number,
       ClassRoom_Id, Teacher_Id, Emp_Id, AddName, AddTime,User_BookId)
     values (#{classesName,jdbcType=VARCHAR},#{courseId,jdbcType=INTEGER},#{classesNumber,jdbcType=VARCHAR},
       #{classroomId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR},
        #{addtime,jdbcType=TIMESTAMP},#{userbookId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
-    insert into classes
+    insert into Classes
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="classesName != null">
         Classes_Name,
@@ -288,7 +288,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Classes">
-    update classes
+    update Classes
     <set>
       <if test="courseId != null">
         Course_Id = #{courseId,jdbcType=INTEGER},
@@ -318,7 +318,7 @@
     where Classes_Id = #{classesId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Classes">
-    update classes
+    update Classes
     set Classes_Name = #{classesName,jdbcType=VARCHAR},
       Classes_Open = #{classesOpen,jdbcType=INTEGER},
       Course_Id = #{courseId,jdbcType=INTEGER},

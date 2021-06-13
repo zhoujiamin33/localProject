@@ -89,7 +89,7 @@
     stu.UpdateName, stu.UpdateTime, stu.DeleteName, stu.DeleteTime, stu.TimeLiness, stu.StudyTime
   </sql>
   <sql id="Base_Column_Source">
-    s.Source_Id, s.Source_Name, s.AddName, s.AddTime, s.ConsultContent, s.LastUpdateName, s.LastUpdateTime,
+    s.Source_Id, s.Source_Name, s.AddName, s.AddTime, s.LastUpdateName, s.LastUpdateTime,
     s.DeleteName, s.DeleteTime, s.IsExamine, s.LastExamineTime, s.LastExamineName, s.LastRevokeTime,
     s.LastRevokeName
   </sql>
@@ -106,7 +106,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from student
+    from Student
     where Student_Id = #{studentId,jdbcType=INTEGER}
   </select>
 
@@ -126,16 +126,16 @@
   <select id="selectAllstudent" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>,<include refid="Base_Column_Source"/>,
     <include refid="Base_Column_Register"/>
-    from student stu inner join source s on stu.Source_Id=s.Source_Id
-    inner  join register r on stu.Register_Id=r.Register_Id
+    from Student stu inner join Source s on stu.Source_Id=s.Source_Id
+    inner  join Register r on stu.Register_Id=r.Register_Id
     where stu.TimeLiness=0
   </select>
   <!--  模糊查询-->
   <select id="slectName" resultMap="BaseResultMap">
     select  <include refid="Base_Column_List"/>,<include refid="Base_Column_Source"/>,
     <include refid="Base_Column_Register"/>
-    from student stu inner join source s on stu.Source_Id=s.Source_Id
-    inner  join register r on stu.Register_Id=r.Register_Id
+    from Student stu inner join Source s on stu.Source_Id=s.Source_Id
+    inner  join Register r on stu.Register_Id=r.Register_Id
     where
     stu.TimeLiness=0 and
 
@@ -148,11 +148,11 @@
     order by stu.Student_Id desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from student
+    delete from Student
     where Student_Id = #{studentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Student_Id" keyProperty="studentId" parameterType="com.trkj.thirdproject.entity.Student" useGeneratedKeys="true" >
-    insert into student (Student_Name, Student_State, Classes_Id,
+    insert into Student (Student_Name, Student_State, Classes_Id,
       Source_Id, Register_Id, Sex,
       Student_Phone, Address, ImgAddress,
       ParentName, ParentPhone, Student_Number,
@@ -169,7 +169,7 @@
   </insert>
 
   <insert id="addstudent" keyColumn="Student_Id" keyProperty="studentId" parameterType="com.trkj.thirdproject.entity.Student" useGeneratedKeys="true" >
-    insert into student (Student_Name,
+    insert into Student (Student_Name,
       Source_Id, Register_Id, Sex,
       Student_Phone,
       Student_Number)
@@ -179,7 +179,7 @@
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Student">
-    update student
+    update Student
     set Student_Name = #{studentName,jdbcType=VARCHAR},
       Student_State = #{studentState,jdbcType=INTEGER},
       Classes_Id = #{classesId,jdbcType=INTEGER},
@@ -204,13 +204,13 @@
 
   <!--  删除后改变时效性-->
   <update id="delstuTimeness" parameterType="com.trkj.thirdproject.entity.Student">
-  update student set TimeLiness=1 ,DeleteName = #{deletename},
+  update Student set TimeLiness=1 ,DeleteName = #{deletename},
       DeleteTime = #{deletetime}
         where Student_Id = #{studentId}
 </update>
   <!--  修改，修改时间-->
   <update id="updatestudent"  parameterType="com.trkj.thirdproject.entity.Student" >
-    update student set Student_Name = #{studentName,jdbcType=VARCHAR},
+    update Student set Student_Name = #{studentName,jdbcType=VARCHAR},
       Classes_Id = #{classesId,jdbcType=INTEGER},
       Source_Id = #{sourceId,jdbcType=INTEGER},
       Register_Id = #{registerId,jdbcType=INTEGER},

@@ -94,13 +94,13 @@
     select 
     <include refid="Base_Column_List" />,<include refid="Base_Column_student"/>,<include
           refid="Base_Column_classes"/>,<include refid="Base_Column_course"/>
-    from studentstatus sta inner join classes cl on sta.Classes_Id=cl.Classes_Id
-    inner join student stu on sta.Student_Id=stu.Student_Id
-    inner join course c on sta.Course_Id=c.Course_Id
+    from StudentStatus sta inner join Classes cl on sta.Classes_Id=cl.Classes_Id
+    inner join Student stu on sta.Student_Id=stu.Student_Id
+    inner join Course c on sta.Course_Id=c.Course_Id
     where sta.Student_Id = #{studentId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from studentstatus
+    delete from StudentStatus
     where StudentStatus_Id = #{studentstatusId,jdbcType=INTEGER}
   </delete>
 <!--  根据学员编号查询学员与班级的信息-->
@@ -108,12 +108,12 @@
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_classes"/>,<include
           refid="Base_Column_student"/>
-    from studentstatus sta inner join student stu on sta.Student_Id=stu.Student_Id
-    inner join classes cl on sta.Classes_Id=cl.Classes_Id
+    from StudentStatus sta inner join Student stu on sta.Student_Id=stu.Student_Id
+    inner join Classes cl on sta.Classes_Id=cl.Classes_Id
     where sta.Student_Id = #{studentId,jdbcType=INTEGER}
   </select>
   <insert id="insert" keyColumn="StudentStatus_Id" keyProperty="studentstatusId" parameterType="com.trkj.thirdproject.entity.Studentstatus" useGeneratedKeys="true">
-    insert into studentstatus (Student_Id, Classes_Id, Course_Id, 
+    insert into StudentStatus (Student_Id, Classes_Id, Course_Id,
       Suspende_Id, SignUpTime, `Status`, 
       DeleteName, DeleteTime, TimeLiness
       )
@@ -123,7 +123,7 @@
       )
   </insert>
   <insert id="insertSelective" keyColumn="StudentStatus_Id" keyProperty="studentstatusId" parameterType="com.trkj.thirdproject.entity.Studentstatus" useGeneratedKeys="true">
-    insert into studentstatus
+    insert into StudentStatus
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="studentId != null">
         Student_Id,
@@ -184,7 +184,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Studentstatus">
-    update studentstatus
+    update StudentStatus
     <set>
       <if test="studentId != null">
         Student_Id = #{studentId,jdbcType=INTEGER},
@@ -218,14 +218,14 @@
   </update>
 <!--  停课状态改变为已停课-->
   <update id="updatestustart" parameterType="com.trkj.thirdproject.entity.Studentstatus">
-    update studentstatus
+    update StudentStatus
     <set>
         `Status` = #{status,jdbcType=INTEGER},
     </set>
     where Student_Id = #{studentId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Studentstatus">
-    update studentstatus
+    update StudentStatus
     set Student_Id = #{studentId,jdbcType=INTEGER},
       Classes_Id = #{classesId,jdbcType=INTEGER},
       Course_Id = #{courseId,jdbcType=INTEGER},

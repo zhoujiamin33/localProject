@@ -19,15 +19,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from systemtype
+    from SystemType
     where SystemType_Id = #{systemtypeId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from systemtype
+    delete from SystemType
     where SystemType_Id = #{systemtypeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="SystemType_Id" keyProperty="systemtypeId" parameterType="com.trkj.thirdproject.entity.Systemtype" useGeneratedKeys="true">
-    insert into systemtype (SystemType_Name, AddName, AddTime, 
+    insert into SystemType (SystemType_Name, AddName, AddTime,
       UpdateName, UpdateTime, DeleteName, 
       DeleteTime, TimeLiness)
     values (#{systemtypeName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
@@ -35,7 +35,7 @@
       #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="SystemType_Id" keyProperty="systemtypeId" parameterType="com.trkj.thirdproject.entity.Systemtype" useGeneratedKeys="true">
-    insert into systemtype
+    insert into SystemType
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="systemtypeName != null">
         SystemType_Name,
@@ -90,7 +90,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Systemtype">
-    update systemtype
+    update SystemType
     <set>
       <if test="systemtypeName != null">
         SystemType_Name = #{systemtypeName,jdbcType=VARCHAR},
@@ -120,7 +120,7 @@
     where SystemType_Id = #{systemtypeId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Systemtype">
-    update systemtype
+    update SystemType
     set SystemType_Name = #{systemtypeName,jdbcType=VARCHAR},
       AddName = #{addname,jdbcType=VARCHAR},
       AddTime = #{addtime,jdbcType=TIMESTAMP},

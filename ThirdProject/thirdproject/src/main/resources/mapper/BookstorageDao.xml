@@ -79,16 +79,16 @@
     <include refid="Base_Column_List" />,
     <include refid="emp" />,
     <include refid="book" />
-    from bookstorage bs
+    from BookStorage bs
      inner join emp e on bs.MBookStorage_Id=e.Emp_Id
      inner join book b on bs.MBookStorage_Id=b.Book_Id
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from bookstorage
+    delete from BookStorage
     where MBookStorage_Id = #{mbookstorageId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="MBookStorage_Id" keyProperty="mbookstorageId" parameterType="com.trkj.thirdproject.entity.Bookstorage" useGeneratedKeys="true">
-    insert into bookstorage (Emp_Id, Book_Id, StorageCount, 
+    insert into BookStorage (Emp_Id, Book_Id, StorageCount,
       StorageTime, TotalPrice, DeleteName, 
       DeleteTime, Approval, AppName, 
       AppTime, Revoke_AppName, Revoke_AppTime, 
@@ -100,11 +100,11 @@
       #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="addBookstorage" keyColumn="Mbookstorage_Id" keyProperty="mbookstorageId" parameterType="com.trkj.thirdproject.entity.Bookstorage" useGeneratedKeys="true">
-    insert into bookstorage (Period,AddName)
+    insert into BookStorage (Period,AddName)
     values (#{period,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="MBookStorage_Id" keyProperty="mbookstorageId" parameterType="com.trkj.thirdproject.entity.Bookstorage" useGeneratedKeys="true">
-    insert into bookstorage
+    insert into BookStorage
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="empId != null">
         Emp_Id,
@@ -189,7 +189,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Bookstorage">
-    update bookstorage
+    update BookStorage
     <set>
       <if test="empId != null">
         Emp_Id = #{empId,jdbcType=INTEGER},
@@ -234,7 +234,7 @@
     where MBookStorage_Id = #{mbookstorageId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Bookstorage">
-    update bookstorage
+    update BookStorage
     set Emp_Id = #{empId,jdbcType=INTEGER},
       Book_Id = #{bookId,jdbcType=INTEGER},
       StorageCount = #{storagecount,jdbcType=INTEGER},

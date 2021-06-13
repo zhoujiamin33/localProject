@@ -117,7 +117,7 @@
     select <include refid="Base_Column_List"/>,
     <include refid="course"/>,
     <include refid="source"/>
-    from register reg
+    from Register reg
     inner join course c on c.Course_Id=reg.Course_Id
     inner join source s on s.Source_Id=reg.Source_Id
     where  reg.AttentState=0
@@ -125,7 +125,7 @@
 
   <!--修改咨询登记的缴费状态-->
   <update id="updatepaystate">
-     update register  set PayState=2
+     update Register  set PayState=2
      where Register_Id = #{registerId,jdbcType=INTEGER}
   </update>
 
@@ -136,7 +136,7 @@
     <include refid="course"/>,
     <include refid="source"/>,
     <include refid="emp"/>
-    from register reg
+    from Register reg
     inner join course c on c.Course_Id=reg.Course_Id
     inner join source s on s.Source_Id=reg.Source_Id
     inner join emp e on reg.Emp_Id=e.Emp_Id
@@ -148,7 +148,7 @@
     <include refid="Base_Column_List" />,
     <include refid="course"/>,
     <include refid="source"/>
-    from register reg
+    from Register reg
     inner join course c on c.Course_Id=reg.Course_Id
     inner join source s on s.Source_Id=reg.Source_Id
     where reg.TimeLiness=0
@@ -160,7 +160,7 @@
     <include refid="Base_Column_List" />,
     <include refid="course"/>,
     <include refid="source"/>
-    from register reg
+    from Register reg
     inner join course c on c.Course_Id=reg.Course_Id
     inner join source s on s.Source_Id=reg.Source_Id
     where reg.TimeLiness=0 and reg.AttentState=0 and  reg.PayState=2
@@ -172,17 +172,17 @@
     <include refid="Base_Column_List" />,
     <include refid="course"/>,
     <include refid="source"/>
-    from register reg
+    from Register reg
     inner join course c on c.Course_Id=reg.Course_Id
     inner join source s on s.Source_Id=reg.Source_Id
     where reg.Register_Id = #{registerId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from register
+    delete from Register
     where Register_Id = #{registerId,jdbcType=INTEGER}
   </delete>
   <insert id="insertRegister" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">
-    insert into register (ConsultAnt, Sex, Source_Id, 
+    insert into Register (ConsultAnt, Sex, Source_Id,
        Consultationmode, AttentState, AddName,
        ConsultContent,phone,  Course_Id)
     values (#{consultant,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{sourceId,jdbcType=INTEGER}, 
@@ -190,7 +190,7 @@
       #{consultcontent,jdbcType=VARCHAR},  #{phone,jdbcType=VARCHAR},#{courseId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">
-    insert into register
+    insert into Register
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="consultant != null">
         ConsultAnt,
@@ -313,13 +313,13 @@
 
   <!--删除后改变时效性-->
 <update id="delstuRegTime" parameterType="com.trkj.thirdproject.entity.Register">
-   update register set TimeLiness=1 ,LastUpdateName = #{lastupdatename},
+   update Register set TimeLiness=1 ,LastUpdateName = #{lastupdatename},
    LastUpdateTime = #{lastupdatetime}
    where Register_Id = #{registerId}
 </update>
 
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Register">
-    update register
+    update Register
     <set>
       <if test="consultant != null">
         ConsultAnt = #{consultant,jdbcType=VARCHAR},
@@ -382,7 +382,7 @@
     where Register_Id = #{registerId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Register">
-    update register
+    update Register
     set ConsultAnt = #{consultant,jdbcType=VARCHAR},
       Sex = #{sex,jdbcType=VARCHAR},
       Source_Id = #{sourceId,jdbcType=INTEGER},

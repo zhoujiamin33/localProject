@@ -13,7 +13,7 @@
     <result column="ApprovalName" jdbcType="VARCHAR" property="approvalname" />
     <result column="ApprovalTime" jdbcType="TIMESTAMP" property="approvaltime" />
     <result column="RevokeAppName" jdbcType="VARCHAR" property="revokeappname" />
-    <result column="RevokeAppTime" jdbcType="VARCHAR" property="revokeapptime" />
+    <result column="RevokeAppTime" jdbcType="TIMESTAMP" property="revokeapptime" />
     <result column="AddName" jdbcType="VARCHAR" property="addname" />
     <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
     <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
@@ -82,7 +82,7 @@
   </sql>
 
   <update id="updateapproval">
-     update entryfees set ApprovalName=#{approvalname,jdbcType=VARCHAR},ApprovalTime=#{approvaltime,jdbcType=TIMESTAMP},
+     update EntryFees set ApprovalName=#{approvalname,jdbcType=VARCHAR},ApprovalTime=#{approvaltime,jdbcType=TIMESTAMP},
      ApprovalState=1
      where Fees_Id = #{feesId,jdbcType=INTEGER}
   </update>
@@ -93,7 +93,7 @@
   <include refid="Base_Column_List" />,
   <include refid="register"/>,
   <include refid="course"/>
-  from entryfees entry
+  from EntryFees entry
   inner join register reg on reg.Register_Id=entry.Register_Id
   inner join course c on  reg.Course_Id=c.Course_Id
   where  entry.TimeLiness=0 and Fees_Id = #{feesId,jdbcType=INTEGER}
@@ -102,7 +102,7 @@
 
 
   <update id="updateRevokeapproval">
-     update entryfees set RevokeAppName=#{revokeappname,jdbcType=VARCHAR},RevokeAppTime=#{revokeapptime,jdbcType=TIMESTAMP},
+     update EntryFees set RevokeAppName=#{revokeappname,jdbcType=VARCHAR},RevokeAppTime=#{revokeapptime,jdbcType=TIMESTAMP},
      ApprovalState=0
      where Fees_Id = #{feesId,jdbcType=INTEGER}
   </update>
@@ -111,27 +111,27 @@
     select 
     <include refid="Base_Column_List" />,
     <include refid="register"/>
-    from entryfees entry inner join register reg on reg.Register_Id=entry.Register_Id
+    from EntryFees entry inner join register reg on reg.Register_Id=entry.Register_Id
     where  entry.TimeLiness=0
     order by entry.AddTime desc
   </select>
 
 
   <update id="deleteByPrimaryKey" >
-    update  entryfees set TimeLiness=1 ,DeleteTime=#{deletetime,jdbcType=TIMESTAMP},DeleteName=#{deletename,jdbcType=VARCHAR}
+    update  EntryFees set TimeLiness=1 ,DeleteTime=#{deletetime,jdbcType=TIMESTAMP},DeleteName=#{deletename,jdbcType=VARCHAR}
     where Fees_Id = #{feesId,jdbcType=INTEGER}
   </update>
 
 
   <insert id="insertentryfees" keyColumn="Fees_Id" keyProperty="feesId" parameterType="com.trkj.thirdproject.entity.Entryfees" useGeneratedKeys="true">
-    insert into entryfees (Fees_Name, Register_Id, Fees_Receivable, Fees_Type, Fees_Advance, Receipts,AddName,AddTime)
+    insert into EntryFees (Fees_Name, Register_Id, Fees_Receivable, Fees_Type, Fees_Advance, Receipts,AddName,AddTime)
     values (#{feesName,jdbcType=VARCHAR}, #{registerId,jdbcType=INTEGER}, #{feesReceivable,jdbcType=DECIMAL}, 
       #{feesType,jdbcType=INTEGER}, #{feesAdvance,jdbcType=DECIMAL}, #{receipts,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR},#{addtime,jdbcType=TIMESTAMP})
   </insert>
 
 
   <insert id="insertSelective" keyColumn="Fees_Id" keyProperty="feesId" parameterType="com.trkj.thirdproject.entity.Entryfees" useGeneratedKeys="true">
-    insert into entryfees
+    insert into EntryFees
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="feesName != null">
         Fees_Name,
@@ -248,7 +248,7 @@
 
 
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Entryfees">
-    update entryfees
+    update EntryFees
     <set>
       <if test="feesName != null">
         Fees_Name = #{feesName,jdbcType=VARCHAR},
@@ -311,7 +311,7 @@
 
 
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Entryfees">
-    update entryfees
+    update EntryFees
     set Fees_Name = #{feesName,jdbcType=VARCHAR},
       Register_Id = #{registerId,jdbcType=INTEGER},
       Fees_Receivable = #{feesReceivable,jdbcType=DECIMAL},

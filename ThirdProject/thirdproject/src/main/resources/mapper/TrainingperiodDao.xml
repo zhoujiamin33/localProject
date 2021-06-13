@@ -19,19 +19,19 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from trainingperiod
+    from TrainingPeriod
     where Period_Id = #{periodId,jdbcType=INTEGER}
   </select>
   <select id="selectAllTrainingperiods" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from trainingperiod
+    from TrainingPeriod
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from trainingperiod
+    delete from TrainingPeriod
     where Period_Id = #{periodId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Period_Id" keyProperty="periodId" parameterType="com.trkj.thirdproject.entity.Trainingperiod" useGeneratedKeys="true">
-    insert into trainingperiod (Period, AddName, AddTime, 
+    insert into TrainingPeriod (Period, AddName, AddTime,
       UpdateName, UpdateTime, DeleteName, 
       DeleteTime, TimeLiness)
     values (#{period,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
@@ -39,11 +39,11 @@
       #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="addTrainingperiod" keyColumn="Period_Id" keyProperty="periodId" parameterType="com.trkj.thirdproject.entity.Trainingperiod" useGeneratedKeys="true">
-    insert into trainingperiod (Period,AddName)
+    insert into TrainingPeriod (Period,AddName)
     values (#{period,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="Period_Id" keyProperty="periodId" parameterType="com.trkj.thirdproject.entity.Trainingperiod" useGeneratedKeys="true">
-    insert into trainingperiod
+    insert into TrainingPeriod
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="period != null">
         Period,
@@ -98,7 +98,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Trainingperiod">
-    update trainingperiod
+    update TrainingPeriod
     <set>
       <if test="period != null">
         Period = #{period,jdbcType=VARCHAR},
@@ -128,7 +128,7 @@
     where Period_Id = #{periodId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Trainingperiod">
-    update trainingperiod
+    update TrainingPeriod
     set Period = #{period,jdbcType=VARCHAR},
       AddName = #{addname,jdbcType=VARCHAR}
 

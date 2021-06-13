@@ -19,19 +19,19 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from semester
+    from Semester
     where Semester_Id = #{semesterId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from semester
+    delete from Semester
     where Semester_Id = #{semesterId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Semester_Id" keyProperty="semesterId" parameterType="com.trkj.thirdproject.entity.Semester" useGeneratedKeys="true">
-    insert into semester (Semester_Name, AddName)
+    insert into Semester (Semester_Name, AddName)
     values (#{semesterName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="Semester_Id" keyProperty="semesterId" parameterType="com.trkj.thirdproject.entity.Semester" useGeneratedKeys="true">
-    insert into semester
+    insert into Semester
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="semesterName != null">
         Semester_Name,
@@ -90,7 +90,7 @@
     from Semester
   </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Semester">
-    update semester
+    update Semester
     <set>
       <if test="semesterName != null">
         Semester_Name = #{semesterName,jdbcType=VARCHAR},
@@ -120,7 +120,7 @@
     where Semester_Id = #{semesterId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Semester">
-    update semester
+    update Semester
     set Semester_Name = #{semesterName,jdbcType=VARCHAR},
       AddName = #{addname,jdbcType=VARCHAR}
     where Semester_Id = #{semesterId,jdbcType=INTEGER}

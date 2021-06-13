@@ -20,15 +20,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from position
+    from `Position`
     where Position_Id = #{positionId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from position
+    delete from `Position`
     where Position_Id = #{positionId,jdbcType=INTEGER}
   </delete>
   <insert id="insertSelective" keyColumn="Position_Id" keyProperty="positionId" parameterType="com.trkj.thirdproject.entity.Position" useGeneratedKeys="true">
-    insert into position
+    insert into `Position`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="positionName != null">
         Position_Name,
@@ -89,7 +89,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Position">
-    update position
+    update `Position`
     <set>
       <if test="positionName != null">
         Position_Name = #{positionName,jdbcType=VARCHAR},
@@ -122,7 +122,7 @@
     where Position_Id = #{positionId,jdbcType=INTEGER}
   </update>
   <insert id="insert" keyColumn="Position_Id" keyProperty="positionId" parameterType="com.trkj.thirdproject.entity.Position" useGeneratedKeys="true">
-    insert into position (Position_Name, AddName, AddTime,
+    insert into `Position` (Position_Name, AddName, AddTime,
       UpdateName, UpdateTime, DeleteName,
       DeleteTime, TimeLiness)
     values (#{positionName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP},
@@ -131,7 +131,7 @@
   </insert>
   <!--删除后时效性为已过期1-->
   <update id="delTimeLiness"  parameterType="com.trkj.thirdproject.entity.Dept" >
-     update position
+     update `Position`
     set TimeLiness =1
           where Position_Id = #{positionId,jdbcType=INTEGER}
   </update>
@@ -139,11 +139,11 @@
   <select id="selectTimeLiness" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from position
+    from `Position`
     where TimeLiness = 0
   </select>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Position">
-    update position
+    update `Position`
     set Position_Name = #{positionName,jdbcType=VARCHAR},
       AddName = #{addname,jdbcType=VARCHAR},
       AddTime = #{addtime,jdbcType=TIMESTAMP},
@@ -155,23 +155,23 @@
     where Position_Id = #{positionId,jdbcType=INTEGER}
   </update>
   <update id="updateposition" parameterType="com.trkj.thirdproject.entity.Position">
-    update position
+    update `Position`
    set Position_Name = #{positionName,jdbcType=VARCHAR},
     AddName = #{addname,jdbcType=VARCHAR}
     where Position_Id = #{positionId,jdbcType=INTEGER}
   </update>
   <insert id="addposition" keyColumn="Position_Id" keyProperty="positionId" parameterType="com.trkj.thirdproject.entity.Position" useGeneratedKeys="true">
-    insert into position (Position_Name, AddName)
+    insert into `Position` (Position_Name, AddName)
     values (#{positionName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
   </insert>
   <select id="selectAllposition" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from position
+    from `Position`
   </select>
 
   <!--  根据姓名模糊查询-->
   <select id="selectByname" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from position
+    select <include refid="Base_Column_List"/> from `Position`
     <where>
       <if test="positionName != null">
         Position_Name like CONCAT(CONCAT('%',#{positionName,jdbcType=VARCHAR},'%'))

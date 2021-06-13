@@ -132,7 +132,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from suspende su
+    from Suspende su
     where su.Suspende_Id = #{suspendeId,jdbcType=INTEGER} and su.TimeLiness=0
   </select>
 
@@ -141,17 +141,17 @@
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_Classes" />,<include refid="Base_Column_student" />,<include
           refid="Base_Column_course"/>
-    from suspende su inner join student stu on su.Student_Id=stu.Student_Id
+    from Suspende su inner join student stu on su.Student_Id=stu.Student_Id
     inner join classes cl on su.Classes_Id=cl.Classes_Id
     inner join course c on su.Course_Id=c.Course_Id
     where  su.TimeLiness=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from suspende
+    delete from Suspende
     where Suspende_Id = #{suspendeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Suspende_Id" keyProperty="suspendeId" parameterType="com.trkj.thirdproject.entity.Suspende" useGeneratedKeys="true">
-    insert into suspende (Student_Id, Classes_Id, Course_Id, 
+    insert into Suspende (Student_Id, Classes_Id, Course_Id,
       DetailCourse_Id, AlreadyOn, Suspende_Time, 
       Suspende_Reason, Suspende_Handler, Suspende_SAppName, 
       Suspende_Approval, Suspende_SAppTime, Revoke_AppName, 
@@ -167,7 +167,7 @@
       )
   </insert>
   <insert id="insertSelective" keyColumn="Suspende_Id" keyProperty="suspendeId" parameterType="com.trkj.thirdproject.entity.Suspende" useGeneratedKeys="true">
-    insert into suspende
+    insert into Suspende
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="studentId != null">
         Student_Id,
@@ -282,7 +282,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Suspende">
-    update suspende
+    update Suspende
     <set>
       <if test="studentId != null">
         Student_Id = #{studentId,jdbcType=INTEGER},
@@ -342,7 +342,7 @@
     where Suspende_Id = #{suspendeId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Suspende">
-    update suspende
+    update Suspende
     set Student_Id = #{studentId,jdbcType=INTEGER},
       Classes_Id = #{classesId,jdbcType=INTEGER},
       Course_Id = #{courseId,jdbcType=INTEGER},

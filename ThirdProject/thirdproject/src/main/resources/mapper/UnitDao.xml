@@ -29,27 +29,25 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from unit
+    from Unit
     where Unit_Id = #{unitId,jdbcType=INTEGER}
   </select>
   <select id="fandAllUnit" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from unit
+    from Unit
     where TimeLiness = 0
   </select>
   <select id="findUnitType" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select
-    count(*)
-    from unit
+    select count(*) from Unit
     where UnitType_Id = #{unittypeId,jdbcType=INTEGER} and  TimeLiness = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from unit
+    delete from Unit
     where Unit_Id = #{unitId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Unit_Id" keyProperty="unitId" parameterType="com.trkj.thirdproject.entity.Unit" useGeneratedKeys="true">
-    insert into unit (Unit_Name, UnitType_Id, Unit_Level, 
+    insert into Unit (Unit_Name, UnitType_Id, Unit_Level,
       Director, Unit_Address, MailCode, 
       Unit_Phone, Email, Profile, 
       Remarks, AddName, AddTime, 
@@ -64,7 +62,7 @@
   </insert>
 
   <insert id="insertSelective" keyColumn="Unit_Id" keyProperty="unitId" parameterType="com.trkj.thirdproject.entity.Unit" useGeneratedKeys="true">
-    insert into unit
+    insert into Unit
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="unitName != null">
         Unit_Name,
@@ -173,7 +171,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Unit">
-    update unit
+    update Unit
     <set>
       <if test="unitName != null">
         Unit_Name = #{unitName,jdbcType=VARCHAR},
@@ -230,7 +228,7 @@
     where Unit_Id = #{unitId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Unit">
-    update unit
+    update Unit
     set Unit_Name = #{unitName,jdbcType=VARCHAR},
       UnitType_Id = #{unittypeId,jdbcType=INTEGER},
       Unit_Level = #{unitLevel,jdbcType=VARCHAR},
@@ -251,10 +249,9 @@
     where Unit_Id = #{unitId,jdbcType=INTEGER}
   </update>
   <update id="delUnit" parameterType="com.trkj.thirdproject.entity.Unit">
-    update unit
+    update Unit
     set DeleteName = #{deletename,jdbcType=VARCHAR},
-        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
-        TimeLiness = 1
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP}, TimeLiness = 1
     where Unit_Id = #{unitId,jdbcType=INTEGER}
   </update>
 

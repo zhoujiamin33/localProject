@@ -19,7 +19,7 @@
 
 <!-- 查询所有数据 -->
   <select id="selectAllClassType" resultMap="BaseResultMap" >
-    select <include refid="Base_Column_List"/> from classtype
+    select <include refid="Base_Column_List"/> from ClassType
     where TimeLiness=0
     order by AddTime desc
   </select>
@@ -27,7 +27,7 @@
 
 <!--  根据姓名模糊查询-->
 <select id="selectByname" resultMap="BaseResultMap">
-  select <include refid="Base_Column_List"/> from classtype
+  select <include refid="Base_Column_List"/> from ClassType
   <where>
     <if test="ClassType_Name != null">
       ClassType_Name like CONCAT(CONCAT('%',#{classtypeName,jdbcType=VARCHAR},'%'))
@@ -39,14 +39,14 @@
 
 <!--  删除-->
   <update id="updateCourseType" >
-  update classtype set TimeLiness=1, DeleteName = #{deletename,jdbcType=VARCHAR},
+  update ClassType set TimeLiness=1, DeleteName = #{deletename,jdbcType=VARCHAR},
       DeleteTime = #{deletetime,jdbcType=TIMESTAMP}  where ClassType_Id = #{classtypeId,jdbcType=INTEGER}
 </update>
 
 
 <!--新增-->
   <insert id="insert" keyColumn="ClassType_Id" keyProperty="classtypeId" parameterType="com.trkj.thirdproject.entity.Classtype" useGeneratedKeys="true">
-    insert into classtype (ClassType_Name, AddName)
+    insert into ClassType (ClassType_Name, AddName)
     values (#{classtypeName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
   </insert>
 
@@ -54,7 +54,7 @@
 
 <!--根据id修改-->
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Classtype">
-    update classtype
+    update ClassType
     set ClassType_Name = #{classtypeName,jdbcType=VARCHAR},
       AddName = #{addname,jdbcType=VARCHAR},
       AddTime = #{addtime,jdbcType=TIMESTAMP},

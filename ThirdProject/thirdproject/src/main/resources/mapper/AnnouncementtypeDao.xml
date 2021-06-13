@@ -19,27 +19,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from announcementtype
+    from AnnouncementType
     where AnnouncementType_Id = #{announcementtypeId,jdbcType=INTEGER}
   </select>
   <select id="selectAllAnnType"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from announcementtype
+    from AnnouncementType
     where TimeLiness=0
   </select>
   <select id="selectDelAnnType"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from announcementtype
+    from AnnouncementType
     where TimeLiness=1
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from announcementtype
+    delete from AnnouncementType
     where AnnouncementType_Id = #{announcementtypeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="AnnouncementType_Id" keyProperty="announcementtypeId" parameterType="com.trkj.thirdproject.entity.Announcementtype" useGeneratedKeys="true">
-    insert into announcementtype (AnnouncementType_Name, AddName, AddTime, 
+    insert into AnnouncementType (AnnouncementType_Name, AddName, AddTime,
       UpdateName, UpdateTime, DeleteName, 
       DeleteTime, TimeLiness)
     values (#{announcementtypeName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
@@ -47,7 +47,7 @@
       #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="AnnouncementType_Id" keyProperty="announcementtypeId" parameterType="com.trkj.thirdproject.entity.Announcementtype" useGeneratedKeys="true">
-    insert into announcementtype
+    insert into AnnouncementType
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="announcementtypeName != null">
         AnnouncementType_Name,
@@ -102,7 +102,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Announcementtype">
-    update announcementtype
+    update AnnouncementType
     <set>
       <if test="announcementtypeName != null">
         AnnouncementType_Name = #{announcementtypeName,jdbcType=VARCHAR},
@@ -132,7 +132,7 @@
     where AnnouncementType_Id = #{announcementtypeId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Announcementtype">
-    update announcementtype
+    update AnnouncementType
     set AnnouncementType_Name = #{announcementtypeName,jdbcType=VARCHAR},
       AddName = #{addname,jdbcType=VARCHAR},
       AddTime = #{addtime,jdbcType=TIMESTAMP},
@@ -144,7 +144,7 @@
     where AnnouncementType_Id = #{announcementtypeId,jdbcType=INTEGER}
   </update>
   <update id="updateTimeLiness" parameterType="com.trkj.thirdproject.entity.Unittype">
-    update unittype
+    update UnitType
      set TimeLiness = 1,
         DeleteName = #{deletename,jdbcType=VARCHAR},
         DeleteTime = #{deletetime,jdbcType=TIMESTAMP}

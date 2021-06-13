@@ -25,21 +25,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from source
+    from Source
     where Source_Id = #{sourceId,jdbcType=INTEGER}
   </select>
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from source
+    delete from Source
     where Source_Id = #{sourceId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Source_Id" keyProperty="sourceId" parameterType="com.trkj.thirdproject.entity.Source" useGeneratedKeys="true">
-    insert into source (Source_Name, AddName )
+    insert into Source (Source_Name, AddName )
     values (#{sourceName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="Source_Id" keyProperty="sourceId" parameterType="com.trkj.thirdproject.entity.Source" useGeneratedKeys="true">
-    insert into source
+    insert into Source
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="sourceName != null">
         Source_Name,
@@ -120,10 +120,10 @@
   <!--  查询所有值-->
   <select id="selectAIISources" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from source
+    from Source
   </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Source">
-    update source
+    update Source
     <set>
       <if test="sourceName != null">
         Source_Name = #{sourceName,jdbcType=VARCHAR},
@@ -165,7 +165,7 @@
     where Source_Id = #{sourceId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Source">
-    update source
+    update Source
     set Source_Name = #{sourceName,jdbcType=VARCHAR},
       AddName = #{addname,jdbcType=VARCHAR}
     where Source_Id = #{sourceId,jdbcType=INTEGER}

@@ -55,7 +55,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from memorandumattachment
+    from MemorandumAttachment
     where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
   </select>
 
@@ -63,15 +63,15 @@
   <select id="selectregister" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_register"/>
-    from memorandumattachment m inner join register reg on m.Register_Id=reg.Register_Id
+    from MemorandumAttachment m inner join register reg on m.Register_Id=reg.Register_Id
     where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from memorandumattachment
+    delete from MemorandumAttachment
     where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="MemorandumAttachment_Id" keyProperty="memorandumattachmentId" parameterType="com.trkj.thirdproject.entity.Memorandumattachment" useGeneratedKeys="true">
-    insert into memorandumattachment (Register_Id, ZSIsExamine, ZSExamineTime, 
+    insert into MemorandumAttachment (Register_Id, ZSIsExamine, ZSExamineTime,
       ZSExamineName, ZSRevokeTime, ZSRevokeName, 
       JWIsExamine, JWExamineTime, JWExamineName, 
       JWRevokeTime, JWRevokeName)
@@ -81,7 +81,7 @@
       #{jwrevoketime,jdbcType=TIMESTAMP}, #{jwrevokename,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="MemorandumAttachment_Id" keyProperty="memorandumattachmentId" parameterType="com.trkj.thirdproject.entity.Memorandumattachment" useGeneratedKeys="true">
-    insert into memorandumattachment
+    insert into MemorandumAttachment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="registerId != null">
         Register_Id,
@@ -154,7 +154,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Memorandumattachment">
-    update memorandumattachment
+    update MemorandumAttachment
     <set>
       <if test="registerId != null">
         Register_Id = #{registerId,jdbcType=INTEGER},
@@ -193,7 +193,7 @@
     where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Memorandumattachment">
-    update memorandumattachment
+    update MemorandumAttachment
     set Register_Id = #{registerId,jdbcType=INTEGER},
       ZSIsExamine = #{zsisexamine,jdbcType=VARCHAR},
       ZSExamineTime = #{zsexaminetime,jdbcType=TIMESTAMP},

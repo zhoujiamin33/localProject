@@ -28,21 +28,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from system
+    from System
     where System_Id = #{systemId,jdbcType=INTEGER}
   </select>
   <select id="findAllSystem" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from system
+    from System
     where TimeLiness=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from system
+    delete from System
     where System_Id = #{systemId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="System_Id" keyProperty="systemId" parameterType="com.trkj.thirdproject.entity.System" useGeneratedKeys="true">
-    insert into system (SystemType_Id, System_Theme, Dept_Id, 
+    insert into System (SystemType_Id, System_Theme, Dept_Id,
       System_Content, System_State, AddName, 
       AddTime, PublishName, PublishTime, 
       SuspendName, SuspendTime, UpdateName, 
@@ -56,7 +56,7 @@
       #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="System_Id" keyProperty="systemId" parameterType="com.trkj.thirdproject.entity.System" useGeneratedKeys="true">
-    insert into system
+    insert into System
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="systemtypeId != null">
         SystemType_Id,
@@ -159,7 +159,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.System">
-    update system
+    update System
     <set>
       <if test="systemtypeId != null">
         SystemType_Id = #{systemtypeId,jdbcType=INTEGER},
@@ -213,7 +213,7 @@
     where System_Id = #{systemId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.System">
-    update system
+    update System
     set SystemType_Id = #{systemtypeId,jdbcType=INTEGER},
       System_Theme = #{systemTheme,jdbcType=VARCHAR},
       Dept_Id = #{deptId,jdbcType=INTEGER},

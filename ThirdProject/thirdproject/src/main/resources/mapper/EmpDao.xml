@@ -78,12 +78,12 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from emp e
+    from Emp e
     where e.Emp_Id = #{empId,jdbcType=INTEGER}
   </select>
 
   <insert id="insertSelective" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">
-    insert into emp
+    insert into Emp
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="positionId != null">
         Position_Id,
@@ -252,7 +252,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Emp">
-    update emp
+    update Emp
     <set>
       <if test="positionId != null">
         Position_Id = #{positionId,jdbcType=INTEGER},
@@ -343,10 +343,10 @@
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_List1"/>,<include
           refid="Base_Column_List2"/>,<include refid="Base_Column_enterprise"/>
-    from emp e
+    from Emp e
     inner join Dept d on e.Dept_Id=d.Dept_Id
     inner join `Position` p on e.Position_Id=p.Position_Id
-    inner join enterprise ent on e.Enterprise_Id=ent.Enterprise_Id
+    inner join Enterprise ent on e.Enterprise_Id=ent.Enterprise_Id
     where e.EmpState=0
   </select>
 
@@ -354,7 +354,7 @@
   <select id="findalls" resultMap="BaseResultMap">
     select   <include refid="Base_Column_List" />,<include refid="Base_Column_List1"/>,<include
           refid="Base_Column_List2"/>
-    from emp e inner join Dept d on e.Dept_Id=d.Dept_Id inner join `Position` p on e.Position_Id=p.Position_Id
+    from Emp e inner join Dept d on e.Dept_Id=d.Dept_Id inner join `Position` p on e.Position_Id=p.Position_Id
     <where>
       <if test="value!=null and index=='Emp_Name'">
         Emp_Name like CONCAT(CONCAT('%',#{value},'%'))
@@ -371,18 +371,18 @@
     </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from emp
+    delete from Emp
     where Emp_Id = #{empId,jdbcType=INTEGER}
   </delete>
   <!--  删除后改变状态该为离职-->
   <update id="delstuTimeness" parameterType="com.trkj.thirdproject.entity.Student">
-  update emp set LeaveName=#{leavename},LeaveTime=#{leavetime},EmpState=1
+  update Emp set LeaveName=#{leavename},LeaveTime=#{leavetime},EmpState=1
         where Emp_Id = #{empId}
 </update>
 
   <!--  新增-->
   <insert id="AddEmp" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">
-    insert into emp (
+    insert into Emp (
       JobNumber, Emp_Name,`Password`, Emp_Sex,Birthday,WorkersState,  Remarks,Position_Id, Dept_Id,Enterprise_Id,
       E_mail, Emp_Phone,AddName)
     values (#{jobnumber,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{empSex,jdbcType=CHAR}
@@ -394,7 +394,7 @@
 
   <!--  修改-->
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Emp">
-    update emp
+    update Emp
     set Position_Id = #{positionId,jdbcType=INTEGER},
       Dept_Id = #{deptId,jdbcType=INTEGER},
       JobNumber = #{jobnumber,jdbcType=VARCHAR},
@@ -412,6 +412,6 @@
   </update>
 <!--启动-->
 <update id="updatestate" parameterType="com.trkj.thirdproject.entity.Emp">
-  update emp set WorkersState = #{workersstate} where Emp_Id = #{empId}
+  update Emp set WorkersState = #{workersstate} where Emp_Id = #{empId}
 </update>
 </mapper>
