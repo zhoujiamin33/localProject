@@ -18,6 +18,7 @@ public class MenuChildren implements Serializable {
     /**
      * 父级菜单外键
      */
+    private MenuParent menuParent;
     private Integer parentId;
 
     /**

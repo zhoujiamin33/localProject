@@ -4,6 +4,7 @@ package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.entity.Dept;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DeptService {
@@ -12,7 +13,8 @@ public interface DeptService {
     //修改
     Dept updatedept(Dept dept);
     //删除
-    void deldept(Integer deptid);
+    int updatetimeliness(String deletename, Date deletetime, Integer deptId);
+
 //    查询所有
     List<Dept> findallDept();
 

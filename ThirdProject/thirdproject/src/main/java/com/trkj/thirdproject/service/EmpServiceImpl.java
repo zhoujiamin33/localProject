@@ -17,7 +17,8 @@ public class EmpServiceImpl implements EmpService
     private EmpDao empDao;
     @Override
     public Emp insert(Emp record) {
-        empDao.AddEmp(record);
+        record.setEnterpriseId(1);//公司编号固定
+        empDao.insertSelective(record);
         return record;
     }
 
@@ -33,6 +34,8 @@ empDao.deleteByPrimaryKey(EmpId);
 
     @Override
     public Emp updateEmp(Emp emp) {
+        emp.setUpdatename("tsm管理员");
+        emp.setUpdatetime(new Date());
         empDao.updateByPrimaryKey(emp);
         return emp ;
     }

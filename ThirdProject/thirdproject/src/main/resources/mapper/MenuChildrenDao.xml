@@ -14,7 +14,7 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    <association property="parentId" jdbcType="INTEGER" column="Parent_id">
+    <association property="menuParent" javaType="com.trkj.thirdproject.entity.MenuParent">
       <id column="Parent_id" jdbcType="INTEGER" property="parentId" />
       <result column="Menu_name" jdbcType="VARCHAR" property="menuName" />
       <result column="Menu_path" jdbcType="VARCHAR" property="menuPath" />

@@ -9,16 +9,15 @@ import java.util.List;
 @Mapper
 public interface EmpDao {
     int deleteByPrimaryKey(Integer empId);
-
+    //新增
     int insertSelective(Emp record);
-
+    //修改
     int updateByPrimaryKeySelective(Emp record);
 
-    //新增
-    int AddEmp(Emp record);
+
     //根据id查询
     Emp selectByPrimaryKey(Integer empId);
-    //修改
+
     int updateByPrimaryKey(Emp record);
     //    查询所有
     List<Emp> selectAllEmp();

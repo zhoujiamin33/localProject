@@ -151,19 +151,10 @@
       UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
       DeleteName = #{deletename,jdbcType=VARCHAR},
       DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
-      TimeLiness = #{timeliness,jdbcType=INTEGER}
+      TimeLiness = #{timeliness,jdbcType=INTEGER},
+      JobDescription = #{jobdescription,jdbcType=VARCHAR}
     where Position_Id = #{positionId,jdbcType=INTEGER}
   </update>
-  <update id="updateposition" parameterType="com.trkj.thirdproject.entity.Position">
-    update `Position`
-   set Position_Name = #{positionName,jdbcType=VARCHAR},
-    AddName = #{addname,jdbcType=VARCHAR}
-    where Position_Id = #{positionId,jdbcType=INTEGER}
-  </update>
-  <insert id="addposition" keyColumn="Position_Id" keyProperty="positionId" parameterType="com.trkj.thirdproject.entity.Position" useGeneratedKeys="true">
-    insert into `Position` (Position_Name, AddName)
-    values (#{positionName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
-  </insert>
   <select id="selectAllposition" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from `Position`

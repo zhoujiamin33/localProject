@@ -1,13 +1,13 @@
 package com.trkj.thirdproject.controller;
 
+
 import com.trkj.thirdproject.entity.Dept;
-
-
 import com.trkj.thirdproject.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,10 +35,13 @@ public class DeptController {
     }
 
     //删除
-    @DeleteMapping("/dept/{deptId}")
+    @PutMapping("/dept/{deptId}")
     public void deldept(@PathVariable("deptId") Integer deptId){
         log.debug("删除成功");
-        deptService.deldept(deptId);
+
+      String Deletename="tsm管理员";
+      Date Deletetime=new Date();
+        deptService.updatetimeliness(Deletename,Deletetime,deptId);
     }
 
 }

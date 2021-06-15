@@ -1,13 +1,11 @@
 package com.trkj.thirdproject.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Data;
 
 /**
- * dept
+ * Dept
  * @author 
  */
 @Data
@@ -40,7 +38,6 @@ public class Dept implements Serializable {
     /**
      * 新增时间
      */
-    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date addtime;
 
     /**
@@ -51,7 +48,6 @@ public class Dept implements Serializable {
     /**
      * 最后修改时间
      */
-    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date updatetime;
 
     /**
@@ -62,13 +58,17 @@ public class Dept implements Serializable {
     /**
      * 删除时间
      */
-    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date deletetime;
 
     /**
      * 时效性
      */
     private Integer timeliness;
+
+    /**
+     * 职位描述
+     */
+    private String jobdescription;
 
     private static final long serialVersionUID = 1L;
 }

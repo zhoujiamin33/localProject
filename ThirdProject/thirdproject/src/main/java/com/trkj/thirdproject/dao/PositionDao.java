@@ -10,9 +10,9 @@ public interface PositionDao {
     int deleteByPrimaryKey(Integer positionId);
 
     int insert(Position record);
-
+    //    新增
     int insertSelective(Position record);
-
+    //修改
     int updateByPrimaryKeySelective(Position record);
     Position selectByPrimaryKey(Integer positionId);
 
@@ -20,10 +20,9 @@ public interface PositionDao {
 
     //查询所有
     List<Position> selectAllposition();
-    //    新增
-    int addposition(Position position);
-    //修改
-    int updateposition(Position position);
+
+
+
     //分页
 //        Page<Position> findAll(Pageable pageable);
     //根据部门名称模糊查询

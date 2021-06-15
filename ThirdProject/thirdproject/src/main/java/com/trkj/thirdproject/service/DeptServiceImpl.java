@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,20 +17,23 @@ public class DeptServiceImpl implements DeptService {
     //新增部门
     @Override
     public Dept adadept(Dept dept) {
-        deptDao.adadept(dept);
+        dept.setAddname("tsm管理员");
+        deptDao.insertSelective(dept);
         return dept;
     }
     //修改
     @Override
     public Dept updatedept(Dept dept) {
-        deptDao.updatedept(dept);
+
+        deptDao.updateByPrimaryKeySelective(dept);
         return dept;
     }
 
     //删除
     @Override
-    public void deldept(Integer deptid) {
-       deptDao.deleteByPrimaryKey(deptid);
+    public int updatetimeliness(String deletename, Date deletetime,  Integer deptId) {
+      return deptDao.updatetimeliness(deletename, deletetime, deptId);
+
     }
 
     @Override

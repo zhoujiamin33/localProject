@@ -18,22 +18,32 @@
     Dept_Id, Dept_Name, Dept_SortNumber, Superiors_Dept_Id, AddName, AddTime, UpdateName, 
     UpdateTime, DeleteName, DeleteTime, TimeLiness
   </sql>
+
+  <select id="findallDept" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List"/>
+  from Dept where TimeLiness=0
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from Dept
     where Dept_Id = #{deptId,jdbcType=INTEGER}
   </select>
-  <select id="findallDept" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>
-    from Dept where TimeLiness=0
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Dept
     where Dept_Id = #{deptId,jdbcType=INTEGER}
   </delete>
+<!--  删除按钮是修改部门的状态-->
+  <update id="updatetimeliness" parameterType="com.trkj.thirdproject.entity.Dept">
+    update Dept
+    set
+      TimeLiness = 1,
+      DeleteName = #{deletename},
+      DeleteTime = #{deletetime}
+    where Dept_Id = #{deptId}
+  </update>
   <insert id="insert" keyColumn="Dept_Id" keyProperty="deptId" parameterType="com.trkj.thirdproject.entity.Dept" useGeneratedKeys="true">
-    insert into Dept (Dept_Name, Dept_SortNumber, Superiors_Dept_Id,
+    insert into Dept (Dept_Name, Dept_SortNumber, Superiors_Dept_Id, 
       AddName, AddTime, UpdateName, 
       UpdateTime, DeleteName, DeleteTime, 
       TimeLiness)
@@ -42,19 +52,112 @@
       #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, 
       #{timeliness,jdbcType=INTEGER})
   </insert>
-  <insert id="adadept"  parameterType="com.trkj.thirdproject.entity.Dept" useGeneratedKeys="true">
-    insert into Dept ( Dept_SortNumber,Dept_Name, Superiors_Dept_Id)
-    values ( #{deptSortnumber,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR},#{superiorsDeptId,jdbcType=INTEGER})
+  <insert id="insertSelective" keyColumn="Dept_Id" keyProperty="deptId" parameterType="com.trkj.thirdproject.entity.Dept" useGeneratedKeys="true">
+    insert into Dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deptName != null">
+        Dept_Name,
+      </if>
+      <if test="deptSortnumber != null">
+        Dept_SortNumber,
+      </if>
+      <if test="superiorsDeptId != null">
+        Superiors_Dept_Id,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptSortnumber != null">
+        #{deptSortnumber,jdbcType=INTEGER},
+      </if>
+      <if test="superiorsDeptId != null">
+        #{superiorsDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+
+    </trim>
   </insert>
-  <update id="updatedept"  parameterType="com.trkj.thirdproject.entity.Dept" >
-     update Dept
-    set Dept_Name = #{deptName,jdbcType=VARCHAR},
-      Dept_SortNumber = #{deptSortnumber,jdbcType=INTEGER},
-      Superiors_Dept_Id = #{superiorsDeptId,jdbcType=INTEGER}
-          where Dept_Id = #{deptId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Dept">
+    update Dept
+    <set>
+      <if test="deptName != null">
+        Dept_Name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptSortnumber != null">
+        Dept_SortNumber = #{deptSortnumber,jdbcType=INTEGER},
+      </if>
+      <if test="superiorsDeptId != null">
+        Superiors_Dept_Id = #{superiorsDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+
+    </set>
+    where Dept_Id = #{deptId,jdbcType=INTEGER}
   </update>
-
-
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Dept">
     update Dept
     set Dept_Name = #{deptName,jdbcType=VARCHAR},
