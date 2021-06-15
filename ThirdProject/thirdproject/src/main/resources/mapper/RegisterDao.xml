@@ -118,8 +118,8 @@
     <include refid="course"/>,
     <include refid="source"/>
     from Register reg
-    inner join course c on c.Course_Id=reg.Course_Id
-    inner join source s on s.Source_Id=reg.Source_Id
+    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Source s on s.Source_Id=reg.Source_Id
     where  reg.AttentState=0
   </select>
 
@@ -137,9 +137,9 @@
     <include refid="source"/>,
     <include refid="emp"/>
     from Register reg
-    inner join course c on c.Course_Id=reg.Course_Id
-    inner join source s on s.Source_Id=reg.Source_Id
-    inner join emp e on reg.Emp_Id=e.Emp_Id
+    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Source s on s.Source_Id=reg.Source_Id
+    inner join Emp e on reg.Emp_Id=e.Emp_Id
     where  reg.Register_Id=#{registerId,jdbcType=INTEGER}
   </select>
   <!--  咨询登记交的状态为已就读接给学员表中-->
@@ -149,8 +149,8 @@
     <include refid="course"/>,
     <include refid="source"/>
     from Register reg
-    inner join course c on c.Course_Id=reg.Course_Id
-    inner join source s on s.Source_Id=reg.Source_Id
+    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Source s on s.Source_Id=reg.Source_Id
     where reg.TimeLiness=0
   </select>
 
@@ -161,8 +161,8 @@
     <include refid="course"/>,
     <include refid="source"/>
     from Register reg
-    inner join course c on c.Course_Id=reg.Course_Id
-    inner join source s on s.Source_Id=reg.Source_Id
+    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Source s on s.Source_Id=reg.Source_Id
     where reg.TimeLiness=0 and reg.AttentState=0 and  reg.PayState=2
   </select>
 
@@ -173,8 +173,8 @@
     <include refid="course"/>,
     <include refid="source"/>
     from Register reg
-    inner join course c on c.Course_Id=reg.Course_Id
-    inner join source s on s.Source_Id=reg.Source_Id
+    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Source s on s.Source_Id=reg.Source_Id
     where reg.Register_Id = #{registerId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

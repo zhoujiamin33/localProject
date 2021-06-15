@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.ReturnvisitDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Returnvisit">
+    <id column="ReturnVisit_Id" jdbcType="INTEGER" property="returnvisitId" />
+    <result column="Register_Id" jdbcType="INTEGER" property="registerId" />
+    <result column="Comments" jdbcType="VARCHAR" property="comments" />
+    <result column="ReturnVisitMode" jdbcType="VARCHAR" property="returnvisitmode" />
+    <result column="ReturnVisitDate" jdbcType="TIMESTAMP" property="returnvisitdate" />
+    <result column="ReturnVisitBack" jdbcType="VARCHAR" property="returnvisitback" />
+    <result column="TimeLiness" javaType="INTEGER" property="timeliness" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+
+    <association property="register" javaType="com.trkj.thirdproject.entity.Register">
+      <id column="Register_Id" jdbcType="INTEGER" property="registerId" />
+      <result column="ConsultAnt" jdbcType="VARCHAR" property="consultant" />
+      <result column="Sex" jdbcType="VARCHAR" property="sex" />
+      <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
+      <result column="PlanReturnVisit" jdbcType="TIMESTAMP" property="planreturnvisit" />
+      <result column="Consultationmode" jdbcType="VARCHAR" property="consultationmode" />
+      <result column="AttentState" jdbcType="INTEGER" property="attentstate" />
+      <result column="PayState" jdbcType="INTEGER" property="paystate" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="ConsultContent" jdbcType="VARCHAR" property="consultcontent" />
+      <result column="LastUpdateName" jdbcType="VARCHAR" property="lastupdatename" />
+      <result column="LastUpdateTime" jdbcType="TIMESTAMP" property="lastupdatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="phone" jdbcType="VARCHAR" property="phone" />
+      <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+      <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    </association>
+  </resultMap>
+
+  <sql id="register">
+      reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
+    reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
+    reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id
+  </sql>
+
+  <sql id="Base_Column_List">
+    ret.ReturnVisit_Id, ret.Register_Id, ret.Comments, ret.ReturnVisitMode, ret.ReturnVisitDate, ret.ReturnVisitBack,
+    ret.TimeLiness,ret.Emp_Id
+  </sql>
+  <select id="selectReturnvisit" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="register"/>
+
+    from ReturnVisit ret
+    inner join Register reg on reg.Register_Id=ret.Register_Id
+
+    where ret.Register_Id = #{registerId,jdbcType=INTEGER} and ret.TimeLiness=0
+  </select>
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from returnvisit-->
+<!--   -->
+<!--  </select>-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ReturnVisit
+    where ReturnVisit_Id = #{returnvisitId,jdbcType=INTEGER}
+  </delete>
+
+  <update id="delstuRetTime" parameterType="com.trkj.thirdproject.entity.Returnvisit">
+   update ReturnVisit set TimeLiness=1
+   where ReturnVisit_Id = #{returnvisitId}
+</update>
+  <insert id="inserRreturnvisit" keyColumn="ReturnVisit_Id" keyProperty="returnvisitId" parameterType="com.trkj.thirdproject.entity.Returnvisit" useGeneratedKeys="true">
+    insert into ReturnVisit (Register_Id,  ReturnVisitMode
+    , ReturnVisitBack
+      )
+    values (#{registerId,jdbcType=INTEGER}, #{returnvisitmode,jdbcType=VARCHAR},
+    #{returnvisitback,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="ReturnVisit_Id" keyProperty="returnvisitId" parameterType="com.trkj.thirdproject.entity.Returnvisit" useGeneratedKeys="true">
+    insert into ReturnVisit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="registerId != null">
+        Register_Id,
+      </if>
+      <if test="comments != null">
+        Comments,
+      </if>
+      <if test="returnvisitmode != null">
+        ReturnVisitMode,
+      </if>
+      <if test="returnvisitdate != null">
+        ReturnVisitDate,
+      </if>
+      <if test="returnvisitback != null">
+        ReturnVisitBack,
+      </if>
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="registerId != null">
+        #{registerId,jdbcType=INTEGER},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="returnvisitmode != null">
+        #{returnvisitmode,jdbcType=VARCHAR},
+      </if>
+      <if test="returnvisitdate != null">
+        #{returnvisitdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnvisitback != null">
+        #{returnvisitback,jdbcType=VARCHAR},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Returnvisit">
+    update ReturnVisit
+    <set>
+      <if test="registerId != null">
+        Register_Id = #{registerId,jdbcType=INTEGER},
+      </if>
+      <if test="comments != null">
+        Comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="returnvisitmode != null">
+        ReturnVisitMode = #{returnvisitmode,jdbcType=VARCHAR},
+      </if>
+      <if test="returnvisitdate != null">
+        ReturnVisitDate = #{returnvisitdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnvisitback != null">
+        ReturnVisitBack = #{returnvisitback,jdbcType=VARCHAR},
+      </if>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ReturnVisit_Id = #{returnvisitId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Returnvisit">
+    update ReturnVisit
+    set Register_Id = #{registerId,jdbcType=INTEGER},
+      Comments = #{comments,jdbcType=VARCHAR},
+      ReturnVisitMode = #{returnvisitmode,jdbcType=VARCHAR},
+      ReturnVisitDate = #{returnvisitdate,jdbcType=TIMESTAMP},
+      ReturnVisitBack = #{returnvisitback,jdbcType=VARCHAR},
+      Emp_Id = #{empId,jdbcType=INTEGER}
+    where ReturnVisit_Id = #{returnvisitId,jdbcType=INTEGER}
+  </update>
+</mapper>

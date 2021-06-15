@@ -94,8 +94,8 @@
   <include refid="register"/>,
   <include refid="course"/>
   from EntryFees entry
-  inner join register reg on reg.Register_Id=entry.Register_Id
-  inner join course c on  reg.Course_Id=c.Course_Id
+  inner join Register reg on reg.Register_Id=entry.Register_Id
+  inner join Course c on  reg.Course_Id=c.Course_Id
   where  entry.TimeLiness=0 and Fees_Id = #{feesId,jdbcType=INTEGER}
   order by entry.AddTime desc
 </select>
@@ -111,7 +111,7 @@
     select 
     <include refid="Base_Column_List" />,
     <include refid="register"/>
-    from EntryFees entry inner join register reg on reg.Register_Id=entry.Register_Id
+    from EntryFees entry inner join Register reg on reg.Register_Id=entry.Register_Id
     where  entry.TimeLiness=0
     order by entry.AddTime desc
   </select>

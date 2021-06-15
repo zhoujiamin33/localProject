@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -23,6 +24,7 @@ public class Memorandumattachment implements Serializable {
     private List<Register> register;
     private Integer registerId;
 
+
     /**
      * 招生审核状态
      */
@@ -31,6 +33,7 @@ public class Memorandumattachment implements Serializable {
     /**
      * 招生审核时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date zsexaminetime;
 
     /**
@@ -41,6 +44,7 @@ public class Memorandumattachment implements Serializable {
     /**
      * 招生撤销审核时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date zsrevoketime;
 
     /**
@@ -72,6 +76,7 @@ public class Memorandumattachment implements Serializable {
      * 教务审核撤销人
      */
     private String jwrevokename;
+
 
     private static final long serialVersionUID = 1L;
 }

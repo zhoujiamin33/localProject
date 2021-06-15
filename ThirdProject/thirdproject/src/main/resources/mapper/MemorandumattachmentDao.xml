@@ -47,29 +47,42 @@
      m.ZSRevokeTime,  m.ZSRevokeName,  m.JWIsExamine,  m.JWExamineTime,  m.JWExamineName,  m.JWRevokeTime,
      m.JWRevokeName
   </sql>
-  <sql id="Base_Column_register">
+  <sql id="register">
     reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.AttentState, reg.PayState,
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
     reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from MemorandumAttachment
-    where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="register"></include>
+    from MemorandumAttachment m
+    inner join Register r on r.Register_Id=m.Register_Id
+    where mem.MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectMemorandumAttachment" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>,
+    <include refid="register"></include>
+    from MemorandumAttachment m
+    inner join Register reg on reg.Register_Id=m.Register_Id
+
+    where reg.PayState=0
   </select>
 
 <!--  查询所有（咨询登记）-->
   <select id="selectregister" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />,<include refid="Base_Column_register"/>
-    from MemorandumAttachment m inner join register reg on m.Register_Id=reg.Register_Id
+    <include refid="Base_Column_List" />,<include refid="register"/>
+    from MemorandumAttachment m inner join Register reg on m.Register_Id=reg.Register_Id
     where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from MemorandumAttachment
     where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
   </delete>
+
+
   <insert id="insert" keyColumn="MemorandumAttachment_Id" keyProperty="memorandumattachmentId" parameterType="com.trkj.thirdproject.entity.Memorandumattachment" useGeneratedKeys="true">
     insert into MemorandumAttachment (Register_Id, ZSIsExamine, ZSExamineTime,
       ZSExamineName, ZSRevokeTime, ZSRevokeName, 

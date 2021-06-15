@@ -14,6 +14,9 @@ public interface MemorandumattachmentDao {
 
     Memorandumattachment selectByPrimaryKey(Integer memorandumattachmentId);
 
+    List<Memorandumattachment> selectMemorandumAttachment();
+
+
     int updateByPrimaryKeySelective(Memorandumattachment record);
 
     int updateByPrimaryKey(Memorandumattachment record);

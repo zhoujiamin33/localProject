@@ -41,7 +41,7 @@
   <select id="selectByCourseTypeName" resultMap="BaseResultMap">
     select  <include refid="Base_Column_List" />,<include refid="BaseType"/>
     from Course c
-    inner join classtype t on c.ClassType_Id=t.ClassType_Id
+    inner join ClassType t on c.ClassType_Id=t.ClassType_Id
     where t.ClassType_Name=#{classtypeName,jdbcType=VARCHAR}
     order by c.AddTime desc
   </select>
@@ -49,7 +49,7 @@
   <select id="selectAllCourse"  resultMap="BaseResultMap">
     select  <include refid="Base_Column_List" />,<include refid="BaseType"/>
     from Course c
-    inner join classtype t on c.ClassType_Id=t.ClassType_Id
+    inner join ClassType t on c.ClassType_Id=t.ClassType_Id
     order by c.AddTime desc
   </select>
 <!--  修改名称、课时量、费用、开设状态-->
