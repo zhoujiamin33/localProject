@@ -4,12 +4,12 @@
   <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Memorandumattachment">
     <id column="MemorandumAttachment_Id" jdbcType="INTEGER" property="memorandumattachmentId" />
     <result column="Register_Id" jdbcType="INTEGER" property="registerId" />
-    <result column="ZSIsExamine" jdbcType="VARCHAR" property="zsisexamine" />
+    <result column="ZSIsExamine" jdbcType="INTEGER" property="zsisexamine" />
     <result column="ZSExamineTime" jdbcType="TIMESTAMP" property="zsexaminetime" />
     <result column="ZSExamineName" jdbcType="VARCHAR" property="zsexaminename" />
     <result column="ZSRevokeTime" jdbcType="TIMESTAMP" property="zsrevoketime" />
     <result column="ZSRevokeName" jdbcType="VARCHAR" property="zsrevokename" />
-    <result column="JWIsExamine" jdbcType="VARCHAR" property="jwisexamine" />
+    <result column="JWIsExamine" jdbcType="INTEGER" property="jwisexamine" />
     <result column="JWExamineTime" jdbcType="TIMESTAMP" property="jwexaminetime" />
     <result column="JWExamineName" jdbcType="VARCHAR" property="jwexaminename" />
     <result column="JWRevokeTime" jdbcType="TIMESTAMP" property="jwrevoketime" />
@@ -66,7 +66,6 @@
     <include refid="register"></include>
     from MemorandumAttachment m
     inner join Register reg on reg.Register_Id=m.Register_Id
-
     where reg.PayState=0
   </select>
 
@@ -75,7 +74,13 @@
     select
     <include refid="Base_Column_List" />,<include refid="register"/>
     from MemorandumAttachment m inner join Register reg on m.Register_Id=reg.Register_Id
-    where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+    where m.MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+  </select>
+  <select id="selectregisterID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="register"/>
+    from MemorandumAttachment m inner join Register reg on m.Register_Id=reg.Register_Id
+    where  m.Register_Id= #{registerId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from MemorandumAttachment
@@ -88,9 +93,9 @@
       ZSExamineName, ZSRevokeTime, ZSRevokeName, 
       JWIsExamine, JWExamineTime, JWExamineName, 
       JWRevokeTime, JWRevokeName)
-    values (#{registerId,jdbcType=INTEGER}, #{zsisexamine,jdbcType=VARCHAR}, #{zsexaminetime,jdbcType=TIMESTAMP}, 
+    values (#{registerId,jdbcType=INTEGER}, #{zsisexamine,jdbcType=INTEGER}, #{zsexaminetime,jdbcType=TIMESTAMP},
       #{zsexaminename,jdbcType=VARCHAR}, #{zsrevoketime,jdbcType=TIMESTAMP}, #{zsrevokename,jdbcType=VARCHAR}, 
-      #{jwisexamine,jdbcType=VARCHAR}, #{jwexaminetime,jdbcType=TIMESTAMP}, #{jwexaminename,jdbcType=VARCHAR}, 
+      #{jwisexamine,jdbcType=INTEGER}, #{jwexaminetime,jdbcType=TIMESTAMP}, #{jwexaminename,jdbcType=VARCHAR},
       #{jwrevoketime,jdbcType=TIMESTAMP}, #{jwrevokename,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="MemorandumAttachment_Id" keyProperty="memorandumattachmentId" parameterType="com.trkj.thirdproject.entity.Memorandumattachment" useGeneratedKeys="true">
@@ -135,7 +140,7 @@
         #{registerId,jdbcType=INTEGER},
       </if>
       <if test="zsisexamine != null">
-        #{zsisexamine,jdbcType=VARCHAR},
+        #{zsisexamine,jdbcType=INTEGER},
       </if>
       <if test="zsexaminetime != null">
         #{zsexaminetime,jdbcType=TIMESTAMP},
@@ -150,7 +155,7 @@
         #{zsrevokename,jdbcType=VARCHAR},
       </if>
       <if test="jwisexamine != null">
-        #{jwisexamine,jdbcType=VARCHAR},
+        #{jwisexamine,jdbcType=INTEGER},
       </if>
       <if test="jwexaminetime != null">
         #{jwexaminetime,jdbcType=TIMESTAMP},
@@ -173,7 +178,7 @@
         Register_Id = #{registerId,jdbcType=INTEGER},
       </if>
       <if test="zsisexamine != null">
-        ZSIsExamine = #{zsisexamine,jdbcType=VARCHAR},
+        ZSIsExamine = #{zsisexamine,jdbcType=INTEGER},
       </if>
       <if test="zsexaminetime != null">
         ZSExamineTime = #{zsexaminetime,jdbcType=TIMESTAMP},
@@ -188,7 +193,7 @@
         ZSRevokeName = #{zsrevokename,jdbcType=VARCHAR},
       </if>
       <if test="jwisexamine != null">
-        JWIsExamine = #{jwisexamine,jdbcType=VARCHAR},
+        JWIsExamine = #{jwisexamine,jdbcType=INTEGER},
       </if>
       <if test="jwexaminetime != null">
         JWExamineTime = #{jwexaminetime,jdbcType=TIMESTAMP},
@@ -208,12 +213,12 @@
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Memorandumattachment">
     update MemorandumAttachment
     set Register_Id = #{registerId,jdbcType=INTEGER},
-      ZSIsExamine = #{zsisexamine,jdbcType=VARCHAR},
+      ZSIsExamine = #{zsisexamine,jdbcType=INTEGER},
       ZSExamineTime = #{zsexaminetime,jdbcType=TIMESTAMP},
       ZSExamineName = #{zsexaminename,jdbcType=VARCHAR},
       ZSRevokeTime = #{zsrevoketime,jdbcType=TIMESTAMP},
       ZSRevokeName = #{zsrevokename,jdbcType=VARCHAR},
-      JWIsExamine = #{jwisexamine,jdbcType=VARCHAR},
+      JWIsExamine = #{jwisexamine,jdbcType=INTEGER},
       JWExamineTime = #{jwexaminetime,jdbcType=TIMESTAMP},
       JWExamineName = #{jwexaminename,jdbcType=VARCHAR},
       JWRevokeTime = #{jwrevoketime,jdbcType=TIMESTAMP},

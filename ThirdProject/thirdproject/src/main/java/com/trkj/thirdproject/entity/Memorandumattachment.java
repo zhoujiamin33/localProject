@@ -28,7 +28,7 @@ public class Memorandumattachment implements Serializable {
     /**
      * 招生审核状态
      */
-    private String zsisexamine;
+    private int zsisexamine;
 
     /**
      * 招生审核时间
@@ -55,7 +55,7 @@ public class Memorandumattachment implements Serializable {
     /**
      * 教务审核状态
      */
-    private String jwisexamine;
+    private int jwisexamine;
 
     /**
      * 教务审核时间

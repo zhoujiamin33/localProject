@@ -129,7 +129,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from dropout dro
+    from Dropout dro
     where dro.Drop_Id = #{dropId,jdbcType=INTEGER}
   </select>
 <!--  查询所有-->
@@ -143,9 +143,9 @@
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_Classes" />,<include refid="Base_Column_student" />,<include
           refid="Base_Column_course"/>
-    from dropout dro inner join student stu on dro.Student_Id=stu.Student_Id
-    inner join classes cl on dro.Classes_Id=cl.Classes_Id
-    inner join course c on dro.Course_Id=c.Course_Id
+    from Dropout dro inner join Student stu on dro.Student_Id=stu.Student_Id
+    inner join Classes cl on dro.Classes_Id=cl.Classes_Id
+    inner join Course c on dro.Course_Id=c.Course_Id
     where  dro.TimeLiness=0
   </select>
 <!--  模糊查询-->
@@ -153,9 +153,9 @@
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_Classes" />,<include refid="Base_Column_student" />,<include
           refid="Base_Column_course"/>
-    from dropout dro inner join student stu on dro.Student_Id=stu.Student_Id
-    inner join classes cl on dro.Classes_Id=cl.Classes_Id
-    inner join course c on dro.Course_Id=c.Course_Id
+    from Dropout dro inner join Student stu on dro.Student_Id=stu.Student_Id
+    inner join Classes cl on dro.Classes_Id=cl.Classes_Id
+    inner join Course c on dro.Course_Id=c.Course_Id
     where  dro.TimeLiness=0 and
     <if test="value!=null and index=='班级'">
       cl.Classes_Name like CONCAT(CONCAT('%',#{value},'%'))
@@ -169,11 +169,11 @@
 
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from dropout
+    delete from Dropout
     where Drop_Id = #{dropId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Drop_Id" keyProperty="dropId" parameterType="com.trkj.thirdproject.entity.Dropout" useGeneratedKeys="true">
-    insert into dropout (Student_Id, Classes_Id, Course_Id,
+    insert into Dropout (Student_Id, Classes_Id, Course_Id,
       DetailCourse_Id, Drop_Time, Drop_Handler, 
       Drop_Reason, isPay, JW_Approval, 
       JW_AppTime, JW_AppName, JW_DropNameApp, 
@@ -187,7 +187,7 @@
       #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Drop_Id" keyProperty="dropId" parameterType="com.trkj.thirdproject.entity.Dropout" useGeneratedKeys="true">
-    insert into dropout
+    insert into Dropout
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="studentId != null">
         Student_Id,
@@ -290,7 +290,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Dropout">
-    update dropout
+    update Dropout
     <set>
       <if test="studentId != null">
         Student_Id = #{studentId,jdbcType=INTEGER},
@@ -344,7 +344,7 @@
     where Drop_Id = #{dropId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Dropout">
-    update dropout
+    update Dropout
     set Student_Id = #{studentId,jdbcType=INTEGER},
       Classes_Id = #{classesId,jdbcType=INTEGER},
       Course_Id = #{courseId,jdbcType=INTEGER},

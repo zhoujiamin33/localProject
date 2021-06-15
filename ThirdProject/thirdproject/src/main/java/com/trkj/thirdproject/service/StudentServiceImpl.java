@@ -31,6 +31,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Memorandumattachment selectregisterID(Integer registerId) {
+        return memorandumattachmentDao.selectregisterID(registerId);
+    }
+
+    @Override
     public Studentstatus selecttudentstsatus(Integer studentId) {
         Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
         return studentstatus;

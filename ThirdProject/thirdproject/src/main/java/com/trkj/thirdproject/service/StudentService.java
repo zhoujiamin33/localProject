@@ -40,4 +40,7 @@ public interface StudentService {
     //<!--  根据学员表里的班级id查询班级信息：如果没有分班呢？班级记录表李会显示请选择班级-->
 //    查看所有
     List<Student> selectAllstudent();
+
+    //    根据咨询编号查看交接内容
+    Memorandumattachment selectregisterID(Integer registerId);
 }

@@ -28,4 +28,6 @@ public interface MemorandumattachmentDao {
     //<!--  在学员交接表查询所有（咨询登记）-->
 
     List<Memorandumattachment> selectregister();
+//    根据咨询编号查看交接内容
+    Memorandumattachment selectregisterID(Integer registerId);
 }

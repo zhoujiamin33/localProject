@@ -115,7 +115,7 @@ public class StudentController {
 
         for (String s : id) {
 //            Memorandumattachment memorandumattachment=new Memorandumattachment();
-//            memorandumattachment.setRegisterId(Integer.getInteger(s));
+//            memorandumattachment.setRegisterId(Integer.parseInt(s));
 //            memorandumattachment.setZsexaminename("tsm管理员");
             log.debug("学员交接表新增成功");
             log.debug(s);
@@ -139,17 +139,24 @@ public class StudentController {
     //学员表查询学员编号
     @GetMapping("/findstudentId/{studentId}")
     public Studentstatus findstudentId(@PathVariable("studentId") Integer studentId) {
-        Studentstatus studentstatus = studentService.selecttudentstsatus(studentId);
+        Student student = studentService.selectstudentId(studentId);
 
-        log.debug("学员表中的班级编号：" + studentstatus.toString());
+        log.debug("学员表中的班级编号：" + student.toString());
+
+            Register register=studentService.selectRegister(student.getRegisterId());//查询咨询登记查询课程表
+            Studentstatus studentstatus=new Studentstatus();
+            studentstatus.setCourseId(register.getCourseId());//课程编号:显示课程的名称
+            studentstatus.setStudentId(studentId);
+            studentstatus.setClassesId(student.getClassesId());//班级编号：显示已报班级还是未报班级
+        studentstatus.setSignuptime(new Date());
+        log.debug("学员状态表："+studentstatus.toString());
+            studentstatusService.AddStudentstatus(studentstatus);//新增学员状态表
+        Memorandumattachment memorandumattachment=studentService.selectregisterID(student.getRegisterId());//学员交接表的教务状态改为1已审核
+memorandumattachment.setJwexaminename("tsm管理员");
+memorandumattachment.setJwexaminetime(new Date());
+memorandumattachment.setJwisexamine(1);
+studentService.updateByPrimaryKeySelective(memorandumattachment);
         return studentstatus;
-//            Register register=studentService.selectRegister(student.getRegisterId());//查询咨询登记查询课程表
-//            Studentstatus studentstatus=new Studentstatus();
-//            studentstatus.setCourseId(register.getCourseId());//课程编号:显示课程的名称
-//            studentstatus.setStudentId(studentId);
-//            studentstatus.setClassesId(student.getClassesId());//班级编号：显示已报班级还是未报班级
-//            studentstatusService.AddStudentstatus(studentstatus);//新增学员状态表
-
 
     }
 }
