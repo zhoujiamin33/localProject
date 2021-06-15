@@ -94,7 +94,7 @@
   <sql id="Base_Column_List">
     reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
-    reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id
+    reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id,reg.phone
   </sql>
 
   <sql id="course" >

@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -64,6 +65,11 @@ public class EntryfeesController {
         Entryfees entryfees= entryfeesService.selectByfeeid(feesId);
         return entryfees;
     }
+    //补缴之后，修改累计欠费的值
+    @PutMapping("/updateFeesAccumulated/{outstandingId}/{feesaccumulated}")
+    public int updateFeesAccumulated(@PathVariable("outstandingId") Integer outstandingId, @PathVariable("feesaccumulated")BigDecimal feesaccumulated){
+        return entryfeesService.updateFeesAccumulated(outstandingId,feesaccumulated);
+    }
     //--------------------------------------------------欠费补缴-----------------------------------------------------------------------
     //在报班缴费中查询缴费方式未预交费的数据
     @GetMapping("/findAlloutstanding")
@@ -75,6 +81,7 @@ public class EntryfeesController {
         outStandingService.insert(studentoutstanding);
         return studentoutstanding;
     }
+    //下拉框选择查询
     @GetMapping("/selectBycontion/{select}/{input}")
     public List<Studentoutstanding> selectBycontion(@Param("select") String select,@Param("input")String input){
         return  outStandingService.selectBycontion(select, input);
@@ -84,4 +91,23 @@ public class EntryfeesController {
     public List<Studentoutstanding> selectoutstanding(){
         return outStandingService.selectoutstanding();
     }
+    //审核
+    @PutMapping("/updateApprovalState")
+    public Studentoutstanding updateApprovalState( @RequestBody Studentoutstanding studentoutstanding){
+        outStandingService.updateApprovalState(studentoutstanding);
+        return studentoutstanding;
+    }
+    //撤销审核
+    @PutMapping("/updateReApprovalState")
+    public Studentoutstanding updateReApprovalState( @RequestBody Studentoutstanding studentoutstanding){
+        outStandingService.updateReApprovalState(studentoutstanding);
+        return studentoutstanding;
+    }
+    //删除
+    @PutMapping("/deleteoutstanding")
+    public Studentoutstanding deleteoutstanding( @RequestBody Studentoutstanding studentoutstanding){
+        outStandingService.deleteoutstanding(studentoutstanding);
+        return studentoutstanding;
+    }
+
 }

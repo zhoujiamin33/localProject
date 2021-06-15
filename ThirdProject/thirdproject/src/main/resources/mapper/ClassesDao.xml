@@ -127,10 +127,10 @@
     <include refid="classRoom"/>,
     <include refid="book"/>
     from Classes cl
-    inner join course c on cl.Course_Id=c.Course_Id
-    inner join emp e on e.Emp_Id=cl.Emp_Id
-    inner join book b on b.Book_Id=cl.User_BookId
-    inner join classroom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
     <where>
       <if test="value=='班级名称' and input!=null">
         cl.Classes_Name like CONCAT(CONCAT('%',#{input},'%'))
@@ -160,10 +160,10 @@
     <include refid="classRoom"/>,
     <include refid="book"/>
     from Classes cl
-    inner join course c on cl.Course_Id=c.Course_Id
-    inner join emp e on e.Emp_Id=cl.Emp_Id
-    inner join book b on b.Book_Id=cl.User_BookId
-    inner join classroom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
     where cl.TimeLiness=0
     order  by cl.AddTime desc
   </select>

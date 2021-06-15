@@ -3,6 +3,7 @@ package com.trkj.thirdproject.dao;
 import com.trkj.thirdproject.entity.Entryfees;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Mapper
@@ -24,4 +25,6 @@ public interface EntryfeesDao {
     int updateRevokeapproval(Entryfees entryfees);
     //根据id查询
     Entryfees selectByfeeid(Integer feeId);
+    //     补缴之后，修改累计欠费的值
+    int  updateFeesAccumulated(Integer outstandingId, BigDecimal feesaccumulated);
 }

@@ -20,6 +20,7 @@
     <result column="RevokeAppName" jdbcType="VARCHAR" property="revokeappname" />
     <result column="RevokeAppTime" jdbcType="TIMESTAMP" property="revokeapptime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <result column="ApprovalState" jdbcType="INTEGER" property="approvalstate" />
 
     <!--    报班缴费数据-->
     <collection property="entryfees" ofType="com.trkj.thirdproject.entity.Entryfees">
@@ -30,11 +31,12 @@
       <result column="Fees_Type" jdbcType="INTEGER" property="feesType" />
       <result column="Fees_Advance" jdbcType="DECIMAL" property="feesAdvance" />
       <result column="Receipts" jdbcType="DECIMAL" property="receipts" />
+      <result column="Fees_Accumulated" jdbcType="DECIMAL" property="feesaccumulated" />
       <result column="Fees_State" jdbcType="INTEGER" property="feesState" />
       <result column="ApprovalName" jdbcType="VARCHAR" property="approvalname" />
       <result column="ApprovalTime" jdbcType="TIMESTAMP" property="approvaltime" />
       <result column="RevokeAppName" jdbcType="VARCHAR" property="revokeappname" />
-      <result column="RevokeAppTime" jdbcType="VARCHAR" property="revokeapptime" />
+      <result column="RevokeAppTime" jdbcType="TIMESTAMP" property="revokeapptime" />
       <result column="AddName" jdbcType="VARCHAR" property="addname" />
       <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
       <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
@@ -42,6 +44,7 @@
       <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      <result column="ApprovalState" jdbcType="INTEGER" property="approvalstate" />
 
       <!--咨询登记-->
       <association property="register" javaType="com.trkj.thirdproject.entity.Register">
@@ -73,20 +76,38 @@
   <sql id="outstanding">
     s.outstanding_Id, s.Fees_Id, s.outstanding_Name, s.outstanding_Date, s.AlongMoney, s.Accumulated,
     s.AddName, s.AddTime, s.UpdateName, s.UpdateTime, s.DeleteName, s.DeleteTime, s.ApprovalName, s.ApprovalTime,
-    s.RevokeAppName, s.RevokeAppTime, s.TimeLiness
+    s.RevokeAppName, s.RevokeAppTime, s.TimeLiness,s.ApprovalState
   </sql>
   <sql id="entryfees">
-    entry.Fees_Id, entry.Fees_Name, entry.Register_Id, entry.Fees_Receivable,entry.Fees_Type, entry.Fees_Advance, entry.Receipts,
+     entry.Fees_Id, entry.Fees_Name, entry.Register_Id, entry.Fees_Receivable,entry.Fees_Type, entry.Fees_Advance, entry.Receipts,
     entry.Fees_State, entry.ApprovalName, entry.ApprovalTime, entry.RevokeAppName, entry.RevokeAppTime, entry.AddName, entry.AddTime,
-    entry.UpdateName, entry.UpdateTime, entry.DeleteName, entry.DeleteTime, entry.TimeLiness
+    entry.UpdateName, entry.UpdateTime, entry.DeleteName, entry.DeleteTime, entry.TimeLiness,entry.ApprovalState,entry.Fees_Accumulated
   </sql>
 
   <sql id="register">
-     reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.AttentState, reg.PayState,
-     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
-     reg.DeleteTime
+    reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
+    reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
+    reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id,reg.phone
   </sql>
 
+<!--  删除欠费补缴-->
+  <update id="deleteoutstanding">
+      update StudentOutstanding set TimeLiness=1,DeleteName= #{deletename,jdbcType=VARCHAR},
+     DeleteTime= #{deletetime,jdbcType=TIMESTAMP}
+    where outstanding_Id = #{outstandingId,jdbcType=INTEGER}
+  </update>
+<!--  审核欠费补缴-->
+  <update id="updateApprovalState">
+    update StudentOutstanding set ApprovalState=1,ApprovalName= #{approvalname,jdbcType=VARCHAR},
+     ApprovalTime= #{approvaltime,jdbcType=TIMESTAMP}
+    where outstanding_Id = #{outstandingId,jdbcType=INTEGER}
+  </update>
+<!--  撤销审核-->
+  <update id="updateReApprovalState">
+    update StudentOutstanding set ApprovalState=0,RevokeAppName= #{revokeappname,jdbcType=VARCHAR},
+     RevokeAppTime= #{revokeapptime,jdbcType=TIMESTAMP}
+    where outstanding_Id = #{outstandingId,jdbcType=INTEGER}
+  </update>
 <!--多条件查询-->
 <select id="selectBycontion">
   select

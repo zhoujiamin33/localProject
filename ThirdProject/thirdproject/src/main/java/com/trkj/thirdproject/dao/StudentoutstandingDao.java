@@ -24,4 +24,11 @@ public interface StudentoutstandingDao {
 
 //    多条件查询
     List<Studentoutstanding> selectBycontion(String select,String input);
+//    审核欠费补缴
+    int updateApprovalState(Studentoutstanding studentoutstanding);
+    //    撤销审核欠费补缴
+    int updateReApprovalState(Studentoutstanding studentoutstanding);
+//    删除欠费补缴
+    int deleteoutstanding(Studentoutstanding studentoutstanding);
+
 }

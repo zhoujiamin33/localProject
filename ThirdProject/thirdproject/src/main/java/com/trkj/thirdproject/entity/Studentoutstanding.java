@@ -105,6 +105,7 @@ public class Studentoutstanding implements Serializable {
     private Integer timeliness;
 
     private  Entryfees entryfees;
+    private Integer approvalstate;
 
     private static final long serialVersionUID = 1L;
 }

@@ -3,6 +3,7 @@ package com.trkj.thirdproject.service;
 import com.trkj.thirdproject.dao.StudentoutstandingDao;
 import com.trkj.thirdproject.entity.Studentoutstanding;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.client.RootUriTemplateHandler;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,4 +43,29 @@ public class OutStandingServiceImpl implements OutStandingService {
     public List<Studentoutstanding> selectoutstanding() {
         return outstandingdao.selectoutstanding();
     }
+
+    @Override
+    public Studentoutstanding updateApprovalState(Studentoutstanding studentoutstanding) {
+        studentoutstanding.setApprovaltime(new Date());
+        outstandingdao.updateApprovalState(studentoutstanding);
+
+        return studentoutstanding;
+    }
+
+    @Override
+    public Studentoutstanding updateReApprovalState(Studentoutstanding studentoutstanding) {
+        studentoutstanding.setRevokeapptime(new Date());
+        outstandingdao.updateReApprovalState(studentoutstanding);
+        return studentoutstanding;
+    }
+
+    @Override
+    public Studentoutstanding deleteoutstanding(Studentoutstanding studentoutstanding) {
+        studentoutstanding.setDeletetime(new Date());
+        outstandingdao.deleteoutstanding(studentoutstanding);
+        return studentoutstanding;
+    }
+
+
+
 }

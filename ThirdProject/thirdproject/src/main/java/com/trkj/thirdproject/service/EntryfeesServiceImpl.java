@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,5 +65,8 @@ public class EntryfeesServiceImpl implements EntryfeesService {
         return entryfees;
     }
 
-
+    @Override
+    public int updateFeesAccumulated(Integer outstandingId, BigDecimal feesaccumulated) {
+        return entryfeesdao.updateFeesAccumulated(outstandingId,feesaccumulated);
+    }
 }

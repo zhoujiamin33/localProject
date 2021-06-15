@@ -80,6 +80,9 @@
     from BookStorage bs
      inner join Emp e on bs.Emp_Id=e.Emp_Id
      inner join Book b on bs.Book_Id=b.Book_Id
+
+     inner join Emp e on bs.MBookStorage_Id=e.Emp_Id
+     inner join Book b on bs.MBookStorage_Id=b.Book_Id
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from BookStorage

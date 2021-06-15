@@ -108,6 +108,7 @@ public class Entryfees implements Serializable {
     private Integer approvalstate;
 
     private Register register;
+    private BigDecimal feesaccumulated;
 
     private static final long serialVersionUID = 1L;
 }

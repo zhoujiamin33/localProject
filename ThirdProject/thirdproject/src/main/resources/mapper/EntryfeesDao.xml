@@ -9,6 +9,7 @@
     <result column="Fees_Type" jdbcType="INTEGER" property="feesType" />
     <result column="Fees_Advance" jdbcType="DECIMAL" property="feesAdvance" />
     <result column="Receipts" jdbcType="DECIMAL" property="receipts" />
+    <result column="Fees_Accumulated" jdbcType="DECIMAL" property="feesaccumulated" />
     <result column="Fees_State" jdbcType="INTEGER" property="feesState" />
     <result column="ApprovalName" jdbcType="VARCHAR" property="approvalname" />
     <result column="ApprovalTime" jdbcType="TIMESTAMP" property="approvaltime" />
@@ -68,12 +69,12 @@
   <sql id="Base_Column_List">
     entry.Fees_Id, entry.Fees_Name, entry.Register_Id, entry.Fees_Receivable,entry.Fees_Type, entry.Fees_Advance, entry.Receipts,
     entry.Fees_State, entry.ApprovalName, entry.ApprovalTime, entry.RevokeAppName, entry.RevokeAppTime, entry.AddName, entry.AddTime,
-    entry.UpdateName, entry.UpdateTime, entry.DeleteName, entry.DeleteTime, entry.TimeLiness,entry.ApprovalState
+    entry.UpdateName, entry.UpdateTime, entry.DeleteName, entry.DeleteTime, entry.TimeLiness,entry.ApprovalState,entry.Fees_Accumulated
   </sql>
   <sql id="register">
-    reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
+     reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
-    reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id
+    reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id,reg.phone
   </sql>
 
   <sql id="course">
@@ -115,7 +116,11 @@
     where  entry.TimeLiness=0
     order by entry.AddTime desc
   </select>
-
+  <!--补缴之后，修改累计欠费的值-->
+  <update id="updateFeesAccumulated">
+    update EntryFees entry set entry.Fees_Accumulated=#{feesaccumulated,jdbcType=DECIMAL}
+    where Fees_Id = #{feesId,jdbcType=INTEGER}
+  </update>
 
   <update id="deleteByPrimaryKey" >
     update  EntryFees set TimeLiness=1 ,DeleteTime=#{deletetime,jdbcType=TIMESTAMP},DeleteName=#{deletename,jdbcType=VARCHAR}
