@@ -2,7 +2,6 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.trkj.thirdproject.entity.Book;
 import com.trkj.thirdproject.entity.Bookstorage;
 import com.trkj.thirdproject.service.BookstorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +15,6 @@ import java.util.List;
 public class BookstorageController {
     @Autowired
     private BookstorageService bookstorageService;
-
-//    @GetMapping("/findAllbookstorage")
-//    public List<Bookstorage> findAllbookstorage(){
-//        return bookstorageService.selectAll();
-//    }
 
     @PostMapping("/addBookstorage")
     public Bookstorage addBookstorage(@RequestBody Bookstorage bookstorage){
@@ -36,9 +30,17 @@ public class BookstorageController {
         return classtypePageInfo;
     }
 
-    //-----------------------------------教材表-----------------------------------------------------------------------------
-    @GetMapping("/findbook")
-    public List<Book> findbook(){
-        return bookstorageService.selectAllBook();
+    @PutMapping("/updateBookstorage")
+    public Bookstorage updateByPrimaryKey(@RequestBody Bookstorage bookstorage){
+        log.debug("开始修改");
+        bookstorageService.updateByPrimaryKey(bookstorage);
+        return bookstorage;
+    }
+
+    @DeleteMapping("/delBookstorage/{mbookstorageId}")
+    public String delBookstorage(@PathVariable("mbookstorageId") int mbookstorageId){
+        log.debug("开始删除");
+        bookstorageService.deleteByPrimaryKey(mbookstorageId);
+        return "delOk";
     }
 }

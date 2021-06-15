@@ -51,10 +51,6 @@ public class Book implements Serializable {
      */
     private Integer state;
 
-    /**
-     * 入库量
-     */
-    private Integer storage;
 
     private static final long serialVersionUID = 1L;
 }

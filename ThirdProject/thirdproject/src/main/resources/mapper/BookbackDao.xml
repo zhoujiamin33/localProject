@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.trkj.thirdproject.dao.BookstorageDao">
-  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Bookstorage">
-    <id column="MBookStorage_Id" jdbcType="INTEGER" property="mbookstorageId" />
+<mapper namespace="com.trkj.thirdproject.dao.BookbackDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Bookback">
+    <id column="BookBack_Id" jdbcType="INTEGER" property="bookbackId" />
     <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
     <result column="Book_Id" jdbcType="INTEGER" property="bookId" />
-    <result column="StorageCount" jdbcType="INTEGER" property="storagecount" />
+    <result column="ReturnNumber" jdbcType="VARCHAR" property="returnnumber" />
     <result column="StorageTime" jdbcType="TIMESTAMP" property="storagetime" />
-    <result column="TotalPrice" jdbcType="DECIMAL" property="totalprice" />
+    <result column="CauseOfDamage" jdbcType="VARCHAR" property="causeofdamage" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="Approval" jdbcType="INTEGER" property="approval" />
@@ -16,6 +18,8 @@
     <result column="Revoke_AppName" jdbcType="VARCHAR" property="revokeAppname" />
     <result column="Revoke_AppTime" jdbcType="TIMESTAMP" property="revokeApptime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <result column="BackCount" jdbcType="INTEGER" property="backcount" />
+    <result column="BackMoney" jdbcType="DECIMAL" property="backmoney" />
 
     <association property="book" javaType="com.trkj.thirdproject.entity.Book">
       <id column="Book_Id" jdbcType="INTEGER" property="bookId" />
@@ -60,8 +64,9 @@
     </collection>
   </resultMap>
   <sql id="Base_Column_List">
-    bs.MBookStorage_Id, bs.Emp_Id, bs.Book_Id, bs.StorageCount, bs.StorageTime, bs.TotalPrice, bs.DeleteName,
-    bs.DeleteTime, bs.Approval, bs.AppName, bs.AppTime, bs.Revoke_AppName, bs.Revoke_AppTime, bs.TimeLiness
+    bb.BookBack_Id, bb.Emp_Id, bb.Book_Id,bb.ReturnNumber, bb.StorageTime, bb.CauseOfDamage, bb.UpdateName, bb.UpdateTime,
+    bb.DeleteName, bb.DeleteTime, bb.Approval, bb.AppName, bb.AppTime, bb.Revoke_AppName, bb.Revoke_AppTime,
+    bb.TimeLiness, bb.BackCount, bb.BackMoney
   </sql>
   <sql id="Emp">
     e.Emp_Id, e.Position_Id, e.Dept_Id, e.Enterprise_Id, e.JobNumber, e.Emp_Name, e.Emp_Sex, e.Emp_Phone,
@@ -72,37 +77,33 @@
   <sql id="Book">
     b.Book_Id, b.BookName, b.DeliveryCount, b.BookSprice, b.BookJprice, b.SafeStock, b.Press, b.`State`
   </sql>
-  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
+    <include refid="Base_Column_List" />
+    from BookBack
+    where BookBack_Id = #{bookbackId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />,
     <include refid="Emp" />,
     <include refid="Book" />
-    from BookStorage bs
-     inner join Emp e on bs.Emp_Id=e.Emp_Id
-     inner join Book b on bs.Book_Id=b.Book_Id
+    from BookBack bb
+    inner join Emp e on bb.Emp_Id=e.Emp_Id
+    inner join Book b on bb.Book_Id=b.Book_Id
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from BookStorage
-    where MBookStorage_Id = #{mbookstorageId,jdbcType=INTEGER}
+    delete from BookBack
+    where BookBack_Id = #{bookbackId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="MBookStorage_Id" keyProperty="mbookstorageId" parameterType="com.trkj.thirdproject.entity.Bookstorage" useGeneratedKeys="true">
-    insert into BookStorage (Emp_Id, Book_Id, StorageCount,
-      StorageTime, TotalPrice, DeleteName, 
-      DeleteTime, Approval, AppName, 
-      AppTime, Revoke_AppName, Revoke_AppTime, 
-      TimeLiness)
-    values (#{empId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{storagecount,jdbcType=INTEGER}, 
-      #{storagetime,jdbcType=TIMESTAMP}, #{totalprice,jdbcType=DECIMAL}, #{deletename,jdbcType=VARCHAR}, 
-      #{deletetime,jdbcType=TIMESTAMP}, #{approval,jdbcType=INTEGER}, #{appname,jdbcType=VARCHAR}, 
-      #{apptime,jdbcType=TIMESTAMP}, #{revokeAppname,jdbcType=VARCHAR}, #{revokeApptime,jdbcType=TIMESTAMP}, 
-      #{timeliness,jdbcType=INTEGER})
+  <insert id="insert" keyColumn="BookBack_Id" keyProperty="bookbackId" parameterType="com.trkj.thirdproject.entity.Bookback" useGeneratedKeys="true">
+    insert into BookBack (Emp_Id, Book_Id,ReturnNumber, StorageTime,
+      CauseOfDamage, BackCount,BackMoney)
+    values (#{empId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER},#{returnnumber,jdbcType=VARCHAR}, #{storagetime,jdbcType=TIMESTAMP},
+     #{causeofdamage,jdbcType=VARCHAR}, #{backcount,jdbcType=INTEGER},#{backmoney,jdbcType=DECIMAL})
   </insert>
-  <insert id="addBookstorage" keyColumn="Mbookstorage_Id" keyProperty="mbookstorageId" parameterType="com.trkj.thirdproject.entity.Bookstorage" useGeneratedKeys="true">
-    insert into BookStorage (Emp_Id, Book_Id,StorageCount,StorageTime,TotalPrice)
-    values (#{empId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER},#{storagecount,jdbcType=INTEGER},#{storagetime,jdbcType=TIMESTAMP},#{totalprice,jdbcType=DECIMAL})
-  </insert>
-  <insert id="insertSelective" keyColumn="MBookStorage_Id" keyProperty="mbookstorageId" parameterType="com.trkj.thirdproject.entity.Bookstorage" useGeneratedKeys="true">
-    insert into BookStorage
+  <insert id="insertSelective" keyColumn="BookBack_Id" keyProperty="bookbackId" parameterType="com.trkj.thirdproject.entity.Bookback" useGeneratedKeys="true">
+    insert into BookBack
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="empId != null">
         Emp_Id,
@@ -110,14 +111,50 @@
       <if test="bookId != null">
         Book_Id,
       </if>
-      <if test="storagecount != null">
-        StorageCount,
+      <if test="returnnumber != null">
+        ReturnNumber,
       </if>
       <if test="storagetime != null">
         StorageTime,
       </if>
-      <if test="totalprice != null">
-        TotalPrice,
+      <if test="causeofdamage != null">
+        CauseOfDamage,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="approval != null">
+        Approval,
+      </if>
+      <if test="appname != null">
+        AppName,
+      </if>
+      <if test="apptime != null">
+        AppTime,
+      </if>
+      <if test="revokeAppname != null">
+        Revoke_AppName,
+      </if>
+      <if test="revokeApptime != null">
+        Revoke_AppTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+      <if test="backcount != null">
+        BackCount,
+      </if>
+      <if test="backmoney != null">
+        BackMoney,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -127,14 +164,20 @@
       <if test="bookId != null">
         #{bookId,jdbcType=INTEGER},
       </if>
-      <if test="storagecount != null">
-        #{storagecount,jdbcType=INTEGER},
+      <if test="returnnumber != null">
+        #{returnnumber,jdbcType=VARCHAR},
       </if>
       <if test="storagetime != null">
         #{storagetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="totalprice != null">
-        #{totalprice,jdbcType=DECIMAL},
+      <if test="causeofdamage != null">
+        #{causeofdamage,jdbcType=VARCHAR},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
       </if>
       <if test="deletename != null">
         #{deletename,jdbcType=VARCHAR},
@@ -160,10 +203,16 @@
       <if test="timeliness != null">
         #{timeliness,jdbcType=INTEGER},
       </if>
+      <if test="backcount != null">
+        #{backcount,jdbcType=INTEGER},
+      </if>
+      <if test="backmoney != null">
+        #{backmoney,jdbcType=DECIMAL},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Bookstorage">
-    update BookStorage
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Bookback">
+    update BookBack
     <set>
       <if test="empId != null">
         Emp_Id = #{empId,jdbcType=INTEGER},
@@ -171,14 +220,20 @@
       <if test="bookId != null">
         Book_Id = #{bookId,jdbcType=INTEGER},
       </if>
-      <if test="storagecount != null">
-        StorageCount = #{storagecount,jdbcType=INTEGER},
+      <if test="returnnumber != null">
+        ReturnNumber= #{returnnumber,jdbcType=VARCHAR},
       </if>
       <if test="storagetime != null">
         StorageTime = #{storagetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="totalprice != null">
-        TotalPrice = #{totalprice,jdbcType=DECIMAL},
+      <if test="causeofdamage != null">
+        CauseOfDamage = #{causeofdamage,jdbcType=VARCHAR},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
       </if>
       <if test="deletename != null">
         DeleteName = #{deletename,jdbcType=VARCHAR},
@@ -204,16 +259,34 @@
       <if test="timeliness != null">
         TimeLiness = #{timeliness,jdbcType=INTEGER},
       </if>
+      <if test="backcount != null">
+        BackCount = #{backcount,jdbcType=INTEGER},
+      </if>
+      <if test="backmoney != null">
+        BackMoney = #{backmoney,jdbcType=DECIMAL},
+      </if>
     </set>
-    where MBookStorage_Id = #{mbookstorageId,jdbcType=INTEGER}
+    where BookBack_Id = #{bookbackId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Bookstorage">
-    update BookStorage
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Bookback">
+    update BookBack
     set Emp_Id = #{empId,jdbcType=INTEGER},
       Book_Id = #{bookId,jdbcType=INTEGER},
-      StorageCount = #{storagecount,jdbcType=INTEGER},
+      ReturnNumber =#{returnnumber,jdbcType=VARCHAR},
       StorageTime = #{storagetime,jdbcType=TIMESTAMP},
-      TotalPrice = #{totalprice,jdbcType=DECIMAL}
-    where MBookStorage_Id = #{mbookstorageId,jdbcType=INTEGER}
+      CauseOfDamage = #{causeofdamage,jdbcType=VARCHAR},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      Approval = #{approval,jdbcType=INTEGER},
+      AppName = #{appname,jdbcType=VARCHAR},
+      AppTime = #{apptime,jdbcType=TIMESTAMP},
+      Revoke_AppName = #{revokeAppname,jdbcType=VARCHAR},
+      Revoke_AppTime = #{revokeApptime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER},
+      BackCount = #{backcount,jdbcType=INTEGER},
+      BackMoney = #{backmoney,jdbcType=DECIMAL}
+    where BookBack_Id = #{bookbackId,jdbcType=INTEGER}
   </update>
 </mapper>

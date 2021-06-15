@@ -14,28 +14,31 @@
   <sql id="Base_Column_List">
     Book_Id, BookName, DeliveryCount, BookSprice, BookJprice, SafeStock, Press, `State`
   </sql>
-<!--  查询所有教材-->
-  <select id="selectAllBook" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from Book
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from Book
     where Book_Id = #{bookId,jdbcType=INTEGER}
   </select>
+  <select id="selectbooksprice" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Book
+    where BookName = #{bookname,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllBook" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from Book
+  </select>
+  <insert id="addBook" keyColumn="Book_Id" keyProperty="bookId" parameterType="com.trkj.thirdproject.entity.Book" useGeneratedKeys="true">
+    insert into Book (BookName,DeliveryCount,BookSprice,BookJprice,SafeStock,Press)
+    values (#{bookname,jdbcType=VARCHAR}, #{deliverycount,jdbcType=INTEGER}, #{booksprice,jdbcType=DECIMAL},
+    #{bookjprice,jdbcType=DECIMAL}, #{safestock,jdbcType=INTEGER}, #{press,jdbcType=VARCHAR})
+  </insert>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Book
     where Book_Id = #{bookId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="Book_Id" keyProperty="bookId" parameterType="com.trkj.thirdproject.entity.Book" useGeneratedKeys="true">
-    insert into Book (BookName, DeliveryCount, BookSprice,
-      BookJprice, SafeStock, Press, 
-      `State`, `STORAGE`)
-    values (#{bookname,jdbcType=VARCHAR}, #{deliverycount,jdbcType=INTEGER}, #{booksprice,jdbcType=DECIMAL}, 
-      #{bookjprice,jdbcType=DECIMAL}, #{safestock,jdbcType=INTEGER}, #{press,jdbcType=VARCHAR}, 
-      #{state,jdbcType=INTEGER}, #{storage,jdbcType=INTEGER})
-  </insert>
   <insert id="insertSelective" keyColumn="Book_Id" keyProperty="bookId" parameterType="com.trkj.thirdproject.entity.Book" useGeneratedKeys="true">
     insert into Book
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -60,9 +63,6 @@
       <if test="state != null">
         `State`,
       </if>
-      <if test="storage != null">
-        `STORAGE`,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="bookname != null">
@@ -85,9 +85,6 @@
       </if>
       <if test="state != null">
         #{state,jdbcType=INTEGER},
-      </if>
-      <if test="storage != null">
-        #{storage,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -115,9 +112,6 @@
       <if test="state != null">
         `State` = #{state,jdbcType=INTEGER},
       </if>
-      <if test="storage != null">
-        `STORAGE` = #{storage,jdbcType=INTEGER},
-      </if>
     </set>
     where Book_Id = #{bookId,jdbcType=INTEGER}
   </update>
@@ -130,7 +124,6 @@
       SafeStock = #{safestock,jdbcType=INTEGER},
       Press = #{press,jdbcType=VARCHAR},
       `State` = #{state,jdbcType=INTEGER},
-      `STORAGE` = #{storage,jdbcType=INTEGER}
     where Book_Id = #{bookId,jdbcType=INTEGER}
   </update>
 </mapper>

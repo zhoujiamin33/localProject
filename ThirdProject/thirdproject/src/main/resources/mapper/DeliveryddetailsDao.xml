@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.DeliveryddetailsDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Deliveryddetails">
+    <id column="DeliveryDdetails_Id" jdbcType="INTEGER" property="deliveryddetailsId" />
+    <result column="Student_Id" jdbcType="INTEGER" property="studentId" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    <result column="BookDelivery_Id" jdbcType="INTEGER" property="bookdeliveryId" />
+    <result column="Book_Id" jdbcType="INTEGER" property="bookId" />
+    <result column="DeliveryCount" jdbcType="INTEGER" property="deliverycount" />
+    <result column="ReceivableMoney" jdbcType="DECIMAL" property="receivablemoney" />
+
+    <association property="book" javaType="com.trkj.thirdproject.entity.Book">
+      <id column="Book_Id" jdbcType="INTEGER" property="bookId" />
+      <result column="BookName" jdbcType="VARCHAR" property="bookname" />
+      <result column="DeliveryCount" jdbcType="INTEGER" property="deliverycount" />
+      <result column="BookSprice" jdbcType="DECIMAL" property="booksprice" />
+      <result column="BookJprice" jdbcType="DECIMAL" property="bookjprice" />
+      <result column="SafeStock" jdbcType="INTEGER" property="safestock" />
+      <result column="Press" jdbcType="VARCHAR" property="press" />
+      <result column="State" jdbcType="INTEGER" property="state" />
+    </association>
+
+    <collection property="emp" ofType="com.trkj.thirdproject.entity.Emp">
+      <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
+      <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
+      <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+      <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId" />
+      <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber" />
+      <result column="Emp_Name" jdbcType="VARCHAR" property="empName" />
+      <result column="Emp_Sex" jdbcType="CHAR" property="empSex" />
+      <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone" />
+      <result column="E_mail" jdbcType="VARCHAR" property="eMail" />
+      <result column="Birthday" jdbcType="TIMESTAMP" property="birthday" />
+      <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto" />
+      <result column="Photo" jdbcType="VARCHAR" property="photo" />
+      <result column="Education" jdbcType="VARCHAR" property="education" />
+      <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
+      <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="WorkersState" jdbcType="INTEGER" property="workersstate" />
+      <result column="Password" jdbcType="VARCHAR" property="password" />
+      <result column="Addname" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="LeaveName" jdbcType="VARCHAR" property="leavename" />
+      <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime" />
+      <result column="EmpState" jdbcType="INTEGER" property="empstate" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
+    </collection>
+
+    <collection property="bookdelivery" ofType="com.trkj.thirdproject.entity.Bookdelivery">
+      <id column="BookDelivery_Id" jdbcType="INTEGER" property="bookdeliveryId" />
+      <result column="Student_Id" jdbcType="INTEGER" property="studentId" />
+      <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+      <result column="SaleNumber" jdbcType="VARCHAR" property="salenumber" />
+      <result column="DeliveryTime" jdbcType="TIMESTAMP" property="deliverytime" />
+      <result column="Tota" jdbcType="DECIMAL" property="tota" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="Approval" jdbcType="INTEGER" property="approval" />
+      <result column="AppName" jdbcType="VARCHAR" property="appname" />
+      <result column="AppTime" jdbcType="TIMESTAMP" property="apptime" />
+      <result column="Revoke_AppName" jdbcType="VARCHAR" property="revokeAppname" />
+      <result column="Revoke_AppTime" jdbcType="TIMESTAMP" property="revokeApptime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </collection>
+
+    <collection property="student" ofType="com.trkj.thirdproject.entity.Student">
+      <id column="Student_Id" jdbcType="INTEGER" property="studentId" />
+      <result column="Student_Name" jdbcType="VARCHAR" property="studentName" />
+      <result column="Student_State" jdbcType="INTEGER" property="studentState" />
+      <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+      <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
+      <result column="Register_Id" jdbcType="INTEGER" property="registerId" />
+      <result column="Sex" jdbcType="VARCHAR" property="sex" />
+      <result column="Student_Phone" jdbcType="VARCHAR" property="studentPhone" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="ImgAddress" jdbcType="VARCHAR" property="imgaddress" />
+      <result column="ParentName" jdbcType="VARCHAR" property="parentname" />
+      <result column="ParentPhone" jdbcType="VARCHAR" property="parentphone" />
+      <result column="Student_Number" jdbcType="VARCHAR" property="studentNumber" />
+      <result column="Entrance" jdbcType="VARCHAR" property="entrance" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      <result column="StudyTime" jdbcType="TIMESTAMP" property="studytime" />
+    </collection>
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    dd.DeliveryDdetails_Id, dd.Student_Id, dd.Emp_Id, dd.BookDelivery_Id, dd.Book_Id, dd.DeliveryCount,
+    dd.ReceivableMoney
+  </sql>
+  <sql id="Emp">
+    e.Emp_Id, e.Position_Id, e.Dept_Id, e.Enterprise_Id, e.JobNumber, e.Emp_Name, e.Emp_Sex, e.Emp_Phone,
+    e.E_mail, e.Birthday, e.PersonalInformationPhoto, e.Photo, e.Education, e.Graduate, e.Remarks,
+    e.Address, e.WorkersState, e.`Password`, e.Addname, e.AddTime, e.UpdateName, e.UpdateTime, e.LeaveName,
+    e.LeaveTime, e.EmpState, e.DeleteName, e.DeleteTime, e.LoginState
+  </sql>
+  <sql id="Book">
+    b.Book_Id, b.BookName, b.DeliveryCount, b.BookSprice, b.BookJprice, b.SafeStock, b.Press, b.`State`
+  </sql>
+  <sql id="Student">
+    s.Student_Id, s.Student_Name, s.Student_State, s.Classes_Id, s.Source_Id, s.Register_Id, s.Sex,
+    s.Student_Phone, s.Address, s.ImgAddress, s.ParentName, s.ParentPhone, s.Student_Number, s.Entrance,
+    s.UpdateName, s.UpdateTime, s.DeleteName, s.DeleteTime, s.TimeLiness, s.StudyTime
+  </sql>
+  <sql id="BookDelivery">
+    bd.BookDelivery_Id, bd.Student_Id, bd.Emp_Id, bd.SaleNumber, bd.DeliveryTime, bd.Tota, bd.DeleteName,
+    bd.DeleteTime, bd.Approval, bd.AppName, bd.AppTime, bd.Revoke_AppName, bd.Revoke_AppTime, bd.TimeLiness
+  </sql>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Emp" />,
+    <include refid="Book" />,
+    <include refid="Student" />,
+    <include refid="BookDelivery" />
+    from DeliveryDdetails dd
+    inner join Emp e on dd.Emp_Id=e.Emp_Id
+    inner join Book b on dd.Book_Id=b.Book_Id
+    inner join Student s on dd.Student_Id=s.Student_Id
+    inner join BookDelivery bd on dd.BookDelivery_Id=bd.BookDelivery_Id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from DeliveryDdetails
+    where DeliveryDdetails_Id = #{deliveryddetailsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="DeliveryDdetails_Id" keyProperty="deliveryddetailsId" parameterType="com.trkj.thirdproject.entity.Deliveryddetails" useGeneratedKeys="true">
+    insert into DeliveryDdetails (Student_Id, Emp_Id, BookDelivery_Id,
+      Book_Id, DeliveryCount, ReceivableMoney
+      )
+    values (#{studentId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, #{bookdeliveryId,jdbcType=INTEGER},
+      #{bookId,jdbcType=INTEGER}, #{deliverycount,jdbcType=INTEGER}, #{receivablemoney,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="DeliveryDdetails_Id" keyProperty="deliveryddetailsId" parameterType="com.trkj.thirdproject.entity.Deliveryddetails" useGeneratedKeys="true">
+    insert into DeliveryDdetails
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        Student_Id,
+      </if>
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+      <if test="bookdeliveryId != null">
+        BookDelivery_Id,
+      </if>
+      <if test="bookId != null">
+        Book_Id,
+      </if>
+      <if test="deliverycount != null">
+        DeliveryCount,
+      </if>
+      <if test="receivablemoney != null">
+        ReceivableMoney,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="bookdeliveryId != null">
+        #{bookdeliveryId,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null">
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="deliverycount != null">
+        #{deliverycount,jdbcType=INTEGER},
+      </if>
+      <if test="receivablemoney != null">
+        #{receivablemoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Deliveryddetails">
+    update DeliveryDdetails
+    <set>
+      <if test="studentId != null">
+        Student_Id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="bookdeliveryId != null">
+        BookDelivery_Id = #{bookdeliveryId,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null">
+        Book_Id = #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="deliverycount != null">
+        DeliveryCount = #{deliverycount,jdbcType=INTEGER},
+      </if>
+      <if test="receivablemoney != null">
+        ReceivableMoney = #{receivablemoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where DeliveryDdetails_Id = #{deliveryddetailsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Deliveryddetails">
+    update DeliveryDdetails
+    set Student_Id = #{studentId,jdbcType=INTEGER},
+      Emp_Id = #{empId,jdbcType=INTEGER},
+      BookDelivery_Id = #{bookdeliveryId,jdbcType=INTEGER},
+      Book_Id = #{bookId,jdbcType=INTEGER},
+      DeliveryCount = #{deliverycount,jdbcType=INTEGER},
+      ReceivableMoney = #{receivablemoney,jdbcType=DECIMAL}
+    where DeliveryDdetails_Id = #{deliveryddetailsId,jdbcType=INTEGER}
+  </update>
+</mapper>

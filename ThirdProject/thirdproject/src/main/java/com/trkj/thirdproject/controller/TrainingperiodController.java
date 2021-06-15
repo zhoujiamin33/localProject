@@ -43,7 +43,7 @@ public class TrainingperiodController {
 
     //分页
     @GetMapping("/findPage2")
-    public PageInfo<Trainingperiod> findPage(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize){
+    public PageInfo<Trainingperiod> findPage(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         PageHelper.startPage(currentPage,pagesize);
         List<Trainingperiod> entityPage=trainingperiodService.selectAllTrainingperiods();
         PageInfo<Trainingperiod> classtypePageInfo=new PageInfo<>(entityPage);
