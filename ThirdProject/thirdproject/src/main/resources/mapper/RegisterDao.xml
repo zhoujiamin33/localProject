@@ -183,10 +183,10 @@
   </delete>
   <insert id="insertRegister" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">
     insert into Register (ConsultAnt, Sex, Source_Id,
-       Consultationmode, AttentState, AddName,
+       Consultationmode, AttentState, AddName,Emp_Id,
        ConsultContent,phone,  Course_Id)
     values (#{consultant,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{sourceId,jdbcType=INTEGER}, 
-      #{consultationmode,jdbcType=VARCHAR}, #{attentstate,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR},
+      #{consultationmode,jdbcType=VARCHAR}, #{attentstate,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{empId,jdbcType=INTEGER},
       #{consultcontent,jdbcType=VARCHAR},  #{phone,jdbcType=VARCHAR},#{courseId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">

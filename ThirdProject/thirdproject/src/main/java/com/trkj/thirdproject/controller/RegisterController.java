@@ -2,9 +2,12 @@ package com.trkj.thirdproject.controller;
 
 import com.trkj.thirdproject.entity.Course;
 
+import com.trkj.thirdproject.entity.Memorandumattachment;
 import com.trkj.thirdproject.entity.Register;
+import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.service.CourseService;
 import com.trkj.thirdproject.service.RegisterService;
+import com.trkj.thirdproject.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jmx.export.annotation.ManagedOperationParameter;
@@ -22,6 +25,8 @@ public class RegisterController {
     private CourseService courseService;
     @Autowired
     private RegisterService registerService;
+    @Autowired
+    private StudentService studentService;
     @GetMapping("/findAllRegister")
     public List<Register> findAllRegister(){
         return registerService.selectRegister();
@@ -70,5 +75,33 @@ public class RegisterController {
     public Register updatepaystate(@PathVariable("registerId") Integer  registerId){
         Register register= registerService.updatepaystate(registerId);
         return register;
+    }
+
+    @GetMapping("/findRegisterId/{registerId}")
+    public void findregister(@PathVariable("registerId") String registerId) {
+        log.debug(registerId);
+        String[] id = registerId.split(",");
+        for (String s : id) {
+            Memorandumattachment memorandumattachment=new Memorandumattachment();
+            memorandumattachment.setRegisterId(Integer.parseInt(s));
+            memorandumattachment.setZsexaminename("tsm管理员");
+            log.debug("学员交接表新增成功");
+            log.debug(s);
+            log.debug("学员交接表："+memorandumattachment);
+            studentService.insertSelective(memorandumattachment);
+            Register register = studentService.selectRegister(Integer.parseInt(s));
+            log.debug("咨询登记表："+register);
+            Student student = new Student();
+            student.setStudentName(register.getConsultant());
+            student.setStudentPhone(register.getPhone());
+            student.setSex(register.getSex());
+            student.setRegisterId(register.getRegisterId());
+            student.setSourceId(register.getSourceId());
+            student.setStudentNumber("c00" + Integer.parseInt(s));
+            log.debug(register.getSex());
+            log.debug("学员表新增成功");
+            log.debug(student.toString());
+            studentService.addstudent(student);
+        }
     }
 }
