@@ -147,8 +147,8 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from Classes
-    where Classes_Id = #{classesId,jdbcType=INTEGER}
+    from Classes cl
+    where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
     order by AddTime desc
   </select>
 <!--  查询所有班级-->

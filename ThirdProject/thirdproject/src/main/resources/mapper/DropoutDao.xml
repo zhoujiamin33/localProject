@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.DropoutDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Dropout">
+    <id column="Drop_Id" jdbcType="INTEGER" property="dropId" />
+    <result column="Student_Id" jdbcType="INTEGER" property="studentId" />
+    <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+    <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+    <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+    <result column="Drop_Time" jdbcType="TIMESTAMP" property="dropTime" />
+    <result column="Drop_Handler" jdbcType="VARCHAR" property="dropHandler" />
+    <result column="Drop_Reason" jdbcType="VARCHAR" property="dropReason" />
+    <result column="isPay" jdbcType="INTEGER" property="ispay" />
+    <result column="JW_Approval" jdbcType="INTEGER" property="jwApproval" />
+    <result column="JW_AppTime" jdbcType="TIMESTAMP" property="jwApptime" />
+    <result column="JW_AppName" jdbcType="VARCHAR" property="jwAppname" />
+    <result column="JW_DropNameApp" jdbcType="VARCHAR" property="jwDropnameapp" />
+    <result column="JW_DropTimeApp" jdbcType="TIMESTAMP" property="jwDroptimeapp" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <!--课程详细-->
+    <association property="detailcourse" javaType="com.trkj.thirdproject.entity.Detailcourse">
+      <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+      <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName" />
+      <result column="Serial" jdbcType="INTEGER" property="serial" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      <!--课程-->
+      <association property="course" javaType="com.trkj.thirdproject.entity.Course">
+        <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
+        <result column="Course_Name" jdbcType="VARCHAR" property="courseName" />
+        <result column="Course_State" jdbcType="INTEGER" property="courseState" />
+        <result column="Classhours" jdbcType="INTEGER" property="classhours" />
+        <result column="Course_Money" jdbcType="DECIMAL" property="courseMoney" />
+        <result column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
+        <result column="AddName" jdbcType="VARCHAR" property="addname" />
+        <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+        <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+        <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+        <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+        <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      </association>
+
+    </association>
+    <!--学员-->
+    <association property="student" javaType="com.trkj.thirdproject.entity.Student">
+      <id column="Student_Id" jdbcType="INTEGER" property="studentId" />
+      <result column="Student_Name" jdbcType="VARCHAR" property="studentName" />
+      <result column="Student_State" jdbcType="INTEGER" property="studentState" />
+      <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+      <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
+      <result column="Register_Id" jdbcType="INTEGER" property="registerId" />
+      <result column="Sex" jdbcType="VARCHAR" property="sex" />
+      <result column="Student_Phone" jdbcType="VARCHAR" property="studentPhone" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="ImgAddress" jdbcType="VARCHAR" property="imgaddress" />
+      <result column="ParentName" jdbcType="VARCHAR" property="parentname" />
+      <result column="ParentPhone" jdbcType="VARCHAR" property="parentphone" />
+      <result column="Student_Number" jdbcType="VARCHAR" property="studentNumber" />
+      <result column="Entrance" jdbcType="VARCHAR" property="entrance" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      <result column="StudyTime" jdbcType="TIMESTAMP" property="studytime" />
+
+
+
+
+    </association>
+    <!--    班级-->
+    <association property="classes" javaType="com.trkj.thirdproject.entity.Classes">
+      <id column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+      <result column="Classes_Name" jdbcType="VARCHAR" property="classesName" />
+      <result column="Classes_Open" jdbcType="INTEGER" property="classesOpen" />
+      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+      <result column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
+      <result column="Teacher_Id" jdbcType="INTEGER" property="teacherId" />
+      <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+      <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+      <result column="StartedDate" jdbcType="TIMESTAMP" property="starteddate" />
+      <result column="EndDate" jdbcType="TIMESTAMP" property="enddate" />
+      <result column="LastDate" jdbcType="TIMESTAMP" property="lastdate" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    dro.Drop_Id, dro.Student_Id, dro.Classes_Id, dro.Course_Id, dro.DetailCourse_Id, dro.Drop_Time, Drop_Handler,
+    dro.Drop_Reason, dro.isPay, dro.JW_Approval, dro.JW_AppTime, dro.JW_AppName, dro.JW_DropNameApp, dro.JW_DropTimeApp,
+    dro.DeleteName, dro.DeleteTime, dro.TimeLiness
+  </sql>
+  <!--  学员-->
+  <sql id="Base_Column_student">
+    stu.Student_Id, stu.Student_Name, stu.Student_State, stu.Classes_Id, stu.Source_Id, stu.Register_Id, stu.Sex,
+    stu.Student_Phone, stu.Address, stu.ImgAddress, stu.ParentName, stu.ParentPhone, stu.Student_Number, stu.Entrance,
+    stu.UpdateName, stu.UpdateTime, stu.DeleteName, stu.DeleteTime, stu.TimeLiness, stu.StudyTime
+  </sql>
+  <!--  班级-->
+  <sql id="Base_Column_Classes">
+    cl.Classes_Id,  cl.Classes_Name,  cl.Classes_Open, cl.Course_Id, cl.ClassRoom_Id, cl.Teacher_Id, cl.Emp_Id,
+    cl.DetailCourse_Id, cl.StartedDate, cl.EndDate, cl.LastDate, cl.AddName, cl.AddTime, cl.UpdateName, cl.UpdateTime,
+    cl.DeleteName, cl.DeleteTime, cl.TimeLiness
+  </sql>
+  <!--  课程-->
+  <sql id="Base_Column_course">
+    c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
+    c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
+  </sql>
+  <!--  详细课程-->
+  <sql id="Base_Column_detailcourse">
+    d.DetailCourse_Id, d.Course_Id, d.DetailCourse_Name, d.Serial, d.AddName, d.AddTime, d.UpdateName,
+    d.UpdateTime, d.DeleteName, d.DeleteTime, d.TimeLiness
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dropout dro
+    where dro.Drop_Id = #{dropId,jdbcType=INTEGER}
+  </select>
+<!--  查询所有-->
+<!--  <select id="selectAlldropout" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from dropout-->
+<!--  </select>-->
+  <!--  查询所有（班级、学员、课程）-->
+  <select id="selectAlldropout"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="Base_Column_Classes" />,<include refid="Base_Column_student" />,<include
+          refid="Base_Column_course"/>
+    from dropout dro inner join student stu on dro.Student_Id=stu.Student_Id
+    inner join classes cl on dro.Classes_Id=cl.Classes_Id
+    inner join course c on dro.Course_Id=c.Course_Id
+    where  dro.TimeLiness=0
+  </select>
+<!--  模糊查询-->
+  <select id="findclaNmae_stuNameAndxuehao" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="Base_Column_Classes" />,<include refid="Base_Column_student" />,<include
+          refid="Base_Column_course"/>
+    from dropout dro inner join student stu on dro.Student_Id=stu.Student_Id
+    inner join classes cl on dro.Classes_Id=cl.Classes_Id
+    inner join course c on dro.Course_Id=c.Course_Id
+    where  dro.TimeLiness=0 and
+    <if test="value!=null and index=='班级'">
+      cl.Classes_Name like CONCAT(CONCAT('%',#{value},'%'))
+    </if>
+    <if test="value!=null and index=='姓名'">
+      stu.Student_Name like CONCAT(CONCAT('%',#{value},'%'))
+    </if>
+    <if test="index=='学号' and value!=null">
+      stu.Student_Number like CONCAT(CONCAT('%',#{value},'%'))
+    </if>
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dropout
+    where Drop_Id = #{dropId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Drop_Id" keyProperty="dropId" parameterType="com.trkj.thirdproject.entity.Dropout" useGeneratedKeys="true">
+    insert into dropout (Student_Id, Classes_Id, Course_Id,
+      DetailCourse_Id, Drop_Time, Drop_Handler, 
+      Drop_Reason, isPay, JW_Approval, 
+      JW_AppTime, JW_AppName, JW_DropNameApp, 
+      JW_DropTimeApp, DeleteName, DeleteTime, 
+      TimeLiness)
+    values (#{studentId,jdbcType=INTEGER}, #{classesId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{detailcourseId,jdbcType=INTEGER}, #{dropTime,jdbcType=TIMESTAMP}, #{dropHandler,jdbcType=VARCHAR}, 
+      #{dropReason,jdbcType=VARCHAR}, #{ispay,jdbcType=INTEGER}, #{jwApproval,jdbcType=INTEGER}, 
+      #{jwApptime,jdbcType=TIMESTAMP}, #{jwAppname,jdbcType=VARCHAR}, #{jwDropnameapp,jdbcType=VARCHAR}, 
+      #{jwDroptimeapp,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, 
+      #{timeliness,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="Drop_Id" keyProperty="dropId" parameterType="com.trkj.thirdproject.entity.Dropout" useGeneratedKeys="true">
+    insert into dropout
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        Student_Id,
+      </if>
+      <if test="classesId != null">
+        Classes_Id,
+      </if>
+      <if test="courseId != null">
+        Course_Id,
+      </if>
+      <if test="detailcourseId != null">
+        DetailCourse_Id,
+      </if>
+      <if test="dropTime != null">
+        Drop_Time,
+      </if>
+      <if test="dropHandler != null">
+        Drop_Handler,
+      </if>
+      <if test="dropReason != null">
+        Drop_Reason,
+      </if>
+      <if test="ispay != null">
+        isPay,
+      </if>
+      <if test="jwApproval != null">
+        JW_Approval,
+      </if>
+      <if test="jwApptime != null">
+        JW_AppTime,
+      </if>
+      <if test="jwAppname != null">
+        JW_AppName,
+      </if>
+      <if test="jwDropnameapp != null">
+        JW_DropNameApp,
+      </if>
+      <if test="jwDroptimeapp != null">
+        JW_DropTimeApp,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classesId != null">
+        #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="detailcourseId != null">
+        #{detailcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="dropTime != null">
+        #{dropTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dropHandler != null">
+        #{dropHandler,jdbcType=VARCHAR},
+      </if>
+      <if test="dropReason != null">
+        #{dropReason,jdbcType=VARCHAR},
+      </if>
+      <if test="ispay != null">
+        #{ispay,jdbcType=INTEGER},
+      </if>
+      <if test="jwApproval != null">
+        #{jwApproval,jdbcType=INTEGER},
+      </if>
+      <if test="jwApptime != null">
+        #{jwApptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwAppname != null">
+        #{jwAppname,jdbcType=VARCHAR},
+      </if>
+      <if test="jwDropnameapp != null">
+        #{jwDropnameapp,jdbcType=VARCHAR},
+      </if>
+      <if test="jwDroptimeapp != null">
+        #{jwDroptimeapp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Dropout">
+    update dropout
+    <set>
+      <if test="studentId != null">
+        Student_Id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classesId != null">
+        Classes_Id = #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        Course_Id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="detailcourseId != null">
+        DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="dropTime != null">
+        Drop_Time = #{dropTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dropHandler != null">
+        Drop_Handler = #{dropHandler,jdbcType=VARCHAR},
+      </if>
+      <if test="dropReason != null">
+        Drop_Reason = #{dropReason,jdbcType=VARCHAR},
+      </if>
+      <if test="ispay != null">
+        isPay = #{ispay,jdbcType=INTEGER},
+      </if>
+      <if test="jwApproval != null">
+        JW_Approval = #{jwApproval,jdbcType=INTEGER},
+      </if>
+      <if test="jwApptime != null">
+        JW_AppTime = #{jwApptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwAppname != null">
+        JW_AppName = #{jwAppname,jdbcType=VARCHAR},
+      </if>
+      <if test="jwDropnameapp != null">
+        JW_DropNameApp = #{jwDropnameapp,jdbcType=VARCHAR},
+      </if>
+      <if test="jwDroptimeapp != null">
+        JW_DropTimeApp = #{jwDroptimeapp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Drop_Id = #{dropId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Dropout">
+    update dropout
+    set Student_Id = #{studentId,jdbcType=INTEGER},
+      Classes_Id = #{classesId,jdbcType=INTEGER},
+      Course_Id = #{courseId,jdbcType=INTEGER},
+      DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
+      Drop_Time = #{dropTime,jdbcType=TIMESTAMP},
+      Drop_Handler = #{dropHandler,jdbcType=VARCHAR},
+      Drop_Reason = #{dropReason,jdbcType=VARCHAR},
+      isPay = #{ispay,jdbcType=INTEGER},
+      JW_Approval = #{jwApproval,jdbcType=INTEGER},
+      JW_AppTime = #{jwApptime,jdbcType=TIMESTAMP},
+      JW_AppName = #{jwAppname,jdbcType=VARCHAR},
+      JW_DropNameApp = #{jwDropnameapp,jdbcType=VARCHAR},
+      JW_DropTimeApp = #{jwDroptimeapp,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where Drop_Id = #{dropId,jdbcType=INTEGER}
+  </update>
+</mapper>
