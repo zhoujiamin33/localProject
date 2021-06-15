@@ -17,10 +17,16 @@
     DeleteTime, TimeLiness
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from SystemType
     where SystemType_Id = #{systemtypeId,jdbcType=INTEGER}
+  </select>
+  <select id="findAllSysType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from SystemType
+    where TimeLiness=0;
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from SystemType
@@ -28,10 +34,10 @@
   </delete>
   <insert id="insert" keyColumn="SystemType_Id" keyProperty="systemtypeId" parameterType="com.trkj.thirdproject.entity.Systemtype" useGeneratedKeys="true">
     insert into SystemType (SystemType_Name, AddName, AddTime,
-      UpdateName, UpdateTime, DeleteName, 
+      UpdateName, UpdateTime, DeleteName,
       DeleteTime, TimeLiness)
-    values (#{systemtypeName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
-      #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, 
+    values (#{systemtypeName,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP},
+      #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR},
       #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="SystemType_Id" keyProperty="systemtypeId" parameterType="com.trkj.thirdproject.entity.Systemtype" useGeneratedKeys="true">

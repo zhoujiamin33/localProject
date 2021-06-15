@@ -27,5 +27,6 @@ public interface EmpDao {
     int delstuTimeness(@Param("leavename") String leavename, @Param("leavetime") Date leavetime, @Param("empId")  Integer empId);
     //启动或禁用
     int updatestate(@Param("workersstate") Integer workersstate,@Param("empId") Integer empId);
-
+    //选择可查看人
+    List<Emp> selectEmp();
 }

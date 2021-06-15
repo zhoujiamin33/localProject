@@ -19,44 +19,109 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <collection property="emps" ofType="com.trkj.thirdproject.entity.Emp">
+      <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
+      <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
+      <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+      <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId" />
+      <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber" />
+      <result column="Emp_Name" jdbcType="VARCHAR" property="empName" />
+      <result column="Emp_Sex" jdbcType="CHAR" property="empSex" />
+      <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone" />
+      <result column="E_mail" jdbcType="VARCHAR" property="eMail" />
+      <result column="Birthday" jdbcType="TIMESTAMP" property="birthday" />
+      <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto" />
+      <result column="Photo" jdbcType="VARCHAR" property="photo" />
+      <result column="Education" jdbcType="VARCHAR" property="education" />
+      <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
+      <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="WorkersState" jdbcType="INTEGER" property="workersstate" />
+      <result column="Password" jdbcType="VARCHAR" property="password" />
+      <result column="Addname" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="LeaveName" jdbcType="VARCHAR" property="leavename" />
+      <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime" />
+      <result column="EmpState" jdbcType="INTEGER" property="empstate" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
+    </collection>
+    <collection property="systemtype" ofType="com.trkj.thirdproject.entity.Systemtype">
+      <id column="SystemType_Id" jdbcType="INTEGER" property="systemtypeId" />
+      <result column="SystemType_Name" jdbcType="VARCHAR" property="systemtypeName" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </collection>
   </resultMap>
   <sql id="Base_Column_List">
-    System_Id, SystemType_Id, System_Theme, Dept_Id, System_Content, System_State, AddName, 
-    AddTime, PublishName, PublishTime, SuspendName, SuspendTime, UpdateName, UpdateTime, 
+    System_Id, SystemType_Id, System_Theme, Dept_Id, System_Content, System_State, AddName,
+    AddTime, PublishName, PublishTime, SuspendName, SuspendTime, UpdateName, UpdateTime,
     DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <sql id="Base_Column_List_1">
+    m.System_Id, m.SystemType_Id, m.System_Theme, m.Dept_Id, m.System_Content, m.System_State, m.AddName,
+    m.AddTime, m.PublishName, m.PublishTime, m.SuspendName, m.SuspendTime, m.UpdateName, m.UpdateTime,
+    m.DeleteName, m.DeleteTime, m.TimeLiness
+  </sql>
+  <sql id="Base_Column_List_2">
+    e.Emp_Id,  e.Position_Id,  e.Dept_Id,  e.Enterprise_Id,  e.JobNumber,  e.Emp_Name,  e.Emp_Sex,  e.Emp_Phone,
+     e.E_mail,  e.Birthday,  e.PersonalInformationPhoto,  e.Photo,  e.Education,  e.Graduate,  e.Remarks,
+     e.Address,  e.WorkersState,  e.`Password`,  e.Addname,  e.AddTime,  e.UpdateName,  e.UpdateTime,  e.LeaveName,
+     e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from System
+    from   `System`
     where System_Id = #{systemId,jdbcType=INTEGER}
   </select>
-  <select id="findAllSystem" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from System
-    where TimeLiness=0
+  <select id="findAllSystem" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List_1"/>,<include refid="Base_Column_List_2"/>,st.SystemType_Name
+    FROM  `System` m LEFT JOIN SystemSelect t on
+    m.System_Id=t.System_Id LEFT JOIN Emp e on t.Emp_Id=e.Emp_Id left join  SystemType st on m.SystemType_Id=st.SystemType_Id
+    where m.TimeLiness=0
+  </select>
+  <select id="findConditional" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List_1"/>,<include refid="Base_Column_List_2"/>
+    from `System` m LEFT JOIN SystemSelect t on
+    m.System_Id=t.System_Id LEFT JOIN Emp e on t.Emp_Id=e.Emp_Id
+    <where>
+      m.TimeLiness=0 and
+      <if test="index=='System_Theme' and value!=null and value!=''">
+        m.System_Theme like concat('%',concat(#{value},'%'))
+      </if>
+      <if test="index=='System_Content' and value!=null and value!=''">
+        m.index like concat('%',concat(#{value},'%'))
+      </if>
+      <if test="index=='Emp_Name' and value!=null and value!=''">
+        e.index like concat('%',concat(#{value,jdbcType=VARCHAR},'%'))
+      </if>
+    </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from System
+    delete from `System`
     where System_Id = #{systemId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="System_Id" keyProperty="systemId" parameterType="com.trkj.thirdproject.entity.System" useGeneratedKeys="true">
-    insert into System (SystemType_Id, System_Theme, Dept_Id,
-      System_Content, System_State, AddName, 
-      AddTime, PublishName, PublishTime, 
-      SuspendName, SuspendTime, UpdateName, 
-      UpdateTime, DeleteName, DeleteTime, 
-      TimeLiness)
-    values (#{systemtypeId,jdbcType=INTEGER}, #{systemTheme,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
-      #{systemContent,jdbcType=VARCHAR}, #{systemState,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, 
-      #{addtime,jdbcType=TIMESTAMP}, #{publishname,jdbcType=VARCHAR}, #{publishtime,jdbcType=TIMESTAMP}, 
-      #{suspendname,jdbcType=VARCHAR}, #{suspendtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, 
-      #{timeliness,jdbcType=INTEGER})
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="systemId">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into `System` (SystemType_Id, System_Theme, Dept_Id,
+    System_Content, AddName, AddTime)
+    values (#{systemtypeId,jdbcType=INTEGER}, #{systemTheme,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER},
+    #{systemContent,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR},
+    #{addtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="System_Id" keyProperty="systemId" parameterType="com.trkj.thirdproject.entity.System" useGeneratedKeys="true">
-    insert into System
+    insert into `System`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="systemtypeId != null">
         SystemType_Id,
@@ -159,7 +224,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.System">
-    update System
+    update `System`
     <set>
       <if test="systemtypeId != null">
         SystemType_Id = #{systemtypeId,jdbcType=INTEGER},
@@ -213,23 +278,32 @@
     where System_Id = #{systemId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.System">
-    update System
-    set SystemType_Id = #{systemtypeId,jdbcType=INTEGER},
-      System_Theme = #{systemTheme,jdbcType=VARCHAR},
-      Dept_Id = #{deptId,jdbcType=INTEGER},
-      System_Content = #{systemContent,jdbcType=VARCHAR},
-      System_State = #{systemState,jdbcType=INTEGER},
-      AddName = #{addname,jdbcType=VARCHAR},
-      AddTime = #{addtime,jdbcType=TIMESTAMP},
-      PublishName = #{publishname,jdbcType=VARCHAR},
-      PublishTime = #{publishtime,jdbcType=TIMESTAMP},
-      SuspendName = #{suspendname,jdbcType=VARCHAR},
-      SuspendTime = #{suspendtime,jdbcType=TIMESTAMP},
-      UpdateName = #{updatename,jdbcType=VARCHAR},
-      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
-      DeleteName = #{deletename,jdbcType=VARCHAR},
+    update `System`
+    set DeleteName = #{deletename,jdbcType=VARCHAR},
       DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
-      TimeLiness = #{timeliness,jdbcType=INTEGER}
+      TimeLiness = 1
+    where System_Id = #{systemId,jdbcType=INTEGER}
+  </update>
+  <update id="UpdatePublishSuspend" parameterType="com.trkj.thirdproject.entity.System">
+    update `System`
+    <set>
+
+      <if test="systemState != null">
+        System_State = #{systemState,jdbcType=INTEGER},
+      </if>
+      <if test="publishname != null">
+        PublishName = #{publishname,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null">
+        PublishTime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="suspendname != null">
+        SuspendName = #{suspendname,jdbcType=VARCHAR},
+      </if>
+      <if test="suspendtime != null">
+        SuspendTime = #{suspendtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
     where System_Id = #{systemId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -2,11 +2,15 @@ package com.trkj.thirdproject.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import antlr.StringUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
  * system
- * @author 
+ * @author
  */
 @Data
 public class System implements Serializable {
@@ -40,6 +44,14 @@ public class System implements Serializable {
      */
     private Integer systemState;
 
+    public Integer getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(Integer systemId) {
+        this.systemId = systemId;
+    }
+
     /**
      * 录入人员
      */
@@ -48,6 +60,7 @@ public class System implements Serializable {
     /**
      * 录入时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date addtime;
 
     /**
@@ -88,6 +101,7 @@ public class System implements Serializable {
     /**
      * 删除时间
      */
+
     private Date deletetime;
 
     /**
@@ -96,6 +110,8 @@ public class System implements Serializable {
     private Integer timeliness;
 
     private Systemtype systemtype;
+
+    private List<Emp> emps;
 
     private static final long serialVersionUID = 1L;
 }

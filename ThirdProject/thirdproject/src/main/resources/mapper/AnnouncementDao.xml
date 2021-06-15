@@ -20,11 +20,52 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <collection property="emps" ofType="com.trkj.thirdproject.entity.Emp">
+      <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
+      <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
+      <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+      <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId" />
+      <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber" />
+      <result column="Emp_Name" jdbcType="VARCHAR" property="empName" />
+      <result column="Emp_Sex" jdbcType="CHAR" property="empSex" />
+      <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone" />
+      <result column="E_mail" jdbcType="VARCHAR" property="eMail" />
+      <result column="Birthday" jdbcType="TIMESTAMP" property="birthday" />
+      <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto" />
+      <result column="Photo" jdbcType="VARCHAR" property="photo" />
+      <result column="Education" jdbcType="VARCHAR" property="education" />
+      <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
+      <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="WorkersState" jdbcType="INTEGER" property="workersstate" />
+      <result column="Password" jdbcType="VARCHAR" property="password" />
+      <result column="Addname" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="LeaveName" jdbcType="VARCHAR" property="leavename" />
+      <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime" />
+      <result column="EmpState" jdbcType="INTEGER" property="empstate" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
+    </collection>
   </resultMap>
   <sql id="Base_Column_List">
-    Announcement_Id, AnnouncementType_Id, Start_Time, End_Time, Announcement_Theme, Announcement_Content, 
-    Announcement_State, AddName, AddTime, PublishName, PublishTime, SuspendName, SuspendTime, 
+    Announcement_Id, AnnouncementType_Id, Start_Time, End_Time, Announcement_Theme, Announcement_Content,
+    Announcement_State, AddName, AddTime, PublishName, PublishTime, SuspendName, SuspendTime,
     UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <sql id="Base_Column_List_1">
+    an.Announcement_Id, an.AnnouncementType_Id, an.Start_Time, an.End_Time, an.Announcement_Theme, an.Announcement_Content,
+    an.Announcement_State, an.AddName, an.AddTime, an.PublishName, an.PublishTime, an.SuspendName, an.SuspendTime,
+    an.UpdateName, an.UpdateTime, an.DeleteName, an.DeleteTime, an.TimeLiness
+  </sql>
+  <sql id="Base_Column_List_2">
+    e.Emp_Id,  e.Position_Id,  e.Dept_Id,  e.Enterprise_Id,  e.JobNumber,  e.Emp_Name,  e.Emp_Sex,  e.Emp_Phone,
+     e.E_mail,  e.Birthday,  e.PersonalInformationPhoto,  e.Photo,  e.Education,  e.Graduate,  e.Remarks,
+     e.Address,  e.WorkersState,  e.`Password`,  e.Addname,  e.AddTime,  e.UpdateName,  e.UpdateTime,  e.LeaveName,
+     e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -33,10 +74,11 @@
     where Announcement_Id = #{announcementId,jdbcType=INTEGER}
   </select>
   <select id="findAllAnn" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from Announcement
-    where TimeLiness=0
+    SELECT <include refid="Base_Column_List_1"/>,<include refid="Base_Column_List_2"/>
+    FROM  Announcement an LEFT JOIN AnnouncementSelect ans on
+    an.Announcement_Id=ans.Announcement_Id LEFT JOIN
+    Emp e on ans.Emp_Id=e.Emp_Id
+    where an.TimeLiness=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Announcement
@@ -44,17 +86,17 @@
   </delete>
   <insert id="insert" keyColumn="Announcement_Id" keyProperty="announcementId" parameterType="com.trkj.thirdproject.entity.Announcement" useGeneratedKeys="true">
     insert into Announcement (AnnouncementType_Id, Start_Time,
-      End_Time, Announcement_Theme, Announcement_Content, 
-      Announcement_State, AddName, AddTime, 
-      PublishName, PublishTime, SuspendName, 
-      SuspendTime, UpdateName, UpdateTime, 
+      End_Time, Announcement_Theme, Announcement_Content,
+      Announcement_State, AddName, AddTime,
+      PublishName, PublishTime, SuspendName,
+      SuspendTime, UpdateName, UpdateTime,
       DeleteName, DeleteTime, TimeLiness
       )
-    values (#{announcementtypeId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{announcementTheme,jdbcType=VARCHAR}, #{announcementContent,jdbcType=VARCHAR}, 
-      #{announcementState,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
-      #{publishname,jdbcType=VARCHAR}, #{publishtime,jdbcType=TIMESTAMP}, #{suspendname,jdbcType=VARCHAR}, 
-      #{suspendtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+    values (#{announcementtypeId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP},
+      #{endTime,jdbcType=TIMESTAMP}, #{announcementTheme,jdbcType=VARCHAR}, #{announcementContent,jdbcType=VARCHAR},
+      #{announcementState,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP},
+      #{publishname,jdbcType=VARCHAR}, #{publishtime,jdbcType=TIMESTAMP}, #{suspendname,jdbcType=VARCHAR},
+      #{suspendtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP},
       #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}
       )
   </insert>

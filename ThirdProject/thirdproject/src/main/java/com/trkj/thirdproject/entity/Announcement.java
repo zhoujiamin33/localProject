@@ -1,14 +1,17 @@
 package com.trkj.thirdproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.trkj.thirdproject.service.AnnouncementService;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * announcement
- * @author 
+ * @author
  */
 @Data
 public class Announcement implements Serializable {
@@ -25,13 +28,13 @@ public class Announcement implements Serializable {
     /**
      * 开始时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date startTime;
 
     /**
      * 结束时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date endTime;
 
     /**
@@ -103,6 +106,8 @@ public class Announcement implements Serializable {
      * 时效性
      */
     private Integer timeliness;
+
+    private List<Emp> emps;
 
     private static final long serialVersionUID = 1L;
 }

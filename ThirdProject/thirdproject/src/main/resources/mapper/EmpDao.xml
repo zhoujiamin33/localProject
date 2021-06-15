@@ -414,4 +414,10 @@
 <update id="updatestate" parameterType="com.trkj.thirdproject.entity.Emp">
   update Emp set WorkersState = #{workersstate} where Emp_Id = #{empId}
 </update>
+  <select id="selectEmp" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Emp e
+    where e.LoginState=0 and e.EmpState=0
+  </select>
 </mapper>
