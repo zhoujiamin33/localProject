@@ -50,5 +50,6 @@ public class Deliveryddetails implements Serializable {
      */
     private BigDecimal receivablemoney;
 
+
     private static final long serialVersionUID = 1L;
 }

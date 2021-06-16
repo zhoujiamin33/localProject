@@ -25,20 +25,27 @@ public class DeliveryDdetailsController {
         return classtypePageInfo;
     }
 
-    @PostMapping("/addDeliveryddetails")
-    public Deliveryddetails insert(@RequestBody Deliveryddetails deliveryddetails){
-        deliveryDdetailsService.insert(deliveryddetails);
-        return deliveryddetails;
-    }
-
 //    @PostMapping("/addDeliveryddetails")
-//    public int insert(@RequestBody List<Deliveryddetails> deliveryddetails){
-//        for( Deliveryddetails d:deliveryddetails){
-//            deliveryDdetailsService.insert(d);
-//        }
-//
-//        return 1;
+//    public Deliveryddetails insert(@RequestBody Deliveryddetails deliveryddetails){
+//        deliveryDdetailsService.insert(deliveryddetails);
+//        return deliveryddetails;
 //    }
+
+    @PostMapping("/addDeliveryddetails/{bid}/{bids}")
+    public int insert(@PathVariable("bid") int bid,@PathVariable("bids") List<Deliveryddetails> deliveryddetails){
+        log.debug("deliveryddetails啥子东西");
+        log.debug(deliveryddetails.toString());
+        for( Deliveryddetails d:deliveryddetails){
+
+            d.setBookdeliveryId(bid);
+            log.debug(d.toString());
+            deliveryDdetailsService.insert(d);
+
+        }
+
+
+        return 1;
+    }
 
 
     @DeleteMapping("/deldeliveryDdetails/{deliveryddetailsId}")

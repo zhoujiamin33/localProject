@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -23,6 +24,7 @@ public class BookdeliveryServiceImpl implements BookdeliveryService {
     public Bookdelivery insert(Bookdelivery bookdelivery) {
         bookdelivery.setEmpId(1);
         bookdelivery.setStudentId(1);
+        bookdelivery.setDeliverytime(new Date());
         log.debug(bookdelivery+"");
         bookdeliveryDao.insert(bookdelivery);
         return bookdelivery;

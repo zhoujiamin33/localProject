@@ -22,6 +22,7 @@ public class BookdeliveryController {
     @PostMapping("/addBookdelivery")
     public Bookdelivery insert(@RequestBody Bookdelivery bookdelivery){
         bookdeliveryService.insert(bookdelivery);
+        log.debug(bookdelivery.getBookdeliveryId()+":::bookdeliveryId");
         return bookdelivery;
     }
 }

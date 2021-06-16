@@ -3,6 +3,7 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Bookback;
+import com.trkj.thirdproject.entity.Bookdelivery;
 import com.trkj.thirdproject.service.BookbackService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,11 @@ public class BookbackController {
         log.debug("开始删除");
         bookbackService.deleteByPrimaryKey(bookbackId);
         return "delOk";
+    }
+
+    @PostMapping("/addBookback")
+    public Bookback insert(@RequestBody Bookback bookback){
+        bookbackService.insert(bookback);
+        return bookback;
     }
 }
