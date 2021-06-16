@@ -72,9 +72,8 @@ public class RegisterController {
     }
     //修改咨询登记表的缴费状态
     @PutMapping("/updatepaystate/{registerId}")
-    public Register updatepaystate(@PathVariable("registerId") Integer  registerId){
-        Register register= registerService.updatepaystate(registerId);
-        return register;
+    public int updatepaystate(@PathVariable("registerId") Integer  registerId){
+        return  registerService.updatepaystate(registerId);
     }
 
     @GetMapping("/findRegisterId/{registerId}")

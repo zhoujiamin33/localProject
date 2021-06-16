@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +26,7 @@ public class EntryfeesServiceImpl implements EntryfeesService {
         entryfees.setAddname("Tsm管理员");
         entryfees.setAddtime(new Date());
         String number = "B";
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String result = number+ dateFormat.format(new Date()) + entryfees.toString().length();
         entryfees.setFeesName(result);
         entryfeesdao.insertentryfees(entryfees);
@@ -66,7 +65,8 @@ public class EntryfeesServiceImpl implements EntryfeesService {
     }
 
     @Override
-    public int updateFeesAccumulated(Integer outstandingId, BigDecimal feesaccumulated) {
-        return entryfeesdao.updateFeesAccumulated(outstandingId,feesaccumulated);
+    public Entryfees updateFeesAccumulated(Entryfees entryfees) {
+        entryfeesdao.updateFeesAccumulated(entryfees);
+        return entryfees;
     }
 }

@@ -23,5 +23,5 @@ public interface RegisterService {
     //根据id查询咨询登记
     Register selectByregisterId(@PathVariable("registerId") Integer registerId);
     //修改咨询登记的缴费状态
-    Register updatepaystate(Integer registerId );
+    int updatepaystate(Integer registerId );
 }

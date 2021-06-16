@@ -89,7 +89,11 @@
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
     reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id,reg.phone
   </sql>
-
+<!--修改补缴管理的累计欠费-->
+  <update id="updateAccumulated">
+    update StudentOutstanding  set Accumulated=#{accumulated,jdbcType=DECIMAL}
+    where outstanding_Id = #{outstandingId,jdbcType=INTEGER}
+  </update>
 <!--  删除欠费补缴-->
   <update id="deleteoutstanding">
       update StudentOutstanding set TimeLiness=1,DeleteName= #{deletename,jdbcType=VARCHAR},

@@ -2,13 +2,17 @@ package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.BookDao;
 import com.trkj.thirdproject.dao.BookstorageDao;
+import com.trkj.thirdproject.dao.StorageexpenditureDao;
 import com.trkj.thirdproject.entity.Book;
 import com.trkj.thirdproject.entity.Bookstorage;
+import com.trkj.thirdproject.entity.Storageexpenditure;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +23,8 @@ public class BookstorageServiceImpl implements BookstorageService {
     private BookstorageDao bookstorageDao;
     @Resource
     private BookDao bookDao;
+    @Resource
+    private StorageexpenditureDao storageexpendituredao;
 
     @Override
     public List<Bookstorage> selectAll() {
@@ -59,4 +65,20 @@ public class BookstorageServiceImpl implements BookstorageService {
         bookstorageDao.deleteByPrimaryKey(mbookstorageId);
         return mbookstorageId;
     }
+//================================================教材入库支出============================================================
+    @Override
+    public Storageexpenditure insertStorageexpenditure(Storageexpenditure storageexpenditure) {
+        storageexpenditure.setAddtime(new Date());
+        //生成订单号
+        String number = "RK";
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String result = number+ dateFormat.format(new Date()) + storageexpenditure.toString().length();
+        storageexpenditure.setExpensesName(result);
+        //支出日期
+        storageexpenditure.setExpensesDate(new Date());
+        storageexpendituredao.insert(storageexpenditure);
+        return storageexpenditure;
+    }
+
+
 }

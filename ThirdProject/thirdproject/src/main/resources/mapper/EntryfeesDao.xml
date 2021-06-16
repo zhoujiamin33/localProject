@@ -129,9 +129,11 @@
 
 
   <insert id="insertentryfees" keyColumn="Fees_Id" keyProperty="feesId" parameterType="com.trkj.thirdproject.entity.Entryfees" useGeneratedKeys="true">
-    insert into EntryFees (Fees_Name, Register_Id, Fees_Receivable, Fees_Type, Fees_Advance, Receipts,AddName,AddTime)
+    insert into EntryFees (Fees_Name, Register_Id, Fees_Receivable, Fees_Type, Fees_Advance, Receipts,
+    AddName,AddTime,Fees_Accumulated)
     values (#{feesName,jdbcType=VARCHAR}, #{registerId,jdbcType=INTEGER}, #{feesReceivable,jdbcType=DECIMAL}, 
-      #{feesType,jdbcType=INTEGER}, #{feesAdvance,jdbcType=DECIMAL}, #{receipts,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR},#{addtime,jdbcType=TIMESTAMP})
+      #{feesType,jdbcType=INTEGER}, #{feesAdvance,jdbcType=DECIMAL}, #{receipts,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR},
+      #{addtime,jdbcType=TIMESTAMP},#{feesaccumulated,jdbcType=DECIMAL})
   </insert>
 
 

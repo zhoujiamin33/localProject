@@ -3,6 +3,7 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Bookstorage;
+import com.trkj.thirdproject.entity.Storageexpenditure;
 import com.trkj.thirdproject.service.BookstorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class BookstorageController {
     }
 
     @GetMapping("/findPage1")
-    public PageInfo<Bookstorage> findPage(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+    public PageInfo<Bookstorage> findPage1(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         PageHelper.startPage(currentPage,pagesize);
         List<Bookstorage> entityPage=bookstorageService.selectAll();
         PageInfo<Bookstorage> classtypePageInfo=new PageInfo<>(entityPage);
@@ -42,5 +43,11 @@ public class BookstorageController {
         log.debug("开始删除");
         bookstorageService.deleteByPrimaryKey(mbookstorageId);
         return "delOk";
+    }
+    //=====================================教材入库支出=======================================================================
+//    新增教材入库支出
+    @PostMapping("/insertExpenditure")
+    public Storageexpenditure insertExpenditure(@RequestBody Storageexpenditure storageexpenditure){
+        return bookstorageService.insertStorageexpenditure(storageexpenditure);
     }
 }

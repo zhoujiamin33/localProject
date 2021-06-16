@@ -55,7 +55,7 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public Register updatepaystate(Integer registerId) {
+    public int updatepaystate(Integer registerId) {
         return  registerDao.updatepaystate(registerId);
     }
 }

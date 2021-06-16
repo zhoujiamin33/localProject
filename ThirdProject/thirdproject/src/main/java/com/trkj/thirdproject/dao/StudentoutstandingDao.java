@@ -30,5 +30,6 @@ public interface StudentoutstandingDao {
     int updateReApprovalState(Studentoutstanding studentoutstanding);
 //    删除欠费补缴
     int deleteoutstanding(Studentoutstanding studentoutstanding);
-
+    //修改补缴管理的累计欠费
+    int updateAccumulated(Studentoutstanding studentoutstanding);
 }

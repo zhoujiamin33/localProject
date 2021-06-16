@@ -66,15 +66,19 @@ public class EntryfeesController {
         return entryfees;
     }
     //补缴之后，修改累计欠费的值
-    @PutMapping("/updateFeesAccumulated/{outstandingId}/{feesaccumulated}")
-    public int updateFeesAccumulated(@PathVariable("outstandingId") Integer outstandingId, @PathVariable("feesaccumulated")BigDecimal feesaccumulated){
-        return entryfeesService.updateFeesAccumulated(outstandingId,feesaccumulated);
+    @PutMapping("/updateFeesAccumulated")
+    public Entryfees updateFeesAccumulated(@RequestBody Entryfees entryfees){
+         entryfeesService.updateFeesAccumulated(entryfees);
+        return entryfees;
     }
     //--------------------------------------------------欠费补缴-----------------------------------------------------------------------
     //在报班缴费中查询缴费方式未预交费的数据
     @GetMapping("/findAlloutstanding")
-    public List<Studentoutstanding> findAlloutstanding(){
-        return outStandingService.selectoutonentry();
+    public PageInfo<Studentoutstanding> findAlloutstanding(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage, pagesize);
+        List<Studentoutstanding> entityPage=outStandingService.selectoutonentry();
+        PageInfo<Studentoutstanding> outonentryPageInfo=new PageInfo<>(entityPage);
+        return outonentryPageInfo;
     }
     @PostMapping("/insertoutstanding")
     public Studentoutstanding insertoutstanding(@RequestBody Studentoutstanding studentoutstanding){
@@ -83,14 +87,18 @@ public class EntryfeesController {
     }
     //下拉框选择查询
     @GetMapping("/selectBycontion/{select}/{input}")
-    public List<Studentoutstanding> selectBycontion(@Param("select") String select,@Param("input")String input){
+    public List<Studentoutstanding> selectBycontion(@RequestParam("select") String select,@RequestParam("input")String input){
         return  outStandingService.selectBycontion(select, input);
     }
     //查询所有欠费补缴数据
     @GetMapping("/selectoutstanding")
-    public List<Studentoutstanding> selectoutstanding(){
-        return outStandingService.selectoutstanding();
+    public PageInfo<Studentoutstanding> selectoutstanding(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage, pagesize);
+        List<Studentoutstanding> entityPage=outStandingService.selectoutstanding();
+        PageInfo<Studentoutstanding> outStandingPageInfo=new PageInfo<>(entityPage);
+        return outStandingPageInfo;
     }
+
     //审核
     @PutMapping("/updateApprovalState")
     public Studentoutstanding updateApprovalState( @RequestBody Studentoutstanding studentoutstanding){
@@ -109,5 +117,10 @@ public class EntryfeesController {
         outStandingService.deleteoutstanding(studentoutstanding);
         return studentoutstanding;
     }
-
+    //修改补缴管理的累计欠费
+    @PutMapping("/updateAccumulated")
+    public Studentoutstanding updateAccumulated( @RequestBody Studentoutstanding studentoutstanding){
+        outStandingService.updateAccumulated(studentoutstanding);
+        return studentoutstanding;
+    }
 }

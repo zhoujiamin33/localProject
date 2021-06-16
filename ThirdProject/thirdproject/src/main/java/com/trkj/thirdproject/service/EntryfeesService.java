@@ -18,5 +18,5 @@ public interface EntryfeesService {
     //根据id查询
     Entryfees selectByfeeid(Integer feeId);
     //     补缴之后，修改累计欠费的值
-    int  updateFeesAccumulated(Integer outstandingId, BigDecimal feesaccumulated);
+    Entryfees  updateFeesAccumulated(Entryfees entryfees);
 }

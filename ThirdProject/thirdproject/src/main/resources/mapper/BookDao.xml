@@ -29,6 +29,7 @@
   <select id="selectAllBook" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from Book
+    where state=1
   </select>
   <insert id="addBook" keyColumn="Book_Id" keyProperty="bookId" parameterType="com.trkj.thirdproject.entity.Book" useGeneratedKeys="true">
     insert into Book (BookName,DeliveryCount,BookSprice,BookJprice,SafeStock,Press)

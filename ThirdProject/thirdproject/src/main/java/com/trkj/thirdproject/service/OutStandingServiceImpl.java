@@ -66,6 +66,11 @@ public class OutStandingServiceImpl implements OutStandingService {
         return studentoutstanding;
     }
 
+    @Override
+    public Studentoutstanding updateAccumulated(Studentoutstanding studentoutstanding) {
+        outstandingdao.updateAccumulated(studentoutstanding);
+        return studentoutstanding;
+    }
 
 
 }

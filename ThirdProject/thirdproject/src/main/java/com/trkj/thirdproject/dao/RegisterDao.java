@@ -34,7 +34,7 @@ public interface RegisterDao {
     List<Register> selectAttentState();
 
     //修改咨询登记的缴费状态
-    Register updatepaystate(Integer registerId );
+    int updatepaystate(Integer registerId );
     //<!--查询出咨询登记为已缴费已就读学员的信息-->
     List<Register> selectPay_AttentState();
 
