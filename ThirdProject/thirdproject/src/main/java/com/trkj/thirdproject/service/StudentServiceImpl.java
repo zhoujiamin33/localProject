@@ -36,6 +36,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student AddclassesId(Integer classesId, Integer studentId) {
+        return studentDao.AddclassesId(classesId, studentId);
+    }
+
+    @Override
     public Studentstatus selecttudentstsatus(Integer studentId) {
         Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
         return studentstatus;

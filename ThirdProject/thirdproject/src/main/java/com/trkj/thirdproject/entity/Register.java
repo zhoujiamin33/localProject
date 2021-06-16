@@ -102,6 +102,7 @@ public class Register implements Serializable {
     /**
      * 课程详细编号
      */
+    private Detailcourse detailcourse;
     private Integer detailcourseId;
 
     /**

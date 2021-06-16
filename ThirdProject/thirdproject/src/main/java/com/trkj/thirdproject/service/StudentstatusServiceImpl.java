@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.StudentstatusDao;
+import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.entity.Studentstatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class StudentstatusServiceImpl implements StudentstatusService {
     public Studentstatus selectByPrimaryKey(Integer studentId) {
         Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
         return studentstatus;
+    }
+
+    @Override
+    public Studentstatus AddclassesId(Integer classesId, Integer studentId) {
+        return studentstatusDao.AddclassesId(classesId, studentId);
     }
 
 }

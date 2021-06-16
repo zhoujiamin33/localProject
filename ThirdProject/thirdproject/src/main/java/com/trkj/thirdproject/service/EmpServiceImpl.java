@@ -36,7 +36,7 @@ empDao.deleteByPrimaryKey(EmpId);
     public Emp updateEmp(Emp emp) {
         emp.setUpdatename("tsm管理员");
         emp.setUpdatetime(new Date());
-        empDao.updateByPrimaryKey(emp);
+        empDao.updateByPrimaryKeySelective(emp);
         return emp ;
     }
 

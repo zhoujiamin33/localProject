@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.entity.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -43,4 +44,7 @@ public interface StudentService {
 
     //    根据咨询编号查看交接内容
     Memorandumattachment selectregisterID(Integer registerId);
+
+    //修改班级编号
+    Student AddclassesId(Integer classesId,Integer studentId);
 }

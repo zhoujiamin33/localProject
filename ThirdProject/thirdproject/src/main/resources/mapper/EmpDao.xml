@@ -357,16 +357,16 @@
     from Emp e inner join Dept d on e.Dept_Id=d.Dept_Id inner join `Position` p on e.Position_Id=p.Position_Id
     <where>
       <if test="value!=null and index=='Emp_Name'">
-        Emp_Name like CONCAT(CONCAT('%',#{value},'%'))
+       and Emp_Name like CONCAT(CONCAT('%',#{value},'%'))
       </if>
       <if test="value!=null and index=='Emp_Sex'">
-        Emp_Sex like CONCAT(CONCAT('%',#{value},'%'))
+        and Emp_Sex like CONCAT(CONCAT('%',#{value},'%'))
       </if>
       <if test="index=='JobNumber' and value!=null">
-        JobNumber like CONCAT(CONCAT('%',#{value},'%'))
+        and JobNumber like CONCAT(CONCAT('%',#{value},'%'))
       </if>
       <if test="index=='WorkersState' and value!=null">
-        WorkersState like CONCAT(CONCAT('%',#{value},'%'))
+        and WorkersState like CONCAT(CONCAT('%',#{value},'%'))
       </if>
     </where>
   </select>
@@ -381,16 +381,16 @@
 </update>
 
   <!--  新增-->
-  <insert id="AddEmp" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">
-    insert into Emp (
-      JobNumber, Emp_Name,`Password`, Emp_Sex,Birthday,WorkersState,  Remarks,Position_Id, Dept_Id,Enterprise_Id,
-      E_mail, Emp_Phone,AddName)
-    values (#{jobnumber,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{empSex,jdbcType=CHAR}
-      , #{birthday,jdbcType=TIMESTAMP},
-      #{workersstate,jdbcType=INTEGER},
-      #{remarks,jdbcType=VARCHAR}, #{positionId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER},1,#{eMail,jdbcType=VARCHAR},#{empPhone,jdbcType=VARCHAR}
-     ,#{addname,jdbcType=VARCHAR} )
-  </insert>
+<!--  <insert id="AddEmp" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">-->
+<!--    insert into Emp (-->
+<!--      JobNumber, Emp_Name,`Password`, Emp_Sex,Birthday,WorkersState,  Remarks,Position_Id, Dept_Id,Enterprise_Id,-->
+<!--      E_mail, Emp_Phone,AddName)-->
+<!--    values (#{jobnumber,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{empSex,jdbcType=CHAR}-->
+<!--      , #{birthday,jdbcType=TIMESTAMP},-->
+<!--      #{workersstate,jdbcType=INTEGER},-->
+<!--      #{remarks,jdbcType=VARCHAR}, #{positionId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER},1,#{eMail,jdbcType=VARCHAR},#{empPhone,jdbcType=VARCHAR}-->
+<!--     ,#{addname,jdbcType=VARCHAR} )-->
+<!--  </insert>-->
 
   <!--  修改-->
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Emp">

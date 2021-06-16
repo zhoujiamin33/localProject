@@ -30,7 +30,8 @@ public interface StudentDao {
     List<Student> slectName(@Param("index") String index,@Param("value") String value);
     //<!--  根据学员表里的班级id查询班级信息：如果没有分班呢？班级记录表李会显示请选择班级-->
 //    List<Student> selectAllclass();
-
+//修改班级编号
+    Student AddclassesId(@Param("classesId") Integer classesId,@Param("studentId") Integer studentId);
 
 
 }

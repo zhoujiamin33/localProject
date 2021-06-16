@@ -23,6 +23,5 @@ public interface ClassesDao {
    List<Classes> findAllclass();
    //班级表中的多条件查询
    List<Classes> selectByContion(@Param("value")String value,@Param("input") String input);
-    //查询所有外键表：course
-    Classes findclass(Integer classesId);
+
 }

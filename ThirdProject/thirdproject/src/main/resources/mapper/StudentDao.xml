@@ -60,6 +60,22 @@
       <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
       <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
       <result column="Phone" jdbcType="VARCHAR" property="phone" />
+      <!--    课程-->
+      <association property="course" javaType="com.trkj.thirdproject.entity.Course">
+        <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
+        <result column="Course_Name" jdbcType="VARCHAR" property="courseName" />
+        <result column="Course_State" jdbcType="INTEGER" property="courseState" />
+        <result column="Classhours" jdbcType="INTEGER" property="classhours" />
+        <result column="Course_Money" jdbcType="DECIMAL" property="courseMoney" />
+        <result column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
+        <result column="AddName" jdbcType="VARCHAR" property="addname" />
+        <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+        <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+        <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+        <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+        <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      </association>
     </association>
 <!--    班级-->
     <collection property="classes" ofType="com.trkj.thirdproject.entity.Classes">
@@ -99,9 +115,13 @@
     r.DeleteTime, r.DetailCourse_Id, r.Course_Id, r.Emp_Id, r.Phone
   </sql>
   <sql id="Base_Column_Classes">
-    c.Classes_Id, c.Classes_Name, c.Classes_Open, c.Course_Id, c.ClassRoom_Id, c.Teacher_Id, c.Emp_Id,
-    c.DetailCourse_Id, c.StartedDate, c.EndDate, c.LastDate, c.AddName, c.AddTime, c.UpdateName, c.UpdateTime,
-    c.DeleteName, c.DeleteTime, c.TimeLiness
+    cl.Classes_Id, cl.Classes_Name, cl.Classes_Open, cl.Course_Id, cl.ClassRoom_Id, cl.Teacher_Id, cl.Emp_Id,
+    cl.DetailCourse_Id, cl.StartedDate, cl.EndDate, cl.LastDate, cl.AddName, cl.AddTime, cl.UpdateName, cl.UpdateTime,
+    cl.DeleteName, cl.DeleteTime, cl.TimeLiness
+  </sql>
+  <sql id="course" >
+     c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
+    c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -133,17 +153,18 @@
   <!--  模糊查询-->
   <select id="slectName" resultMap="BaseResultMap">
     select  <include refid="Base_Column_List"/>,<include refid="Base_Column_Source"/>,
-    <include refid="Base_Column_Register"/>
+    <include refid="Base_Column_Register"/>,<include refid="course"/>
     from Student stu inner join Source s on stu.Source_Id=s.Source_Id
     inner  join Register r on stu.Register_Id=r.Register_Id
+    inner join Course c on r.Course_Id=c.Course_Id
     where
-    stu.TimeLiness=0 and
+    stu.TimeLiness=0
 
     <if test="index =='Student_Name' and value!=null">
-      stu.Student_Name like CONCAT(CONCAT('%',#{value},'%'))
+      and stu.Student_Name like CONCAT(CONCAT('%',#{value},'%'))
     </if>
     <if test="index =='Student_Phone' and value!=null">
-      stu.Student_Phone like CONCAT(CONCAT('%',#{value},'%'))
+      and stu.Student_Phone like CONCAT(CONCAT('%',#{value},'%'))
     </if>
     order by stu.Student_Id desc
   </select>
@@ -206,6 +227,11 @@
   <update id="delstuTimeness" parameterType="com.trkj.thirdproject.entity.Student">
   update Student set TimeLiness=1 ,DeleteName = #{deletename},
       DeleteTime = #{deletetime}
+        where Student_Id = #{studentId}
+</update>
+<!--  选择班级-->
+  <update id="AddclassesId" parameterType="com.trkj.thirdproject.entity.Student">
+  update Student set Classes_Id=#{classesId}
         where Student_Id = #{studentId}
 </update>
   <!--  修改，修改时间-->

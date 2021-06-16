@@ -237,4 +237,9 @@
       TimeLiness = #{timeliness,jdbcType=INTEGER}
     where StudentStatus_Id = #{studentstatusId,jdbcType=INTEGER}
   </update>
+  <!--  选择班级-->
+  <update id="AddclassesId" parameterType="com.trkj.thirdproject.entity.Student">
+  update StudentStatus set Classes_Id=#{classesId}
+        where Student_Id = #{studentId}
+</update>
 </mapper>

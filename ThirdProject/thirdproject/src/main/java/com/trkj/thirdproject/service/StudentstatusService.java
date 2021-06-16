@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.service;
 
+import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.entity.Studentstatus;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface StudentstatusService {
 Studentstatus updatestustart(Studentstatus record);
 //查询学员状态表stu
     Studentstatus selectByPrimaryKey(Integer studentId);
+    //修改班级编号
+    Studentstatus AddclassesId(Integer classesId, Integer studentId);
 }

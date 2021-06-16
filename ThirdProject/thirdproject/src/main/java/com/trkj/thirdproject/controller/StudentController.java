@@ -77,6 +77,7 @@ public class StudentController {
         PageHelper.startPage(currentPage, pagesize);
         List<Student> entityPage = studentService.slectName(index, value);
         PageInfo<Student> studentPageInfo = new PageInfo<>(entityPage);
+        log.debug("学员表："+entityPage.toString());
         return studentPageInfo;
     }
 
@@ -158,5 +159,13 @@ memorandumattachment.setJwisexamine(1);
 studentService.updateByPrimaryKeySelective(memorandumattachment);
         return studentstatus;
 
+    }
+//    学生选择班级点击保存
+    @PutMapping("/addclassesId/{classesId}/{studentId}")
+    public void addclasses(@PathVariable("classesId") Integer classesId,@PathVariable("studentId")Integer studentId){
+      Student  student=studentService.AddclassesId(classesId, studentId);
+        log.debug("学员修改"+student);
+        Studentstatus studentstatus=studentstatusService.AddclassesId(classesId, studentId);
+        log.debug("学员状态修改"+studentstatus);
     }
 }

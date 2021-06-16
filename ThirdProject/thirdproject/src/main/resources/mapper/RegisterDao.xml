@@ -89,6 +89,20 @@
       <result column="LastRevokeTime" jdbcType="TIMESTAMP" property="lastrevoketime" />
       <result column="LastRevokeName" jdbcType="VARCHAR" property="lastrevokename" />
     </association>
+<!--   详细课程 -->
+    <association property="detailcourse" javaType="com.trkj.thirdproject.entity.Detailcourse">
+      <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+      <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName" />
+      <result column="Serial" jdbcType="INTEGER" property="serial" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </association>
   </resultMap>
 
   <sql id="Base_Column_List">

@@ -1,7 +1,9 @@
 package com.trkj.thirdproject.dao;
 
+import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.entity.Studentstatus;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,4 +25,6 @@ public interface StudentstatusDao {
 
     //显示所有
     List<Studentstatus> selectstu_class(Integer studentId);
+    //修改班级编号
+    Studentstatus AddclassesId(@Param("classesId") Integer classesId, @Param("studentId") Integer studentId);
 }
