@@ -5,8 +5,11 @@ import com.trkj.thirdproject.service.MemorandumattachmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -14,8 +17,16 @@ import java.util.List;
 public class MemorandumattachmentController {
     @Autowired
     private MemorandumattachmentService memorandumattachmentService;
+    //学员交接招生显示
     @GetMapping("/findAllMemorandumattachment")
     public List<Memorandumattachment> findAllMemorandumattachment(){
         return memorandumattachmentService.selectMemorandumAttachment();
+    }
+
+    @PutMapping("/Spzszt/{memorandumattachmentId}")
+    public int PiliangZssp(@PathVariable("memorandumattachmentId") List<Integer>memorandumattachmentId){
+        log.debug("学员交接进行招生审批");
+        Date jwexaminetime=new Date();
+        return memorandumattachmentService.PiliangZssp(memorandumattachmentId,jwexaminetime);
     }
 }

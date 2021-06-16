@@ -34,7 +34,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         return register;
     }
-
+    //咨询登记批量删除修改时效性
     @Override
     public int delstuRegTime(List<Integer>RegisterId, String lastupdatename, Date lastupdatetime){
         for (int unitid :RegisterId){

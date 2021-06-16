@@ -52,6 +52,7 @@
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
     reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id
   </sql>
+<!--  学员交接显示-->
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,
@@ -68,6 +69,14 @@
     inner join Register reg on reg.Register_Id=m.Register_Id
     where reg.PayState=0
   </select>
+
+  <!--删除后改变时效性-->
+  <update id="PiliangZssp" parameterType="com.trkj.thirdproject.entity.Memorandumattachment">
+   update MemorandumAttachment set JWIsExamine=1,
+   JWExamineTime=#{jwexaminetime,jdbcType=TIMESTAMP}
+
+   where MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+</update>
 
 <!--  查询所有（咨询登记）-->
   <select id="selectregister" parameterType="java.lang.Integer" resultMap="BaseResultMap">
