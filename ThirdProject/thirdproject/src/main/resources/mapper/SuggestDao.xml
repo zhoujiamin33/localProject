@@ -41,16 +41,14 @@
     from Suggest s inner join Dept d on s.Dept_Id=d.Dept_Id
     where s.Suggest_Id = #{suggestId,jdbcType=INTEGER}
   </select>
-  <select id="findNameSuggest" parameterType="java.lang.String" resultType="com.trkj.thirdproject.entity.Suggest">
+  <select id="findNameSuggest" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_List_2"/>
     from Suggest s inner join Dept d on s.Dept_Id=d.Dept_Id
-    where
-      <if test="Suggest_Name != null">
-        s.Suggest_Name like concat('%',concat(#{suggestName,jdbcType=VARCHAR},'%'))
+    where s.TimeLiness=0
+      <if test="name !='' and name !=null">
+        and s.Suggest_Name like concat('%',concat(#{name},'%'))
       </if>
-      and s.TimeLiness=0
-    order by s.Suggest_Id
   </select>
 
   <select id="findAllSuggest" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -74,7 +72,7 @@
       #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="Suggest_Id" keyProperty="suggestId" parameterType="com.trkj.thirdproject.entity.Suggest" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="Suggest_Id" keyProperty="suggestId" parameterType="com.trkj.thirdproject.entity.Suggest" useGeneratedKeys="true">
     insert into Suggest
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="suggestName != null">

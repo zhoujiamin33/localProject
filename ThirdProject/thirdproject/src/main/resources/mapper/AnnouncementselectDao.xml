@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.AnnouncementselectDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Announcementselect">
+    <id column="AnnouncementSelect_Id" jdbcType="INTEGER" property="announcementselectId" />
+    <result column="Announcement_Id" jdbcType="INTEGER" property="announcementId" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    AnnouncementSelect_Id, Announcement_Id, Emp_Id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from AnnouncementSelect
+    where AnnouncementSelect_Id = #{announcementselectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from AnnouncementSelect
+    where AnnouncementSelect_Id = #{announcementselectId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert"  parameterType="com.trkj.thirdproject.entity.Announcementselect">
+    insert into AnnouncementSelect (Announcement_Id, Emp_Id)
+    values (#{announcementId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="AnnouncementSelect_Id" keyProperty="announcementselectId" parameterType="com.trkj.thirdproject.entity.Announcementselect" useGeneratedKeys="true">
+    insert into AnnouncementSelect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="announcementId != null">
+        Announcement_Id,
+      </if>
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="announcementId != null">
+        #{announcementId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Announcementselect">
+    update AnnouncementSelect
+    <set>
+      <if test="announcementId != null">
+        Announcement_Id = #{announcementId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where AnnouncementSelect_Id = #{announcementselectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Announcementselect">
+    update AnnouncementSelect
+    set Announcement_Id = #{announcementId,jdbcType=INTEGER},
+      Emp_Id = #{empId,jdbcType=INTEGER}
+    where AnnouncementSelect_Id = #{announcementselectId,jdbcType=INTEGER}
+  </update>
+</mapper>

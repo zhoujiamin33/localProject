@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Announcement;
 import com.trkj.thirdproject.service.AnnouncementService;
+import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ public class AnnouncementController {
     }
     @PostMapping("/AnnAdd")
     public Announcement AnnAdd(@RequestBody Announcement announcement){
+        log.debug("开始添加");
+        log.debug("测试：：："+announcement.toString());
         service.AddAnn(announcement);
         return announcement;
     }
@@ -48,6 +51,7 @@ public class AnnouncementController {
         announcement.setStartTime(new Date());
         return service.AnnState(announcement);
     }
+    //可以不用，用findVariedAnn
     @GetMapping("/findPageAnn")
     public PageInfo<Announcement> findPages(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize){
         log.debug("开始分页！");
@@ -57,4 +61,31 @@ public class AnnouncementController {
         log.debug(listann.toString());
         return unitPageInfo;
     }
+    @PostMapping("/AddAnnSelect/{aid}/{eids}")
+    public int AddAnnSelect(@PathVariable("aid")int aid,@PathVariable("eids") List<Integer> eids){
+        log.debug("开始添加可查看人");
+        for (int eid : eids){
+            service.AddAnnSelect(aid,eid);
+        }
+        return aid;
+    }
+    @GetMapping("/findVariedAnn")
+    public PageInfo<Announcement> findVariedAnn(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize,@RequestParam("AnnSearch")String name){
+        log.debug("开始查询分页！");
+        PageHelper.startPage(currentPage,pagesize);
+        List<Announcement>listann=service.findVaried(name);
+        PageInfo<Announcement> AnnPageInfo=new PageInfo<>(listann);
+        return AnnPageInfo;
+    }
+    @GetMapping("/findAnns")
+    public PageInfo<Announcement> findAnns(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize,@RequestParam("AnnSearch")String name){
+        log.debug("开始分页22222！");
+        PageHelper.startPage(currentPage,pagesize);
+        List<Announcement>listann=service.selectAnns(name);
+        PageInfo<Announcement> AnnPageInfo=new PageInfo<>(listann);
+        return AnnPageInfo;
+    }
+
+
+
 }

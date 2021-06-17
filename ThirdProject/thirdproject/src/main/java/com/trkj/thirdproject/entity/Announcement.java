@@ -28,13 +28,15 @@ public class Announcement implements Serializable {
     /**
      * 开始时间
      */
-    @JsonFormat(pattern = "YYYY-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date startTime;
 
     /**
      * 结束时间
      */
-    @JsonFormat(pattern = "YYYY-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date endTime;
 
     /**
@@ -60,6 +62,7 @@ public class Announcement implements Serializable {
     /**
      * 录入时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addtime;
 
     /**

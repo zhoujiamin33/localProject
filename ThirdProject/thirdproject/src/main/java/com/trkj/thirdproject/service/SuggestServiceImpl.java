@@ -41,7 +41,7 @@ public class SuggestServiceImpl implements SuggestService {
     }
 
     @Override
-    public List<Suggest> findNameSuggest(String Suggest_Name) {
-        return suggestDao.findNameSuggest(Suggest_Name);
+    public List<Suggest> findNameSuggest(String name) {
+        return suggestDao.findNameSuggest(name);
     }
 }

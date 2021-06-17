@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Announcement;
+import com.trkj.thirdproject.entity.Emp;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,4 +27,10 @@ public interface AnnouncementDao {
     int delAnn(Announcement announcement);
 
     int AnnState(Announcement announcement);
+
+    List<Announcement> findVaried(@Param("name")String name);
+
+    List<Announcement> selectAnns(@Param("name")String name);
+
+    List<Emp> selectEmp(@Param("AnnouncementId")int aid);
 }

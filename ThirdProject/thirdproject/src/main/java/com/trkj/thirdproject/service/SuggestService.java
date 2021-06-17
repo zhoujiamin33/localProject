@@ -14,5 +14,6 @@ public interface SuggestService {
 
     Suggest UpdateSuggest(Suggest suggest);
 
-    List<Suggest> findNameSuggest(String Suggest_Name);
+    List<Suggest> findNameSuggest(String name);
+
 }

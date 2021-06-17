@@ -20,7 +20,7 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    <collection property="emps" ofType="com.trkj.thirdproject.entity.Emp">
+    <collection property="emps" ofType="com.trkj.thirdproject.entity.Emp" javaType="java.util.List" column="{AnnouncementId = Announcement_Id}" select="selectEmp">
       <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
       <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
       <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
@@ -67,7 +67,40 @@
      e.Address,  e.WorkersState,  e.`Password`,  e.Addname,  e.AddTime,  e.UpdateName,  e.UpdateTime,  e.LeaveName,
      e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="selectAnns" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List_1"/>
+    from Announcement an
+    <where>
+      an.TimeLiness=0
+      <if test="name!=null and name!=''">
+        and an.Announcement_Theme like CONCAT('%',concat(#{name},'%')) or
+        an.Announcement_Content like CONCAT('%',concat(#{name},'%'))
+      </if>
+    </where>
+  </select>
+
+  <select id="selectEmp"  resultType="com.trkj.thirdproject.entity.Emp">
+    select <include refid="Base_Column_List_2"/>
+    from Emp e left join AnnouncementSelect ans on ans.Emp_Id=e.Emp_Id
+    where ans.Announcement_Id=#{AnnouncementId}
+  </select>
+
+  <select id="findVaried" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List_1"/>,<include refid="Base_Column_List_2"/>
+    FROM  Announcement an LEFT JOIN AnnouncementSelect ans on
+    an.Announcement_Id=ans.Announcement_Id LEFT JOIN
+    Emp e on ans.Emp_Id=e.Emp_Id
+    <where>
+      an.TimeLiness=0
+      <if test="name!=null and name!=''">
+        and an.Announcement_Theme like CONCAT('%',concat(#{name},'%')) or
+        an.Announcement_Content like CONCAT('%',concat(#{name},'%'))
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from Announcement
@@ -85,19 +118,16 @@
     where Announcement_Id = #{announcementId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Announcement_Id" keyProperty="announcementId" parameterType="com.trkj.thirdproject.entity.Announcement" useGeneratedKeys="true">
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="announcementId">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into Announcement (AnnouncementType_Id, Start_Time,
       End_Time, Announcement_Theme, Announcement_Content,
-      Announcement_State, AddName, AddTime,
-      PublishName, PublishTime, SuspendName,
-      SuspendTime, UpdateName, UpdateTime,
-      DeleteName, DeleteTime, TimeLiness
+      Announcement_State, AddName, AddTime
       )
     values (#{announcementtypeId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP},
       #{endTime,jdbcType=TIMESTAMP}, #{announcementTheme,jdbcType=VARCHAR}, #{announcementContent,jdbcType=VARCHAR},
-      #{announcementState,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP},
-      #{publishname,jdbcType=VARCHAR}, #{publishtime,jdbcType=TIMESTAMP}, #{suspendname,jdbcType=VARCHAR},
-      #{suspendtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP},
-      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}
+      #{announcementState,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" keyColumn="Announcement_Id" keyProperty="announcementId" parameterType="com.trkj.thirdproject.entity.Announcement" useGeneratedKeys="true">

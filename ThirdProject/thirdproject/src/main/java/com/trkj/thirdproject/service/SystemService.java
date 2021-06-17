@@ -2,8 +2,6 @@ package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.entity.Emp;
 import com.trkj.thirdproject.entity.System;
-import com.trkj.thirdproject.entity.Systemselect;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

@@ -2,6 +2,7 @@ package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Suggest;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,5 +26,5 @@ public interface SuggestDao {
 
     int UpdateSuggest(Suggest suggest);
 
-    List<Suggest> findNameSuggest(String name);
+    List<Suggest> findNameSuggest(@Param("name") String name);
 }

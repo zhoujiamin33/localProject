@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.AnnouncementDao;
+import com.trkj.thirdproject.dao.AnnouncementselectDao;
 import com.trkj.thirdproject.entity.Announcement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import java.util.List;
 public class AnnouncementServiceImpl implements AnnouncementService {
     @Autowired
     private AnnouncementDao dao;
+    @Autowired
+    private AnnouncementselectDao ann;
     @Override
     public List<Announcement> findAllAnn() {
         return dao.findAllAnn();
@@ -23,6 +26,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public Announcement AddAnn(Announcement announcement) {
         announcement.setAddtime(new Date());
         dao.insertSelective(announcement);
+        announcement.setAnnouncementState(0);
         return announcement;
     }
 
@@ -43,5 +47,21 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public Announcement AnnState(Announcement announcement) {
         dao.AnnState(announcement);
         return announcement;
+    }
+
+    @Override
+    public int AddAnnSelect(int aid, int empId) {
+
+        return ann.insert(aid,empId);
+    }
+
+    @Override
+    public List<Announcement> findVaried(String name) {
+        return dao.findVaried(name);
+    }
+
+    @Override
+    public List<Announcement> selectAnns(String name) {
+        return dao.selectAnns(name);
     }
 }
