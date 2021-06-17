@@ -102,24 +102,23 @@
     where Course_Id = #{courseId,jdbcType=INTEGER}
   </delete>
 
-  <!--  新增课程-->
+
   <insert id="insert" keyColumn="Course_Id" keyProperty="courseId" parameterType="com.trkj.thirdproject.entity.Course" useGeneratedKeys="true">
-    insert into Course (Course_Name, Course_State, Classhours,
+    insert into Course (Course_Name, Classhours,
       Course_Money, ClassType_Id, AddName, 
       AddTime, UpdateName, UpdateTime, 
-      DeleteName, DeleteTime, TimeLiness
-      )
-    values (#{courseName,jdbcType=VARCHAR}, #{courseState,jdbcType=INTEGER}, #{classhours,jdbcType=INTEGER}, 
+      DeleteName, DeleteTime, TimeLiness)
+    values (#{courseName,jdbcType=VARCHAR},  #{classhours,jdbcType=INTEGER},
       #{courseMoney,jdbcType=DECIMAL}, #{classtypeId,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, 
       #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}
       )
   </insert>
-
-  <insert id="insertCoursetype" keyColumn="Course_Id" keyProperty="courseId" parameterType="com.trkj.thirdproject.entity.Course" useGeneratedKeys="true">
-     insert into Course(ClassType_Id,Course_Name, Classhours, Course_Money,AddName) values
+  <!--  新增课程-->
+  <insert id="insertCourse" keyColumn="Course_Id" keyProperty="courseId" parameterType="com.trkj.thirdproject.entity.Course" useGeneratedKeys="true">
+     insert into Course(ClassType_Id,Course_Name, Classhours, Course_Money,AddName,AddTime) values
       (#{classtypeId,jdbcType=INTEGER},#{courseName,jdbcType=VARCHAR}, #{classhours,jdbcType=INTEGER},
-      #{courseMoney,jdbcType=DECIMAL},#{addname,jdbcType=VARCHAR})
+      #{courseMoney,jdbcType=DECIMAL},#{addname,jdbcType=VARCHAR},#{addtime,jdbcType=TIMESTAMP})
   </insert>
 
 <!--根据id修改课程-->

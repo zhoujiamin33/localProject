@@ -33,7 +33,7 @@ public class CourseController {
     @PostMapping("/addCourse")
     public Course addCourse( @RequestBody Course course){
         log.debug("新增课程");
-        course=courseservice.insertCoursetype(course);
+        course=courseservice.insertCourse(course);
         return course;
     }
     @PutMapping("/updateCourse")

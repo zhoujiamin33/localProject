@@ -17,7 +17,8 @@ public interface CourseDao {
 
     int insert(Course course);
 
-    int insertCoursetype(Course course);
+    //新增课程
+    int insertCourse(Course course);
 
     int updateByPrimaryKey(Course course);
 

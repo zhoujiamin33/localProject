@@ -29,9 +29,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course insertCoursetype(Course course) {
+    public Course insertCourse(Course course) {
         course.setAddname("Tsm管理员");
-        coursedao.insertCoursetype(course);
+        course.setAddtime(new Date());
+        coursedao.insertCourse(course);
         log.debug("111111"+course);
         return course;
     }

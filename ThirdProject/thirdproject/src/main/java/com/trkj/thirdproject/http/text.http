@@ -1,3 +1,4 @@
+
 PUT http://localhost:80/api/item
 Content-Type: application/json
 
@@ -7,6 +8,13 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8089/threeproject/findFaqQuestions
+
+#根据班级id查询班级信息
+GET http://localhost:8089/threeproject/selectById/1
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/findTrainingperiods
 Accept: application/json
 
 ###

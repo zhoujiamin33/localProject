@@ -2,6 +2,7 @@ package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.ClassesDao;
 import com.trkj.thirdproject.entity.Classes;
+import com.trkj.thirdproject.entity.Detailcourse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +49,34 @@ public class ClassesServiceImpl implements ClassesService {
     @Override
     public Classes selectcourseId(Integer courseId) {
         return classesdao.selectcourseId(courseId);
+    }
+    @Override
+    public Classes updateClassesOpen1(Classes classes) {
+        classes.setUpdatetime(new Date());
+        classesdao.updateClassesOpen1(classes);
+        return classes;
+    }
+
+    @Override
+    public Classes updateClassesOpen0(Classes classes) {
+        classes.setUpdatetime(new Date());
+        classesdao.updateClassesOpen0(classes);
+        return classes;
+    }
+
+    @Override
+    public List<Classes> selectOpen() {
+        return classesdao.selectOpen();
+    }
+
+    @Override
+    public List<Detailcourse> selectDetailCourse() {
+        return classesdao.selectDetailCourse();
+    }
+
+    @Override
+    public Classes selectById(Integer classesId) {
+       Classes classes= classesdao.selectById(classesId);
+       return  classes;
     }
 }

@@ -25,6 +25,7 @@
   <select id="selectAllTrainingperiods" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from TrainingPeriod
+    order by AddTime desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from TrainingPeriod
