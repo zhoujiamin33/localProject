@@ -56,6 +56,11 @@ public class CourseServiceImpl implements CourseService {
         return coursedao.selectByCourseTypeName(classtypeName);
     }
 
+    @Override
+    public Course selectByCourseTypeId(Integer classtypeId) {
+        return coursedao.selectByCourseTypeId(classtypeId);
+    }
+
 
     //----------------------------------------------------课程详情数据----------------------------------------------------------------
     @Override

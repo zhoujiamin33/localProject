@@ -3,10 +3,7 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.*;
-import com.trkj.thirdproject.service.RegisterService;
-import com.trkj.thirdproject.service.SourceService;
-import com.trkj.thirdproject.service.StudentService;
-import com.trkj.thirdproject.service.StudentstatusService;
+import com.trkj.thirdproject.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +26,8 @@ public class StudentController {
     //    生源渠道
     @Autowired
     private SourceService sourceService;
+    @Autowired
+    private CourseService courseService;
     //    查询
     @GetMapping("/selectAllclass")
     public PageInfo<Student> findstudent(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
@@ -160,12 +159,35 @@ studentService.updateByPrimaryKeySelective(memorandumattachment);
         return studentstatus;
 
     }
-//    学生选择班级点击保存
+//    查询学员
+@GetMapping("/findstudentclasses/{studentId}")
+public Student findstudentclasses(@PathVariable("studentId") Integer studentId) {
+    Student student= studentService.selectstudentId(studentId);
+
+    log.debug("学员状态的班级编号：" + student.toString());
+    return student;
+}
+//    没有添加班级外键的学员表与学员状态表学生选择班级点击保存;该学员添加班级并学员状态表中的状态为已分班1
     @PutMapping("/addclassesId/{classesId}/{studentId}")
     public void addclasses(@PathVariable("classesId") Integer classesId,@PathVariable("studentId")Integer studentId){
-      Student  student=studentService.AddclassesId(classesId, studentId);
+        List<Studentstatus> studentstatus=studentstatusService.selectstu_class(studentId);
+       log.debug(classesId+"dfd");
+       for(Studentstatus s:studentstatus){
+           s.setClassesId(classesId);
+           s.setStatus(1);//已分班
+           studentstatusService.updateByPrimaryKeySelective(s);
+       }
+
+
+        Student  student=studentService.AddclassesId(classesId, studentId);
         log.debug("学员修改"+student);
-        Studentstatus studentstatus=studentstatusService.AddclassesId(classesId, studentId);
+
         log.debug("学员状态修改"+studentstatus);
+    }
+//    根据课程编号查询所有
+    @GetMapping("/findclasstypeId/{classtypeId}")
+    public Course findclasstypeId(@PathVariable("classtypeId")Integer classtypeId){
+       Course course= courseService.selectByCourseTypeId(classtypeId);
+        return course;
     }
 }

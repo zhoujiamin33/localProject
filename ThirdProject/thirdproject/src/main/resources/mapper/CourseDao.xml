@@ -15,7 +15,7 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-
+<!--课类-->
     <association javaType="com.trkj.thirdproject.entity.Classtype" property="classtype">
       <id column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
       <result column="ClassType_Name" jdbcType="VARCHAR" property="classtypeName" />
@@ -43,6 +43,14 @@
     from Course c
     inner join ClassType t on c.ClassType_Id=t.ClassType_Id
     where t.ClassType_Name=#{classtypeName,jdbcType=VARCHAR}
+    order by c.AddTime desc
+  </select>
+<!--  根据课程编号查询课类所有-->
+  <select id="selectByCourseTypeId" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />,<include refid="BaseType"/>
+    from Course c
+    inner join ClassType t on c.ClassType_Id=t.ClassType_Id
+    where t.ClassType_Id=#{classtypeId,jdbcType=VARCHAR}
     order by c.AddTime desc
   </select>
 <!--  搜索课程-->

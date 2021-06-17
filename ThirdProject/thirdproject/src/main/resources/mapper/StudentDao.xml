@@ -125,9 +125,13 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from Student stu
-    where stu.Student_Id = #{studentId,jdbcType=INTEGER}
+    <include refid="Base_Column_List" />,<include refid="Base_Column_Source"/>,
+    <include refid="Base_Column_Register"/>,<include refid="course"/>
+    from Student stu inner join Source s on stu.Source_Id=s.Source_Id
+    inner  join Register r on stu.Register_Id=r.Register_Id
+    inner join Course c on r.Course_Id=c.Course_Id
+    where stu.TimeLiness=0
+   and stu.Student_Id = #{studentId,jdbcType=INTEGER}
   </select>
 
 

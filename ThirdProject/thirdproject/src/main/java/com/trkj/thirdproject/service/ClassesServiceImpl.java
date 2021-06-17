@@ -44,4 +44,9 @@ public class ClassesServiceImpl implements ClassesService {
     public List<Classes> selectByContion(String value, String input) {
        return classesdao.selectByContion(value, input);
     }
+
+    @Override
+    public Classes selectcourseId(Integer courseId) {
+        return classesdao.selectcourseId(courseId);
+    }
 }

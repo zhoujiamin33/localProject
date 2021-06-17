@@ -103,13 +103,14 @@
     delete from StudentStatus
     where StudentStatus_Id = #{studentstatusId,jdbcType=INTEGER}
   </delete>
-<!--  根据学员编号查询学员与班级的信息-->
-  <select id="selectstu_class" resultMap="BaseResultMap">
+<!--  根据学员编号查询学员-->
+  <select id="selectstu_class" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />,<include refid="Base_Column_classes"/>,<include
-          refid="Base_Column_student"/>
-    from StudentStatus sta inner join Student stu on sta.Student_Id=stu.Student_Id
-    inner join Classes cl on sta.Classes_Id=cl.Classes_Id
+    <include refid="Base_Column_List" />,<include refid="Base_Column_student"/>,
+    <include refid="Base_Column_course"/>
+    from StudentStatus sta
+    inner join Student stu on sta.Student_Id=stu.Student_Id
+    inner join Course c on sta.Course_Id=c.Course_Id
     where sta.Student_Id = #{studentId,jdbcType=INTEGER}
   </select>
   <insert id="insert" keyColumn="StudentStatus_Id" keyProperty="studentstatusId" parameterType="com.trkj.thirdproject.entity.Studentstatus" useGeneratedKeys="true">
@@ -238,7 +239,7 @@
     where StudentStatus_Id = #{studentstatusId,jdbcType=INTEGER}
   </update>
   <!--  选择班级-->
-  <update id="AddclassesId" parameterType="com.trkj.thirdproject.entity.Student">
+  <update id="AddclassesId" parameterType="com.trkj.thirdproject.entity.Studentstatus">
   update StudentStatus set Classes_Id=#{classesId}
         where Student_Id = #{studentId}
 </update>

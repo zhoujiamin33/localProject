@@ -24,4 +24,6 @@ public interface CourseDao {
     Course selectByPrimaryKey(@PathVariable("courseId") Integer courseId);
     //根据课类id查询所有课程
     List<Course> selectByCourseTypeName(String  classtypeName);
+//    根据课程编号查询所有
+    Course selectByCourseTypeId(Integer classtypeId);
 }

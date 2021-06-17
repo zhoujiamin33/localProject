@@ -37,7 +37,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student AddclassesId(Integer classesId, Integer studentId) {
-        return studentDao.AddclassesId(classesId, studentId);
+       Student student=studentDao.AddclassesId(classesId, studentId);
+        return student;
     }
 
     @Override

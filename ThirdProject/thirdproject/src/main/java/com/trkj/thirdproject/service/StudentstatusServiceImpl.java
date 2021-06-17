@@ -38,8 +38,11 @@ public class StudentstatusServiceImpl implements StudentstatusService {
     }
 
     @Override
-    public Studentstatus AddclassesId(Integer classesId, Integer studentId) {
-        return studentstatusDao.AddclassesId(classesId, studentId);
+    public Studentstatus updateByPrimaryKeySelective(Studentstatus studentstatus) {
+      studentstatusDao.updateByPrimaryKeySelective(studentstatus);
+        return studentstatus;
     }
+
+
 
 }

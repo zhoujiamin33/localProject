@@ -117,7 +117,21 @@
     b.Book_Id, b.BookName, b.DeliveryCount, b.BookSprice, b.BookJprice, b.SafeStock, b.Press, b.`State`
   </sql>
 
-
+<!--根据课程编号查询所对应的班级-->
+  <select id="selectcourseId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_course"/>,
+    <include refid="emp"/>,
+    <include refid="classRoom"/>,
+    <include refid="book"/>
+    from Classes cl
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    where cl.Course_Id=#{courseId,jdbcType=INTEGER}
+  </select>
 <!--  多条件查询-->
   <select id="selectByContion" resultMap="BaseResultMap">
     select

@@ -57,7 +57,7 @@ public class DropoutController {
         return dropoutPageInfo;
     }
 //审批状态的修改和时效性的修改
-    @PutMapping("/updatedropoutstate/dropoutId")
+    @PutMapping("/updatedropoutstate/{dropoutId}")
     public void updatedropoutstate(@PathVariable("dropoutId")String dropoutId){
         String[] id=dropoutId.split(",");
         for (String d:id){
@@ -69,7 +69,7 @@ public class DropoutController {
 }
 
     }
-    @PutMapping("/deldropouttimeliness/dropoutId")
+    @PutMapping("/deldropouttimeliness/{dropoutId}")
     public void deldropouttimeliness(@PathVariable("dropoutId")String dropoutId){
         String[] id=dropoutId.split(",");
         for (String d:id){
