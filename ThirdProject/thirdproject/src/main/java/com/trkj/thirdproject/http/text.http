@@ -1,3 +1,15 @@
+PUT http://localhost:80/api/item
+Content-Type: application/json
+
+{
+
+}
+
+###
+GET http://localhost:8089/threeproject/findFaqQuestions
+Accept: application/json
+
+###
 
 GET http://localhost:8089/threeproject/findPage1/1/2
 Accept: application/json

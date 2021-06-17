@@ -49,7 +49,7 @@ public class RegisterController {
         register=registerService.updateRegister(register);
         return register;
     }
-
+    //批量删除
     @PutMapping("/DelReg/{registerId}")
     public int delstuRegTime(@PathVariable("registerId") List<Integer>registerId){
         log.debug("启用");

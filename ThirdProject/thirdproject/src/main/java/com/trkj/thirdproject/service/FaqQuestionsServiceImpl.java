@@ -6,12 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
 @Service
 public class FaqQuestionsServiceImpl implements FaqQuestionsService {
-    @Autowired
+    @Resource
     private FaqQuestionsDao faqQuestionsDao;
     @Override
 
@@ -27,13 +29,18 @@ public class FaqQuestionsServiceImpl implements FaqQuestionsService {
          return faqQuestions;
     }
 
+    //修改
     @Override
     public FaqQuestions updateFaqQuestions(FaqQuestions faqQuestions) {
-        return null;
+         faqQuestionsDao.updateByPrimaryKey(faqQuestions);
+         return faqQuestions;
     }
-
+    //FAQ批量删除修改时效性
     @Override
-    public void delFaqQuestions(int faqId) {
-
+    public int delstuFaqTime(List<Integer>FaqId, String deletename, Date deletetime) {
+        for (int unitid :FaqId){
+            faqQuestionsDao.delstuFaqTime(unitid,deletename,deletetime);
+        }
+        return 1;
     }
 }

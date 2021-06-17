@@ -22,13 +22,14 @@ public class SourceController {
         log.debug("Controller 方法调用");
         return sourceService.selectAIISources();
     }
-    @PostMapping("/Source")
+    //新增
+    @PostMapping("/AddSource")
     public Source addSource(@RequestBody Source source){
         log.debug(source.getAddname()+"-------");
         source=sourceService.addSource(source);
         return source;
     }
-    @PutMapping("/Source")
+    @PutMapping("/UpSource")
     public Source updateSource(@RequestBody Source source){
         log.debug("开始修改");
         log.debug(source.toString());

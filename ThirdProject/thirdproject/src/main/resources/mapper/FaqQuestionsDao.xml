@@ -28,10 +28,17 @@
     delete from FAQ_Questions
     where FAQ_Id = #{faqId,jdbcType=INTEGER}
   </delete>
+<!--  新增-->
   <insert id="insert" keyColumn="FAQ_Id" keyProperty="faqId" parameterType="com.trkj.thirdproject.entity.FaqQuestions" useGeneratedKeys="true">
-    insert into FAQ_Questions (Problem, Answer, AddName, ClickCount)
-    values (#{problem,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR}, #{clickcount,jdbcType=INTEGER})
+    insert into FAQ_Questions (Problem, Answer, AddName)
+    values (#{problem,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR})
   </insert>
+  <!--删除后改变时效性-->
+  <update id="delstuFaqTime" parameterType="com.trkj.thirdproject.entity.FaqQuestions">
+   update FAQ_Questions set TimeLiness=1 ,DeleteName = #{deletename,jdbcType=VARCHAR},
+   DeleteTime = #{deletetime,jdbcType=TIMESTAMP}
+   where FAQ_Id = #{faqId,jdbcType=INTEGER}
+    </update>
   <insert id="insertSelective" keyColumn="FAQ_Id" keyProperty="faqId" parameterType="com.trkj.thirdproject.entity.FaqQuestions" useGeneratedKeys="true">
     insert into FAQ_Questions
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -102,6 +109,7 @@
   <select id="selectAIIFaqQuestions" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from FAQ_Questions
+    where TimeLiness=0
   </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.FaqQuestions">
     update FAQ_Questions
@@ -143,7 +151,7 @@
     update FAQ_Questions
     set Problem = #{problem,jdbcType=VARCHAR},
       Answer = #{answer,jdbcType=VARCHAR},
-      AddName = #{addname,jdbcType=VARCHAR}
+      UpdateName = #{updatename,jdbcType=VARCHAR}
     where FAQ_Id = #{faqId,jdbcType=INTEGER}
   </update>
 </mapper>
