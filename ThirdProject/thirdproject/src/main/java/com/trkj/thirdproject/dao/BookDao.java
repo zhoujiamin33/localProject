@@ -9,7 +9,7 @@ import java.util.List;
 public interface BookDao {
     int deleteByPrimaryKey(Integer bookId);
 
-    int insert(Book record);
+    //int insert(Book record);
 
     int insertSelective(Book record);
 

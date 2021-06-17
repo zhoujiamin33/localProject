@@ -38,13 +38,13 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_List_2"/>
-    from Suggest s inner join dept d on s.Dept_Id=d.Dept_Id
+    from Suggest s inner join Dept d on s.Dept_Id=d.Dept_Id
     where s.Suggest_Id = #{suggestId,jdbcType=INTEGER}
   </select>
   <select id="findNameSuggest" parameterType="java.lang.String" resultType="com.trkj.thirdproject.entity.Suggest">
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_List_2"/>
-    from Suggest s inner join dept d on s.Dept_Id=d.Dept_Id
+    from Suggest s inner join Dept d on s.Dept_Id=d.Dept_Id
     where
       <if test="Suggest_Name != null">
         s.Suggest_Name like concat('%',concat(#{suggestName,jdbcType=VARCHAR},'%'))
@@ -56,7 +56,7 @@
   <select id="findAllSuggest" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_List_2"/>
-    from Suggest s inner join dept d on s.Dept_Id=d.Dept_Id
+    from Suggest s inner join Dept d on s.Dept_Id=d.Dept_Id
     where s.TimeLiness=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
