@@ -18,7 +18,7 @@ public class MemorandumattachmentController {
     @Autowired
     private MemorandumattachmentService memorandumattachmentService;
     //学员交接招生显示
-    @GetMapping("/findAllMemorandumattachment")
+    @GetMapping("/findAllMemorandumattachment"  )
     public List<Memorandumattachment> findAllMemorandumattachment(){
         return memorandumattachmentService.selectMemorandumAttachment();
     }
