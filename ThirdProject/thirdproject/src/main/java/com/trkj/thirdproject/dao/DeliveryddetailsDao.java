@@ -1,7 +1,9 @@
 package com.trkj.thirdproject.dao;
 
+import com.trkj.thirdproject.entity.Classes;
 import com.trkj.thirdproject.entity.Deliveryddetails;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,5 +20,7 @@ public interface DeliveryddetailsDao {
     int updateByPrimaryKeySelective(Deliveryddetails record);
 
     int updateByPrimaryKey(Deliveryddetails record);
+
+    List<Deliveryddetails> selectBookdelivery(@Param("value")String value, @Param("input") String input);
 
 }

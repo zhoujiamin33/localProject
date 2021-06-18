@@ -3,6 +3,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.entity.Classes;
 import com.trkj.thirdproject.entity.Deliveryddetails;
 import com.trkj.thirdproject.service.DeliveryDdetailsService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,11 @@ public class DeliveryDdetailsController {
     public Deliveryddetails insert(@RequestBody Deliveryddetails deliveryddetails){
         deliveryDdetailsService.insert(deliveryddetails);
         return deliveryddetails;
+    }
+
+    @GetMapping("/selectBookdelivery/{value}/{input}")
+    public List<Deliveryddetails> selectBookdelivery(@PathVariable("value") String value, @PathVariable("input") String input){
+        return deliveryDdetailsService.selectBookdelivery(value, input);
     }
 
 //    @PostMapping("/addDeliveryddetails")

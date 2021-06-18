@@ -32,6 +32,11 @@ public class BookstorageServiceImpl implements BookstorageService {
     }
 
     @Override
+    public List<Bookstorage> selectBookstorage(String value, String input) {
+        return bookstorageDao.selectBookStorage(value, input);
+    }
+
+    @Override
     public Bookstorage addBookstorage(Bookstorage bookstorage) {
         bookstorage.setEmpId(1);
         //得到此书的所有数据信息

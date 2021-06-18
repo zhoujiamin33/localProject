@@ -33,4 +33,9 @@ public class BookbackServiceImpl implements BookbackService {
         bookbackDao.insert(bookback);
         return bookback;
     }
+
+    @Override
+    public List<Bookback> selectBookBack(String value, String input) {
+        return bookbackDao.selectBookBack(value, input);
+    }
 }

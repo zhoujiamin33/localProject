@@ -128,6 +128,32 @@
     inner join Student s on dd.Student_Id=s.Student_Id
     inner join BookDelivery bd on dd.BookDelivery_Id=bd.BookDelivery_Id
   </select>
+  <!--  多条件查询-->
+  <select id="selectBookdelivery" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Emp" />,
+    <include refid="Book" />,
+    <include refid="Student" />,
+    <include refid="BookDelivery" />
+    from DeliveryDdetails dd
+    inner join Emp e on dd.Emp_Id=e.Emp_Id
+    inner join Book b on dd.Book_Id=b.Book_Id
+    inner join Student s on dd.Student_Id=s.Student_Id
+    inner join BookDelivery bd on dd.BookDelivery_Id=bd.BookDelivery_Id
+    <where>
+      <if test="value=='教材名' and input!=null">
+        b.BookName like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+      <if test="value=='录入人' and input!=null">
+        e.Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+      <if test="value=='购买者' and input!=null">
+        s.Student_Name like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+    </where>
+    order by bd.DeliveryTime desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from DeliveryDdetails
     where DeliveryDdetails_Id = #{deliveryddetailsId,jdbcType=INTEGER}

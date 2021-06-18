@@ -3,6 +3,7 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Bookstorage;
+import com.trkj.thirdproject.entity.Deliveryddetails;
 import com.trkj.thirdproject.entity.Storageexpenditure;
 import com.trkj.thirdproject.service.BookstorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,11 @@ public class BookstorageController {
         log.debug("开始修改");
         bookstorageService.updateByPrimaryKey(bookstorage);
         return bookstorage;
+    }
+
+    @GetMapping("/selectBookstorage/{value}/{input}")
+    public List<Bookstorage> selectBookstorage(@PathVariable("value") String value, @PathVariable("input") String input){
+        return bookstorageService.selectBookstorage(value, input);
     }
 
     @DeleteMapping("/delBookstorage/{mbookstorageId}")
