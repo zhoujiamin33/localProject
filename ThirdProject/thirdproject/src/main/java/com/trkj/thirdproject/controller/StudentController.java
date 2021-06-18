@@ -28,6 +28,8 @@ public class StudentController {
     private SourceService sourceService;
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private SupplementaryService supplementaryService;
     //    查询
     @GetMapping("/selectAllclass")
     public PageInfo<Student> findstudent(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
@@ -179,15 +181,32 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
        }
 
 
-        Student  student=studentService.AddclassesId(classesId, studentId);
-        log.debug("学员修改"+student);
+        studentService.AddclassesId(classesId, studentId);
+//        log.debug("学员修改"+student);
 
         log.debug("学员状态修改"+studentstatus);
     }
 //    根据课程编号查询所有
     @GetMapping("/findclasstypeId/{classtypeId}")
-    public Course findclasstypeId(@PathVariable("classtypeId")Integer classtypeId){
-       Course course= courseService.selectByCourseTypeId(classtypeId);
+    public  List<Course> findclasstypeId(@PathVariable("classtypeId")Integer classtypeId){
+        List<Course> course= courseService.selectByCourseTypeId(classtypeId);
         return course;
+    }
+//    添加预报课程
+    @PostMapping("/AddSupplementary")
+    public Supplementary AddSupplementary(@RequestBody Supplementary supplementary){
+        log.debug("开始新增");
+        supplementary=supplementaryService.insertSelective(supplementary);
+
+        log.debug("课程详细："+supplementary.toString());
+//        log.debug("课程详细："+detailsupplementary.toString());
+        return supplementary;
+    }
+    @PostMapping("/AddDetailsupplementary")
+    public Detailsupplementary AddDetailsupplementary(@RequestBody Detailsupplementary detailsupplementary){
+        detailsupplementary=supplementaryService.insertSelective(detailsupplementary);
+        log.debug("课程详细："+detailsupplementary.toString());
+        return detailsupplementary;
+
     }
 }

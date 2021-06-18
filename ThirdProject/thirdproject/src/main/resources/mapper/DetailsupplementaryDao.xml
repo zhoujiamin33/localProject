@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.DetailsupplementaryDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Detailsupplementary">
+    <id column="DetailSupplementary_Id" jdbcType="INTEGER" property="detailsupplementaryId" />
+    <result column="Supplementary_Id" jdbcType="INTEGER" property="supplementaryId" />
+    <result column="DetailSupplementary_Name" jdbcType="VARCHAR" property="detailsupplementaryName" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <result column="allprice" jdbcType="DECIMAL" property="allprice" />
+
+    <association property="supplementary" javaType="com.trkj.thirdproject.entity.Supplementary">
+      <id column="Supplementary_Id" jdbcType="INTEGER" property="supplementaryId" />
+      <result column="Supplementary_Name" jdbcType="VARCHAR" property="supplementaryName" />
+      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+      <result column="Payment" jdbcType="INTEGER" property="payment" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="Entryperson" jdbcType="VARCHAR" property="entryperson" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      <!--    课程总表-->
+      <association property="course" javaType="com.trkj.thirdproject.entity.Course">
+        <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
+        <result column="Course_Name" jdbcType="VARCHAR" property="courseName" />
+        <result column="Course_State" jdbcType="INTEGER" property="courseState" />
+        <result column="Classhours" jdbcType="INTEGER" property="classhours" />
+        <result column="Course_Money" jdbcType="DECIMAL" property="courseMoney" />
+        <result column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
+        <result column="AddName" jdbcType="VARCHAR" property="addname" />
+        <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+        <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+        <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+        <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+        <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      </association>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    d.DetailSupplementary_Id, d.Supplementary_Id, d.DetailSupplementary_Name, d.AddName, d.AddTime,
+    d.DeleteName, d.DeleteTime, d.TimeLiness, d.allprice
+  </sql>
+  <sql id="supplementary">
+    s.Supplementary_Id,  s.Supplementary_Name,  s.Course_Id,  s.Payment,  s.AddName,
+     s.AddTime,  s.UpdateName,  s.UpdateTime,  s.DeleteName,  s.DeleteTime,  s.Entryperson,  s.TimeLiness
+  </sql>
+  <sql id="course">
+    c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
+    c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DetailSupplementary d
+    where d.DetailSupplementary_Id = #{detailsupplementaryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from DetailSupplementary
+    where DetailSupplementary_Id = #{detailsupplementaryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="DetailSupplementary_Id" keyProperty="detailsupplementaryId" parameterType="com.trkj.thirdproject.entity.Detailsupplementary" useGeneratedKeys="true">
+    insert into DetailSupplementary (Supplementary_Id, DetailSupplementary_Name, 
+      AddName, AddTime, DeleteName, 
+      DeleteTime, TimeLiness, allprice
+      )
+    values (#{supplementaryId,jdbcType=INTEGER}, #{detailsupplementaryName,jdbcType=VARCHAR}, 
+      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, 
+      #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}, #{allprice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="DetailSupplementary_Id" keyProperty="detailsupplementaryId" parameterType="com.trkj.thirdproject.entity.Detailsupplementary" useGeneratedKeys="true">
+    insert into DetailSupplementary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="supplementaryId != null">
+        Supplementary_Id,
+      </if>
+      <if test="detailsupplementaryName != null">
+        DetailSupplementary_Name,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+      <if test="allprice != null">
+        allprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="supplementaryId != null">
+        #{supplementaryId,jdbcType=INTEGER},
+      </if>
+      <if test="detailsupplementaryName != null">
+        #{detailsupplementaryName,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="allprice != null">
+        #{allprice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Detailsupplementary">
+    update DetailSupplementary
+    <set>
+      <if test="supplementaryId != null">
+        Supplementary_Id = #{supplementaryId,jdbcType=INTEGER},
+      </if>
+      <if test="detailsupplementaryName != null">
+        DetailSupplementary_Name = #{detailsupplementaryName,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="allprice != null">
+        allprice = #{allprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where DetailSupplementary_Id = #{detailsupplementaryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Detailsupplementary">
+    update DetailSupplementary
+    set Supplementary_Id = #{supplementaryId,jdbcType=INTEGER},
+      DetailSupplementary_Name = #{detailsupplementaryName,jdbcType=VARCHAR},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER},
+      allprice = #{allprice,jdbcType=DECIMAL}
+    where DetailSupplementary_Id = #{detailsupplementaryId,jdbcType=INTEGER}
+  </update>
+</mapper>

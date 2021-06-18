@@ -58,7 +58,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course selectByCourseTypeId(Integer classtypeId) {
+    public List<Course> selectByCourseTypeId(Integer classtypeId) {
         return coursedao.selectByCourseTypeId(classtypeId);
     }
 
