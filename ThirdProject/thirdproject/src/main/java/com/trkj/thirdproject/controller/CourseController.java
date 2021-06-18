@@ -90,4 +90,8 @@ public class CourseController {
         PageInfo<Detailcourse> detailcoursePageInfo=new PageInfo<>(entityPage);
         return detailcoursePageInfo;
     }
+    @GetMapping("/selectByCourseKey100/{courseid}")
+    public Detailcourse selectByCourseKey100( @PathVariable("courseid") Integer course_id){
+        return courseservice.selectByCourseKey100(course_id);
+    }
 }

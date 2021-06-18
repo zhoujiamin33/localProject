@@ -133,10 +133,31 @@
   <sql id="book">
     b.Book_Id, b.BookName, b.DeliveryCount, b.BookSprice, b.BookJprice, b.SafeStock, b.Press, b.`State`
   </sql>
-<!--  派课,给班级表中的课程详细字段赋值，默认给第一条数据-->
-<!--  <update id="updateDetailId"></update>-->
-<!--根据课程编号查询所对应的班级-->
-  <select id="selectcourseId" resultMap="BaseResultMap"></select>
+<select id="selectnotDetails" resultMap="BaseResultMap">
+  select
+  <include refid="DetailCourse"/>,
+  <include refid="Base_Column_List"/>
+  from DetailCourse d
+  inner join Classes cl on cl.Course_Id=d.Course_Id
+  where cl.Classes_Id=#{classesId,jdbcType=INTEGER} and d.Serial !=#{serial,jdbcType=INTEGER}
+</select>
+<!--根据课程编号查询所对应的班级-  - xing -  -->
+  <select id="selectcourseId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_course"/>,
+    <include refid="emp"/>,
+    <include refid="classRoom"/>,
+    <include refid="book"/>,
+    <include refid="DetailCourse"/>
+    from Classes cl
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+    where cl.Course_Id=#{courseId,jdbcType=INTEGER}
+  </select>
 <!--  根据id查询班级-->
   <select id="selectById" resultMap="BaseResultMap">
     select
@@ -144,30 +165,59 @@
     <include refid="Base_Column_course"/>,
     <include refid="emp"/>,
     <include refid="classRoom"/>,
-    <include refid="book"/>
+    <include refid="book"/>,
+    <include refid="DetailCourse"/>
     from Classes cl
     inner join Course c on cl.Course_Id=c.Course_Id
     inner join Emp e on e.Emp_Id=cl.Emp_Id
     inner join Book b on b.Book_Id=cl.User_BookId
     inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
-    where cl.Course_Id=#{courseId,jdbcType=INTEGER}
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
     where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
   </select>
 <!--  根据班级id查询课程详细-->
   <select id="selectDetailCourse" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>,<include refid="DetailCourse"/>
-    inner join DetailCourse d on  cl.DetailCourse_Id=d.DetailCourse_Id
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_course"/>,
+    <include refid="emp"/>,
+    <include refid="classRoom"/>,
+    <include refid="book"/>,
+    <include refid="DetailCourse"/>
+    from Classes cl
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
     order by cl.AddName desc
   </select>
 <!--  查询所有已开班的班级-->
   <select id="selectOpen" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from Classes cl
-    where cl.Classes_Open=1
-    order by cl.AddTime desc
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_course"/>,
+    <include refid="emp"/>,
+    <include refid="classRoom"/>,
+    <include refid="book"/>,
+    <include refid="DetailCourse"/>
+    from Classes cl
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+    where cl.Classes_Open=1 order by cl.AddTime desc
   </select>
   <!--  修改为已开班-->
   <update id="updateClassesOpen1">
-    update Classes set Classes_Open=1,UpdateName=#{updatename,jdbcType=VARCHAR}, UpdateTime=#{updatetime,jdbcType=TIMESTAMP}
+    update Classes set Classes_Open=1,UpdateName=#{updatename,jdbcType=VARCHAR},
+    UpdateTime=#{updatetime,jdbcType=TIMESTAMP}
+    where Classes_Id = #{classesId,jdbcType=INTEGER}
+  </update>
+<!--  根据课程id查询课程详细表序列号为第一条的数据，赋值给刚刚开班的班级  -（查询、修改）-->
+  <update id="updateDetails">
+    update Classes set DetailCourse_Id=#{detailcourseId,jdbcType=INTEGER}
     where Classes_Id = #{classesId,jdbcType=INTEGER}
   </update>
   <!--  修改未开班-->

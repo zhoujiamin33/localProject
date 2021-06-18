@@ -79,4 +79,15 @@ public class ClassesServiceImpl implements ClassesService {
        Classes classes= classesdao.selectById(classesId);
        return  classes;
     }
+
+    @Override
+    public Classes updateDetails(Classes classes) {
+        classesdao.updateDetails(classes);
+        return  classes;
+    }
+
+    @Override
+    public List<Detailcourse> selectnotDetails(Integer classesid, Integer serial) {
+        return classesdao.selectnotDetails(classesid, serial);
+    }
 }

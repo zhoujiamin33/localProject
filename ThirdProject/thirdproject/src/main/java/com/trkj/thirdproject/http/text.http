@@ -1,3 +1,17 @@
+GET http://localhost:8089/threeproject/selectnotDetails/1/100
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/selectDetailCourse
+Accept: application/json
+
+###
+#查询所有已开班的班级
+GET http://localhost:8089/threeproject/selectOpen
+Accept: application/json
+
+###
+
 
 PUT http://localhost:80/api/item
 Content-Type: application/json

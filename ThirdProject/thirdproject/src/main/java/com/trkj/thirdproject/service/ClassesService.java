@@ -27,4 +27,8 @@ public interface ClassesService {
     List<Detailcourse>selectDetailCourse();
     //    根据id查询班级
     Classes selectById(Integer classesId);
+    // 给班级赋值课程详细编号
+    Classes updateDetails(Classes classes);
+    //根据班级id查询课程详细序列号不存在的课程详细序列号(剩余课程进度)
+    List<Detailcourse> selectnotDetails(Integer classesid ,Integer serial);
 }

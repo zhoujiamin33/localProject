@@ -35,7 +35,7 @@
   </sql>
   <sql id="BaseType">
     t.ClassType_Id, t.ClassType_Name, t.AddName, t.AddTime, t.UpdateName, t.UpdateTime, t.DeleteName,
-   t.DeleteTime, t.TimeLiness
+    t.DeleteTime, t.TimeLiness
   </sql>
 <!--  根据课类名称查询所有课程-->
   <select id="selectByCourseTypeName" resultMap="BaseResultMap">

@@ -85,4 +85,9 @@ public class CourseServiceImpl implements CourseService {
         detailcoursedao.updateByName(detailcourse);
         return detailcourse;
     }
+
+    @Override
+    public Detailcourse selectByCourseKey100(Integer course_id) {
+        return detailcoursedao.selectByCourseKey100(course_id);
+    }
 }

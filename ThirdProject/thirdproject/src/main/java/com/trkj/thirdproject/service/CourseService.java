@@ -25,5 +25,7 @@ public interface CourseService {
     Detailcourse addDetails(Detailcourse detailcourse);
 
     Detailcourse updateByName(Detailcourse detailcourse);
+    //    根据课程id查询课程详细系列号为100的数据（第一条数据）
+    Detailcourse selectByCourseKey100(Integer course_id);
 
 }

@@ -60,4 +60,13 @@ public class ClassesController {
     public  Classes selectById( @PathVariable("classesId") Integer classesId){
         return classesService.selectById(classesId);
     }
+    //给班级赋值课程详细编号
+    @PutMapping("/updateDetails")
+    public Classes updateDetails( @RequestBody Classes classes){
+        return classesService.updateDetails(classes);
+    }
+    @GetMapping("/selectnotDetails/{classesId}/{serial}")
+    public List<Detailcourse> selectnotDetails(@PathVariable("classesId") Integer classesId ,@PathVariable("serial") Integer serial){
+        return classesService.selectnotDetails(classesId ,serial);
+    }
 }
