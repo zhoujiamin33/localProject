@@ -62,6 +62,12 @@ public class CourseServiceImpl implements CourseService {
         return coursedao.selectByCourseTypeId(classtypeId);
     }
 
+    @Override
+    public Course updateCourseState(Course course) {
+        coursedao.updateCourseState(course);
+        return course;
+    }
+
 
     //----------------------------------------------------课程详情数据----------------------------------------------------------------
     @Override
@@ -71,11 +77,10 @@ public class CourseServiceImpl implements CourseService {
     }
     @Override
     public Detailcourse addDetails(Detailcourse detailcourse) {
-        detailcourse.setAddname("Tsm管理员");
+
         detailcourse.setAddtime(new Date());
         log.debug("课程详细名："+detailcourse.getDetailcourseName());
         detailcoursedao.addDetails(detailcourse);
-
         return detailcourse;
     }
 

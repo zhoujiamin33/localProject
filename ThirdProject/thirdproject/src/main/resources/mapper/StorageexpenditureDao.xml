@@ -27,6 +27,26 @@
     TotalMoney, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime,
     ApprovalName, ApprovalTime, Approval, RevokeAppName, RevokeAppTime, TimeLiness
   </sql>
+  <update id="deleteTimeliness">
+    update StorageExpenditure set Approval=1 ,DeleteName=#{deletename,jdbcType=VARCHAR}, DeleteTime=#{deletetime,jdbcType=TIMESTAMP}
+    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
+  </update>
+<!--  修改为审核状态-->
+  <update id="updateApproval">
+    update StorageExpenditure set Approval=1 ,UpdateName=#{updatename,jdbcType=VARCHAR}, UpdateTime=#{updatetime,jdbcType=TIMESTAMP}
+    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
+  </update>
+  <!--  修改为撤销审核状态-->
+  <update id="updateReApproval">
+    update StorageExpenditure set Approval=0 ,UpdateName=#{updatename,jdbcType=VARCHAR}, UpdateTime=#{updatetime,jdbcType=TIMESTAMP}
+    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
+  </update>
+<!--  查询所有教材入库支出-->
+  <select id="selectAllStorage" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from StorageExpenditure
+    where TimeLiness=0
+    order by AddTime desc
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -38,7 +58,7 @@
     where Expenses_Id = #{expensesId,jdbcType=INTEGER}
   </delete>
 <!--  新增教材入库-->
-<!--  单据号：Expenses_Name 支出明细：expensesDetails 现金金额：UseCash-->
+<!--  单据号：Expenses_Name 支出明细：expensesDetails-->
   <insert id="insert" keyColumn="Expenses_Id" keyProperty="expensesId" parameterType="com.trkj.thirdproject.entity.Storageexpenditure" useGeneratedKeys="true">
     insert into StorageExpenditure (Expenses_Name, Expenses_Date, Expenses_details, 
       MBookStorage_Id, Refund_Count, TotalMoney, AddName, AddTime)

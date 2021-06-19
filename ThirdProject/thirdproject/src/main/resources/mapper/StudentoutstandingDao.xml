@@ -136,7 +136,7 @@
   <select id="selectoutonentry" resultMap="BaseResultMap">
     select <include refid="entryfees"/> ,<include refid="register"/> from EntryFees entry
     inner join Register reg on entry.Register_Id=reg.Register_Id
-    where entry.Fees_Type=1 and entry.TimeLiness=0
+    where entry.Fees_Type=1 and entry.TimeLiness=0 and entry.Fees_Accumulated &gt;0
     order by entry.AddTime desc
   </select>
 

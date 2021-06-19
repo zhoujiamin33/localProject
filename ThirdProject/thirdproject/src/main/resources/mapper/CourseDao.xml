@@ -60,16 +60,17 @@
     inner join ClassType t on c.ClassType_Id=t.ClassType_Id
     order by c.AddTime desc
   </select>
-<!--  修改名称、课时量、费用、开设状态-->
+<!--  根据课程id修改开课状态-->
+  <update id="updateCourseState">
+    update Course set Course_State=1, UpdateName=#{updatename,jdbcType=VARCHAR},UpdateTime=#{updatetime,jdbcType=TIMESTAMP}
+    where Course_Id = #{courseId,jdbcType=INTEGER}
+  </update>
+<!--  修改名称、课时量、费用 修改课程状态为开课-->
 <update id="updateCourse" parameterType="com.trkj.thirdproject.entity.Course">
   update Course
   <set>
-
       <if test="courseName!=null">
         Course_Name=#{courseName,jdbcType=VARCHAR},
-      </if>
-      <if test="courseState!=null">
-        Course_State=#{courseState,jdbcType=INTEGER},
       </if>
       <if test="classhours!=null">
         Classhours=#{classhours,jdbcType=INTEGER},

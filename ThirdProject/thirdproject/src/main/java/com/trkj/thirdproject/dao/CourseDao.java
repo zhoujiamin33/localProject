@@ -10,7 +10,7 @@ import java.util.List;
 public interface CourseDao {
     //查询所有
     List<Course> selectAllCourse();
-    //修改名称、课时量、费用、开设状态
+    //修改名称、课时量、费用、开设状态1
     int updateCourse(Course course);
 
     int deleteByPrimaryKey(Integer courseId);
@@ -26,5 +26,9 @@ public interface CourseDao {
     //根据课类id查询所有课程
     List<Course> selectByCourseTypeName(String  classtypeName);
 //    根据课程编号查询所有
+
 List<Course> selectByCourseTypeId(Integer classtypeId);
+//    Course selectByCourseTypeId(Integer classtypeId);
+    //根据课程id修改开课状态
+    int updateCourseState(Course course);
 }
