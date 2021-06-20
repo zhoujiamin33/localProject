@@ -50,7 +50,7 @@
     select  <include refid="Base_Column_List" />,<include refid="BaseType"/>
     from Course c
     inner join ClassType t on c.ClassType_Id=t.ClassType_Id
-    where t.ClassType_Id=#{classtypeId,jdbcType=VARCHAR}
+    where t.ClassType_Id=#{classtypeId,jdbcType=VARCHAR} and c.Course_State=1
     order by c.AddTime desc
   </select>
 <!--  搜索课程-->

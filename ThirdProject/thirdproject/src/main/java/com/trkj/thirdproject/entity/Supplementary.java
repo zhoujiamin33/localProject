@@ -2,6 +2,8 @@ package com.trkj.thirdproject.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -31,7 +33,6 @@ public class Supplementary implements Serializable {
      */
     private Integer payment;
 
-
     /**
      * 新增人员
      */
@@ -40,6 +41,7 @@ public class Supplementary implements Serializable {
     /**
      * 新增时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date addtime;
 
     /**
@@ -50,6 +52,7 @@ public class Supplementary implements Serializable {
     /**
      * 最后修改时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date updatetime;
 
     /**
@@ -60,6 +63,7 @@ public class Supplementary implements Serializable {
     /**
      * 最后删除时间
      */
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date deletetime;
 
     /**
@@ -71,6 +75,17 @@ public class Supplementary implements Serializable {
      * 时效性
      */
     private Integer timeliness;
+
+    /**
+     * 审核状态
+     */
+    private Integer state;
+
+    /**
+     * 学员表id
+     */
+    private Student student;
+    private Integer studentId;
 
     private static final long serialVersionUID = 1L;
 }

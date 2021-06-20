@@ -197,9 +197,7 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
     public Supplementary AddSupplementary(@RequestBody Supplementary supplementary){
         log.debug("开始新增");
         supplementary=supplementaryService.insertSelective(supplementary);
-
         log.debug("课程详细："+supplementary.toString());
-//        log.debug("课程详细："+detailsupplementary.toString());
         return supplementary;
     }
     @PostMapping("/AddDetailsupplementary")
@@ -207,6 +205,43 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
         detailsupplementary=supplementaryService.insertSelective(detailsupplementary);
         log.debug("课程详细："+detailsupplementary.toString());
         return detailsupplementary;
+
+    }
+//    查看补报课程
+    @GetMapping("/findsupplementary")
+    public List<Supplementary> findsupplementary(){
+        log.debug("查询补报课程");
+        List<Supplementary> supplementaryList=supplementaryService.selectall();
+        log.debug(supplementaryList.toString());
+        return supplementaryList;
+    }
+//    审核修改审核状态
+    @PutMapping("/updatesupplementarystate/{supplementaryId}")
+    public void updatesupplementarystate(@PathVariable("supplementaryId")String supplementaryId ){
+        String[] id=supplementaryId.split(",");
+        for (String s:id){
+        Supplementary supplementary=new Supplementary();
+        supplementary.setUpdatename("tsm");
+        supplementary.setUpdatetime(new Date());
+        supplementary.setState(1);
+        supplementary.setSupplementaryId(Integer.parseInt(s));
+        supplementary=supplementaryService.updateByPrimaryKeySelective(supplementary);
+
+        }
+    }
+//    删除时效性
+    @PutMapping("/updatesupplementaryTimeliness/{supplementaryId}")
+    public void updatesupplementaryTimel(@PathVariable("supplementaryId")String supplementaryId ){
+        String[] id=supplementaryId.split(",");
+        for (String s:id){
+            Supplementary supplementary=new Supplementary();
+            supplementary.setDeletename("tsm");
+            supplementary.setDeletetime(new Date());
+            supplementary.setTimeliness(1);
+            supplementary.setSupplementaryId(Integer.parseInt(s));
+            supplementary=supplementaryService.updateByPrimaryKeySelective(supplementary);
+        }
+
 
     }
 }
