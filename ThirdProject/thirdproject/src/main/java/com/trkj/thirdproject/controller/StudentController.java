@@ -229,6 +229,19 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
 
         }
     }
+    @PutMapping("/updatesupplementarystate0/{supplementaryId}")
+    public void updatesupplementarystate0(@PathVariable("supplementaryId")String supplementaryId ){
+        String[] id=supplementaryId.split(",");
+        for (String s:id){
+            Supplementary supplementary=new Supplementary();
+            supplementary.setUpdatename("tsm");
+            supplementary.setUpdatetime(new Date());
+            supplementary.setState(0);
+            supplementary.setSupplementaryId(Integer.parseInt(s));
+            supplementary=supplementaryService.updateByPrimaryKeySelective(supplementary);
+
+        }
+    }
 //    删除时效性
     @PutMapping("/updatesupplementaryTimeliness/{supplementaryId}")
     public void updatesupplementaryTimel(@PathVariable("supplementaryId")String supplementaryId ){
