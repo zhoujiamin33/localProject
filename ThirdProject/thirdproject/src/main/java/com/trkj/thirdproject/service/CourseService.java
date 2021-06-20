@@ -19,7 +19,12 @@ public interface CourseService {
     //根据课类id查询所有课程
     List<Course> selectByCourseTypeName(String  classtypeName);
     //    根据课程编号查询所有
+
     List<Course> selectByCourseTypeId(Integer classtypeId);
+
+//    Course selectByCourseTypeId(Integer classtypeId);
+    //根据课程id修改开课状态
+    Course updateCourseState(Course course);
     //-----------------------------------------------课程详情数据--------------------------------------------------------------
     List<Detailcourse> selectByKey(Integer course_id);
     Detailcourse addDetails(Detailcourse detailcourse);
