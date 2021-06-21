@@ -1,5 +1,8 @@
 package com.trkj.thirdproject.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.entity.Studentstatus;
 import com.trkj.thirdproject.entity.Suspende;
 import com.trkj.thirdproject.service.StudentstatusService;
@@ -29,10 +32,13 @@ private SuspendeService suspendeService;
        return suspende;
     }
     @GetMapping("/findAllsuspende")
-    public List<Suspende> findAllsuspende(){
+    public PageInfo<Suspende> findAllsuspende(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        log.debug("开始查询");
+        PageHelper.startPage(currentPage,pagesize);
         List<Suspende> suspendeList=suspendeService.selectAll();
         log.debug("停课："+suspendeList);
-        return suspendeList;
+        PageInfo<Suspende> suspendeInfo=new PageInfo<>(suspendeList);
+        return suspendeInfo;
     }
 //    根据学员编号修改学员状态表
 @PutMapping("/updatesuspendestate/{studentId}")

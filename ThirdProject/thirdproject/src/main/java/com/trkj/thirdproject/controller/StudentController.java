@@ -151,7 +151,6 @@ public class StudentController {
             studentstatus.setStudentId(studentId);
             studentstatus.setClassesId(student.getClassesId());//班级编号：显示已报班级还是未报班级
         studentstatus.setSignuptime(new Date());
-        log.debug("学员状态表："+studentstatus.toString());
             studentstatusService.AddStudentstatus(studentstatus);//新增学员状态表
         Memorandumattachment memorandumattachment=studentService.selectregisterID(student.getRegisterId());//学员交接表的教务状态改为1已审核
 memorandumattachment.setJwexaminename("tsm管理员");
@@ -165,8 +164,6 @@ studentService.updateByPrimaryKeySelective(memorandumattachment);
 @GetMapping("/findstudentclasses/{studentId}")
 public Student findstudentclasses(@PathVariable("studentId") Integer studentId) {
     Student student= studentService.selectstudentId(studentId);
-
-    log.debug("学员状态的班级编号：" + student.toString());
     return student;
 }
 //    没有添加班级外键的学员表与学员状态表学生选择班级点击保存;该学员添加班级并学员状态表中的状态为已分班1
@@ -179,17 +176,14 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
            s.setStatus(1);//已分班
            studentstatusService.updateByPrimaryKeySelective(s);
        }
-
-
         studentService.AddclassesId(classesId, studentId);
-//        log.debug("学员修改"+student);
-
         log.debug("学员状态修改"+studentstatus);
     }
 //    根据课程编号查询所有
     @GetMapping("/findclasstypeId/{classtypeId}")
     public  List<Course> findclasstypeId(@PathVariable("classtypeId")Integer classtypeId){
         List<Course> course= courseService.selectByCourseTypeId(classtypeId);
+        log.debug("类别："+course);
         return course;
     }
 //    添加预报课程
@@ -197,23 +191,35 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
     public Supplementary AddSupplementary(@RequestBody Supplementary supplementary){
         log.debug("开始新增");
         supplementary=supplementaryService.insertSelective(supplementary);
+        Student student=studentService.selectstudentId(supplementary.getStudentId());
         log.debug("课程详细："+supplementary.toString());
+        Studentstatus studentstatus=new Studentstatus();
+        studentstatus.setCourseId(supplementary.getCourseId());//课程编号:显示课程的名称
+        studentstatus.setStudentId(supplementary.getStudentId());
+//        studentstatus.setClassesId(.getClassesId());//班级编号：显示已报班级还是未报班级
+        studentstatus.setSignuptime(new Date());
+        log.debug("学员状态表："+studentstatus.toString());
+        studentstatusService.AddStudentstatus(studentstatus);//新增学员状态表
+        log.debug("学员交接表："+studentstatus);
         return supplementary;
     }
     @PostMapping("/AddDetailsupplementary")
     public Detailsupplementary AddDetailsupplementary(@RequestBody Detailsupplementary detailsupplementary){
         detailsupplementary=supplementaryService.insertSelective(detailsupplementary);
         log.debug("课程详细："+detailsupplementary.toString());
+
         return detailsupplementary;
 
     }
 //    查看补报课程
     @GetMapping("/findsupplementary")
-    public List<Supplementary> findsupplementary(){
+    public  PageInfo<Supplementary> findsupplementary(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         log.debug("查询补报课程");
+        PageHelper.startPage(currentPage,pagesize);
         List<Supplementary> supplementaryList=supplementaryService.selectall();
+        PageInfo<Supplementary> suspendeInfo=new PageInfo<>(supplementaryList);
         log.debug(supplementaryList.toString());
-        return supplementaryList;
+        return suspendeInfo;
     }
 //    审核修改审核状态
     @PutMapping("/updatesupplementarystate/{supplementaryId}")
@@ -229,6 +235,7 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
 
         }
     }
+//    取消补报
     @PutMapping("/updatesupplementarystate0/{supplementaryId}")
     public void updatesupplementarystate0(@PathVariable("supplementaryId")String supplementaryId ){
         String[] id=supplementaryId.split(",");

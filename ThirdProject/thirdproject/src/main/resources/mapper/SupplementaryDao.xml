@@ -81,6 +81,7 @@
     <include refid="Base_Column_List" />,<include refid="course"/>,<include refid="student"/>
     from Supplementary s inner join Course c on s.Course_Id=c.Course_Id
     inner join Student stu on s.Student_Id=stu.Student_Id
+    where  s.TimeLiness=0
   </select>
 
   <!--  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
