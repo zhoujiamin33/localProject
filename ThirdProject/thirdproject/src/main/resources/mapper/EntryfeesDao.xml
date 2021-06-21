@@ -72,7 +72,7 @@
     entry.UpdateName, entry.UpdateTime, entry.DeleteName, entry.DeleteTime, entry.TimeLiness,entry.ApprovalState,entry.Fees_Accumulated
   </sql>
   <sql id="register">
-     reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
+    reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
     reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id,reg.phone
   </sql>
@@ -82,32 +82,34 @@
     c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
   </sql>
 
+  <!--  审核-->
   <update id="updateapproval">
      update EntryFees set ApprovalName=#{approvalname,jdbcType=VARCHAR},ApprovalTime=#{approvaltime,jdbcType=TIMESTAMP},
      ApprovalState=1
      where Fees_Id = #{feesId,jdbcType=INTEGER}
   </update>
 
-<!--根据id查询-->
-<select id="selectByfeeid" resultMap="BaseResultMap">
-  select
-  <include refid="Base_Column_List" />,
-  <include refid="register"/>,
-  <include refid="course"/>
-  from EntryFees entry
-  inner join Register reg on reg.Register_Id=entry.Register_Id
-  inner join Course c on  reg.Course_Id=c.Course_Id
-  where  entry.TimeLiness=0 and Fees_Id = #{feesId,jdbcType=INTEGER}
-  order by entry.AddTime desc
-</select>
+  <!--根据id查询-->
+  <select id="selectByfeeid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="register"/>,
+    <include refid="course"/>
+    from EntryFees entry
+    inner join Register reg on reg.Register_Id=entry.Register_Id
+    inner join Course c on  reg.Course_Id=c.Course_Id
+    where  entry.TimeLiness=0 and Fees_Id = #{feesId,jdbcType=INTEGER}
+    order by entry.AddTime desc
+  </select>
 
-
+  <!--  撤销审核-->
   <update id="updateRevokeapproval">
      update EntryFees set RevokeAppName=#{revokeappname,jdbcType=VARCHAR},RevokeAppTime=#{revokeapptime,jdbcType=TIMESTAMP},
      ApprovalState=0
      where Fees_Id = #{feesId,jdbcType=INTEGER}
   </update>
 
+  <!--  查询报班-->
   <select id="selectKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />,
@@ -116,18 +118,20 @@
     where  entry.TimeLiness=0
     order by entry.AddTime desc
   </select>
+
   <!--补缴之后，修改累计欠费的值-->
   <update id="updateFeesAccumulated">
     update EntryFees entry set entry.Fees_Accumulated=#{feesaccumulated,jdbcType=DECIMAL}
     where Fees_Id = #{feesId,jdbcType=INTEGER}
   </update>
 
+  <!--  删除-->
   <update id="deleteByPrimaryKey" >
     update  EntryFees set TimeLiness=1 ,DeleteTime=#{deletetime,jdbcType=TIMESTAMP},DeleteName=#{deletename,jdbcType=VARCHAR}
     where Fees_Id = #{feesId,jdbcType=INTEGER}
   </update>
 
-
+  <!--  新增报班缴费-->
   <insert id="insertentryfees" keyColumn="Fees_Id" keyProperty="feesId" parameterType="com.trkj.thirdproject.entity.Entryfees" useGeneratedKeys="true">
     insert into EntryFees (Fees_Name, Register_Id, Fees_Receivable, Fees_Type, Fees_Advance, Receipts,
     AddName,AddTime,Fees_Accumulated)
@@ -136,7 +140,7 @@
       #{addtime,jdbcType=TIMESTAMP},#{feesaccumulated,jdbcType=DECIMAL})
   </insert>
 
-
+  <!--  自带新增方法-->
   <insert id="insertSelective" keyColumn="Fees_Id" keyProperty="feesId" parameterType="com.trkj.thirdproject.entity.Entryfees" useGeneratedKeys="true">
     insert into EntryFees
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -253,70 +257,28 @@
     </trim>
   </insert>
 
-
-  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Entryfees">
-    update EntryFees
-    <set>
-      <if test="feesName != null">
-        Fees_Name = #{feesName,jdbcType=VARCHAR},
+  <!--  多条件查询-->
+  <select id="selectBycontion" resultMap="BaseResultMap">
+    select EntryFees
+    <where>
+      <if test="ApprovalState==0">
+        ApprovalState = 0
       </if>
-      <if test="registerId != null">
-        Register_Id = #{registerId,jdbcType=INTEGER},
+      <if test="ApprovalState==1">
+        ApprovalState = 1
       </if>
-      <if test="feesReceivable != null">
-        Fees_Receivable = #{feesReceivable,jdbcType=DECIMAL},
+      <if test="value2 != null">
+        AddTime >= value2
       </if>
-      <if test="feesType != null">
-        Fees_Type = #{feesType,jdbcType=INTEGER},
+      <if test="input != null">
+        AddName like  CONCAT(CONCAT('%',#{input},'%'))
       </if>
-      <if test="feesAdvance != null">
-        Fees_Advance = #{feesAdvance,jdbcType=DECIMAL},
-      </if>
-      <if test="receipts != null">
-        Receipts = #{receipts,jdbcType=DECIMAL},
-      </if>
-      <if test="feesState != null">
-        Fees_State = #{feesState,jdbcType=INTEGER},
-      </if>
-      <if test="approvalname != null">
-        ApprovalName = #{approvalname,jdbcType=VARCHAR},
-      </if>
-      <if test="approvaltime != null">
-        ApprovalTime = #{approvaltime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="revokeappname != null">
-        RevokeAppName = #{revokeappname,jdbcType=VARCHAR},
-      </if>
-      <if test="revokeapptime != null">
-        RevokeAppTime = #{revokeapptime,jdbcType=VARCHAR},
-      </if>
-      <if test="addname != null">
-        AddName = #{addname,jdbcType=VARCHAR},
-      </if>
-      <if test="addtime != null">
-        AddTime = #{addtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatename != null">
-        UpdateName = #{updatename,jdbcType=VARCHAR},
-      </if>
-      <if test="updatetime != null">
-        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deletename != null">
-        DeleteName = #{deletename,jdbcType=VARCHAR},
-      </if>
-      <if test="deletetime != null">
-        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="timeliness != null">
-        TimeLiness = #{timeliness,jdbcType=INTEGER},
-      </if>
-    </set>
-    where Fees_Id = #{feesId,jdbcType=INTEGER}
-  </update>
+    </where>
+    order by AddTime desc
+  </select>
 
 
-
+  <!-- 根据id修改-->
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Entryfees">
     update EntryFees
     set Fees_Name = #{feesName,jdbcType=VARCHAR},

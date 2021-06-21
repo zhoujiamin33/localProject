@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.trkj.thirdproject.dao.StorageexpenditureDao">
-  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Storageexpenditure">
-    <id column="Expenses_Id" jdbcType="INTEGER" property="expensesId" />
-    <result column="Expenses_Name" jdbcType="VARCHAR" property="expensesName" />
-    <result column="Expenses_Date" jdbcType="TIMESTAMP" property="expensesDate" />
-    <result column="Expenses_details" jdbcType="VARCHAR" property="expensesDetails" />
-    <result column="MBookStorage_Id" jdbcType="INTEGER" property="mbookstorageId" />
+<mapper namespace="com.trkj.thirdproject.dao.WarehouseincomeDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Warehouseincome">
+    <id column="WarehouseIncome_Id" jdbcType="INTEGER" property="warehouseincomeId" />
+    <result column="Refund_Name" jdbcType="VARCHAR" property="refundName" />
+    <result column="Refund_Date" jdbcType="TIMESTAMP" property="refundDate" />
+    <result column="BookDelivery_Id" jdbcType="INTEGER" property="bookdeliveryId" />
+    <result column="Refund_details" jdbcType="VARCHAR" property="refundDetails" />
     <result column="Refund_Count" jdbcType="INTEGER" property="refundCount" />
     <result column="TotalMoney" jdbcType="DECIMAL" property="totalmoney" />
     <result column="AddName" jdbcType="VARCHAR" property="addname" />
@@ -23,66 +23,64 @@
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
   </resultMap>
   <sql id="Base_Column_List">
-    Expenses_Id, Expenses_Name, Expenses_Date, Expenses_details, MBookStorage_Id, Refund_Count, 
+    WarehouseIncome_Id, Refund_Name, Refund_Date, BookDelivery_Id, Refund_details, Refund_Count,
     TotalMoney, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime,
-    ApprovalName, ApprovalTime, Approval, RevokeAppName, RevokeAppTime, TimeLiness
+    ApprovalName, ApprovalTime, Approval, RevokeAppName, RevokeAppTime,TimeLiness
   </sql>
-  <update id="deleteTimeliness">
-    update StorageExpenditure set Approval=1 ,DeleteName=#{deletename,jdbcType=VARCHAR}, DeleteTime=#{deletetime,jdbcType=TIMESTAMP}
-    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
-  </update>
-<!--  修改为审核状态-->
-  <update id="updateApproval">
-    update StorageExpenditure set Approval=1 ,ApprovalName=#{approvalname,jdbcType=VARCHAR}, ApprovalTime=#{approvaltime,jdbcType=TIMESTAMP}
-    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
-  </update>
-  <!--  修改为撤销审核状态-->
-  <update id="updateReApproval">
-    update StorageExpenditure set Approval=0 ,RevokeAppName=#{revokeappname,jdbcType=VARCHAR},RevokeAppTime=#{revokeapptime,jdbcType=TIMESTAMP}
-    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
-  </update>
-<!--  查询所有教材入库支出-->
-  <select id="selectAllStorage" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from StorageExpenditure
-    where TimeLiness=0
-    order by AddTime desc
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from StorageExpenditure
-    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
+    from WarehouseIncome
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from StorageExpenditure
-    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
+    delete from WarehouseIncome
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
   </delete>
-<!--  新增教材入库-->
-<!--  单据号：Expenses_Name 支出明细：expensesDetails-->
-  <insert id="insert" keyColumn="Expenses_Id" keyProperty="expensesId" parameterType="com.trkj.thirdproject.entity.Storageexpenditure" useGeneratedKeys="true">
-    insert into StorageExpenditure (Expenses_Name, Expenses_Date, Expenses_details, 
-      MBookStorage_Id, Refund_Count, TotalMoney, AddName, AddTime)
-    values (#{expensesName,jdbcType=VARCHAR}, #{expensesDate,jdbcType=TIMESTAMP}, #{expensesDetails,jdbcType=VARCHAR}, 
-      #{mbookstorageId,jdbcType=INTEGER}, #{refundCount,jdbcType=INTEGER},
+  <!--  修改为审核状态-->
+  <update id="updateApproval">
+    update WarehouseIncome set Approval=1 ,ApprovalName=#{approvalname,jdbcType=VARCHAR}, ApprovalTime=#{approvaltime,jdbcType=TIMESTAMP}
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
+  </update>
+  <!--  修改为撤销审核状态-->
+  <update id="updateReApproval">
+    update WarehouseIncome set Approval=0 ,RevokeAppName=#{revokeappname,jdbcType=VARCHAR},RevokeAppTime=#{revokeapptime,jdbcType=TIMESTAMP}
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
+  </update>
+  <!--  查询所有教材出库收入-->
+  <select id="selectAllincome" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from WarehouseIncome
+    where TimeLiness=0
+    order by AddTime desc
+  </select>
+<!--  新增教材出库收入-->
+  <insert id="insert" keyColumn="WarehouseIncome_Id" keyProperty="warehouseincomeId" parameterType="com.trkj.thirdproject.entity.Warehouseincome" useGeneratedKeys="true">
+    insert into WarehouseIncome (Refund_Name, Refund_Date, BookDelivery_Id, Refund_details, Refund_Count,
+      TotalMoney, AddName, AddTime)
+    values (#{refundName,jdbcType=VARCHAR}, #{refundDate,jdbcType=TIMESTAMP}, #{bookdeliveryId,jdbcType=INTEGER}, 
+      #{refundDetails,jdbcType=VARCHAR}, #{refundCount,jdbcType=INTEGER},
       #{totalmoney,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="Expenses_Id" keyProperty="expensesId" parameterType="com.trkj.thirdproject.entity.Storageexpenditure" useGeneratedKeys="true">
-    insert into StorageExpenditure
+  <insert id="insertSelective" keyColumn="WarehouseIncome_Id" keyProperty="warehouseincomeId" parameterType="com.trkj.thirdproject.entity.Warehouseincome" useGeneratedKeys="true">
+    insert into WarehouseIncome
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="expensesName != null">
-        Expenses_Name,
+      <if test="refundName != null">
+        Refund_Name,
       </if>
-      <if test="expensesDate != null">
-        Expenses_Date,
+      <if test="refundDate != null">
+        Refund_Date,
       </if>
-      <if test="expensesDetails != null">
-        Expenses_details,
+      <if test="bookdeliveryId != null">
+        BookDelivery_Id,
       </if>
-      <if test="mbookstorageId != null">
-        MBookStorage_Id,
+      <if test="refundDetails != null">
+        Refund_details,
       </if>
       <if test="refundCount != null">
         Refund_Count,
+      </if>
+      <if test="usecash != null">
+        UseCash,
       </if>
       <if test="totalmoney != null">
         TotalMoney,
@@ -120,25 +118,25 @@
       <if test="revokeapptime != null">
         RevokeAppTime,
       </if>
-      <if test="timeliness != null">
-        TimeLiness,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="expensesName != null">
-        #{expensesName,jdbcType=VARCHAR},
+      <if test="refundName != null">
+        #{refundName,jdbcType=VARCHAR},
       </if>
-      <if test="expensesDate != null">
-        #{expensesDate,jdbcType=TIMESTAMP},
+      <if test="refundDate != null">
+        #{refundDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="expensesDetails != null">
-        #{expensesDetails,jdbcType=VARCHAR},
+      <if test="bookdeliveryId != null">
+        #{bookdeliveryId,jdbcType=INTEGER},
       </if>
-      <if test="mbookstorageId != null">
-        #{mbookstorageId,jdbcType=INTEGER},
+      <if test="refundDetails != null">
+        #{refundDetails,jdbcType=VARCHAR},
       </if>
       <if test="refundCount != null">
         #{refundCount,jdbcType=INTEGER},
+      </if>
+      <if test="usecash != null">
+        #{usecash,jdbcType=DECIMAL},
       </if>
       <if test="totalmoney != null">
         #{totalmoney,jdbcType=DECIMAL},
@@ -176,28 +174,28 @@
       <if test="revokeapptime != null">
         #{revokeapptime,jdbcType=TIMESTAMP},
       </if>
-      <if test="timeliness != null">
-        #{timeliness,jdbcType=INTEGER},
-      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Storageexpenditure">
-    update StorageExpenditure
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Warehouseincome">
+    update WarehouseIncome
     <set>
-      <if test="expensesName != null">
-        Expenses_Name = #{expensesName,jdbcType=VARCHAR},
+      <if test="refundName != null">
+        Refund_Name = #{refundName,jdbcType=VARCHAR},
       </if>
-      <if test="expensesDate != null">
-        Expenses_Date = #{expensesDate,jdbcType=TIMESTAMP},
+      <if test="refundDate != null">
+        Refund_Date = #{refundDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="expensesDetails != null">
-        Expenses_details = #{expensesDetails,jdbcType=VARCHAR},
+      <if test="bookdeliveryId != null">
+        BookDelivery_Id = #{bookdeliveryId,jdbcType=INTEGER},
       </if>
-      <if test="mbookstorageId != null">
-        MBookStorage_Id = #{mbookstorageId,jdbcType=INTEGER},
+      <if test="refundDetails != null">
+        Refund_details = #{refundDetails,jdbcType=VARCHAR},
       </if>
       <if test="refundCount != null">
         Refund_Count = #{refundCount,jdbcType=INTEGER},
+      </if>
+      <if test="usecash != null">
+        UseCash = #{usecash,jdbcType=DECIMAL},
       </if>
       <if test="totalmoney != null">
         TotalMoney = #{totalmoney,jdbcType=DECIMAL},
@@ -235,19 +233,17 @@
       <if test="revokeapptime != null">
         RevokeAppTime = #{revokeapptime,jdbcType=TIMESTAMP},
       </if>
-      <if test="timeliness != null">
-        TimeLiness = #{timeliness,jdbcType=INTEGER},
-      </if>
     </set>
-    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Storageexpenditure">
-    update StorageExpenditure
-    set Expenses_Name = #{expensesName,jdbcType=VARCHAR},
-      Expenses_Date = #{expensesDate,jdbcType=TIMESTAMP},
-      Expenses_details = #{expensesDetails,jdbcType=VARCHAR},
-      MBookStorage_Id = #{mbookstorageId,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Warehouseincome">
+    update WarehouseIncome
+    set Refund_Name = #{refundName,jdbcType=VARCHAR},
+      Refund_Date = #{refundDate,jdbcType=TIMESTAMP},
+      BookDelivery_Id = #{bookdeliveryId,jdbcType=INTEGER},
+      Refund_details = #{refundDetails,jdbcType=VARCHAR},
       Refund_Count = #{refundCount,jdbcType=INTEGER},
+      UseCash = #{usecash,jdbcType=DECIMAL},
       TotalMoney = #{totalmoney,jdbcType=DECIMAL},
       AddName = #{addname,jdbcType=VARCHAR},
       AddTime = #{addtime,jdbcType=TIMESTAMP},
@@ -259,8 +255,7 @@
       ApprovalTime = #{approvaltime,jdbcType=TIMESTAMP},
       Approval = #{approval,jdbcType=INTEGER},
       RevokeAppName = #{revokeappname,jdbcType=VARCHAR},
-      RevokeAppTime = #{revokeapptime,jdbcType=TIMESTAMP},
-      TimeLiness = #{timeliness,jdbcType=INTEGER}
-    where Expenses_Id = #{expensesId,jdbcType=INTEGER}
+      RevokeAppTime = #{revokeapptime,jdbcType=TIMESTAMP}
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,10 +1,16 @@
 package com.trkj.thirdproject.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Bookdelivery;
+import com.trkj.thirdproject.entity.Storageexpenditure;
+import com.trkj.thirdproject.entity.Warehouseincome;
 import com.trkj.thirdproject.service.BookdeliveryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -24,5 +30,27 @@ public class BookdeliveryController {
         bookdeliveryService.insert(bookdelivery);
         log.debug(bookdelivery.getBookdeliveryId()+":::bookdeliveryId");
         return bookdelivery;
+    }
+    //-------------------------------------------新增教材出库收入----------------------------------------------------------
+    @PostMapping("/insertincome")
+    public Warehouseincome insert(@RequestBody Warehouseincome warehouseincome){
+        return bookdeliveryService.insertincome(warehouseincome);
+    }
+    @PutMapping("/updateReApprovalincome")
+    public Warehouseincome updateReApproval(@RequestBody Warehouseincome warehouseincome){
+        bookdeliveryService.updateReApproval(warehouseincome);
+        return  warehouseincome;
+    }
+    @PutMapping("/updateApprovalincome")
+    public Warehouseincome updateApproval(@RequestBody Warehouseincome warehouseincome){
+        bookdeliveryService.updateApproval(warehouseincome);
+        return  warehouseincome;
+    }
+    @GetMapping("/selectAllincome")
+    public PageInfo<Warehouseincome> selectAllincome(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Warehouseincome> entityPage=bookdeliveryService.selectAllincome();
+        PageInfo<Warehouseincome> incomePageinfo=new PageInfo<>(entityPage);
+        return incomePageinfo;
     }
 }

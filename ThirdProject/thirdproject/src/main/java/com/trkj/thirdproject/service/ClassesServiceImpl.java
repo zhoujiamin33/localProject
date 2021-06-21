@@ -25,7 +25,7 @@ public class ClassesServiceImpl implements ClassesService {
     @Override
     public Classes insert(Classes classes) {
         String number = "C";
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        DateFormat dateFormat = new SimpleDateFormat("yyMMddss");
         String result = number+ dateFormat.format(new Date())+classes.toString().length();
         classes.setClassesNumber(result);
         classes.setAddname("admin");
@@ -52,6 +52,7 @@ public class ClassesServiceImpl implements ClassesService {
     }
     @Override
     public Classes updateClassesOpen1(Classes classes) {
+        classes.setStarteddate(new Date());
         classes.setUpdatetime(new Date());
         classesdao.updateClassesOpen1(classes);
         return classes;
@@ -70,8 +71,8 @@ public class ClassesServiceImpl implements ClassesService {
     }
 
     @Override
-    public List<Detailcourse> selectDetailCourse() {
-        return classesdao.selectDetailCourse();
+    public Detailcourse selectDetailCourse(Integer ClassId) {
+        return classesdao.selectDetailCourse(ClassId);
     }
 
     @Override
@@ -90,4 +91,6 @@ public class ClassesServiceImpl implements ClassesService {
     public List<Detailcourse> selectnotDetails(Integer classesid, Integer serial) {
         return classesdao.selectnotDetails(classesid, serial);
     }
+
+
 }

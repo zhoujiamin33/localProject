@@ -2,8 +2,11 @@ package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Entryfees;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -15,8 +18,8 @@ public interface EntryfeesDao {
     int insertSelective(Entryfees record);
 
     List<Entryfees> selectKey();
-
-    int updateByPrimaryKeySelective(Entryfees record);
+    //多条件查询
+    List<Entryfees> selectBycontion(@Param("ApprovalState") int ApprovalState,@Param("value2") Date value2,@Param("input") String input);
 
     int updateByPrimaryKey(Entryfees record);
 
@@ -27,4 +30,6 @@ public interface EntryfeesDao {
     Entryfees selectByfeeid(Integer feeId);
     //     补缴之后，修改累计欠费的值
     int  updateFeesAccumulated(Entryfees entryfees);
+
+
 }

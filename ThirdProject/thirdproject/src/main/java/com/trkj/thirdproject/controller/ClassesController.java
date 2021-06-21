@@ -52,8 +52,8 @@ public class ClassesController {
     }
     //根据班级id查询班级详细课程进度
     @GetMapping("/selectDetailCourse")
-    public List<Detailcourse> selectDetailCourse(){
-        return classesService.selectDetailCourse();
+    public Detailcourse selectDetailCourse(Integer ClassId){
+        return classesService.selectDetailCourse(ClassId);
     }
     //    根据id查询班级信息
     @GetMapping("/selectById/{classesId}")
