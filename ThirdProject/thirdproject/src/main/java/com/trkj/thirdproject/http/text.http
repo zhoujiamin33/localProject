@@ -1,3 +1,22 @@
+GET http://localhost:8089/threeproject/selectBycontionEntry/1/2021-06-21
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/insertincome
+Accept: application/json
+
+###
+POST http://localhost:8089/threeproject/insertincome
+Content-Type: application/json
+
+{
+  "addname": "admin",
+  "bookdeliveryId": 12,
+  "refundCount": 5,
+  "bookId": 3
+}
+
+###
 GET http://localhost:8089/threeproject/selectnotDetails/1/100
 Accept: application/json
 

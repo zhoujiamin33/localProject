@@ -25,6 +25,10 @@ public class Classes implements Serializable {
      * 班级号
      */
     private String classesNumber;
+    /* *
+     *   已上课程
+     */
+    private Integer whendetails;
 
     /**
      * 开班状态

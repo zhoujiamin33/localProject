@@ -33,11 +33,12 @@ public interface ClassesDao {
     //查询所有已开班的班级
     List<Classes> selectOpen();
     //根据班级id查询班级详细课程的进度
-    List<Detailcourse> selectDetailCourse();
+    Detailcourse selectDetailCourse(Integer ClassId);
 //    根据id查询班级
     Classes selectById(Integer classesId);
     //给班级赋值课程详细编号
     int updateDetails(Classes classes);
     //根据班级id查询课程详细序列号不存在的课程详细序列号(剩余课程进度)
     List<Detailcourse> selectnotDetails(@Param("classesId") Integer classesid , @Param("serial") Integer serial);
+
 }
