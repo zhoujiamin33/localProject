@@ -259,22 +259,24 @@
 
   <!--  多条件查询-->
   <select id="selectBycontion" resultMap="BaseResultMap">
-    select EntryFees
+    select
+     <include refid="Base_Column_List"/>
+     from EntryFees entry
     <where>
       <if test="ApprovalState==0">
-        ApprovalState = 0
+        entry.ApprovalState = 0
       </if>
       <if test="ApprovalState==1">
-        ApprovalState = 1
+        and entry.ApprovalState = 1
       </if>
       <if test="value2 != null">
-        AddTime >= value2
+        and entry.AddTime >= #{value2}
       </if>
       <if test="input != null">
-        AddName like  CONCAT(CONCAT('%',#{input},'%'))
+        and entry.AddName like  CONCAT(CONCAT('%',#{input},'%'))
       </if>
     </where>
-    order by AddTime desc
+    order by entry.AddTime desc
   </select>
 
 

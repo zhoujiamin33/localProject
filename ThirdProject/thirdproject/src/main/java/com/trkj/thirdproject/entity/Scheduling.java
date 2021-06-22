@@ -2,6 +2,8 @@ package com.trkj.thirdproject.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -66,6 +68,8 @@ public class Scheduling implements Serializable {
      * 时效性
      */
     private Integer timeliness;
+
+    private List<Integer>periods;
 
     private static final long serialVersionUID = 1L;
 }

@@ -82,9 +82,15 @@ public class EntryfeesController {
     }
 
     //多条件查询
-    @GetMapping("/selectBycontionEntry/{ApprovalState}/{value2}/{input}")
-    public List<Entryfees> selectBycontion(@PathVariable("ApprovalState") int ApprovalState, @PathVariable("value2") Date value2,@PathVariable("input") String input) {
-        return entryfeesService.selectBycontion(ApprovalState, value2,input);
+    @GetMapping("/selectBycontionEntry")
+    public PageInfo<Entryfees> selectBycontion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
+       @PathVariable("ApprovalState") int ApprovalState, @PathVariable("value2") String value2,@PathVariable("input") String input) {
+        log.debug("多条件查询");
+        PageHelper.startPage(currentPage, pagesize);
+        List<Entryfees> entityPage = entryfeesService.selectBycontion(ApprovalState, value2, input);
+        PageInfo<Entryfees> entryfeesPageInfo = new PageInfo<>(entityPage);
+        return entryfeesPageInfo;
+
     }
 
     //--------------------------------------------------欠费补缴-----------------------------------------------------------------------
