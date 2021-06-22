@@ -23,12 +23,14 @@ public class StudentstatusController {
 //    根据学员编号查询
     @GetMapping("/findstuclass/{studentId}")
     public List<Studentstatus> findstuclass(@PathVariable("studentId") Integer studentId){
-        return studentstatusService.selectstu_class(studentId);
+        List<Studentstatus> studentstatuseslist=studentstatusService.selectstu_class(studentId);
+        return studentstatuseslist;
     }
 //    //   <!--根据课程编号查询所对应的班级-->
 @GetMapping("/findcourseId/{courseId}")
-public Classes findcourseId(@PathVariable("courseId")Integer courseId){
-        return classesService.selectcourseId(courseId);
+public List<Classes> findcourseId(@PathVariable("courseId")Integer courseId){
+    List<Classes> classesList=classesService.selectcourseId(courseId);
+        return classesList;
 }
 //    新增学员状态表
     @PostMapping("/addstudentstatus")

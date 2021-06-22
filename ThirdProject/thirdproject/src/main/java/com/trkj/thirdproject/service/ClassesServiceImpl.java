@@ -47,7 +47,7 @@ public class ClassesServiceImpl implements ClassesService {
     }
 
     @Override
-    public Classes selectcourseId(Integer courseId) {
+    public List<Classes> selectcourseId(Integer courseId) {
         return classesdao.selectcourseId(courseId);
     }
     @Override

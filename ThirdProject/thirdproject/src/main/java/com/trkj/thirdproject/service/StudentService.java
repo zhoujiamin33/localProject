@@ -46,5 +46,5 @@ public interface StudentService {
     Memorandumattachment selectregisterID(Integer registerId);
 
     //修改班级编号
-    Student AddclassesId(Integer classesId,Integer studentId);
+    int AddclassesId(Integer classesId,Integer studentId);
 }
