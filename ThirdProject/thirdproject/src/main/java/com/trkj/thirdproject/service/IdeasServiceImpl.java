@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +30,7 @@ public class IdeasServiceImpl implements IdeasService {
     @Override
     public Ideas updateByPrimaryKey(Ideas ideas) {
         ideas.setReply("曹操");
+        ideas.setRevoverytime(new Date());
         ideasDao.updateByPrimaryKey(ideas);
         return ideas;
     }

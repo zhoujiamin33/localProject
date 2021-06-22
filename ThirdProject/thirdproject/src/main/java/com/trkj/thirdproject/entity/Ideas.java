@@ -52,6 +52,7 @@ public class Ideas implements Serializable {
     /**
      * 回复时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date revoverytime;
 
     /**
