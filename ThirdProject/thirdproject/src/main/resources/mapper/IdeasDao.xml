@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.IdeasDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Ideas">
+    <id column="Ideas_Id" jdbcType="INTEGER" property="ideasId" />
+    <result column="Suggest_Id" jdbcType="INTEGER" property="suggestId" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    <result column="Ideas_Title" jdbcType="VARCHAR" property="ideasTitle" />
+    <result column="Ideas_Name" jdbcType="VARCHAR" property="ideasName" />
+    <result column="State" jdbcType="INTEGER" property="state" />
+    <result column="Reply" jdbcType="VARCHAR" property="reply" />
+    <result column="RevoveryTime" jdbcType="TIMESTAMP" property="revoverytime" />
+    <result column="RevoveryName" jdbcType="VARCHAR" property="revoveryname" />
+    <result column="TimeOfPublication" jdbcType="TIMESTAMP" property="timeofpublication" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+
+    <collection property="emp" ofType="com.trkj.thirdproject.entity.Emp">
+      <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
+      <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
+      <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+      <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId" />
+      <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber" />
+      <result column="Emp_Name" jdbcType="VARCHAR" property="empName" />
+      <result column="Emp_Sex" jdbcType="CHAR" property="empSex" />
+      <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone" />
+      <result column="E_mail" jdbcType="VARCHAR" property="eMail" />
+      <result column="Birthday" jdbcType="TIMESTAMP" property="birthday" />
+      <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto" />
+      <result column="Photo" jdbcType="VARCHAR" property="photo" />
+      <result column="Education" jdbcType="VARCHAR" property="education" />
+      <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
+      <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="WorkersState" jdbcType="INTEGER" property="workersstate" />
+      <result column="Password" jdbcType="VARCHAR" property="password" />
+      <result column="Addname" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="LeaveName" jdbcType="VARCHAR" property="leavename" />
+      <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime" />
+      <result column="EmpState" jdbcType="INTEGER" property="empstate" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
+    </collection>
+
+    <collection property="suggest" ofType="com.trkj.thirdproject.entity.Suggest">
+      <id column="Suggest_Id" jdbcType="INTEGER" property="suggestId" />
+      <result column="Suggest_Name" jdbcType="VARCHAR" property="suggestName" />
+      <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    i.Ideas_Id, i.Suggest_Id, i.Emp_Id, i.Ideas_Title, i.Ideas_Name, i.`State`, i.Reply, i.RevoveryTime,
+    i.RevoveryName, i.TimeOfPublication, i.DeleteName, i.DeleteTime, i.TimeLiness
+  </sql>
+  <sql id="Emp">
+    e.Emp_Id, e.Position_Id, e.Dept_Id, e.Enterprise_Id, e.JobNumber, e.Emp_Name, e.Emp_Sex, e.Emp_Phone,
+    e.E_mail, e.Birthday, e.PersonalInformationPhoto, e.Photo, e.Education, e.Graduate, e.Remarks,
+    e.Address, e.WorkersState, e.`Password`, e.Addname, e.AddTime, e.UpdateName, e.UpdateTime, e.LeaveName,
+    e.LeaveTime, e.EmpState, e.DeleteName, e.DeleteTime, e.LoginState
+  </sql>
+  <sql id="Suggest">
+    s.Suggest_Id, s.Suggest_Name, s.Dept_Id, s.AddName, s.AddTime, s.UpdateName, s.UpdateTime, s.DeleteName,
+    s.DeleteTime, s.TimeLiness
+  </sql>
+  <select id="selectAllsd" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Emp" />,
+    <include refid="Suggest" />
+    from Ideas i
+    inner join Emp e on i.Emp_Id=e.Emp_Id
+    inner join Suggest s on i.Suggest_Id=s.Suggest_Id
+    where State=0
+  </select>
+  <select id="selectAllfc" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Emp" />,
+    <include refid="Suggest" />
+    from Ideas i
+    inner join Emp e on i.Emp_Id=e.Emp_Id
+    inner join Suggest s on i.Suggest_Id=s.Suggest_Id
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Ideas
+    where Ideas_Id = #{ideasId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Ideas
+    where Ideas_Id = #{ideasId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Ideas_Id" keyProperty="ideasId" parameterType="com.trkj.thirdproject.entity.Ideas" useGeneratedKeys="true">
+    insert into Ideas (Suggest_Id, Emp_Id, Ideas_Title, 
+      Ideas_Name, `State`, Reply, 
+      RevoveryTime, RevoveryName, TimeOfPublication, 
+      DeleteName, DeleteTime, TimeLiness
+      )
+    values (#{suggestId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, #{ideasTitle,jdbcType=VARCHAR}, 
+      #{ideasName,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{reply,jdbcType=VARCHAR}, 
+      #{revoverytime,jdbcType=TIMESTAMP}, #{revoveryname,jdbcType=VARCHAR}, #{timeofpublication,jdbcType=TIMESTAMP}, 
+      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="Ideas_Id" keyProperty="ideasId" parameterType="com.trkj.thirdproject.entity.Ideas" useGeneratedKeys="true">
+    insert into Ideas
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="suggestId != null">
+        Suggest_Id,
+      </if>
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+      <if test="ideasTitle != null">
+        Ideas_Title,
+      </if>
+      <if test="ideasName != null">
+        Ideas_Name,
+      </if>
+      <if test="state != null">
+        `State`,
+      </if>
+      <if test="reply != null">
+        Reply,
+      </if>
+      <if test="revoverytime != null">
+        RevoveryTime,
+      </if>
+      <if test="revoveryname != null">
+        RevoveryName,
+      </if>
+      <if test="timeofpublication != null">
+        TimeOfPublication,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="suggestId != null">
+        #{suggestId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="ideasTitle != null">
+        #{ideasTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="ideasName != null">
+        #{ideasName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="reply != null">
+        #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="revoverytime != null">
+        #{revoverytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="revoveryname != null">
+        #{revoveryname,jdbcType=VARCHAR},
+      </if>
+      <if test="timeofpublication != null">
+        #{timeofpublication,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Ideas">
+    update Ideas
+    <set>
+      <if test="suggestId != null">
+        Suggest_Id = #{suggestId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="ideasTitle != null">
+        Ideas_Title = #{ideasTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="ideasName != null">
+        Ideas_Name = #{ideasName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `State` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="reply != null">
+        Reply = #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="revoverytime != null">
+        RevoveryTime = #{revoverytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="revoveryname != null">
+        RevoveryName = #{revoveryname,jdbcType=VARCHAR},
+      </if>
+      <if test="timeofpublication != null">
+        TimeOfPublication = #{timeofpublication,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Ideas_Id = #{ideasId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Ideas">
+    update Ideas
+    set
+      Ideas_Title = #{ideasTitle,jdbcType=VARCHAR},
+      Ideas_Name = #{ideasName,jdbcType=VARCHAR},
+      Reply = #{reply,jdbcType=VARCHAR},
+      RevoveryTime = #{revoverytime,jdbcType=TIMESTAMP},
+      RevoveryName = #{revoveryname,jdbcType=VARCHAR},
+    where Ideas_Id = #{ideasId,jdbcType=INTEGER}
+  </update>
+</mapper>
