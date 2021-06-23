@@ -41,6 +41,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> selectByClass(Integer classesId) {
+        return studentDao.selectByClass(classesId);
+    }
+
+    @Override
     public Studentstatus selecttudentstsatus(Integer studentId) {
         Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
         return studentstatus;

@@ -109,11 +109,18 @@ public class EntryfeesController {
         return studentoutstanding;
     }
 
-    //下拉框选择查询
+    //欠费补缴界面下拉框选择查询
     @GetMapping("/selectBycontion/{select}/{input}")
     public List<Studentoutstanding> selectBycontion(@RequestParam("select") String select, @RequestParam("input") String input) {
         return outStandingService.selectBycontion(select, input);
     }
+    //补缴管理界面
+    @GetMapping("/selectByContionout/{Approval}/{value1}/{value2}")
+    public List<Studentoutstanding> selectByContionout(@PathVariable("Approval") String Approval,
+        @PathVariable("value1") String value1,@PathVariable("value2")   String value2){
+        return outStandingService.selectByContionout(Approval,value1,value2);
+    }
+
 
     //查询所有欠费补缴数据
     @GetMapping("/selectoutstanding")

@@ -29,6 +29,13 @@ public class Scheduling implements Serializable {
     private Classes classes;
     private Integer classesId;
 
+    //课程详细
+    private Integer detailcourseId;
+    //教室
+    private Integer classroomId;
+    //教师
+    private Integer teacherId;
+
     /**
      * 上课状态
      */
@@ -70,6 +77,10 @@ public class Scheduling implements Serializable {
     private Integer timeliness;
 
     private List<Integer>periods;
+    //接收前台的班级id集合
+    private List<Integer>classlist;
+    //接收前台的排课次数
+    private Integer Coursecount;
 
     private static final long serialVersionUID = 1L;
 }

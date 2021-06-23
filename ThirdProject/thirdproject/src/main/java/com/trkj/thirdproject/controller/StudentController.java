@@ -264,4 +264,9 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
 
 
     }
+    //根据班级id查询学员
+    @GetMapping("/selectByClass/{classesId}")
+    public List<Student> selectByClass( @PathVariable("classesId") Integer classesId){
+        return studentService.selectByClass(classesId);
+    }
 }

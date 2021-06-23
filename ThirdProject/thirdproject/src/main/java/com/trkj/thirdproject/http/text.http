@@ -1,3 +1,7 @@
+GET http://localhost:8089/threeproject/selectByClass/2
+Accept: application/json
+
+###
 GET http://localhost:8089/threeproject/selectBycontionEntry/1/2021-06-21
 Accept: application/json
 

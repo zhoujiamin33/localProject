@@ -2,7 +2,9 @@ package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.entity.Studentoutstanding;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OutStandingService {
@@ -22,5 +24,7 @@ public interface OutStandingService {
     Studentoutstanding deleteoutstanding(Studentoutstanding studentoutstanding);
     //修改补缴管理的累计欠费
     Studentoutstanding updateAccumulated(Studentoutstanding studentoutstanding);
+    //补缴管理多条件查询
+    List<Studentoutstanding> selectByContionout(String Approval, Date value1, Date value2);
 
 }

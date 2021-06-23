@@ -5,6 +5,9 @@
     <id column="Scheduling_Id" jdbcType="INTEGER" property="schedulingId" />
     <result column="Period_Id" jdbcType="INTEGER" property="periodId" />
     <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+    <result column="Teacher_Id" jdbcType="INTEGER" property="teacherId" />
+    <result column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
+    <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
     <result column="Scheduling_state" jdbcType="INTEGER" property="schedulingState" />
     <result column="AddName" jdbcType="VARCHAR" property="addname" />
     <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
@@ -112,7 +115,7 @@
   
   <sql id="Base_Column_List">
     sc.Scheduling_Id, sc.Period_Id, sc.Classes_Id, sc.Scheduling_state, sc.AddName,sc.AddTime, sc.UpdateName,
-    sc.UpdateTime, sc.DeleteName, sc.DeleteTime, sc.TimeLiness
+    sc.UpdateTime, sc.DeleteName, sc.DeleteTime, sc.TimeLiness,sc.DetailCourse_Id,sc.ClassRoom_Id,sc.Teacher_Id
   </sql>
   
   
@@ -199,9 +202,10 @@
   
   <!--  新增排课-->
   <insert id="insert" keyColumn="Scheduling_Id" keyProperty="schedulingId" parameterType="com.trkj.thirdproject.entity.Scheduling" useGeneratedKeys="true">
-    insert into Scheduling (Period_Id, Classes_Id,  AddName, AddTime)
+    insert into Scheduling (Period_Id, Classes_Id,  AddName, AddTime,Teacher_Id,ClassRoom_Id,DetailCourse_Id)
     values (#{periodId,jdbcType=INTEGER}, #{classesId,jdbcType=INTEGER},
-      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
+      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{teacherId,jdbcType=INTEGER}, #{detailcourseId,jdbcType=INTEGER}
+      , #{classroomId,jdbcType=INTEGER})
   </insert>
   
   

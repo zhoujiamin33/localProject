@@ -47,4 +47,7 @@ public interface StudentService {
 
     //修改班级编号
     int AddclassesId(Integer classesId,Integer studentId);
+
+    //根据班级id查询学员
+    List<Student> selectByClass(Integer classesId);
 }

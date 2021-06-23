@@ -3,7 +3,6 @@ package com.trkj.thirdproject.dao;
 import com.trkj.thirdproject.entity.Entryfees;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.math.BigDecimal;
 import java.util.Date;
