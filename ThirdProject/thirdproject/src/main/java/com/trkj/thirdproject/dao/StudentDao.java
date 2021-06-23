@@ -32,6 +32,6 @@ public interface StudentDao {
 //    List<Student> selectAllclass();
 //修改班级编号
     int AddclassesId(@Param("classesId") Integer classesId,@Param("studentId") Integer studentId);
-
+int updatestudentstate(Student student);
 
 }

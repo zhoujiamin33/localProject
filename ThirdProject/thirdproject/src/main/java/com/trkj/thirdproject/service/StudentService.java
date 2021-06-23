@@ -47,4 +47,6 @@ public interface StudentService {
 
     //修改班级编号
     int AddclassesId(Integer classesId,Integer studentId);
+//    修改学员审核的状态
+Student updatestudentstate(Student student);
 }

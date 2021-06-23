@@ -226,7 +226,13 @@
       StudyTime = #{studytime,jdbcType=TIMESTAMP}
     where Student_Id = #{studentId,jdbcType=INTEGER}
   </update>
-
+<!--  修改审核的状态-->
+  <update id="updatestudentstate" parameterType="com.trkj.thirdproject.entity.Student">
+    update Student
+    set
+      Student_State = #{studentState,jdbcType=INTEGER}
+    where Student_Id = #{studentId,jdbcType=INTEGER}
+  </update>
   <!--  删除后改变时效性-->
   <update id="delstuTimeness" parameterType="com.trkj.thirdproject.entity.Student">
   update Student set TimeLiness=1 ,DeleteName = #{deletename},
