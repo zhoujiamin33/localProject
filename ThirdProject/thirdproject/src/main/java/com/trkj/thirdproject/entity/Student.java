@@ -119,5 +119,7 @@ public class Student implements Serializable {
     @JsonFormat(pattern = "YYYY-MM-dd")
     private Date studytime;
 
+    //学生数量
+    private Integer counttotal;
     private static final long serialVersionUID = 1L;
 }

@@ -5,6 +5,9 @@
     <id column="Scheduling_Id" jdbcType="INTEGER" property="schedulingId" />
     <result column="Period_Id" jdbcType="INTEGER" property="periodId" />
     <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+    <result column="Teacher_Id" jdbcType="INTEGER" property="teacherId" />
+    <result column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
+    <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
     <result column="Scheduling_state" jdbcType="INTEGER" property="schedulingState" />
     <result column="AddName" jdbcType="VARCHAR" property="addname" />
     <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
@@ -35,6 +38,65 @@
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
       <result column="User_BookId" jdbcType="INTEGER" property="userbookId" />
+
+      <association property="classroom" javaType="com.trkj.thirdproject.entity.Classroom">
+        <id column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
+        <result column="ClassRoom_Name" jdbcType="VARCHAR" property="classroomName" />
+        <result column="Cacacity" jdbcType="INTEGER" property="cacacity" />
+        <result column="Place" jdbcType="VARCHAR" property="place" />
+        <result column="AddName" jdbcType="VARCHAR" property="addname" />
+        <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+        <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+        <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+        <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+        <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      </association>
+
+      <association property="emp" javaType="com.trkj.thirdproject.entity.Emp">
+        <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
+        <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
+        <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+        <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId" />
+        <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber" />
+        <result column="Emp_Name" jdbcType="VARCHAR" property="empName" />
+        <result column="Emp_Sex" jdbcType="CHAR" property="empSex" />
+        <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone" />
+        <result column="E_mail" jdbcType="VARCHAR" property="eMail" />
+        <result column="Birthday" jdbcType="TIMESTAMP" property="birthday" />
+        <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto" />
+        <result column="Photo" jdbcType="VARCHAR" property="photo" />
+        <result column="Education" jdbcType="VARCHAR" property="education" />
+        <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
+        <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+        <result column="Address" jdbcType="VARCHAR" property="address" />
+        <result column="WorkersState" jdbcType="INTEGER" property="workersstate" />
+        <result column="Password" jdbcType="VARCHAR" property="password" />
+        <result column="Addname" jdbcType="VARCHAR" property="addname" />
+        <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+        <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+        <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="LeaveName" jdbcType="VARCHAR" property="leavename" />
+        <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime" />
+        <result column="EmpState" jdbcType="INTEGER" property="empstate" />
+        <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+        <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+        <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
+      </association>
+
+      <association property="detailcourse" javaType="com.trkj.thirdproject.entity.Detailcourse">
+        <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+        <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+        <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName" />
+        <result column="Serial" jdbcType="INTEGER" property="serial" />
+        <result column="AddName" jdbcType="VARCHAR" property="addname" />
+        <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+        <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+        <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+        <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+        <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      </association>
     </association>
 
     <association property="period" javaType="com.trkj.thirdproject.entity.Trainingperiod">
@@ -49,19 +111,80 @@
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
     </association>
   </resultMap>
+  
+  
   <sql id="Base_Column_List">
     sc.Scheduling_Id, sc.Period_Id, sc.Classes_Id, sc.Scheduling_state, sc.AddName,sc.AddTime, sc.UpdateName,
-    sc.UpdateTime, sc.DeleteName, sc.DeleteTime, sc.TimeLiness
+    sc.UpdateTime, sc.DeleteName, sc.DeleteTime, sc.TimeLiness,sc.DetailCourse_Id,sc.ClassRoom_Id,sc.Teacher_Id
   </sql>
+  
+  
   <sql id="period">
     p.Period_Id, p.Period, p.AddName, p.AddTime, p.UpdateName, p.UpdateTime, p.DeleteName, p.DeleteTime,
     p.TimeLiness
   </sql>
-  <sql id="course">
+  
+  
+  <sql id="emp">
+     e.Emp_Id,  e.Position_Id,  e.Dept_Id,  e.Enterprise_Id,  e.JobNumber,  e.Emp_Name,  e.Emp_Sex,  e.Emp_Phone,
+     e.E_mail,  e.Birthday,  e.PersonalInformationPhoto,  e.Photo,  e.Education,  e.Graduate,  e.Remarks,
+     e.Address,  e.WorkersState,  e.`Password`,  e.Addname,  e.AddTime,  e.UpdateName,  e.UpdateTime,  e.LeaveName,
+     e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState
+  </sql>
+
+  <sql id="class">
     cl.Classes_Id, cl.Classes_Name, cl.Classes_Open, cl.Course_Id, cl.ClassRoom_Id, cl.Teacher_Id, cl.Emp_Id,
     cl.DetailCourse_Id, cl.StartedDate, cl.EndDate, cl.LastDate, cl.AddName, cl.AddTime, cl.UpdateName, cl.UpdateTime,
-    cl.DeleteName, cl.DeleteTime, cl.TimeLiness,cl.Classes_Number,cl.User_BookId,cl.Classes_Open
+    cl.DeleteName, cl.DeleteTime, cl.TimeLiness,cl.Classes_Number,cl.User_BookId,cl.Classes_Open ,cl.WhenDetails
   </sql>
+
+  <sql id="classRoom">
+    cr.ClassRoom_Id, cr.ClassRoom_Name, cr.Cacacity, cr.Place, cr.AddName, cr.AddTime, cr.UpdateName, cr.UpdateTime,
+    cr.DeleteName, cr.DeleteTime, cr.TimeLiness
+  </sql>
+
+  <sql id="detailcourse">
+    d.DetailCourse_Id, d.Course_Id, d.DetailCourse_Name, d.Serial, d.AddName, d.AddTime, d.UpdateName,
+    d.UpdateTime, d.DeleteName, d.DeleteTime, d.TimeLiness
+  </sql>
+
+  <!--  查询所有-->
+  <select id="selectAllScheduling" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>,
+    <include refid="period"/>,
+    <include refid="class"/>,
+    <include refid="emp"/>,
+    <include refid="detailcourse"/>,
+    <include refid="classRoom"/>
+    from Scheduling sc
+    inner join TrainingPeriod p on  p.Period_Id=sc.Period_Id
+    inner join Classes cl on cl.Classes_Id=sc.Classes_Id
+    inner join Emp e on e.Emp_Id=cl.Teacher_Id
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    where sc.TimeLiness=0
+    order by sc.AddTime desc
+  </select>
+  
+  <!--  查询这一时间段选择的教师、教室有没有被占用-->
+  <select id="selectremove" resultMap="BaseResultMap">
+     select
+    <include refid="Base_Column_List"/>,
+    <include refid="period"/>,
+    <include refid="class"/>,
+    <include refid="emp"/>,
+    <include refid="detailcourse"/>,
+    <include refid="classRoom"/>
+    from Scheduling sc
+    inner join TrainingPeriod p on  p.Period_Id=sc.Period_Id
+    inner join Classes cl on cl.Classes_Id=sc.Classes_Id
+    inner join Emp e on e.Emp_Id=cl.Teacher_Id
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    where sc.Period_Id=#{periodId,jdbcType=INTEGER} and cr.ClassRoom_Name=#{classroomName,jdbcType=VARCHAR}
+    and e.Emp_Name=#{empName,jdbcType=VARCHAR}
+  </select>
 
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -70,16 +193,22 @@
     from Scheduling
     where Scheduling_Id = #{schedulingId,jdbcType=INTEGER}
   </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Scheduling
     where Scheduling_Id = #{schedulingId,jdbcType=INTEGER}
   </delete>
-<!--  新增排课-->
+  
+  <!--  新增排课-->
   <insert id="insert" keyColumn="Scheduling_Id" keyProperty="schedulingId" parameterType="com.trkj.thirdproject.entity.Scheduling" useGeneratedKeys="true">
-    insert into Scheduling (Period_Id, Classes_Id,  AddName, AddTime)
+    insert into Scheduling (Period_Id, Classes_Id,  AddName, AddTime,Teacher_Id,ClassRoom_Id,DetailCourse_Id)
     values (#{periodId,jdbcType=INTEGER}, #{classesId,jdbcType=INTEGER},
-      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR})
+      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{teacherId,jdbcType=INTEGER}, #{detailcourseId,jdbcType=INTEGER}
+      , #{classroomId,jdbcType=INTEGER})
   </insert>
+  
+  
   <insert id="insertSelective" keyColumn="Scheduling_Id" keyProperty="schedulingId" parameterType="com.trkj.thirdproject.entity.Scheduling" useGeneratedKeys="true">
     insert into Scheduling
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -147,6 +276,8 @@
       </if>
     </trim>
   </insert>
+  
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Scheduling">
     update Scheduling
     <set>
@@ -183,6 +314,8 @@
     </set>
     where Scheduling_Id = #{schedulingId,jdbcType=INTEGER}
   </update>
+ 
+ 
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Scheduling">
     update Scheduling
     set Period_Id = #{periodId,jdbcType=INTEGER},
@@ -197,4 +330,6 @@
       TimeLiness = #{timeliness,jdbcType=INTEGER}
     where Scheduling_Id = #{schedulingId,jdbcType=INTEGER}
   </update>
+
+
 </mapper>

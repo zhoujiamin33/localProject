@@ -107,6 +107,7 @@
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
     </association>
+
   </resultMap>
   <sql id="DetailCourse">
     d.DetailCourse_Id, d.Course_Id, d.DetailCourse_Name, d.Serial, d.AddName, d.AddTime, d.UpdateName,
@@ -280,13 +281,11 @@
     <include refid="Base_Column_List" />,
     <include refid="Base_Column_course"/>,
     <include refid="emp"/>,
-    <include refid="classRoom"/>,
     <include refid="book"/>
     from Classes cl
     inner join Course c on cl.Course_Id=c.Course_Id
     inner join Emp e on e.Emp_Id=cl.Emp_Id
     inner join Book b on b.Book_Id=cl.User_BookId
-    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
     where cl.TimeLiness=0
     order  by cl.AddTime desc
   </select>
@@ -294,11 +293,12 @@
     delete from Classes
     where Classes_Id = #{classesId,jdbcType=INTEGER}
   </delete>
+  <!--  新增班级-->
   <insert id="insert" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
     insert into Classes (Classes_Name, Course_Id,Classes_Number,
-      ClassRoom_Id, Teacher_Id, Emp_Id, AddName, AddTime,User_BookId)
+       Emp_Id, AddName, AddTime,User_BookId)
     values (#{classesName,jdbcType=VARCHAR},#{courseId,jdbcType=INTEGER},#{classesNumber,jdbcType=VARCHAR},
-      #{classroomId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR},
+       #{empId,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR},
        #{addtime,jdbcType=TIMESTAMP},#{userbookId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">

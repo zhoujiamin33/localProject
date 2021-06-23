@@ -238,12 +238,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Ideas">
     update Ideas
-    set
-      Ideas_Title = #{ideasTitle,jdbcType=VARCHAR},
-      Ideas_Name = #{ideasName,jdbcType=VARCHAR},
-      Reply = #{reply,jdbcType=VARCHAR},
+    set Reply = #{reply,jdbcType=VARCHAR},
       RevoveryTime = #{revoverytime,jdbcType=TIMESTAMP},
       RevoveryName = #{revoveryname,jdbcType=VARCHAR},
+      State = 1
     where Ideas_Id = #{ideasId,jdbcType=INTEGER}
   </update>
 </mapper>

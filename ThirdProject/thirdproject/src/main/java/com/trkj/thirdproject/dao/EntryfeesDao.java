@@ -3,7 +3,6 @@ package com.trkj.thirdproject.dao;
 import com.trkj.thirdproject.entity.Entryfees;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -19,7 +18,7 @@ public interface EntryfeesDao {
 
     List<Entryfees> selectKey();
     //多条件查询
-    List<Entryfees> selectBycontion(@Param("ApprovalState") int ApprovalState,@Param("value2") Date value2,@Param("input") String input);
+    List<Entryfees> selectBycontion(@Param("ApprovalState") int ApprovalState,@Param("value2") String value2,@Param("input") String input);
 
     int updateByPrimaryKey(Entryfees record);
 

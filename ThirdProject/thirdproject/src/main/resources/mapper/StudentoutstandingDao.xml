@@ -112,7 +112,7 @@
      RevokeAppTime= #{revokeapptime,jdbcType=TIMESTAMP}
     where outstanding_Id = #{outstandingId,jdbcType=INTEGER}
   </update>
-<!--多条件查询-->
+<!--欠费补缴多条件查询-->
 <select id="selectBycontion">
   select
   <include refid="outstanding" />,
@@ -131,7 +131,22 @@
   </where>
   order by AddTime desc
 </select>
-
+<!--补缴管理多条件查询-->
+  <select id="selectByContionout" resultMap="BaseResultMap">
+    select <include refid="outstanding"/> from StudentOutstanding
+    <where>
+      <if test="Approval==0">
+        ApprovalState=0
+      </if>
+      <if test="Approval==1">
+        ApprovalState=1
+      </if>
+      <if test="value1 !=null and value2!=null">
+        AddTime between value1 and value2
+      </if>
+    </where>
+    order by AddTime desc
+  </select>
 <!--  在报班缴费中查询缴费方式未预交费的数据-->
   <select id="selectoutonentry" resultMap="BaseResultMap">
     select <include refid="entryfees"/> ,<include refid="register"/> from EntryFees entry

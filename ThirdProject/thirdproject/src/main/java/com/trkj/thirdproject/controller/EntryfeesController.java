@@ -82,9 +82,15 @@ public class EntryfeesController {
     }
 
     //多条件查询
-    @GetMapping("/selectBycontionEntry/{ApprovalState}/{value2}/{input}")
-    public List<Entryfees> selectBycontion(@PathVariable("ApprovalState") int ApprovalState, @PathVariable("value2") Date value2,@PathVariable("input") String input) {
-        return entryfeesService.selectBycontion(ApprovalState, value2,input);
+    @GetMapping("/selectBycontionEntry")
+    public PageInfo<Entryfees> selectBycontion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
+       @PathVariable("ApprovalState") int ApprovalState, @PathVariable("value2") String value2,@PathVariable("input") String input) {
+        log.debug("多条件查询");
+        PageHelper.startPage(currentPage, pagesize);
+        List<Entryfees> entityPage = entryfeesService.selectBycontion(ApprovalState, value2, input);
+        PageInfo<Entryfees> entryfeesPageInfo = new PageInfo<>(entityPage);
+        return entryfeesPageInfo;
+
     }
 
     //--------------------------------------------------欠费补缴-----------------------------------------------------------------------
@@ -103,11 +109,18 @@ public class EntryfeesController {
         return studentoutstanding;
     }
 
-    //下拉框选择查询
+    //欠费补缴界面下拉框选择查询
     @GetMapping("/selectBycontion/{select}/{input}")
     public List<Studentoutstanding> selectBycontion(@RequestParam("select") String select, @RequestParam("input") String input) {
         return outStandingService.selectBycontion(select, input);
     }
+    //补缴管理界面
+    @GetMapping("/selectByContionout/{Approval}/{value1}/{value2}")
+    public List<Studentoutstanding> selectByContionout(@PathVariable("Approval") String Approval,
+        @PathVariable("value1") String value1,@PathVariable("value2")   String value2){
+        return outStandingService.selectByContionout(Approval,value1,value2);
+    }
+
 
     //查询所有欠费补缴数据
     @GetMapping("/selectoutstanding")
