@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.entity.Studentstatus;
 import com.trkj.thirdproject.entity.Suspende;
@@ -22,6 +23,7 @@ private SuspendeService suspendeService;
     @Autowired
     private StudentstatusService studentstatusService;
     @PostMapping("/addsupende")
+    @LogginAnnotation(message = "停课")
     public Suspende addsupende(@RequestBody Suspende suspende){
         suspende= suspendeService.insertSelective(suspende);
         Studentstatus studentstatus=new Studentstatus();
@@ -32,10 +34,10 @@ private SuspendeService suspendeService;
        return suspende;
     }
     @GetMapping("/findAllsuspende")
-    public PageInfo<Suspende> findAllsuspende(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+    public PageInfo<Suspende> findAllsuspende(@RequestParam("index") String index,@RequestParam("value") String value,@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         log.debug("开始查询");
         PageHelper.startPage(currentPage,pagesize);
-        List<Suspende> suspendeList=suspendeService.selectAll();
+        List<Suspende> suspendeList=suspendeService.findName_number(index, value);
         log.debug("停课："+suspendeList);
         PageInfo<Suspende> suspendeInfo=new PageInfo<>(suspendeList);
         return suspendeInfo;
@@ -51,6 +53,7 @@ private SuspendeService suspendeService;
 }
 //    修改状态或者是删除修改时效性
     @PutMapping("/updateapproval/{suspendeId}")
+    @LogginAnnotation(message = "批量审核停课")
     public void updateapproval(@PathVariable("suspendeId")String suspendeId){
        String[] id=suspendeId.split(",");
         for (String s:id){
@@ -64,6 +67,7 @@ private SuspendeService suspendeService;
 
     }
     @PutMapping("/delsuspend/{suspendeId}")
+    @LogginAnnotation(message = "批量删除停课")
     public void delsuspend(@PathVariable("suspendeId") String suspendeId){
         String[] id=suspendeId.split(",");
         for (String s:id){
@@ -76,5 +80,6 @@ private SuspendeService suspendeService;
 
 
     }
+
 
 }

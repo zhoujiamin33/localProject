@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.OpjournalDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Opjournal">
+    <id column="OpJournal_Id" jdbcType="INTEGER" property="opjournalId" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    <result column="OpContent" jdbcType="VARCHAR" property="opcontent" />
+    <result column="OpTime" jdbcType="TIMESTAMP" property="optime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    OpJournal_Id, Emp_Id, OpContent, OpTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OpJournal
+    where OpJournal_Id = #{opjournalId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from OpJournal
+    where OpJournal_Id = #{opjournalId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="OpJournal_Id" keyProperty="opjournalId" parameterType="com.trkj.thirdproject.entity.Opjournal" useGeneratedKeys="true">
+    insert into OpJournal (Emp_Id, OpContent, OpTime
+      )
+    values (#{empId,jdbcType=INTEGER}, #{opcontent,jdbcType=VARCHAR}, #{optime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="OpJournal_Id" keyProperty="opjournalId" parameterType="com.trkj.thirdproject.entity.Opjournal" useGeneratedKeys="true">
+    insert into OpJournal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+      <if test="opcontent != null">
+        OpContent,
+      </if>
+      <if test="optime != null">
+        OpTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="opcontent != null">
+        #{opcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="optime != null">
+        #{optime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Opjournal">
+    update OpJournal
+    <set>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="opcontent != null">
+        OpContent = #{opcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="optime != null">
+        OpTime = #{optime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where OpJournal_Id = #{opjournalId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Opjournal">
+    update OpJournal
+    set Emp_Id = #{empId,jdbcType=INTEGER},
+      OpContent = #{opcontent,jdbcType=VARCHAR},
+      OpTime = #{optime,jdbcType=TIMESTAMP}
+    where OpJournal_Id = #{opjournalId,jdbcType=INTEGER}
+  </update>
+</mapper>

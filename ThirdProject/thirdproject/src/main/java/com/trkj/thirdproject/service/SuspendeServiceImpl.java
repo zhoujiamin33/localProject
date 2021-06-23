@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.SuspendeDao;
+import com.trkj.thirdproject.entity.Supplementary;
 import com.trkj.thirdproject.entity.Suspende;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class SuspendeServiceImpl implements SuspendeService {
     @Override
     public Suspende selectByPrimaryKey(Integer suspendeId) {
         return suspendeDao.selectByPrimaryKey(suspendeId);
+    }
+    @Override
+    public List<Suspende> findName_number(String index, String value) {
+        List<Suspende> supplementaryList=suspendeDao.findName_number(index, value) ;
+        return supplementaryList;
     }
 }

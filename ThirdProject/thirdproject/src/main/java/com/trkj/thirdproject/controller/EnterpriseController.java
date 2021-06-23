@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.controller;
 
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Enterprise;
 import com.trkj.thirdproject.service.EnterpriseService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,8 @@ public class EnterpriseController {
     @Autowired
     private EnterpriseService enterpriseService;
     @PutMapping("/enterprise")
-    public Enterprise upadeenterprise(@RequestBody Enterprise enterprise){
+    @LogginAnnotation(message = "修改公司档案")
+    public Enterprise updeenterprise(@RequestBody Enterprise enterprise){
         enterprise=enterpriseService.updateEnterprise(enterprise);
         return enterprise;
     }

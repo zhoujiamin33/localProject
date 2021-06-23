@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Emp;
 import com.trkj.thirdproject.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class EmpController {
         return empService.selectAllEmp();
     }
     @PostMapping("/emp")
-    public Emp Addemp(@RequestBody Emp emp){
+    public Emp addemp(@RequestBody Emp emp){
         log.debug(emp.toString());
         emp.setAddname("tsm管理员");
         emp.setAddtime(new Date());
@@ -37,12 +38,14 @@ public class EmpController {
         return emp;
     }
     @DeleteMapping("/emp/{empId}")
+    @LogginAnnotation(message = "删除员工")
     public String delEmp(@PathVariable("empId") Integer empId){
         empService.delectEmp(empId);
         return "删除成功";
     }
     //修改
     @PutMapping("/emp")
+    @LogginAnnotation(message = "修改员工")
     public Emp updateEmp(@RequestBody Emp emp){
         emp.setUpdatename("tsm管理员");
         emp.setUpdatetime(new Date());
@@ -60,6 +63,7 @@ public class EmpController {
     }
     //批量删除
     @PutMapping("/deltimelimeness/{empId}")
+    @LogginAnnotation(message = "批量删除员工")
     public void deltimelimeness(@PathVariable("empId") List<Integer> empId){
         String leavename="tsm管理";
         Date leavetime=new Date();
@@ -67,6 +71,7 @@ public class EmpController {
     }
     //启动和禁用
     @PutMapping("/updatestate/{workersstate}/{empId}")
+    @LogginAnnotation(message = "开启或禁用")
     public void updatestate(@PathVariable("workersstate") Integer workersstate,@PathVariable("empId") List<Integer> empId){
          empService.updatestate(workersstate, empId);
     }

@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import lombok.Data;
 
 import java.io.Serializable;
