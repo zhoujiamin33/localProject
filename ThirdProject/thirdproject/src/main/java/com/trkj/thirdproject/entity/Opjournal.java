@@ -2,6 +2,8 @@ package com.trkj.thirdproject.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -18,6 +20,7 @@ public class Opjournal implements Serializable {
     /**
      * 职员编号
      */
+    private Emp emp;
     private Integer empId;
 
     /**

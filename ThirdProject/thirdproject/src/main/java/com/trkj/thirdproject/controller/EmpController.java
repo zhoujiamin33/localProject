@@ -30,6 +30,7 @@ public class EmpController {
         return empService.selectAllEmp();
     }
     @PostMapping("/emp")
+    @LogginAnnotation(message = "新增员工")
     public Emp addemp(@RequestBody Emp emp){
         log.debug(emp.toString());
         emp.setAddname("tsm管理员");
@@ -75,5 +76,44 @@ public class EmpController {
     public void updatestate(@PathVariable("workersstate") Integer workersstate,@PathVariable("empId") List<Integer> empId){
          empService.updatestate(workersstate, empId);
     }
+//    已限制
+    @GetMapping("/selectyixz")
+    public List<Emp> selectyixz(){
+        List<Emp> empList=empService.selectByPrimary();
+        log.debug(empList.toString());
+        return empList;
+    }
+    //    未限制
+    @GetMapping("/selectweixz")
+    public List<Emp> selectweixz(){
+        List<Emp> empList=empService.selectByPrimarywei();
+        log.debug(empList.toString());
+        return empList;
+    }
+//    新增已限制1
+    @PutMapping("/updateyxz/{empId}")
+    public void updateyxz(@PathVariable("empId")String empId){
+        String[] e=empId.split(",");
+        for (String Ids:e){
+            Emp emp=new Emp();
+            emp.setLoginstate(1);//已限制
+            emp.setEmpstate(1);//离职
+            emp.setEmpId(Integer.parseInt(Ids));
+            empService.updateEmp(emp);
+        }
 
+
+    }
+//    取消限制未限制0
+@PutMapping("/updatewxz/{empId}")
+public void updatewxz(@PathVariable("empId")String empId){
+    String[] e=empId.split(",");
+    for (String Ids:e){
+        Emp emp=new Emp();
+        emp.setLoginstate(0);//已限制
+        emp.setEmpstate(0);//离职
+        emp.setEmpId(Integer.parseInt(Ids));
+        empService.updateEmp(emp);
+    }
+}
 }
