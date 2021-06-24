@@ -10,5 +10,13 @@ public interface IdeasService {
 
     List<Ideas> selectAllfc();
 
+//    List<Ideas> selectAllqb();
+//
+//    List<Ideas> selectAlldhf();
+//
+//    List<Ideas> selectAllyhf();
+
     Ideas updateByPrimaryKey(Ideas ideas);
+
+    Ideas insert(Ideas ideas);
 }

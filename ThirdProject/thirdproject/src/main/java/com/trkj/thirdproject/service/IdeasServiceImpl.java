@@ -27,11 +27,34 @@ public class IdeasServiceImpl implements IdeasService {
         return ideasDao.selectAllfc();
     }
 
+//    @Override
+//    public List<Ideas> selectAllqb() {
+//        return ideasDao.selectAllqb();
+//    }
+//
+//    @Override
+//    public List<Ideas> selectAlldhf() {
+//        return ideasDao.selectAlldhf();
+//    }
+//
+//    @Override
+//    public List<Ideas> selectAllyhf() {
+//        return ideasDao.selectAllyhf();
+//    }
+
     @Override
     public Ideas updateByPrimaryKey(Ideas ideas) {
         ideas.setReply("曹操");
         ideas.setRevoverytime(new Date());
         ideasDao.updateByPrimaryKey(ideas);
+        return ideas;
+    }
+
+    @Override
+    public Ideas insert(Ideas ideas) {
+        ideas.setEmpId(1);
+        ideas.setTimeofpublication(new Date());
+        ideasDao.insert(ideas);
         return ideas;
     }
 }

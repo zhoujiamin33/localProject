@@ -93,6 +93,35 @@
     inner join Emp e on i.Emp_Id=e.Emp_Id
     inner join Suggest s on i.Suggest_Id=s.Suggest_Id
   </select>
+<!--  <select id="selectAlldhf" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />,-->
+<!--    <include refid="Emp" />,-->
+<!--    <include refid="Suggest" />-->
+<!--    from Ideas i-->
+<!--    inner join Emp e on i.Emp_Id=e.Emp_Id-->
+<!--    inner join Suggest s on i.Suggest_Id=s.Suggest_Id-->
+<!--    where State=0-->
+<!--  </select>-->
+<!--  <select id="selectAllqb" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />,-->
+<!--    <include refid="Emp" />,-->
+<!--    <include refid="Suggest" />-->
+<!--    from Ideas i-->
+<!--    inner join Emp e on i.Emp_Id=e.Emp_Id-->
+<!--    inner join Suggest s on i.Suggest_Id=s.Suggest_Id-->
+<!--  </select>-->
+<!--  <select id="selectAllyhf" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />,-->
+<!--    <include refid="Emp" />,-->
+<!--    <include refid="Suggest" />-->
+<!--    from Ideas i-->
+<!--    inner join Emp e on i.Emp_Id=e.Emp_Id-->
+<!--    inner join Suggest s on i.Suggest_Id=s.Suggest_Id-->
+<!--    where State=1-->
+<!--  </select>-->
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -105,14 +134,10 @@
   </delete>
   <insert id="insert" keyColumn="Ideas_Id" keyProperty="ideasId" parameterType="com.trkj.thirdproject.entity.Ideas" useGeneratedKeys="true">
     insert into Ideas (Suggest_Id, Emp_Id, Ideas_Title, 
-      Ideas_Name, `State`, Reply, 
-      RevoveryTime, RevoveryName, TimeOfPublication, 
-      DeleteName, DeleteTime, TimeLiness
+      Ideas_Name, TimeOfPublication
       )
     values (#{suggestId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, #{ideasTitle,jdbcType=VARCHAR}, 
-      #{ideasName,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{reply,jdbcType=VARCHAR}, 
-      #{revoverytime,jdbcType=TIMESTAMP}, #{revoveryname,jdbcType=VARCHAR}, #{timeofpublication,jdbcType=TIMESTAMP}, 
-      #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}
+      #{ideasName,jdbcType=VARCHAR}, #{timeofpublication,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" keyColumn="Ideas_Id" keyProperty="ideasId" parameterType="com.trkj.thirdproject.entity.Ideas" useGeneratedKeys="true">

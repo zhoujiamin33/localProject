@@ -55,5 +55,9 @@ public class SuggestContrloller {
         return suggestService.DelAuggest(suggest);
     }
 
-
+    @GetMapping("/selectSuggest")
+    private List<Suggest> selectSuggest(){
+        log.debug("Controller方法调用");
+        return suggestService.selectSuggest();
+    }
 }

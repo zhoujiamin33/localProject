@@ -6,13 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
 @Slf4j
 @Service
 public class SuggestServiceImpl implements SuggestService {
-    @Autowired
+    @Resource
     private SuggestDao suggestDao;
     @Override
     public Suggest insertSelective(Suggest record) {
@@ -44,4 +45,10 @@ public class SuggestServiceImpl implements SuggestService {
     public List<Suggest> findNameSuggest(String name) {
         return suggestDao.findNameSuggest(name);
     }
+
+    @Override
+    public List<Suggest> selectSuggest() {
+        return suggestDao.selectSuggest();
+    }
+
 }

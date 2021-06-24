@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Bookback;
 import com.trkj.thirdproject.entity.Bookdelivery;
 import com.trkj.thirdproject.entity.Bookstorage;
+import com.trkj.thirdproject.entity.Ideas;
 import com.trkj.thirdproject.service.BookbackService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,18 @@ public class BookbackController {
         return classtypePageInfo;
     }
 
-    @DeleteMapping("/delBookback/{bookbackId}")
-    public String delBookback(@PathVariable("bookbackId") int bookbackId){
-        log.debug("开始删除");
-        bookbackService.deleteByPrimaryKey(bookbackId);
-        return "delOk";
+//    @DeleteMapping("/delBookback/{bookbackId}")
+//    public String delBookback(@PathVariable("bookbackId") int bookbackId){
+//        log.debug("开始删除");
+//        bookbackService.deleteByPrimaryKey(bookbackId);
+//        return "delOk";
+//    }
+
+    @PutMapping("/updateBookback")
+    public Bookback updateByPrimaryKey(@RequestBody Bookback bookback){
+        log.debug("开始修改");
+        bookbackService.updateByPrimaryKey(bookback);
+        return bookback;
     }
 
     @PostMapping("/addBookback")

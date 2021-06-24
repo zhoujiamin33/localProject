@@ -16,11 +16,15 @@ public interface SuggestDao {
 
     Suggest selectByPrimaryKey(Integer suggestId);
 
+    Suggest selectSuggest(Integer suggestId);
+
     int updateByPrimaryKeySelective(Suggest record);
 
     int updateByPrimaryKey(Suggest record);
 
     List<Suggest> findAllSuggest();
+
+    List<Suggest> selectSuggest();
 
     int DelAuggest (Suggest suggest);
 

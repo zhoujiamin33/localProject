@@ -20,11 +20,11 @@ public class BookbackServiceImpl implements BookbackService {
         return bookbackDao.selectAll();
     }
 
-    @Override
-    public int deleteByPrimaryKey(int bookbackId) {
-        bookbackDao.deleteByPrimaryKey(bookbackId);
-        return bookbackId;
-    }
+//    @Override
+//    public int deleteByPrimaryKey(int bookbackId) {
+//        bookbackDao.deleteByPrimaryKey(bookbackId);
+//        return bookbackId;
+//    }
 
     @Override
     public Bookback insert(Bookback bookback) {
@@ -37,5 +37,11 @@ public class BookbackServiceImpl implements BookbackService {
     @Override
     public List<Bookback> selectBookBack(String value, String input) {
         return bookbackDao.selectBookBack(value, input);
+    }
+
+    @Override
+    public Bookback updateByPrimaryKey(Bookback bookback) {
+        bookbackDao.updateByPrimaryKey(bookback);
+        return bookback;
     }
 }

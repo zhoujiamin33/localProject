@@ -22,4 +22,10 @@ public interface IdeasDao {
     List<Ideas> selectAllfc();
 
     List<Ideas> selectAllsd();
+
+//    List<Ideas> selectAllqb();
+//
+//    List<Ideas> selectAlldhf();
+//
+//    List<Ideas> selectAllyhf();
 }
