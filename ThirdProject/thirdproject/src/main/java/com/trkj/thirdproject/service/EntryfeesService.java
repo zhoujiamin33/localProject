@@ -22,5 +22,5 @@ public interface EntryfeesService {
     //     补缴之后，修改累计欠费的值
     Entryfees  updateFeesAccumulated(Entryfees entryfees);
     //多条件查询
-    List<Entryfees> selectBycontion( int ApprovalState, String value2,String input);
+    List<Entryfees> selectBycontion( int ApprovalState, Date value2,Date input);
 }

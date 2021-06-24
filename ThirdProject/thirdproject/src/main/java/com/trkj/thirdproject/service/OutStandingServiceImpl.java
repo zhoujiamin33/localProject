@@ -73,7 +73,7 @@ public class OutStandingServiceImpl implements OutStandingService {
     }
 
     @Override
-    public List<Studentoutstanding> selectByContionout(String Approval, Date value1, Date value2) {
+    public List<Studentoutstanding> selectByContionout(String Approval, String value1, String value2) {
         return outstandingdao.selectByContionout(Approval, value1, value2);
     }
 

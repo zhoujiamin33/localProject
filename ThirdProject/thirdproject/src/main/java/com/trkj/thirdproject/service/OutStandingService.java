@@ -25,6 +25,6 @@ public interface OutStandingService {
     //修改补缴管理的累计欠费
     Studentoutstanding updateAccumulated(Studentoutstanding studentoutstanding);
     //补缴管理多条件查询
-    List<Studentoutstanding> selectByContionout(String Approval, Date value1, Date value2);
+    List<Studentoutstanding> selectByContionout(String Approval, String  value1, String  value2);
 
 }

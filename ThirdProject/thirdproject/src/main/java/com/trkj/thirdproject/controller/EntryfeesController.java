@@ -84,7 +84,7 @@ public class EntryfeesController {
     //多条件查询
     @GetMapping("/selectBycontionEntry")
     public PageInfo<Entryfees> selectBycontion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
-       @PathVariable("ApprovalState") int ApprovalState, @PathVariable("value2") String value2,@PathVariable("input") String input) {
+       @PathVariable("ApprovalState") int ApprovalState, @PathVariable("value2") Date value2,@PathVariable("input") Date input) {
         log.debug("多条件查询");
         PageHelper.startPage(currentPage, pagesize);
         List<Entryfees> entityPage = entryfeesService.selectBycontion(ApprovalState, value2, input);
