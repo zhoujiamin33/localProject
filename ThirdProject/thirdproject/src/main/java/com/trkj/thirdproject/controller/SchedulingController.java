@@ -15,7 +15,8 @@ public class SchedulingController {
     private SchedulingSevice schedulingSevice;
     @PostMapping("/insertSheduling")
     public Scheduling insert(@RequestBody Scheduling scheduling){
-        schedulingSevice.insert(scheduling);
+        scheduling= schedulingSevice.insert(scheduling);
+        log.debug(scheduling.getCoursecount()+"eee");
         return scheduling;
     }
     @GetMapping("/selectAllScheduling")

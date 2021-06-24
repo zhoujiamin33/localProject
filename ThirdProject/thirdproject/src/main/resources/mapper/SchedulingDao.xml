@@ -202,9 +202,9 @@
   
   <!--  新增排课-->
   <insert id="insert" keyColumn="Scheduling_Id" keyProperty="schedulingId" parameterType="com.trkj.thirdproject.entity.Scheduling" useGeneratedKeys="true">
-    insert into Scheduling (Period_Id, Classes_Id,  AddName, AddTime,Teacher_Id,ClassRoom_Id,DetailCourse_Id)
+    insert into Scheduling (Period_Id, Classes_Id,  AddName, AddTime,Teacher_Id,ClassRoom_Id)
     values (#{periodId,jdbcType=INTEGER}, #{classesId,jdbcType=INTEGER},
-      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{teacherId,jdbcType=INTEGER}, #{detailcourseId,jdbcType=INTEGER}
+      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{teacherId,jdbcType=INTEGER}
       , #{classroomId,jdbcType=INTEGER})
   </insert>
   

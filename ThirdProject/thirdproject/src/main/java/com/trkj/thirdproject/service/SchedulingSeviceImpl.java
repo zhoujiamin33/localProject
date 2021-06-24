@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,32 +36,66 @@ public class SchedulingSeviceImpl implements SchedulingSevice {
 //    }
         @Override
     public Scheduling insert(Scheduling scheduling) {
-            //搜索所有的课段
-            List<Trainingperiod> periodlist=  perioddao.selectAllTrainingperiods();
-            //搜索所有的教室
-            List<Classroom> classroomlist=classroomdao.findAllRoom();
-            //搜索所有的教师
-            List<Emp> emplist= empdao.selectAllEmp();
+            //新的集合
+            List<String> list=new ArrayList<>();
 
-//            //emplist>periodlist>classroomlist
-//            if(emplist.size()>periodlist.size() && emplist.size()>classroomlist.size() && periodlist.size()>classroomlist.size()){
-//
-//                //classroomlist>emplist>periodlist
-//            }else if(emplist.size()>periodlist.size() && emplist.size()<classroomlist.size() ){
-//
-//            }
-//         for(int i=0;i<scheduling.getCoursecount().toString().length();i++){
-//
-//             for (Trainingperiod t:periodlist){
-//                 for(int cl:scheduling.getClasslist()){
-//                     scheduling.setAddtime(new Date());
-//                     scheduling.setClassesId(cl);
-//                     scheduling.setPeriodId(t.getPeriodId());
-//                     schedulingdao.insert(scheduling);
-//                 }
-//             }
-//
-//         }
+            for (int t: scheduling.getPeriods()){
+                log.debug(t+"wwwww");
+                for (int cr :scheduling.getClassrooms()){
+                    log.debug(cr+"room");
+                    for (int e:scheduling.getEmps()){
+                        log.debug(e+"emp");
+                        log.debug(t+"-"+cr+"-"+e+"ghhhhhh");
+                        list.add(t+"-"+cr+"-"+e+"");
+                    }
+                }
+         }
+         log.debug(list.toString()+"------------------------------------------");
+
+
+            //            搜索排课表
+         List<Scheduling> schedulinglist=schedulingdao.selectAllScheduling();
+         List<String> sclist=new ArrayList<>();
+         for (Scheduling sc:schedulinglist){
+            log.debug(sc.getPeriodId()+"-"+sc.getClassroomId()+"-"+sc.getTeacherId());
+            sclist.add(sc.getPeriodId()+"-"+sc.getClassroomId()+"-"+sc.getTeacherId());
+         }
+         log.debug(sclist.toString()+"==================================");
+
+
+
+            //去掉集合中重复的元素
+         List<String> exists=new ArrayList<String>(list);
+         exists.removeAll(sclist);
+         log.debug(exists.toString()+"/////////////////////////////");
+
+
+
+            //给字段赋值
+         log.debug(scheduling.getCoursecount()+"");
+         log.debug(scheduling.getClasslist()+"");
+         int count=scheduling.getCoursecount()*scheduling.getClasslist().size();
+         log.debug(count+"count===");
+
+         for(int i=0;i<count;i++){
+             scheduling.setAddtime(new Date());
+
+             for (int classes:scheduling.getClasslist()){
+                 scheduling.setClassesId(classes);
+
+                 for (String schedul:exists){
+                     String[] abc=schedul.split("-");
+                     log.debug(schedul+"fff");
+                     log.debug(Integer.parseInt(abc[0])+"sss"+Integer.parseInt(abc[1])+"sss"+Integer.parseInt(abc[2])+"sss");
+                     scheduling.setPeriodId(Integer.parseInt(abc[0]));
+                     scheduling.setClassroomId(Integer.parseInt(abc[1]));
+                     scheduling.setTeacherId(Integer.parseInt(abc[2]));
+                     exists.remove(schedul);
+                 }
+                 schedulingdao.insert(scheduling);
+             }
+            break;
+         }
          return scheduling;
     }
 

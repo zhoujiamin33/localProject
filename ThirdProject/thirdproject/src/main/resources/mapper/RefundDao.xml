@@ -6,6 +6,7 @@
     <result column="Drop_Id" jdbcType="INTEGER" property="dropId" />
     <result column="Back_Id" jdbcType="INTEGER" property="backId" />
     <result column="Suspende_Id" jdbcType="INTEGER" property="suspendeId" />
+    <result column="Student_Id" jdbcType="INTEGER" property="studentId" />
     <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
     <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
     <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
@@ -21,11 +22,40 @@
     <result column="CW_DropAppName" jdbcType="VARCHAR" property="cwDropappname" />
     <result column="CW_DropAppTime" jdbcType="TIMESTAMP" property="cwDropapptime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+
+    <association property="student" javaType="com.trkj.thirdproject.entity.Student">
+      <id column="Student_Id" jdbcType="INTEGER" property="studentId" />
+      <result column="Student_Name" jdbcType="VARCHAR" property="studentName" />
+      <result column="Student_State" jdbcType="INTEGER" property="studentState" />
+      <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+      <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
+      <result column="Register_Id" jdbcType="INTEGER" property="registerId" />
+      <result column="Sex" jdbcType="VARCHAR" property="sex" />
+      <result column="Student_Phone" jdbcType="VARCHAR" property="studentPhone" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="ImgAddress" jdbcType="VARCHAR" property="imgaddress" />
+      <result column="ParentName" jdbcType="VARCHAR" property="parentname" />
+      <result column="ParentPhone" jdbcType="VARCHAR" property="parentphone" />
+      <result column="Student_Number" jdbcType="VARCHAR" property="studentNumber" />
+      <result column="Entrance" jdbcType="VARCHAR" property="entrance" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      <result column="StudyTime" jdbcType="TIMESTAMP" property="studytime" />
+    </association>
+
   </resultMap>
   <sql id="Base_Column_List">
-    Refund_Id, Drop_Id, Back_Id, Suspende_Id, Classes_Id, Course_Id, DetailCourse_Id, 
-    RefundType, Drop_Money, AddName, AddTime, DeleteName, DeleteTime, CW_Approval, CW_AppName, 
-    CW_AppTime, CW_DropAppName, CW_DropAppTime, TimeLiness
+    r.Refund_Id, r.Drop_Id, r.Back_Id, r.Suspende_Id, r.Classes_Id, r.Course_Id, r.DetailCourse_Id,
+    r.RefundType, r.Drop_Money, r.AddName, r.AddTime, r.DeleteName, r.DeleteTime, r.CW_Approval, r.CW_AppName,
+    r.CW_AppTime, r.CW_DropAppName, r.CW_DropAppTime, r.TimeLiness ,r.Student_Id
+  </sql>
+  <sql id="student">
+    stu.Student_Id, stu.Student_Name, stu.Student_State, stu.Classes_Id, stu.Source_Id, stu.Register_Id, stu.Sex,
+    stu.Student_Phone, stu.Address, stu.ImgAddress, stu.ParentName, stu.ParentPhone, stu.Student_Number, stu.Entrance,
+    stu.UpdateName, stu.UpdateTime, stu.DeleteName, stu.DeleteTime, stu.TimeLiness, stu.StudyTime
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -40,17 +70,19 @@
   </delete>
 <!--  新增退费-->
   <insert id="insertRefund" keyColumn="Refund_Id" keyProperty="refundId" parameterType="com.trkj.thirdproject.entity.Refund" useGeneratedKeys="true">
-    insert into Refund (Drop_Id, Back_Id, Suspende_Id, 
+    insert into Refund (Drop_Id, Back_Id, Suspende_Id, Student_Id,
       Classes_Id, Course_Id, DetailCourse_Id,RefundType, Drop_Money, AddName, AddTime)
-    values (#{dropId,jdbcType=INTEGER}, #{backId,jdbcType=INTEGER}, #{suspendeId,jdbcType=INTEGER}, 
+    values (#{dropId,jdbcType=INTEGER}, #{backId,jdbcType=INTEGER}, #{suspendeId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER},
       #{classesId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{detailcourseId,jdbcType=INTEGER}, 
-      #{refundtype,jdbcType=VARCHAR}, #{dropMoney,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR}, 
+      #{refundtype,jdbcType=VARCHAR}, #{dropMoney,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR},
       #{addtime,jdbcType=TIMESTAMP})
   </insert>
 
 <!--  查询退费-->
   <select id="selectAllRefund" resultMap="BaseResultMap">
-    select * from Refund
+    select <include refid="Base_Column_List"/>,<include refid="student"/>
+    from Refund r
+    inner join Student stu on stu.Student_Id=r.Student_Id
     order  by AddTime desc
   </select>
   <insert id="insertSelective" keyColumn="Refund_Id" keyProperty="refundId" parameterType="com.trkj.thirdproject.entity.Refund" useGeneratedKeys="true">

@@ -78,9 +78,13 @@ public class Scheduling implements Serializable {
 
     private List<Integer>periods;
     //接收前台的班级id集合
-    private List<Integer>classlist;
+    private List<Integer> classlist;
+    //接收前台的教室id集合
+    private List<Integer> classrooms;
+    //接收前台的教师id集合
+    private List<Integer> emps;
     //接收前台的排课次数
-    private Integer Coursecount;
+    private Integer coursecount;
 
     private static final long serialVersionUID = 1L;
 }

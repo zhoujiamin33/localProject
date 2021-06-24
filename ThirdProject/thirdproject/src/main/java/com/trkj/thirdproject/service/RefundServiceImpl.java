@@ -27,7 +27,8 @@ public class RefundServiceImpl implements RefundService {
     public Refund insertRefund(Refund refund) {
         //得到课程详细id
         Detailcourse detailcourse=classesdao.selectDetailCourse(refund.getClassesId());
-        Integer detailcourseId=detailcourse.getDetailcourseId();
+        int detailcourseId=detailcourse.getDetailcourseId();
+        log.debug(detailcourseId+"id");
         refund.setDetailcourseId(detailcourseId);
         //退费类型
         refund.setRefundtype("退学退费");
@@ -40,7 +41,10 @@ public class RefundServiceImpl implements RefundService {
         BigDecimal Hoursmoney=classes.getCourse().getCourseMoney();
         BigDecimal allsprice= Hoursmoney.multiply(new BigDecimal(totalHours-yishang));
         refund.setDropMoney(allsprice);
-        return refunddao.insertRefund(refund);
+        log.debug(allsprice+"allsprice");
+        log.debug("新增退费完成"+"-----------------------------------------");
+         refunddao.insertRefund(refund);
+        return refund;
     }
 
     @Override

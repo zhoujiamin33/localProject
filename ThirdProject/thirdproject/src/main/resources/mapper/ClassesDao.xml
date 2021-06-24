@@ -109,6 +109,19 @@
     </association>
 
   </resultMap>
+  <resultMap id="Detailcourse" type="com.trkj.thirdproject.entity.Detailcourse">
+    <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+    <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+    <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName" />
+    <result column="Serial" jdbcType="INTEGER" property="serial" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
   <sql id="DetailCourse">
     d.DetailCourse_Id, d.Course_Id, d.DetailCourse_Name, d.Serial, d.AddName, d.AddTime, d.UpdateName,
     d.UpdateTime, d.DeleteName, d.DeleteTime, d.TimeLiness
@@ -185,7 +198,7 @@
   </select>
 
   <!--  根据班级id查询课程详细-->
-  <select id="selectDetailCourse" resultMap="BaseResultMap">
+  <select id="selectDetailCourse" resultMap="Detailcourse">
     select
     <include refid="Base_Column_List" />,
     <include refid="Base_Column_course"/>,
