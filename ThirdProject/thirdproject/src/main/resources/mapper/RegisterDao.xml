@@ -19,6 +19,7 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="total" jdbcType="INTEGER" property="total" />
     <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
     <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
     <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
@@ -161,10 +162,12 @@
     select
     <include refid="Base_Column_List" />,
     <include refid="course"/>,
-    <include refid="source"/>
+    <include refid="source"/>,
+    <include refid="emp"/>
     from Register reg
     inner join Course c on c.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
+    inner join Emp e on  e.Emp_Id=reg.Emp_Id
     where reg.TimeLiness=0
   </select>
 
@@ -185,12 +188,16 @@
     select
     <include refid="Base_Column_List" />,
     <include refid="course"/>,
-    <include refid="source"/>
+    <include refid="source"/>,
+    <include refid="emp"/>
     from Register reg
     inner join Course c on c.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
+    inner join Emp e on  e.Emp_Id=reg.Emp_Id
     where reg.Register_Id = #{registerId,jdbcType=INTEGER}
   </select>
+
+
 <!--  -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Register
@@ -205,6 +212,10 @@
       #{consultationmode,jdbcType=VARCHAR}, #{attentstate,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{empId,jdbcType=INTEGER},
       #{consultcontent,jdbcType=VARCHAR},  #{phone,jdbcType=VARCHAR},#{courseId,jdbcType=INTEGER})
   </insert>
+  <select id="ConsultationmodeStatistics" resultType="java.util.Map">
+    select Consultationmode,count(1) as total from Register where TimeLiness=0 group by Consultationmode;
+  </select>
+
   <insert id="insertSelective" keyColumn="Register_Id" keyProperty="registerId" parameterType="com.trkj.thirdproject.entity.Register" useGeneratedKeys="true">
     insert into Register
     <trim prefix="(" suffix=")" suffixOverrides=",">

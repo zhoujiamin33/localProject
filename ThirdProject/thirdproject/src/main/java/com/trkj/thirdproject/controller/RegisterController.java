@@ -8,14 +8,15 @@ import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.service.CourseService;
 import com.trkj.thirdproject.service.RegisterService;
 import com.trkj.thirdproject.service.StudentService;
+import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jmx.export.annotation.ManagedOperationParameter;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+
 
 @RestController
 @Slf4j
@@ -38,6 +39,7 @@ public class RegisterController {
     }
     //新增
     @PostMapping("/AddRegister")
+
     public Register insertRegister(@RequestBody Register register){
         log.debug(register.toString());
         register=registerService.insert(register);
@@ -53,7 +55,6 @@ public class RegisterController {
     @PutMapping("/DelReg/{registerId}")
     public int delstuRegTime(@PathVariable("registerId") List<Integer>registerId){
         log.debug("启用");
-
         String lastupdatename="阿文";
         Date lastupdatetime=new Date();
         return registerService.delstuRegTime(registerId,lastupdatename,lastupdatetime);
@@ -75,7 +76,11 @@ public class RegisterController {
     public int updatepaystate(@PathVariable("registerId") Integer  registerId){
         return  registerService.updatepaystate(registerId);
     }
-
+    //报表统计中统计每种咨询方式的使用次数
+    @GetMapping("/ConsultationmodeStatistics")
+    public AjaxResponse ConsultationmodeStatistics(){
+         return AjaxResponse.success(registerService.ConsultationmodeStatistics());
+    }
     @GetMapping("/findRegisterId/{registerId}")
     public void findregister(@PathVariable("registerId") String registerId) {
         log.debug(registerId);

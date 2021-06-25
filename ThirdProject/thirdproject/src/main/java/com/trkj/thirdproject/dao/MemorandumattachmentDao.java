@@ -17,7 +17,8 @@ public interface MemorandumattachmentDao {
     Memorandumattachment selectByPrimaryKey(Integer memorandumattachmentId);
 
     List<Memorandumattachment> selectMemorandumAttachment();
-
+//    分页显示
+    List<Memorandumattachment> selectAIIMem();
 
     int PiliangZssp(@Param("memorandumattachmentId" ) int MemorandumAttachment_Id, @Param("jwexaminetime") Date JWExamineTime);
 

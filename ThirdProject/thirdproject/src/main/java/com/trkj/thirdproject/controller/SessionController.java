@@ -36,7 +36,7 @@ public class SessionController {
     }
     //分页
     @GetMapping("/findPageSession")
-    public PageInfo<Session> findPageFaq(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+    public PageInfo<Session> findPageSession(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         PageHelper.startPage(currentPage,pagesize);
         List<Session> entityPage=sessionService.selectAIISessions();
         PageInfo<Session> classtypePageInfo=new PageInfo<>(entityPage);
