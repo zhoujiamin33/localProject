@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.OpjournalDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Opjournal">
+    <id column="OpJournal_Id" jdbcType="INTEGER" property="opjournalId" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    <result column="OpContent" jdbcType="VARCHAR" property="opcontent" />
+    <result column="OpTime" jdbcType="TIMESTAMP" property="optime" />
+    <association property="emp" javaType="com.trkj.thirdproject.entity.Emp">
+      <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
+      <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
+      <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+      <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId" />
+      <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber" />
+      <result column="Emp_Name" jdbcType="VARCHAR" property="empName" />
+      <result column="Emp_Sex" jdbcType="CHAR" property="empSex" />
+      <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone" />
+      <result column="E_mail" jdbcType="VARCHAR" property="eMail" />
+      <result column="Birthday" jdbcType="TIMESTAMP" property="birthday" />
+      <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto" />
+      <result column="Photo" jdbcType="VARCHAR" property="photo" />
+      <result column="Education" jdbcType="VARCHAR" property="education" />
+      <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
+      <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="WorkersState" jdbcType="INTEGER" property="workersstate" />
+      <result column="Password" jdbcType="VARCHAR" property="password" />
+      <result column="Addname" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="LeaveName" jdbcType="VARCHAR" property="leavename" />
+      <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime" />
+      <result column="EmpState" jdbcType="INTEGER" property="empstate" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    o.OpJournal_Id, o.Emp_Id, o.OpContent, o.OpTime
+  </sql>
+  <sql id="emp">
+    e.Emp_Id,  e.Position_Id,  e.Dept_Id,  e.Enterprise_Id,  e.JobNumber,  e.Emp_Name,  e.Emp_Sex,  e.Emp_Phone,
+     e.E_mail,  e.Birthday,  e.PersonalInformationPhoto,  e.Photo,  e.Education,  e.Graduate,  e.Remarks,
+     e.Address,  e.WorkersState,  e.`Password`,  e.Addname,  e.AddTime,  e.UpdateName,  e.UpdateTime,  e.LeaveName,
+     e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OpJournal o
+    where o.OpJournal_Id = #{opjournalId,jdbcType=INTEGER}
+  </select>
+<!--  显示-->
+  <select id="selectByPrimary" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="emp"/>
+    from OpJournal o inner join Emp e on o.Emp_Id=e.Emp_Id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from OpJournal
+    where OpJournal_Id = #{opjournalId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="OpJournal_Id" keyProperty="opjournalId" parameterType="com.trkj.thirdproject.entity.Opjournal" useGeneratedKeys="true">
+    insert into OpJournal (Emp_Id, OpContent, OpTime
+      )
+    values (#{empId,jdbcType=INTEGER}, #{opcontent,jdbcType=VARCHAR}, #{optime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="OpJournal_Id" keyProperty="opjournalId" parameterType="com.trkj.thirdproject.entity.Opjournal" useGeneratedKeys="true">
+    insert into OpJournal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+      <if test="opcontent != null">
+        OpContent,
+      </if>
+      <if test="optime != null">
+        OpTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="opcontent != null">
+        #{opcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="optime != null">
+        #{optime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Opjournal">
+    update OpJournal
+    <set>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="opcontent != null">
+        OpContent = #{opcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="optime != null">
+        OpTime = #{optime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where OpJournal_Id = #{opjournalId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Opjournal">
+    update OpJournal
+    set Emp_Id = #{empId,jdbcType=INTEGER},
+      OpContent = #{opcontent,jdbcType=VARCHAR},
+      OpTime = #{optime,jdbcType=TIMESTAMP}
+    where OpJournal_Id = #{opjournalId,jdbcType=INTEGER}
+  </update>
+</mapper>

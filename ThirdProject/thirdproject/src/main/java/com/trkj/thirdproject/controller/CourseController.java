@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,13 +34,13 @@ public class CourseController {
     @PostMapping("/addCourse")
     public Course addCourse( @RequestBody Course course){
         log.debug("新增课程");
-        course=courseservice.insertCoursetype(course);
+        course=courseservice.insertCourse(course);
         return course;
     }
     @PutMapping("/updateCourse")
     public Course updateCourse(@RequestBody Course course){
         log.debug("修改课程");
-        courseservice.updateCourse(course);
+       course= courseservice.updateCourse(course);
         return course;
     }
     //根据id查询课程
@@ -53,6 +54,13 @@ public class CourseController {
     public List<Course> selectByCourseTypeId(@PathVariable("courseTypeName") String  courseTypeName){
         log.debug("根据课类名称查询课程");
         return courseservice.selectByCourseTypeName(courseTypeName);
+    }
+    @PutMapping("/updateCourseState")
+    public Course updateCourseState(@RequestBody Course course){
+        log.debug("修改课程状态");
+        course.setUpdatetime(new Date());
+        course =courseservice.updateCourseState(course);
+        return course;
     }
     //----------------------------------------教室表--------------------------------------------------------------------
 
@@ -89,5 +97,14 @@ public class CourseController {
         List<Detailcourse> entityPage=courseservice.selectByKey(courseId);
         PageInfo<Detailcourse> detailcoursePageInfo=new PageInfo<>(entityPage);
         return detailcoursePageInfo;
+    }
+    @GetMapping("/selectByCourseKey100/{courseid}")
+    public Detailcourse selectByCourseKey100( @PathVariable("courseid") Integer course_id){
+        return courseservice.selectByCourseKey100(course_id);
+    }
+    @PostMapping("/addDetails")
+    public Detailcourse addDetails( @RequestBody Detailcourse detailcourse){
+       detailcourse= courseservice.addDetails(detailcourse);
+        return detailcourse;
     }
 }

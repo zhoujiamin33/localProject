@@ -1,8 +1,10 @@
 package com.trkj.thirdproject.controller;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Bookstorage;
+import com.trkj.thirdproject.entity.Deliveryddetails;
 import com.trkj.thirdproject.entity.Storageexpenditure;
 import com.trkj.thirdproject.service.BookstorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +40,11 @@ public class BookstorageController {
         return bookstorage;
     }
 
+    @GetMapping("/selectBookstorage/{value}/{input}")
+    public List<Bookstorage> selectBookstorage(@PathVariable("value") String value, @PathVariable("input") String input){
+        return bookstorageService.selectBookstorage(value, input);
+    }
+
     @DeleteMapping("/delBookstorage/{mbookstorageId}")
     public String delBookstorage(@PathVariable("mbookstorageId") int mbookstorageId){
         log.debug("开始删除");
@@ -48,6 +55,30 @@ public class BookstorageController {
 //    新增教材入库支出
     @PostMapping("/insertExpenditure")
     public Storageexpenditure insertExpenditure(@RequestBody Storageexpenditure storageexpenditure){
-        return bookstorageService.insertStorageexpenditure(storageexpenditure);
+        bookstorageService.insertStorageexpenditure(storageexpenditure);
+        return storageexpenditure;
+    }
+    //查询所有教材入库
+    @GetMapping("/selectAllStorage")
+    public PageInfo<Storageexpenditure> selectAllStorage(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Storageexpenditure> entityPage=bookstorageService.selectAllStorage();
+        PageInfo<Storageexpenditure> storagePageinfo=new PageInfo<>(entityPage);
+        return storagePageinfo;
+    }
+    @PutMapping("/updateApproval")
+    public Storageexpenditure updateApproval( @RequestBody Storageexpenditure storageexpenditure){
+        storageexpenditure=bookstorageService.updateApproval(storageexpenditure);
+        return  storageexpenditure;
+    }
+    @PutMapping("/updateReApproval")
+    public Storageexpenditure updateReApproval( @RequestBody Storageexpenditure storageexpenditure){
+        storageexpenditure=bookstorageService.updateReApproval(storageexpenditure);
+        return  storageexpenditure;
+    }
+    @PutMapping("/deleteTimeliness")
+    public Storageexpenditure deleteTimeliness( @RequestBody Storageexpenditure storageexpenditure){
+        storageexpenditure=bookstorageService.deleteTimeliness(storageexpenditure);
+        return  storageexpenditure;
     }
 }

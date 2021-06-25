@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.WarehouseincomeDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Warehouseincome">
+    <id column="WarehouseIncome_Id" jdbcType="INTEGER" property="warehouseincomeId" />
+    <result column="Refund_Name" jdbcType="VARCHAR" property="refundName" />
+    <result column="Refund_Date" jdbcType="TIMESTAMP" property="refundDate" />
+    <result column="BookDelivery_Id" jdbcType="INTEGER" property="bookdeliveryId" />
+    <result column="Refund_details" jdbcType="VARCHAR" property="refundDetails" />
+    <result column="Refund_Count" jdbcType="INTEGER" property="refundCount" />
+    <result column="TotalMoney" jdbcType="DECIMAL" property="totalmoney" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="ApprovalName" jdbcType="VARCHAR" property="approvalname" />
+    <result column="ApprovalTime" jdbcType="TIMESTAMP" property="approvaltime" />
+    <result column="Approval" jdbcType="INTEGER" property="approval" />
+    <result column="RevokeAppName" jdbcType="VARCHAR" property="revokeappname" />
+    <result column="RevokeAppTime" jdbcType="TIMESTAMP" property="revokeapptime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    WarehouseIncome_Id, Refund_Name, Refund_Date, BookDelivery_Id, Refund_details, Refund_Count,
+    TotalMoney, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime,
+    ApprovalName, ApprovalTime, Approval, RevokeAppName, RevokeAppTime,TimeLiness
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WarehouseIncome
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from WarehouseIncome
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
+  </delete>
+  <!--  修改为审核状态-->
+  <update id="updateApproval">
+    update WarehouseIncome set Approval=1 ,ApprovalName=#{approvalname,jdbcType=VARCHAR}, ApprovalTime=#{approvaltime,jdbcType=TIMESTAMP}
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
+  </update>
+  <!--  修改为撤销审核状态-->
+  <update id="updateReApproval">
+    update WarehouseIncome set Approval=0 ,RevokeAppName=#{revokeappname,jdbcType=VARCHAR},RevokeAppTime=#{revokeapptime,jdbcType=TIMESTAMP}
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
+  </update>
+  <!--  查询所有教材出库收入-->
+  <select id="selectAllincome" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from WarehouseIncome
+    where TimeLiness=0
+    order by AddTime desc
+  </select>
+<!--  新增教材出库收入-->
+  <insert id="insert" keyColumn="WarehouseIncome_Id" keyProperty="warehouseincomeId" parameterType="com.trkj.thirdproject.entity.Warehouseincome" useGeneratedKeys="true">
+    insert into WarehouseIncome (Refund_Name, Refund_Date, BookDelivery_Id, Refund_details, Refund_Count,
+      TotalMoney, AddName, AddTime)
+    values (#{refundName,jdbcType=VARCHAR}, #{refundDate,jdbcType=TIMESTAMP}, #{bookdeliveryId,jdbcType=INTEGER}, 
+      #{refundDetails,jdbcType=VARCHAR}, #{refundCount,jdbcType=INTEGER},
+      #{totalmoney,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="WarehouseIncome_Id" keyProperty="warehouseincomeId" parameterType="com.trkj.thirdproject.entity.Warehouseincome" useGeneratedKeys="true">
+    insert into WarehouseIncome
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="refundName != null">
+        Refund_Name,
+      </if>
+      <if test="refundDate != null">
+        Refund_Date,
+      </if>
+      <if test="bookdeliveryId != null">
+        BookDelivery_Id,
+      </if>
+      <if test="refundDetails != null">
+        Refund_details,
+      </if>
+      <if test="refundCount != null">
+        Refund_Count,
+      </if>
+      <if test="usecash != null">
+        UseCash,
+      </if>
+      <if test="totalmoney != null">
+        TotalMoney,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="approvalname != null">
+        ApprovalName,
+      </if>
+      <if test="approvaltime != null">
+        ApprovalTime,
+      </if>
+      <if test="approval != null">
+        Approval,
+      </if>
+      <if test="revokeappname != null">
+        RevokeAppName,
+      </if>
+      <if test="revokeapptime != null">
+        RevokeAppTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="refundName != null">
+        #{refundName,jdbcType=VARCHAR},
+      </if>
+      <if test="refundDate != null">
+        #{refundDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookdeliveryId != null">
+        #{bookdeliveryId,jdbcType=INTEGER},
+      </if>
+      <if test="refundDetails != null">
+        #{refundDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="refundCount != null">
+        #{refundCount,jdbcType=INTEGER},
+      </if>
+      <if test="usecash != null">
+        #{usecash,jdbcType=DECIMAL},
+      </if>
+      <if test="totalmoney != null">
+        #{totalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalname != null">
+        #{approvalname,jdbcType=VARCHAR},
+      </if>
+      <if test="approvaltime != null">
+        #{approvaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approval != null">
+        #{approval,jdbcType=INTEGER},
+      </if>
+      <if test="revokeappname != null">
+        #{revokeappname,jdbcType=VARCHAR},
+      </if>
+      <if test="revokeapptime != null">
+        #{revokeapptime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Warehouseincome">
+    update WarehouseIncome
+    <set>
+      <if test="refundName != null">
+        Refund_Name = #{refundName,jdbcType=VARCHAR},
+      </if>
+      <if test="refundDate != null">
+        Refund_Date = #{refundDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookdeliveryId != null">
+        BookDelivery_Id = #{bookdeliveryId,jdbcType=INTEGER},
+      </if>
+      <if test="refundDetails != null">
+        Refund_details = #{refundDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="refundCount != null">
+        Refund_Count = #{refundCount,jdbcType=INTEGER},
+      </if>
+      <if test="usecash != null">
+        UseCash = #{usecash,jdbcType=DECIMAL},
+      </if>
+      <if test="totalmoney != null">
+        TotalMoney = #{totalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalname != null">
+        ApprovalName = #{approvalname,jdbcType=VARCHAR},
+      </if>
+      <if test="approvaltime != null">
+        ApprovalTime = #{approvaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approval != null">
+        Approval = #{approval,jdbcType=INTEGER},
+      </if>
+      <if test="revokeappname != null">
+        RevokeAppName = #{revokeappname,jdbcType=VARCHAR},
+      </if>
+      <if test="revokeapptime != null">
+        RevokeAppTime = #{revokeapptime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Warehouseincome">
+    update WarehouseIncome
+    set Refund_Name = #{refundName,jdbcType=VARCHAR},
+      Refund_Date = #{refundDate,jdbcType=TIMESTAMP},
+      BookDelivery_Id = #{bookdeliveryId,jdbcType=INTEGER},
+      Refund_details = #{refundDetails,jdbcType=VARCHAR},
+      Refund_Count = #{refundCount,jdbcType=INTEGER},
+      UseCash = #{usecash,jdbcType=DECIMAL},
+      TotalMoney = #{totalmoney,jdbcType=DECIMAL},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      ApprovalName = #{approvalname,jdbcType=VARCHAR},
+      ApprovalTime = #{approvaltime,jdbcType=TIMESTAMP},
+      Approval = #{approval,jdbcType=INTEGER},
+      RevokeAppName = #{revokeappname,jdbcType=VARCHAR},
+      RevokeAppTime = #{revokeapptime,jdbcType=TIMESTAMP}
+    where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
+  </update>
+</mapper>

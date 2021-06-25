@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Position;
 import com.trkj.thirdproject.service.PositionService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +21,13 @@ public class PositionController {
         return positionService.selectAllposition();
     }
     @PostMapping("/position")
+    @LogginAnnotation(message = "新增职位")
     public Position addposition(@RequestBody Position position){
         position=positionService.addposition(position);
         return position;
     }
     @PutMapping("/position")
+    @LogginAnnotation(message = "修改职位")
     public Position updateposition(@RequestBody Position position){
         position=positionService.updateposition(position);
         return position;
@@ -42,6 +45,7 @@ public class PositionController {
     }
     //删除后为已过期
     @PutMapping("/delTimeLiness/{positionId}")
+    @LogginAnnotation(message = "删除职位")
     public int delTimeLiness(@PathVariable("positionId") Integer positionId){
         return positionService.delTimeLiness(positionId);
     }

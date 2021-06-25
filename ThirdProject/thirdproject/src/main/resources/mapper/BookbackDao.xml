@@ -91,6 +91,26 @@
     from BookBack bb
     inner join Emp e on bb.Emp_Id=e.Emp_Id
     inner join Book b on bb.Book_Id=b.Book_Id
+    where TimeLiness=0
+  </select>
+  <!--  多条件查询-->
+  <select id="selectBookBack" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Book" />,
+    <include refid="Emp" />
+    from BookBack bb
+    inner join Book b on bb.Book_Id=b.Book_Id
+    inner join Emp e on bb.Emp_Id=e.Emp_Id
+    <where>
+      <if test="value=='教材名' and input!=null">
+        b.BookName like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+      <if test="value=='经办人' and input!=null">
+        e.Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+    </where>
+    order by bb.StorageTime desc    <!-->升序asc<-->
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from BookBack
@@ -270,23 +290,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Bookback">
     update BookBack
-    set Emp_Id = #{empId,jdbcType=INTEGER},
-      Book_Id = #{bookId,jdbcType=INTEGER},
-      ReturnNumber =#{returnnumber,jdbcType=VARCHAR},
-      StorageTime = #{storagetime,jdbcType=TIMESTAMP},
-      CauseOfDamage = #{causeofdamage,jdbcType=VARCHAR},
-      UpdateName = #{updatename,jdbcType=VARCHAR},
-      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
-      DeleteName = #{deletename,jdbcType=VARCHAR},
-      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
-      Approval = #{approval,jdbcType=INTEGER},
-      AppName = #{appname,jdbcType=VARCHAR},
-      AppTime = #{apptime,jdbcType=TIMESTAMP},
-      Revoke_AppName = #{revokeAppname,jdbcType=VARCHAR},
-      Revoke_AppTime = #{revokeApptime,jdbcType=TIMESTAMP},
-      TimeLiness = #{timeliness,jdbcType=INTEGER},
-      BackCount = #{backcount,jdbcType=INTEGER},
-      BackMoney = #{backmoney,jdbcType=DECIMAL}
+    set TimeLiness=1
     where BookBack_Id = #{bookbackId,jdbcType=INTEGER}
   </update>
 </mapper>

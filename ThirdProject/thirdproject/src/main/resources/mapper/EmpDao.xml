@@ -81,7 +81,20 @@
     from Emp e
     where e.Emp_Id = #{empId,jdbcType=INTEGER}
   </select>
-
+<!--查询已限制的-->
+  <select id="selectByPrimary" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Emp e
+    where e.LoginState=1
+  </select>
+<!--  查看未限制-->
+  <select id="selectByPrimarywei" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Emp e
+    where e.LoginState=0
+  </select>
   <insert id="insertSelective" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">
     insert into Emp
     <trim prefix="(" suffix=")" suffixOverrides=",">

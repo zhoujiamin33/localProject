@@ -22,6 +22,7 @@
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
     <result column="User_BookId" jdbcType="INTEGER" property="userbookId" />
+    <result column="WhenDetails" jdbcType="INTEGER" property="whendetails"/>
 <!--    课程表-->
     <association property="course" javaType="com.trkj.thirdproject.entity.Course">
       <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
@@ -93,7 +94,38 @@
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
     </association>
+    <association property="detailcourse" javaType="com.trkj.thirdproject.entity.Detailcourse">
+      <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+      <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName" />
+      <result column="Serial" jdbcType="INTEGER" property="serial" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </association>
+
   </resultMap>
+  <resultMap id="Detailcourse" type="com.trkj.thirdproject.entity.Detailcourse">
+    <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+    <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+    <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName" />
+    <result column="Serial" jdbcType="INTEGER" property="serial" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="DetailCourse">
+    d.DetailCourse_Id, d.Course_Id, d.DetailCourse_Name, d.Serial, d.AddName, d.AddTime, d.UpdateName,
+    d.UpdateTime, d.DeleteName, d.DeleteTime, d.TimeLiness
+  </sql>
   <sql id="classRoom">
     cr.ClassRoom_Id, cr.ClassRoom_Name, cr.Cacacity, cr.Place, cr.AddName, cr.AddTime, cr.UpdateName, cr.UpdateTime,
     cr.DeleteName, cr.DeleteTime, cr.TimeLiness
@@ -107,7 +139,7 @@
   <sql id="Base_Column_List">
     cl.Classes_Id, cl.Classes_Name, cl.Classes_Open, cl.Course_Id, cl.ClassRoom_Id, cl.Teacher_Id, cl.Emp_Id,
     cl.DetailCourse_Id, cl.StartedDate, cl.EndDate, cl.LastDate, cl.AddName, cl.AddTime, cl.UpdateName, cl.UpdateTime,
-    cl.DeleteName, cl.DeleteTime, cl.TimeLiness,cl.Classes_Number,cl.User_BookId
+    cl.DeleteName, cl.DeleteTime, cl.TimeLiness,cl.Classes_Number,cl.User_BookId,cl.Classes_Open ,cl.WhenDetails
   </sql>
   <sql id="Base_Column_course">
     c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
@@ -118,7 +150,110 @@
   </sql>
 
 
-<!--  多条件查询-->
+
+  <!--  根据班级id查询当前班级的进度-->
+  <select id="selectnotDetails" resultMap="BaseResultMap">
+  select
+  <include refid="DetailCourse"/>,
+  <include refid="Base_Column_List"/>
+  from DetailCourse d
+  inner join Classes cl on cl.Course_Id=d.Course_Id
+  where cl.Classes_Id=#{classesId,jdbcType=INTEGER} and d.Serial !=#{serial,jdbcType=INTEGER}
+</select>
+
+  <!--根据课程编号查询所对应的班级-  - xing -  -->
+  <select id="selectcourseId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_course"/>,
+    <include refid="emp"/>,
+    <include refid="classRoom"/>,
+    <include refid="book"/>,
+    <include refid="DetailCourse"/>
+    from Classes cl
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+    where cl.Course_Id=#{courseId,jdbcType=INTEGER}
+  </select>
+
+  <!--  根据id查询班级-->
+  <select id="selectById" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_course"/>,
+    <include refid="emp"/>,
+    <include refid="classRoom"/>,
+    <include refid="book"/>,
+    <include refid="DetailCourse"/>
+    from Classes cl
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+    where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
+  </select>
+
+  <!--  根据班级id查询课程详细-->
+  <select id="selectDetailCourse" resultMap="Detailcourse">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_course"/>,
+    <include refid="emp"/>,
+    <include refid="classRoom"/>,
+    <include refid="book"/>,
+    <include refid="DetailCourse"/>
+    from Classes cl
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+    where Classes_Id = #{classesId,jdbcType=INTEGER}
+    order by cl.AddName desc
+  </select>
+
+  <!--  查询所有已开班的班级-->
+  <select id="selectOpen" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_course"/>,
+    <include refid="emp"/>,
+    <include refid="classRoom"/>,
+    <include refid="book"/>,
+    <include refid="DetailCourse"/>
+    from Classes cl
+    inner join Course c on cl.Course_Id=c.Course_Id
+    inner join Emp e on e.Emp_Id=cl.Emp_Id
+    inner join Book b on b.Book_Id=cl.User_BookId
+    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+    where cl.Classes_Open=1 order by cl.AddTime desc
+  </select>
+
+  <!--  修改为已开班-->
+  <update id="updateClassesOpen1">
+    update Classes set Classes_Open=1,UpdateName=#{updatename,jdbcType=VARCHAR},
+    UpdateTime=#{updatetime,jdbcType=TIMESTAMP},StartedDate=#{starteddate,jdbcType=TIMESTAMP}
+    where Classes_Id = #{classesId,jdbcType=INTEGER}
+  </update>
+
+  <!--  根据课程id查询课程详细表序列号为第一条的数据，赋值给刚刚开班的班级  -（查询、修改）-->
+  <update id="updateDetails">
+    update Classes set DetailCourse_Id=#{detailcourseId,jdbcType=INTEGER}
+    where Classes_Id = #{classesId,jdbcType=INTEGER}
+  </update>
+
+  <!--  修改未开班-->
+  <update id="updateClassesOpen0">
+    update Classes set Classes_Open=0,UpdateName=#{updatename,jdbcType=VARCHAR}, UpdateTime=#{updatetime,jdbcType=TIMESTAMP}
+    where Classes_Id = #{classesId,jdbcType=INTEGER}
+  </update>
+
+  <!--  多条件查询-->
   <select id="selectByContion" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,
@@ -144,6 +279,7 @@
     </where>
     order by cl.AddTime desc
   </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -151,19 +287,18 @@
     where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
     order by AddTime desc
   </select>
-<!--  查询所有班级-->
+
+  <!--  查询所有班级-->
   <select id="findAllclass"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,
     <include refid="Base_Column_course"/>,
     <include refid="emp"/>,
-    <include refid="classRoom"/>,
     <include refid="book"/>
     from Classes cl
     inner join Course c on cl.Course_Id=c.Course_Id
     inner join Emp e on e.Emp_Id=cl.Emp_Id
     inner join Book b on b.Book_Id=cl.User_BookId
-    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
     where cl.TimeLiness=0
     order  by cl.AddTime desc
   </select>
@@ -171,11 +306,12 @@
     delete from Classes
     where Classes_Id = #{classesId,jdbcType=INTEGER}
   </delete>
+  <!--  新增班级-->
   <insert id="insert" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
     insert into Classes (Classes_Name, Course_Id,Classes_Number,
-      ClassRoom_Id, Teacher_Id, Emp_Id, AddName, AddTime,User_BookId)
+       Emp_Id, AddName, AddTime,User_BookId)
     values (#{classesName,jdbcType=VARCHAR},#{courseId,jdbcType=INTEGER},#{classesNumber,jdbcType=VARCHAR},
-      #{classroomId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR},
+       #{empId,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR},
        #{addtime,jdbcType=TIMESTAMP},#{userbookId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">

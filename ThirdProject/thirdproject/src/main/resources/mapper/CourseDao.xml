@@ -15,7 +15,7 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-
+<!--课类-->
     <association javaType="com.trkj.thirdproject.entity.Classtype" property="classtype">
       <id column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
       <result column="ClassType_Name" jdbcType="VARCHAR" property="classtypeName" />
@@ -35,7 +35,7 @@
   </sql>
   <sql id="BaseType">
     t.ClassType_Id, t.ClassType_Name, t.AddName, t.AddTime, t.UpdateName, t.UpdateTime, t.DeleteName,
-   t.DeleteTime, t.TimeLiness
+    t.DeleteTime, t.TimeLiness
   </sql>
 <!--  根据课类名称查询所有课程-->
   <select id="selectByCourseTypeName" resultMap="BaseResultMap">
@@ -45,6 +45,14 @@
     where t.ClassType_Name=#{classtypeName,jdbcType=VARCHAR}
     order by c.AddTime desc
   </select>
+<!--  根据课程编号查询课类所有-->
+  <select id="selectByCourseTypeId" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />,<include refid="BaseType"/>
+    from Course c
+    inner join ClassType t on c.ClassType_Id=t.ClassType_Id
+    where t.ClassType_Id=#{classtypeId,jdbcType=VARCHAR} and c.Course_State=1
+    order by c.AddTime desc
+  </select>
 <!--  搜索课程-->
   <select id="selectAllCourse"  resultMap="BaseResultMap">
     select  <include refid="Base_Column_List" />,<include refid="BaseType"/>
@@ -52,16 +60,17 @@
     inner join ClassType t on c.ClassType_Id=t.ClassType_Id
     order by c.AddTime desc
   </select>
-<!--  修改名称、课时量、费用、开设状态-->
+<!--  根据课程id修改开课状态-->
+  <update id="updateCourseState">
+    update Course set Course_State=1, UpdateName=#{updatename,jdbcType=VARCHAR},UpdateTime=#{updatetime,jdbcType=TIMESTAMP}
+    where Course_Id = #{courseId,jdbcType=INTEGER}
+  </update>
+<!--  修改名称、课时量、费用 修改课程状态为开课-->
 <update id="updateCourse" parameterType="com.trkj.thirdproject.entity.Course">
   update Course
   <set>
-
       <if test="courseName!=null">
         Course_Name=#{courseName,jdbcType=VARCHAR},
-      </if>
-      <if test="courseState!=null">
-        Course_State=#{courseState,jdbcType=INTEGER},
       </if>
       <if test="classhours!=null">
         Classhours=#{classhours,jdbcType=INTEGER},
@@ -94,24 +103,23 @@
     where Course_Id = #{courseId,jdbcType=INTEGER}
   </delete>
 
-  <!--  新增课程-->
+
   <insert id="insert" keyColumn="Course_Id" keyProperty="courseId" parameterType="com.trkj.thirdproject.entity.Course" useGeneratedKeys="true">
-    insert into Course (Course_Name, Course_State, Classhours,
+    insert into Course (Course_Name, Classhours,
       Course_Money, ClassType_Id, AddName, 
       AddTime, UpdateName, UpdateTime, 
-      DeleteName, DeleteTime, TimeLiness
-      )
-    values (#{courseName,jdbcType=VARCHAR}, #{courseState,jdbcType=INTEGER}, #{classhours,jdbcType=INTEGER}, 
+      DeleteName, DeleteTime, TimeLiness)
+    values (#{courseName,jdbcType=VARCHAR},  #{classhours,jdbcType=INTEGER},
       #{courseMoney,jdbcType=DECIMAL}, #{classtypeId,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, 
       #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}
       )
   </insert>
-
-  <insert id="insertCoursetype" keyColumn="Course_Id" keyProperty="courseId" parameterType="com.trkj.thirdproject.entity.Course" useGeneratedKeys="true">
-     insert into Course(ClassType_Id,Course_Name, Classhours, Course_Money,AddName) values
+  <!--  新增课程-->
+  <insert id="insertCourse" keyColumn="Course_Id" keyProperty="courseId" parameterType="com.trkj.thirdproject.entity.Course" useGeneratedKeys="true">
+     insert into Course(ClassType_Id,Course_Name, Classhours, Course_Money,AddName,AddTime) values
       (#{classtypeId,jdbcType=INTEGER},#{courseName,jdbcType=VARCHAR}, #{classhours,jdbcType=INTEGER},
-      #{courseMoney,jdbcType=DECIMAL},#{addname,jdbcType=VARCHAR})
+      #{courseMoney,jdbcType=DECIMAL},#{addname,jdbcType=VARCHAR},#{addtime,jdbcType=TIMESTAMP})
   </insert>
 
 <!--根据id修改课程-->

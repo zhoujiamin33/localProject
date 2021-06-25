@@ -3,6 +3,9 @@ package com.trkj.thirdproject.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 /**
@@ -24,6 +27,7 @@ public class Storageexpenditure implements Serializable {
     /**
      * 支出日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expensesDate;
 
     /**
@@ -34,8 +38,11 @@ public class Storageexpenditure implements Serializable {
     /**
      * 教材入库编号
      */
+    private Bookstorage bookstorage;
     private Integer mbookstorageId;
 
+    private Book book;
+    private Integer bookId;
     /**
      * 已入数量
      */

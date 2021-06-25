@@ -29,4 +29,8 @@ public interface EmpDao {
     int updatestate(@Param("workersstate") Integer workersstate,@Param("empId") Integer empId);
     //选择可查看人
     List<Emp> selectEmp();
+//    已限制
+   List<Emp> selectByPrimary();
+//   未限制
+    List<Emp> selectByPrimarywei();
 }

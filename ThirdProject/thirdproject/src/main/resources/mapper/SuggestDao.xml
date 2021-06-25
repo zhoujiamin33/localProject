@@ -37,9 +37,16 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />,<include refid="Base_Column_List_2"/>
-    from Suggest s inner join Dept d on s.Dept_Id=d.Dept_Id
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_List_2"/>
+    from Suggest s
+    inner join Dept d on s.Dept_Id=d.Dept_Id
     where s.Suggest_Id = #{suggestId,jdbcType=INTEGER}
+  </select>
+  <select id="selectSuggest" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from Suggest s
+    where s.Dept_Id=1
   </select>
   <select id="findNameSuggest" parameterType="java.lang.String" resultMap="BaseResultMap">
     select

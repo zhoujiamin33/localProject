@@ -29,9 +29,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course insertCoursetype(Course course) {
+    public Course insertCourse(Course course) {
         course.setAddname("Tsm管理员");
-        coursedao.insertCoursetype(course);
+        course.setAddtime(new Date());
+        coursedao.insertCourse(course);
         log.debug("111111"+course);
         return course;
     }
@@ -56,6 +57,17 @@ public class CourseServiceImpl implements CourseService {
         return coursedao.selectByCourseTypeName(classtypeName);
     }
 
+    @Override
+    public List<Course> selectByCourseTypeId(Integer classtypeId) {
+        return coursedao.selectByCourseTypeId(classtypeId);
+    }
+
+    @Override
+    public Course updateCourseState(Course course) {
+        coursedao.updateCourseState(course);
+        return course;
+    }
+
 
     //----------------------------------------------------课程详情数据----------------------------------------------------------------
     @Override
@@ -65,11 +77,10 @@ public class CourseServiceImpl implements CourseService {
     }
     @Override
     public Detailcourse addDetails(Detailcourse detailcourse) {
-        detailcourse.setAddname("Tsm管理员");
+
         detailcourse.setAddtime(new Date());
         log.debug("课程详细名："+detailcourse.getDetailcourseName());
         detailcoursedao.addDetails(detailcourse);
-
         return detailcourse;
     }
 
@@ -78,5 +89,10 @@ public class CourseServiceImpl implements CourseService {
         log.debug("修改课程详细");
         detailcoursedao.updateByName(detailcourse);
         return detailcourse;
+    }
+
+    @Override
+    public Detailcourse selectByCourseKey100(Integer course_id) {
+        return detailcoursedao.selectByCourseKey100(course_id);
     }
 }

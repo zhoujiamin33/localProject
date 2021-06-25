@@ -1,7 +1,9 @@
 package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Bookstorage;
+import com.trkj.thirdproject.entity.Deliveryddetails;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +22,6 @@ public interface BookstorageDao {
     int updateByPrimaryKey(Bookstorage record);
 
     int addBookstorage(Bookstorage record);
+
+    List<Bookstorage> selectBookStorage(@Param("value")String value, @Param("input") String input);
 }

@@ -36,4 +36,9 @@ public class DeliveryDdetailsServiceImpl implements DeliveryDdetailsService {
         deliveryddetailsDao.deleteByPrimaryKey(deliveryddetailsId);
         return deliveryddetailsId;
     }
+
+    @Override
+    public List<Deliveryddetails> selectBookdelivery(String value, String input) {
+        return deliveryddetailsDao.selectBookdelivery(value, input);
+    }
 }

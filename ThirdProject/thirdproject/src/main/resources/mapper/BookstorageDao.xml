@@ -81,6 +81,25 @@
      inner join Emp e on bs.Emp_Id=e.Emp_Id
      inner join Book b on bs.Book_Id=b.Book_Id
   </select>
+  <!--  多条件查询-->
+  <select id="selectBookStorage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Book" />,
+    <include refid="Emp" />
+    from BookStorage bs
+    inner join Book b on bs.Book_Id=b.Book_Id
+    inner join Emp e on bs.Emp_Id=e.Emp_Id
+    <where>
+      <if test="value=='教材名' and input!=null">
+        b.BookName like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+      <if test="value=='入库人' and input!=null">
+        e.Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+    </where>
+    order by bs.StorageTime desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from BookStorage
     where MBookStorage_Id = #{mbookstorageId,jdbcType=INTEGER}

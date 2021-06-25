@@ -125,11 +125,21 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from Student stu
-    where stu.Student_Id = #{studentId,jdbcType=INTEGER}
+    <include refid="Base_Column_List" />,<include refid="Base_Column_Source"/>,
+    <include refid="Base_Column_Register"/>,<include refid="course"/>
+    from Student stu inner join Source s on stu.Source_Id=s.Source_Id
+    inner  join Register r on stu.Register_Id=r.Register_Id
+    inner join Course c on r.Course_Id=c.Course_Id
+    where stu.TimeLiness=0
+   and stu.Student_Id = #{studentId,jdbcType=INTEGER}
   </select>
 
+<!--  根据班级id查询学员信息-->
+  <select id="selectByClass" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>,<include refid="Base_Column_Classes"/> from Student stu
+    inner join Classes cl on cl.Classes_Id=stu.Classes_Id
+    where cl.Classes_Id=#{classesId,jdbcType=INTEGER}
+  </select>
 
 <!-- 根据咨询登记编号进行查询 -->
 
@@ -222,7 +232,13 @@
       StudyTime = #{studytime,jdbcType=TIMESTAMP}
     where Student_Id = #{studentId,jdbcType=INTEGER}
   </update>
-
+<!--  修改审核的状态-->
+  <update id="updatestudentstate" parameterType="com.trkj.thirdproject.entity.Student">
+    update Student
+    set
+      Student_State = #{studentState,jdbcType=INTEGER}
+    where Student_Id = #{studentId,jdbcType=INTEGER}
+  </update>
   <!--  删除后改变时效性-->
   <update id="delstuTimeness" parameterType="com.trkj.thirdproject.entity.Student">
   update Student set TimeLiness=1 ,DeleteName = #{deletename},

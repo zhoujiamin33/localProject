@@ -69,4 +69,9 @@ public class EntryfeesServiceImpl implements EntryfeesService {
         entryfeesdao.updateFeesAccumulated(entryfees);
         return entryfees;
     }
+
+    @Override
+    public List<Entryfees> selectBycontion( int ApprovalState, Date value2,Date input) {
+        return entryfeesdao.selectBycontion(ApprovalState, value2,input);
+    }
 }

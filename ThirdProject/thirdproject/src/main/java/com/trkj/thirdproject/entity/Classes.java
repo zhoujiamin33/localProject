@@ -25,6 +25,10 @@ public class Classes implements Serializable {
      * 班级号
      */
     private String classesNumber;
+    /* *
+     *   已上课程
+     */
+    private Integer whendetails;
 
     /**
      * 开班状态
@@ -57,6 +61,7 @@ public class Classes implements Serializable {
     /**
      * 课程详细编号
      */
+    private Detailcourse detailcourse;
     private Integer detailcourseId;
 
     /**

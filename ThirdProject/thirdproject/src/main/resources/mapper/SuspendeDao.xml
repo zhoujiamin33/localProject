@@ -135,15 +135,33 @@
     from Suspende su
     where su.Suspende_Id = #{suspendeId,jdbcType=INTEGER} and su.TimeLiness=0
   </select>
-
+  <select id="findName_number" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="Base_Column_Classes" />,
+    <include refid="Base_Column_student" />,<include refid="Base_Column_course"/>
+    from Suspende su inner join Student stu on su.Student_Id=stu.Student_Id
+    inner join Classes cl on su.Classes_Id=cl.Classes_Id
+    inner join Course c on su.Course_Id=c.Course_Id
+    where  su.TimeLiness=0
+    <if test="index =='班级' and value!=null">
+      and cl.Classes_Name like CONCAT(CONCAT('%',#{value},'%'))
+    </if>
+    <if test="index =='姓名' and value!=null">
+      and stu.Student_Name like CONCAT(CONCAT('%',#{value},'%'))
+    </if>
+    <if test="index =='学号' and value!=null">
+      and stu.Student_Number like CONCAT(CONCAT('%',#{value},'%'))
+    </if>
+    order by  su.Suspende_Id desc
+  </select>
 <!--  查询所有（班级、学员、课程）-->
   <select id="selectAll"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="Base_Column_Classes" />,<include refid="Base_Column_student" />,<include
           refid="Base_Column_course"/>
-    from Suspende su inner join student stu on su.Student_Id=stu.Student_Id
-    inner join classes cl on su.Classes_Id=cl.Classes_Id
-    inner join course c on su.Course_Id=c.Course_Id
+    from Suspende su inner join Student stu on su.Student_Id=stu.Student_Id
+    inner join Classes cl on su.Classes_Id=cl.Classes_Id
+    inner join Course c on su.Course_Id=c.Course_Id
     where  su.TimeLiness=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

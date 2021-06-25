@@ -46,5 +46,9 @@ public interface StudentService {
     Memorandumattachment selectregisterID(Integer registerId);
 
     //修改班级编号
-    Student AddclassesId(Integer classesId,Integer studentId);
+    int AddclassesId(Integer classesId,Integer studentId);
+//    修改学员审核的状态
+Student updatestudentstate(Student student);
+    //根据班级id查询学员信息
+    List<Student> selectByClass(Integer classesId);
 }

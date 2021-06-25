@@ -15,5 +15,6 @@ Studentstatus updatestustart(Studentstatus record);
 //查询学员状态表stu
     Studentstatus selectByPrimaryKey(Integer studentId);
     //修改班级编号
-    Studentstatus AddclassesId(Integer classesId, Integer studentId);
+    Studentstatus updateByPrimaryKeySelective(Studentstatus record);
+//    Studentstatus AddclassesId(Integer classesId, Integer studentId);
 }

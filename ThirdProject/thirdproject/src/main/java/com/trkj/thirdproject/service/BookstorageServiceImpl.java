@@ -32,6 +32,11 @@ public class BookstorageServiceImpl implements BookstorageService {
     }
 
     @Override
+    public List<Bookstorage> selectBookstorage(String value, String input) {
+        return bookstorageDao.selectBookStorage(value, input);
+    }
+
+    @Override
     public Bookstorage addBookstorage(Bookstorage bookstorage) {
         bookstorage.setEmpId(1);
         //得到此书的所有数据信息
@@ -76,7 +81,43 @@ public class BookstorageServiceImpl implements BookstorageService {
         storageexpenditure.setExpensesName(result);
         //支出日期
         storageexpenditure.setExpensesDate(new Date());
+        //支出明细
+        storageexpenditure.setExpensesDetails("教材入库支出");
+        //计算总价格
+        //得到此书的所有数据信息
+        Book book = bookDao.selectByPrimaryKey(storageexpenditure.getBookId());
+        //得到此书的进价
+        BigDecimal bookjprice=book.getBookjprice();
+        //得到此次入库此书的总价
+        BigDecimal allsprice= bookjprice.multiply(new BigDecimal(storageexpenditure.getRefundCount()));
+        storageexpenditure.setTotalmoney(allsprice);
         storageexpendituredao.insert(storageexpenditure);
+        return storageexpenditure;
+    }
+
+    @Override
+    public List<Storageexpenditure> selectAllStorage() {
+        return storageexpendituredao.selectAllStorage();
+    }
+
+    @Override
+    public Storageexpenditure updateReApproval(Storageexpenditure storageexpenditure) {
+        storageexpenditure.setUpdatetime(new Date());
+        storageexpendituredao.updateReApproval(storageexpenditure);
+        return storageexpenditure;
+    }
+
+    @Override
+    public Storageexpenditure updateApproval(Storageexpenditure storageexpenditure) {
+        storageexpenditure.setUpdatetime(new Date());
+        storageexpendituredao.updateApproval(storageexpenditure);
+        return storageexpenditure;
+    }
+
+    @Override
+    public Storageexpenditure deleteTimeliness(Storageexpenditure storageexpenditure) {
+        storageexpenditure.setDeletetime(new Date());
+        storageexpendituredao.deleteTimeliness(storageexpenditure);
         return storageexpenditure;
     }
 

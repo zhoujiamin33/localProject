@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.RefundDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Refund">
+    <id column="Refund_Id" jdbcType="INTEGER" property="refundId" />
+    <result column="Drop_Id" jdbcType="INTEGER" property="dropId" />
+    <result column="Back_Id" jdbcType="INTEGER" property="backId" />
+    <result column="Suspende_Id" jdbcType="INTEGER" property="suspendeId" />
+    <result column="Student_Id" jdbcType="INTEGER" property="studentId" />
+    <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+    <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+    <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+    <result column="RefundType" jdbcType="VARCHAR" property="refundtype" />
+    <result column="Drop_Money" jdbcType="DECIMAL" property="dropMoney" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="CW_Approval" jdbcType="INTEGER" property="cwApproval" />
+    <result column="CW_AppName" jdbcType="VARCHAR" property="cwAppname" />
+    <result column="CW_AppTime" jdbcType="TIMESTAMP" property="cwApptime" />
+    <result column="CW_DropAppName" jdbcType="VARCHAR" property="cwDropappname" />
+    <result column="CW_DropAppTime" jdbcType="TIMESTAMP" property="cwDropapptime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+
+    <association property="student" javaType="com.trkj.thirdproject.entity.Student">
+      <id column="Student_Id" jdbcType="INTEGER" property="studentId" />
+      <result column="Student_Name" jdbcType="VARCHAR" property="studentName" />
+      <result column="Student_State" jdbcType="INTEGER" property="studentState" />
+      <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+      <result column="Source_Id" jdbcType="INTEGER" property="sourceId" />
+      <result column="Register_Id" jdbcType="INTEGER" property="registerId" />
+      <result column="Sex" jdbcType="VARCHAR" property="sex" />
+      <result column="Student_Phone" jdbcType="VARCHAR" property="studentPhone" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+      <result column="ImgAddress" jdbcType="VARCHAR" property="imgaddress" />
+      <result column="ParentName" jdbcType="VARCHAR" property="parentname" />
+      <result column="ParentPhone" jdbcType="VARCHAR" property="parentphone" />
+      <result column="Student_Number" jdbcType="VARCHAR" property="studentNumber" />
+      <result column="Entrance" jdbcType="VARCHAR" property="entrance" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+      <result column="StudyTime" jdbcType="TIMESTAMP" property="studytime" />
+    </association>
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    r.Refund_Id, r.Drop_Id, r.Back_Id, r.Suspende_Id, r.Classes_Id, r.Course_Id, r.DetailCourse_Id,
+    r.RefundType, r.Drop_Money, r.AddName, r.AddTime, r.DeleteName, r.DeleteTime, r.CW_Approval, r.CW_AppName,
+    r.CW_AppTime, r.CW_DropAppName, r.CW_DropAppTime, r.TimeLiness ,r.Student_Id
+  </sql>
+  <sql id="student">
+    stu.Student_Id, stu.Student_Name, stu.Student_State, stu.Classes_Id, stu.Source_Id, stu.Register_Id, stu.Sex,
+    stu.Student_Phone, stu.Address, stu.ImgAddress, stu.ParentName, stu.ParentPhone, stu.Student_Number, stu.Entrance,
+    stu.UpdateName, stu.UpdateTime, stu.DeleteName, stu.DeleteTime, stu.TimeLiness, stu.StudyTime
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Refund
+    where Refund_Id = #{refundId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Refund
+    where Refund_Id = #{refundId,jdbcType=INTEGER}
+  </delete>
+<!--  新增退费-->
+  <insert id="insertRefund" keyColumn="Refund_Id" keyProperty="refundId" parameterType="com.trkj.thirdproject.entity.Refund" useGeneratedKeys="true">
+    insert into Refund (Drop_Id, Back_Id, Suspende_Id, Student_Id,
+      Classes_Id, Course_Id, DetailCourse_Id,RefundType, Drop_Money, AddName, AddTime)
+    values (#{dropId,jdbcType=INTEGER}, #{backId,jdbcType=INTEGER}, #{suspendeId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER},
+      #{classesId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{detailcourseId,jdbcType=INTEGER}, 
+      #{refundtype,jdbcType=VARCHAR}, #{dropMoney,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR},
+      #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+
+<!--  查询退费-->
+  <select id="selectAllRefund" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>,<include refid="student"/>
+    from Refund r
+    inner join Student stu on stu.Student_Id=r.Student_Id
+    order  by AddTime desc
+  </select>
+  <insert id="insertSelective" keyColumn="Refund_Id" keyProperty="refundId" parameterType="com.trkj.thirdproject.entity.Refund" useGeneratedKeys="true">
+    insert into Refund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dropId != null">
+        Drop_Id,
+      </if>
+      <if test="backId != null">
+        Back_Id,
+      </if>
+      <if test="suspendeId != null">
+        Suspende_Id,
+      </if>
+      <if test="classesId != null">
+        Classes_Id,
+      </if>
+      <if test="courseId != null">
+        Course_Id,
+      </if>
+      <if test="detailcourseId != null">
+        DetailCourse_Id,
+      </if>
+      <if test="refundtype != null">
+        RefundType,
+      </if>
+      <if test="dropMoney != null">
+        Drop_Money,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="cwApproval != null">
+        CW_Approval,
+      </if>
+      <if test="cwAppname != null">
+        CW_AppName,
+      </if>
+      <if test="cwApptime != null">
+        CW_AppTime,
+      </if>
+      <if test="cwDropappname != null">
+        CW_DropAppName,
+      </if>
+      <if test="cwDropapptime != null">
+        CW_DropAppTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dropId != null">
+        #{dropId,jdbcType=INTEGER},
+      </if>
+      <if test="backId != null">
+        #{backId,jdbcType=INTEGER},
+      </if>
+      <if test="suspendeId != null">
+        #{suspendeId,jdbcType=INTEGER},
+      </if>
+      <if test="classesId != null">
+        #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="detailcourseId != null">
+        #{detailcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="refundtype != null">
+        #{refundtype,jdbcType=VARCHAR},
+      </if>
+      <if test="dropMoney != null">
+        #{dropMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cwApproval != null">
+        #{cwApproval,jdbcType=INTEGER},
+      </if>
+      <if test="cwAppname != null">
+        #{cwAppname,jdbcType=VARCHAR},
+      </if>
+      <if test="cwApptime != null">
+        #{cwApptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cwDropappname != null">
+        #{cwDropappname,jdbcType=VARCHAR},
+      </if>
+      <if test="cwDropapptime != null">
+        #{cwDropapptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Refund">
+    update Refund
+    <set>
+      <if test="dropId != null">
+        Drop_Id = #{dropId,jdbcType=INTEGER},
+      </if>
+      <if test="backId != null">
+        Back_Id = #{backId,jdbcType=INTEGER},
+      </if>
+      <if test="suspendeId != null">
+        Suspende_Id = #{suspendeId,jdbcType=INTEGER},
+      </if>
+      <if test="classesId != null">
+        Classes_Id = #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        Course_Id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="detailcourseId != null">
+        DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="refundtype != null">
+        RefundType = #{refundtype,jdbcType=VARCHAR},
+      </if>
+      <if test="dropMoney != null">
+        Drop_Money = #{dropMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cwApproval != null">
+        CW_Approval = #{cwApproval,jdbcType=INTEGER},
+      </if>
+      <if test="cwAppname != null">
+        CW_AppName = #{cwAppname,jdbcType=VARCHAR},
+      </if>
+      <if test="cwApptime != null">
+        CW_AppTime = #{cwApptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cwDropappname != null">
+        CW_DropAppName = #{cwDropappname,jdbcType=VARCHAR},
+      </if>
+      <if test="cwDropapptime != null">
+        CW_DropAppTime = #{cwDropapptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Refund_Id = #{refundId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Refund">
+    update Refund
+    set Drop_Id = #{dropId,jdbcType=INTEGER},
+      Back_Id = #{backId,jdbcType=INTEGER},
+      Suspende_Id = #{suspendeId,jdbcType=INTEGER},
+      Classes_Id = #{classesId,jdbcType=INTEGER},
+      Course_Id = #{courseId,jdbcType=INTEGER},
+      DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
+      RefundType = #{refundtype,jdbcType=VARCHAR},
+      Drop_Money = #{dropMoney,jdbcType=DECIMAL},
+      AddName = #{addname,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      CW_Approval = #{cwApproval,jdbcType=INTEGER},
+      CW_AppName = #{cwAppname,jdbcType=VARCHAR},
+      CW_AppTime = #{cwApptime,jdbcType=TIMESTAMP},
+      CW_DropAppName = #{cwDropappname,jdbcType=VARCHAR},
+      CW_DropAppTime = #{cwDropapptime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where Refund_Id = #{refundId,jdbcType=INTEGER}
+  </update>
+</mapper>

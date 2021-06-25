@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.service;
 
+import com.trkj.thirdproject.entity.Supplementary;
 import com.trkj.thirdproject.entity.Suspende;
 
 import java.util.List;
@@ -13,5 +14,6 @@ public interface SuspendeService {
 Suspende updateByPrimaryKeySelective(Suspende record);
 //根据编号查询
 Suspende selectByPrimaryKey(Integer suspendeId);
-
+    // 模糊查询
+    List<Suspende> findName_number(String index, String value);
 }

@@ -21,4 +21,8 @@ public interface EmpService {
 
     //启动或禁用
     void updatestate(Integer workersstate,List<Integer>  empId);
+    //    已限制
+    List<Emp> selectByPrimary();
+    //   未限制
+    List<Emp> selectByPrimarywei();
 }

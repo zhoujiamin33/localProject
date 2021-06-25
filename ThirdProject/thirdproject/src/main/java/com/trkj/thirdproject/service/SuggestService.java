@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.service;
 
+import com.trkj.thirdproject.entity.Book;
 import com.trkj.thirdproject.entity.Suggest;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface SuggestService {
 
     List<Suggest> findNameSuggest(String name);
 
+    List<Suggest> selectSuggest();
 }
