@@ -156,15 +156,15 @@
     from DropOut dro inner join Student stu on dro.Student_Id=stu.Student_Id
     inner join Classes cl on dro.Classes_Id=cl.Classes_Id
     inner join Course c on dro.Course_Id=c.Course_Id
-    where  dro.TimeLiness=0 and
+    where  dro.TimeLiness=0
     <if test="value!=null and index=='班级'">
-      cl.Classes_Name like CONCAT(CONCAT('%',#{value},'%'))
+      and cl.Classes_Name like CONCAT(CONCAT('%',#{value},'%'))
     </if>
     <if test="value!=null and index=='姓名'">
-      stu.Student_Name like CONCAT(CONCAT('%',#{value},'%'))
+      and stu.Student_Name like CONCAT(CONCAT('%',#{value},'%'))
     </if>
     <if test="index=='学号' and value!=null">
-      stu.Student_Number like CONCAT(CONCAT('%',#{value},'%'))
+      and stu.Student_Number like CONCAT(CONCAT('%',#{value},'%'))
     </if>
 
   </select>

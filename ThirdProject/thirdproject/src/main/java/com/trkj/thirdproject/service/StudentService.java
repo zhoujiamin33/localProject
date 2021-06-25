@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StudentService {
     //查询学员编号
-    Studentstatus selecttudentstsatus(Integer studentId);
+//    Studentstatus selecttudentstsatus(Integer studentId);
     Student selectstudentId(Integer studentId);
     //    新增
     Student addstudent(Student student);

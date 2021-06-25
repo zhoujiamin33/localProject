@@ -84,15 +84,23 @@
 <!--查询已限制的-->
   <select id="selectByPrimary" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List" />,<include refid="Base_Column_List1"/>,<include
+          refid="Base_Column_List2"/>,<include refid="Base_Column_enterprise"/>
     from Emp e
+    inner join Dept d on e.Dept_Id=d.Dept_Id
+    inner join `Position` p on e.Position_Id=p.Position_Id
+    inner join Enterprise ent on e.Enterprise_Id=ent.Enterprise_Id
     where e.LoginState=1
   </select>
 <!--  查看未限制-->
   <select id="selectByPrimarywei" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List" />,<include refid="Base_Column_List1"/>,<include
+          refid="Base_Column_List2"/>,<include refid="Base_Column_enterprise"/>
     from Emp e
+    inner join Dept d on e.Dept_Id=d.Dept_Id
+    inner join `Position` p on e.Position_Id=p.Position_Id
+    inner join Enterprise ent on e.Enterprise_Id=ent.Enterprise_Id
     where e.LoginState=0
   </select>
   <insert id="insertSelective" keyColumn="Emp_Id" keyProperty="empId" parameterType="com.trkj.thirdproject.entity.Emp" useGeneratedKeys="true">

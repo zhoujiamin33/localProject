@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.BackDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Back">
+    <id column="Back_Id" jdbcType="INTEGER" property="backId" />
+    <result column="Suspende_Id" jdbcType="INTEGER" property="suspendeId" />
+    <result column="Student_Id" jdbcType="INTEGER" property="studentId" />
+    <result column="Classes_Id" jdbcType="INTEGER" property="classesId" />
+    <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
+    <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
+    <result column="ClassAlreadyOn" jdbcType="VARCHAR" property="classalreadyon" />
+    <result column="Absent" jdbcType="INTEGER" property="absent" />
+    <result column="isPay" jdbcType="INTEGER" property="ispay" />
+    <result column="Intention" jdbcType="INTEGER" property="intention" />
+    <result column="Back_Time" jdbcType="TIMESTAMP" property="backTime" />
+    <result column="RecourseHandler" jdbcType="VARCHAR" property="recoursehandler" />
+    <result column="Back_Approval" jdbcType="INTEGER" property="backApproval" />
+    <result column="Back_BAppTime" jdbcType="TIMESTAMP" property="backBapptime" />
+    <result column="Recourse_AppTime" jdbcType="TIMESTAMP" property="recourseApptime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Back_Id, Suspende_Id, Student_Id, Classes_Id, Course_Id, DetailCourse_Id, ClassAlreadyOn, 
+    Absent, isPay, Intention, Back_Time, RecourseHandler, Back_Approval, Back_BAppTime, 
+    Recourse_AppTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Back
+    where Back_Id = #{backId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Back
+    where Back_Id = #{backId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Back_Id" keyProperty="backId" parameterType="com.trkj.thirdproject.entity.Back" useGeneratedKeys="true">
+    insert into Back (Suspende_Id, Student_Id, Classes_Id, 
+      Course_Id, DetailCourse_Id, ClassAlreadyOn, 
+      Absent, isPay, Intention, 
+      Back_Time, RecourseHandler, Back_Approval, 
+      Back_BAppTime, Recourse_AppTime, UpdateName, 
+      UpdateTime, DeleteName, DeleteTime, 
+      TimeLiness)
+    values (#{suspendeId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{classesId,jdbcType=INTEGER}, 
+      #{courseId,jdbcType=INTEGER}, #{detailcourseId,jdbcType=INTEGER}, #{classalreadyon,jdbcType=VARCHAR}, 
+      #{absent,jdbcType=INTEGER}, #{ispay,jdbcType=INTEGER}, #{intention,jdbcType=INTEGER}, 
+      #{backTime,jdbcType=TIMESTAMP}, #{recoursehandler,jdbcType=VARCHAR}, #{backApproval,jdbcType=INTEGER}, 
+      #{backBapptime,jdbcType=TIMESTAMP}, #{recourseApptime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, 
+      #{timeliness,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="Back_Id" keyProperty="backId" parameterType="com.trkj.thirdproject.entity.Back" useGeneratedKeys="true">
+    insert into Back
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="suspendeId != null">
+        Suspende_Id,
+      </if>
+      <if test="studentId != null">
+        Student_Id,
+      </if>
+      <if test="classesId != null">
+        Classes_Id,
+      </if>
+      <if test="courseId != null">
+        Course_Id,
+      </if>
+      <if test="detailcourseId != null">
+        DetailCourse_Id,
+      </if>
+      <if test="classalreadyon != null">
+        ClassAlreadyOn,
+      </if>
+      <if test="absent != null">
+        Absent,
+      </if>
+      <if test="ispay != null">
+        isPay,
+      </if>
+      <if test="intention != null">
+        Intention,
+      </if>
+      <if test="backTime != null">
+        Back_Time,
+      </if>
+      <if test="recoursehandler != null">
+        RecourseHandler,
+      </if>
+      <if test="backApproval != null">
+        Back_Approval,
+      </if>
+      <if test="backBapptime != null">
+        Back_BAppTime,
+      </if>
+      <if test="recourseApptime != null">
+        Recourse_AppTime,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="suspendeId != null">
+        #{suspendeId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classesId != null">
+        #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="detailcourseId != null">
+        #{detailcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="classalreadyon != null">
+        #{classalreadyon,jdbcType=VARCHAR},
+      </if>
+      <if test="absent != null">
+        #{absent,jdbcType=INTEGER},
+      </if>
+      <if test="ispay != null">
+        #{ispay,jdbcType=INTEGER},
+      </if>
+      <if test="intention != null">
+        #{intention,jdbcType=INTEGER},
+      </if>
+      <if test="backTime != null">
+        #{backTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recoursehandler != null">
+        #{recoursehandler,jdbcType=VARCHAR},
+      </if>
+      <if test="backApproval != null">
+        #{backApproval,jdbcType=INTEGER},
+      </if>
+      <if test="backBapptime != null">
+        #{backBapptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recourseApptime != null">
+        #{recourseApptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Back">
+    update Back
+    <set>
+      <if test="suspendeId != null">
+        Suspende_Id = #{suspendeId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        Student_Id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classesId != null">
+        Classes_Id = #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        Course_Id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="detailcourseId != null">
+        DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="classalreadyon != null">
+        ClassAlreadyOn = #{classalreadyon,jdbcType=VARCHAR},
+      </if>
+      <if test="absent != null">
+        Absent = #{absent,jdbcType=INTEGER},
+      </if>
+      <if test="ispay != null">
+        isPay = #{ispay,jdbcType=INTEGER},
+      </if>
+      <if test="intention != null">
+        Intention = #{intention,jdbcType=INTEGER},
+      </if>
+      <if test="backTime != null">
+        Back_Time = #{backTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recoursehandler != null">
+        RecourseHandler = #{recoursehandler,jdbcType=VARCHAR},
+      </if>
+      <if test="backApproval != null">
+        Back_Approval = #{backApproval,jdbcType=INTEGER},
+      </if>
+      <if test="backBapptime != null">
+        Back_BAppTime = #{backBapptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recourseApptime != null">
+        Recourse_AppTime = #{recourseApptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Back_Id = #{backId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Back">
+    update Back
+    set Suspende_Id = #{suspendeId,jdbcType=INTEGER},
+      Student_Id = #{studentId,jdbcType=INTEGER},
+      Classes_Id = #{classesId,jdbcType=INTEGER},
+      Course_Id = #{courseId,jdbcType=INTEGER},
+      DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
+      ClassAlreadyOn = #{classalreadyon,jdbcType=VARCHAR},
+      Absent = #{absent,jdbcType=INTEGER},
+      isPay = #{ispay,jdbcType=INTEGER},
+      Intention = #{intention,jdbcType=INTEGER},
+      Back_Time = #{backTime,jdbcType=TIMESTAMP},
+      RecourseHandler = #{recoursehandler,jdbcType=VARCHAR},
+      Back_Approval = #{backApproval,jdbcType=INTEGER},
+      Back_BAppTime = #{backBapptime,jdbcType=TIMESTAMP},
+      Recourse_AppTime = #{recourseApptime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where Back_Id = #{backId,jdbcType=INTEGER}
+  </update>
+</mapper>

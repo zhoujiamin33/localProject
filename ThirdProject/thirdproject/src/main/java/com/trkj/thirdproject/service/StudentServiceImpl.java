@@ -51,11 +51,11 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.selectByClass(classesId);
     }
 
-    @Override
-    public Studentstatus selecttudentstsatus(Integer studentId) {
-        Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
-        return studentstatus;
-    }
+//    @Override
+//    public Studentstatus selecttudentstsatus(Integer studentId) {
+//        Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
+//        return studentstatus;
+//    }
 
     //查询学员编号
     @Override

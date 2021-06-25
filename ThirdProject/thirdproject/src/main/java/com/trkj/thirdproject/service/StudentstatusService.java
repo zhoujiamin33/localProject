@@ -13,8 +13,10 @@ public interface StudentstatusService {
 //    停课后；学员状态表中显示已停课
 Studentstatus updatestustart(Studentstatus record);
 //查询学员状态表stu
-    Studentstatus selectByPrimaryKey(Integer studentId);
+List<Studentstatus> selectByPrimaryKey(Integer studentId);
     //修改班级编号
     Studentstatus updateByPrimaryKeySelective(Studentstatus record);
 //    Studentstatus AddclassesId(Integer classesId, Integer studentId);
+//    根据状态编号查询
+Studentstatus selectByPrimaryKeyId(Integer studentstatusId);
 }

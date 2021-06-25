@@ -15,10 +15,10 @@ public interface StudentstatusDao {
 
     int insertSelective(Studentstatus record);
 
-    Studentstatus selectByPrimaryKey(Integer studentId);//根据学员编号查询学员状态表
-
+    List<Studentstatus> selectByPrimaryKey(Integer studentId);//根据学员编号查询学员状态表
+    //    停课的状态修改
     int updateByPrimaryKeySelective(Studentstatus record);
-//    停课的状态修改
+
     int updatestustart(Studentstatus record);
 
     int updateByPrimaryKey(Studentstatus record);
@@ -27,4 +27,6 @@ public interface StudentstatusDao {
     List<Studentstatus> selectstu_class(Integer studentId);
     //修改班级编号
     Studentstatus AddclassesId(@Param("classesId") Integer classesId, @Param("studentId") Integer studentId);
+//    根据状态编号查询
+    Studentstatus selectByPrimaryKeyId(Integer studentstatusId);
 }

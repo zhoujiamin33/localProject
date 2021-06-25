@@ -22,17 +22,20 @@ public class SuspendeController {
 private SuspendeService suspendeService;
     @Autowired
     private StudentstatusService studentstatusService;
-    @PostMapping("/addsupende")
+    @PostMapping("/addsupende/{studentstatusId}")
     @LogginAnnotation(message = "停课")
-    public Suspende addsupende(@RequestBody Suspende suspende){
+    public Suspende addsupende(@PathVariable("studentstatusId") Integer studentstatusId,@RequestBody Suspende suspende){
         suspende= suspendeService.insertSelective(suspende);
         Studentstatus studentstatus=new Studentstatus();
+        studentstatus.setSuspendeId(suspende.getSuspendeId());
+        studentstatus.setStudentstatusId(studentstatusId);
         studentstatus.setStudentId(suspende.getStudentId());
         studentstatus.setStatus(3);//已停课
         //学员表中查看详情中，点击学员停课，学员状态表中的状态字段为已停课
         studentstatusService.updatestustart(studentstatus);
        return suspende;
     }
+//    模糊查询
     @GetMapping("/findAllsuspende")
     public PageInfo<Suspende> findAllsuspende(@RequestParam("index") String index,@RequestParam("value") String value,@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         log.debug("开始查询");
@@ -44,12 +47,16 @@ private SuspendeService suspendeService;
     }
 //    根据学员编号修改学员状态表
 @PutMapping("/updatesuspendestate/{studentId}")
-    public Studentstatus updatesuspendestate(@PathVariable("studentId")Integer studentId){
-        Studentstatus studentstatus=studentstatusService.selectByPrimaryKey(studentId);
-    log.debug("查看停课的状态为1："+studentstatus);
-        studentstatus.setStatus(1);
-       studentstatusService.updatestustart(studentstatus);
-        return studentstatus;
+    public void updatesuspendestate(@PathVariable("studentId")Integer studentId){
+    List<Studentstatus> studentstatus=studentstatusService.selectByPrimaryKey(studentId);
+    for(Studentstatus stustate:studentstatus){
+
+        stustate.setStatus(1);//是否重新分班还是直接读
+        log.debug("查看停课的状态为1："+stustate);
+        studentstatusService.updatestustart(stustate);
+    }
+
+
 }
 //    修改状态或者是删除修改时效性
     @PutMapping("/updateapproval/{suspendeId}")

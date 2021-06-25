@@ -146,8 +146,10 @@ public class StudentController {
 
     //学员表查询学员编号
     @GetMapping("/findstudentId/{studentId}")
-    public Studentstatus findstudentId(@PathVariable("studentId") Integer studentId) {
-        Student student = studentService.selectstudentId(studentId);
+    public void findstudentId(@PathVariable("studentId") String studentId) {
+        String[] stu=studentId.split(",");
+        for (String s:stu){
+        Student student = studentService.selectstudentId(Integer.parseInt(s));
 student.setStudentState(1);
 studentService.updatestudentstate(student);
         log.debug("学员表中的班级编号：" + student.toString());
@@ -155,7 +157,7 @@ studentService.updatestudentstate(student);
             Register register=studentService.selectRegister(student.getRegisterId());//查询咨询登记查询课程表
             Studentstatus studentstatus=new Studentstatus();
             studentstatus.setCourseId(register.getCourseId());//课程编号:显示课程的名称
-            studentstatus.setStudentId(studentId);
+            studentstatus.setStudentId(Integer.parseInt(s));
             studentstatus.setClassesId(student.getClassesId());//班级编号：显示已报班级还是未报班级
         studentstatus.setSignuptime(new Date());
             studentstatusService.AddStudentstatus(studentstatus);//新增学员状态表
@@ -164,7 +166,8 @@ memorandumattachment.setJwexaminename("tsm管理员");
 memorandumattachment.setJwexaminetime(new Date());
 memorandumattachment.setJwisexamine(1);
 studentService.updateByPrimaryKeySelective(memorandumattachment);
-        return studentstatus;
+        }
+//        return studentstatus;
 
     }
 //    查询学员
@@ -174,18 +177,24 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
     return student;
 }
 //    没有添加班级外键的学员表与学员状态表学生选择班级点击保存;该学员添加班级并学员状态表中的状态为已分班1
-    @PutMapping("/addclassesId/{classesId}/{studentId}")
+    @PutMapping("/addclassesId")
     @LogginAnnotation(message = "选择班级")
-    public void addclasses(@PathVariable("classesId") Integer classesId,@PathVariable("studentId")Integer studentId){
-        List<Studentstatus> studentstatus=studentstatusService.selectstu_class(studentId);
-       log.debug(classesId+"dfd");
-       for(Studentstatus s:studentstatus){
-           s.setClassesId(classesId);
-           s.setStatus(1);//已分班
-           studentstatusService.updateByPrimaryKeySelective(s);
-       }
-        studentService.AddclassesId(classesId, studentId);
-        log.debug("学员状态修改"+studentstatus);
+    public void addclasses(@RequestBody Studentstatus studentstatus){
+//        List<Studentstatus> studentstatuslist=studentstatusService.selectstu_class(studentstatus.getStudentId());
+
+
+           studentstatus.setClassesId(studentstatus.getClassesId());
+           studentstatus.setStatus(1);//已分班
+           studentstatusService.updateByPrimaryKeySelective(studentstatus);
+
+
+//
+//               studentService.AddclassesId(stustatus.getClassesId(),studentstatus.getStudentId());
+
+
+           log.debug("学员状态修改"+studentstatus);
+
+
     }
 //    根据课程编号查询所有
     @GetMapping("/findclasstypeId/{classtypeId}")
