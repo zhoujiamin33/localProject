@@ -3,10 +3,10 @@ package com.trkj.thirdproject.service;
 import com.trkj.thirdproject.dao.EntryfeesDao;
 import com.trkj.thirdproject.entity.Entryfees;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.persistence.Convert;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,7 +72,7 @@ public class EntryfeesServiceImpl implements EntryfeesService {
     }
 
     @Override
-    public List<Entryfees> selectBycontion( int ApprovalState, Date value2,String input) {
+    public List<Entryfees> selectBycontion( int ApprovalState, String value2,String input) {
         return entryfeesdao.selectBycontion(ApprovalState, value2,input);
     }
 }

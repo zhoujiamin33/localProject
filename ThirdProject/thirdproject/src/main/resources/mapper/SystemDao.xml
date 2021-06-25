@@ -19,7 +19,18 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    <collection property="emps" ofType="com.trkj.thirdproject.entity.Emp">
+    <association property="systemtype" javaType="com.trkj.thirdproject.entity.Systemtype" column="{SystemTypeId = SystemType_Id}" select="findSystemType">
+      <id column="SystemType_Id" jdbcType="INTEGER" property="systemtypeId" />
+      <result column="SystemType_Name" jdbcType="VARCHAR" property="systemtypeName" />
+      <result column="AddName" jdbcType="VARCHAR" property="addname" />
+      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    </association>
+    <collection property="emps" ofType="com.trkj.thirdproject.entity.Emp" column="{SystemId = System_Id}" select="selectEmp">
       <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
       <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
       <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
@@ -49,17 +60,47 @@
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
       <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
     </collection>
-    <collection property="systemtype" ofType="com.trkj.thirdproject.entity.Systemtype">
-      <id column="SystemType_Id" jdbcType="INTEGER" property="systemtypeId" />
-      <result column="SystemType_Name" jdbcType="VARCHAR" property="systemtypeName" />
-      <result column="AddName" jdbcType="VARCHAR" property="addname" />
-      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
-      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
-      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
-      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
-      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    </collection>
+  </resultMap>
+  <resultMap id="ssss" type="com.trkj.thirdproject.entity.Systemtype">
+    <id column="SystemType_Id" jdbcType="INTEGER" property="systemtypeId" />
+    <result column="SystemType_Name" jdbcType="VARCHAR" property="systemtypeName" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <resultMap id="emp" type="com.trkj.thirdproject.entity.Emp">
+    <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
+    <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
+    <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId" />
+    <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber" />
+    <result column="Emp_Name" jdbcType="VARCHAR" property="empName" />
+    <result column="Emp_Sex" jdbcType="CHAR" property="empSex" />
+    <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone" />
+    <result column="E_mail" jdbcType="VARCHAR" property="eMail" />
+    <result column="Birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto" />
+    <result column="Photo" jdbcType="VARCHAR" property="photo" />
+    <result column="Education" jdbcType="VARCHAR" property="education" />
+    <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="WorkersState" jdbcType="INTEGER" property="workersstate" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Addname" jdbcType="VARCHAR" property="addname" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="LeaveName" jdbcType="VARCHAR" property="leavename" />
+    <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime" />
+    <result column="EmpState" jdbcType="INTEGER" property="empstate" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
   </resultMap>
   <sql id="Base_Column_List">
     System_Id, SystemType_Id, System_Theme, Dept_Id, System_Content, System_State, AddName,
@@ -77,6 +118,12 @@
      e.Address,  e.WorkersState,  e.`Password`,  e.Addname,  e.AddTime,  e.UpdateName,  e.UpdateTime,  e.LeaveName,
      e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState
   </sql>
+  <sql id="Base_Column_List_3">
+    st.SystemType_Id,  st.SystemType_Name,  st.AddName,  st.AddTime,  st.UpdateName,  st.UpdateTime,  st.DeleteName,
+     st.DeleteTime,  st.TimeLiness
+  </sql>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -89,6 +136,33 @@
     m.System_Id=t.System_Id LEFT JOIN Emp e on t.Emp_Id=e.Emp_Id left join  SystemType st on m.SystemType_Id=st.SystemType_Id
     where m.TimeLiness=0
   </select>
+
+  <select id="findSystem" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List_1"/>
+    FROM  `System` m
+    <where>
+      m.TimeLiness=0
+      <if test="index=='System_Theme' and value!=null and value!=''">
+        and m.System_Theme like concat('%',concat(#{value},'%'))
+      </if>
+      <if test="index=='System_Content' and value!=null and value!=''">
+        and m.index like concat('%',concat(#{value},'%'))
+      </if>
+    </where>
+    order by m.System_Id desc
+  </select>
+
+  <select id="findSystemType" resultMap="ssss">
+    select <include refid="Base_Column_List_3"/>
+    from SystemType st
+    where st.SystemType_Id=#{SystemTypeId}
+  </select>
+  <select id="selectEmp"  resultMap="emp">
+    select <include refid="Base_Column_List_2"/>
+    from Emp e left join SystemSelect t on t.Emp_Id=e.Emp_Id
+    where t.System_Id=#{SystemId}
+  </select>
+
   <select id="findConditional" resultMap="BaseResultMap">
     select <include refid="Base_Column_List_1"/>,<include refid="Base_Column_List_2"/>
     from `System` m LEFT JOIN SystemSelect t on

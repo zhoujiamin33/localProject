@@ -70,6 +70,22 @@
     stu.Student_Phone, stu.Address, stu.ImgAddress, stu.ParentName, stu.ParentPhone, stu.Student_Number, stu.Entrance,
     stu.UpdateName, stu.UpdateTime, stu.DeleteName, stu.DeleteTime, stu.TimeLiness, stu.StudyTime
   </sql>
+  <select id="findName_number" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>,<include refid="course"/>,<include refid="student"/>
+    from Supplementary s inner join Course c on s.Course_Id=c.Course_Id
+    inner join Student stu on s.Student_Id=stu.Student_Id
+    where  s.TimeLiness=0
+    <if test="index =='课程名称' and value!=null">
+      and c.Course_Name like CONCAT(CONCAT('%',#{value},'%'))
+    </if>
+    <if test="index =='姓名' and value!=null">
+      and stu.Student_Name like CONCAT(CONCAT('%',#{value},'%'))
+    </if>
+    <if test="index =='学号' and value!=null">
+      and stu.Student_Number like CONCAT(CONCAT('%',#{value},'%'))
+    </if>
+    order by s.Supplementary_Id desc
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

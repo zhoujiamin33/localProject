@@ -32,22 +32,19 @@ public class CourseTypeServiceImpl implements CourseTypeService {
 
     @Override
     public Classtype insert(Classtype classtype) {
+         classtype.setAddtime(new Date());
          classtypedao.insert(classtype);
          return classtype;
     }
 
     @Override
     public Classtype updateType(Classtype classtype) {
+        classtype.setUpdatetime(new Date());
         classtypedao.updateByPrimaryKey(classtype);
         return classtype;
     }
 
-//    @Override
-//    public Classtype selectByPrimaryKey(Integer classtypeId) {
-//        Classtype classtype=classtypedao.selectByPrimaryKey(classtypeId);
-//        return  classtype;
-//    }
-
+//批量删除
     @Override
     public int updateCourseType(List<Integer> classtypeId, String deletename, Date deleteTime) {
         for(int classtypeid:classtypeId){

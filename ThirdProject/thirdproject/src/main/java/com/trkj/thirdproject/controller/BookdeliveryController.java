@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Bookdelivery;
 import com.trkj.thirdproject.entity.Storageexpenditure;
 import com.trkj.thirdproject.entity.Warehouseincome;
@@ -18,14 +19,15 @@ public class BookdeliveryController {
     @Autowired
     private BookdeliveryService bookdeliveryService;
 
-    @DeleteMapping("/deldelBookDelivery/{bookdeliveryId}")
-    public String deldelBookDelivery(@PathVariable("bookdeliveryId") int bookdeliveryId){
-        log.debug("开始删除");
-        bookdeliveryService.deleteByPrimaryKey(bookdeliveryId);
-        return "delOk";
-    }
+//    @DeleteMapping("/deldelBookDelivery/{bookdeliveryId}")
+//    public String deldelBookDelivery(@PathVariable("bookdeliveryId") int bookdeliveryId){
+//        log.debug("开始删除");
+//        bookdeliveryService.deleteByPrimaryKey(bookdeliveryId);
+//        return "delOk";
+//    }
 
     @PostMapping("/addBookdelivery")
+    @LogginAnnotation(message = "新增教材出库总表")
     public Bookdelivery insert(@RequestBody Bookdelivery bookdelivery){
         bookdeliveryService.insert(bookdelivery);
         log.debug(bookdelivery.getBookdeliveryId()+":::bookdeliveryId");
@@ -33,15 +35,18 @@ public class BookdeliveryController {
     }
     //-------------------------------------------新增教材出库收入----------------------------------------------------------
     @PostMapping("/insertincome")
+    @LogginAnnotation(message = "新增教材出库收入")
     public Warehouseincome insert(@RequestBody Warehouseincome warehouseincome){
         return bookdeliveryService.insertincome(warehouseincome);
     }
     @PutMapping("/updateReApprovalincome")
+    @LogginAnnotation(message = "撤销审核教材出库收入")
     public Warehouseincome updateReApproval(@RequestBody Warehouseincome warehouseincome){
         bookdeliveryService.updateReApproval(warehouseincome);
         return  warehouseincome;
     }
     @PutMapping("/updateApprovalincome")
+    @LogginAnnotation(message = "审核教材出库收入")
     public Warehouseincome updateApproval(@RequestBody Warehouseincome warehouseincome){
         bookdeliveryService.updateApproval(warehouseincome);
         return  warehouseincome;
@@ -52,5 +57,13 @@ public class BookdeliveryController {
         List<Warehouseincome> entityPage=bookdeliveryService.selectAllincome();
         PageInfo<Warehouseincome> incomePageinfo=new PageInfo<>(entityPage);
         return incomePageinfo;
+    }
+    @GetMapping("/selectBycontionBook2")
+    public PageInfo<Warehouseincome> selectBycontionBook2(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
+    @RequestParam("Approval") int Approval,@RequestParam("value1") String value1, @RequestParam("value2") String value2,@RequestParam("input") String input){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Warehouseincome> entityPage=bookdeliveryService.selectBycontionBook2(Approval, value1, value2, input);
+        PageInfo<Warehouseincome> entityPageInfo=new PageInfo<>(entityPage);
+        return entityPageInfo;
     }
 }

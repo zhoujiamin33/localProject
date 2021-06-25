@@ -27,13 +27,13 @@ public class StudentstatusServiceImpl implements StudentstatusService {
 //改变停课状态
     @Override
     public Studentstatus updatestustart(Studentstatus record) {
-      studentstatusDao.updatestustart(record);
+      studentstatusDao.updateByPrimaryKeySelective(record);
         return record;
     }
 //查询状态表
     @Override
-    public Studentstatus selectByPrimaryKey(Integer studentId) {
-        Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
+    public List<Studentstatus> selectByPrimaryKey(Integer studentId) {
+        List<Studentstatus> studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
         return studentstatus;
     }
 
@@ -43,6 +43,11 @@ public class StudentstatusServiceImpl implements StudentstatusService {
         return studentstatus;
     }
 
+    @Override
+    public Studentstatus selectByPrimaryKeyId(Integer studentstatusId) {
+        Studentstatus studentstatus=studentstatusDao.selectByPrimaryKeyId(studentstatusId);
+        return studentstatus;
+    }
 
 
 }

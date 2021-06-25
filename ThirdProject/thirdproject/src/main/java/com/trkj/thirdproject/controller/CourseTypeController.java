@@ -3,6 +3,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Classtype;
 import com.trkj.thirdproject.service.CourseTypeService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class CourseTypeController {
     @Autowired
     private CourseTypeService courseTypeService;
 
+    //模糊查询
     @GetMapping("/findPage")
     public PageInfo<Classtype> findPage(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize,@RequestParam("searchinput") String searchinput){
         PageHelper.startPage(currentPage,pagesize);
@@ -34,6 +36,7 @@ public class CourseTypeController {
     }
 
     @PostMapping("/addcoursetype")
+    @LogginAnnotation(message = "新增课类")
     public Classtype addcoursetype(@RequestBody Classtype classtype){
         log.debug("调用新增方法");
         log.debug(classtype.toString());
@@ -41,6 +44,7 @@ public class CourseTypeController {
         return classtype;
     }
     @PutMapping("/updateType")
+    @LogginAnnotation(message = "修改课类")
     public Classtype updateType(@RequestBody Classtype classtype){
         courseTypeService.updateType(classtype);
         return classtype;

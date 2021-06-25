@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Dropout;
 import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.entity.Studentstatus;
@@ -24,7 +25,8 @@ public class DropoutController {
     private StudentstatusService studentstatusService;
 //    根据学员编号修改状态表中的状态，再新增退学表中的数据
     @PostMapping("/Adddropout")
-    public Dropout Adddropout(@RequestBody Dropout dropout){
+    @LogginAnnotation(message = "新增退学")
+    public Dropout adddropout(@RequestBody Dropout dropout){
         dropout.setClassesId(dropout.getClassesId());
         dropout.setCourseId(dropout.getCourseId());
         dropout.setStudentId(dropout.getStudentId());
@@ -58,6 +60,7 @@ public class DropoutController {
     }
 //审批状态的修改和时效性的修改
     @PutMapping("/updatedropoutstate/{dropoutId}")
+    @LogginAnnotation(message = "批量审核退学")
     public void updatedropoutstate(@PathVariable("dropoutId")String dropoutId){
         String[] id=dropoutId.split(",");
         for (String d:id){
@@ -70,6 +73,7 @@ public class DropoutController {
 
     }
     @PutMapping("/deldropouttimeliness/{dropoutId}")
+    @LogginAnnotation(message = "批量删除退学")
     public void deldropouttimeliness(@PathVariable("dropoutId")String dropoutId){
         String[] id=dropoutId.split(",");
         for (String d:id){

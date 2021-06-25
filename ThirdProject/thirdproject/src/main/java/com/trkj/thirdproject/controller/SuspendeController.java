@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.entity.Studentstatus;
 import com.trkj.thirdproject.entity.Suspende;
@@ -21,36 +22,45 @@ public class SuspendeController {
 private SuspendeService suspendeService;
     @Autowired
     private StudentstatusService studentstatusService;
-    @PostMapping("/addsupende")
-    public Suspende addsupende(@RequestBody Suspende suspende){
+    @PostMapping("/addsupende/{studentstatusId}")
+    @LogginAnnotation(message = "停课")
+    public Suspende addsupende(@PathVariable("studentstatusId") Integer studentstatusId,@RequestBody Suspende suspende){
         suspende= suspendeService.insertSelective(suspende);
         Studentstatus studentstatus=new Studentstatus();
+        studentstatus.setSuspendeId(suspende.getSuspendeId());
+        studentstatus.setStudentstatusId(studentstatusId);
         studentstatus.setStudentId(suspende.getStudentId());
         studentstatus.setStatus(3);//已停课
         //学员表中查看详情中，点击学员停课，学员状态表中的状态字段为已停课
         studentstatusService.updatestustart(studentstatus);
        return suspende;
     }
+//    模糊查询
     @GetMapping("/findAllsuspende")
-    public PageInfo<Suspende> findAllsuspende(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+    public PageInfo<Suspende> findAllsuspende(@RequestParam("index") String index,@RequestParam("value") String value,@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         log.debug("开始查询");
         PageHelper.startPage(currentPage,pagesize);
-        List<Suspende> suspendeList=suspendeService.selectAll();
+        List<Suspende> suspendeList=suspendeService.findName_number(index, value);
         log.debug("停课："+suspendeList);
         PageInfo<Suspende> suspendeInfo=new PageInfo<>(suspendeList);
         return suspendeInfo;
     }
 //    根据学员编号修改学员状态表
 @PutMapping("/updatesuspendestate/{studentId}")
-    public Studentstatus updatesuspendestate(@PathVariable("studentId")Integer studentId){
-        Studentstatus studentstatus=studentstatusService.selectByPrimaryKey(studentId);
-    log.debug("查看停课的状态为1："+studentstatus);
-        studentstatus.setStatus(1);
-       studentstatusService.updatestustart(studentstatus);
-        return studentstatus;
+    public void updatesuspendestate(@PathVariable("studentId")Integer studentId){
+    List<Studentstatus> studentstatus=studentstatusService.selectByPrimaryKey(studentId);
+    for(Studentstatus stustate:studentstatus){
+
+        stustate.setStatus(1);//是否重新分班还是直接读
+        log.debug("查看停课的状态为1："+stustate);
+        studentstatusService.updatestustart(stustate);
+    }
+
+
 }
 //    修改状态或者是删除修改时效性
     @PutMapping("/updateapproval/{suspendeId}")
+    @LogginAnnotation(message = "批量审核停课")
     public void updateapproval(@PathVariable("suspendeId")String suspendeId){
        String[] id=suspendeId.split(",");
         for (String s:id){
@@ -64,6 +74,7 @@ private SuspendeService suspendeService;
 
     }
     @PutMapping("/delsuspend/{suspendeId}")
+    @LogginAnnotation(message = "批量删除停课")
     public void delsuspend(@PathVariable("suspendeId") String suspendeId){
         String[] id=suspendeId.split(",");
         for (String s:id){
@@ -76,5 +87,6 @@ private SuspendeService suspendeService;
 
 
     }
+
 
 }

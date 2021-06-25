@@ -36,16 +36,13 @@ public class SystemController {
         PageHelper.startPage(currentPage,pagesize);
         List<System>listSys=systemService.findAllSystem();
         PageInfo<System> SysPageInfo=new PageInfo<>(listSys);
-        log.debug(listSys.toString());
-//        SysPageInfo.setTotal(SysPageInfo.getTotal()-3);
-        log.debug(SysPageInfo.getTotal()+"总数");
         return SysPageInfo;
     }
-    @GetMapping("/findCanEmpName")
-    public List<System>findCanEmpName() {
-        log.debug("开始查看可查看人!");
-        return systemService.findAllSystem();
-    }
+//    @GetMapping("/findCanEmpName")
+//    public List<System>findCanEmpName() {
+//        log.debug("开始查看可查看人!");
+//        return systemService.findAllSystem();
+//    }
     @PostMapping("/AddSystem")
     public System AddSystem(@RequestBody System system){
         system.setAddtime(new Date());
@@ -94,14 +91,13 @@ public class SystemController {
         return system;
     }
     @GetMapping("/findConditional")
-    public PageInfo<System> findConditional(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize, @RequestParam("index")String index, @RequestParam("value")Object value){
+    public PageInfo<System> findSystem(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize, @RequestParam("index")String index, @RequestParam("value")Object value){
         log.debug("开始查询！");
         log.debug(currentPage+"");
         PageHelper.startPage(currentPage,pagesize);
-        List<System>listSys=systemService.findConditional(index,value);
+        List<System>listSys=systemService.findSystem(index,value);
         PageInfo<System> SysPageInfo=new PageInfo<>(listSys);
         log.debug(listSys.toString());
-//        SysPageInfo.setTotal(SysPageInfo.getTotal()-3);
         log.debug(SysPageInfo.getTotal()+"总数");
         return SysPageInfo;
     }

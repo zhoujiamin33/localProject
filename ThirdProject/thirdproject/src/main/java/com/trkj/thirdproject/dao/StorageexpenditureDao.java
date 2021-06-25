@@ -2,6 +2,7 @@ package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Storageexpenditure;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,4 +27,7 @@ public interface StorageexpenditureDao {
     int updateApproval(Storageexpenditure storageexpenditure);
     //删除
     int deleteTimeliness(Storageexpenditure storageexpenditure);
+    //多条件查询
+    List<Storageexpenditure> selectBycontionBook(@Param("Approval")int Approval,@Param("value1")String value1,
+                                                 @Param("value2")String value2,@Param("input")String input);
 }

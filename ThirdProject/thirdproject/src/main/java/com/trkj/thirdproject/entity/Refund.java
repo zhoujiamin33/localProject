@@ -3,6 +3,8 @@ package com.trkj.thirdproject.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -20,6 +22,10 @@ public class Refund implements Serializable {
      * 退学编号
      */
     private Integer dropId;
+
+    //学员编号
+    private Student student;
+    private Integer studentId;
 
     /**
      * 复课编号
@@ -64,6 +70,7 @@ public class Refund implements Serializable {
     /**
      * 退费办理时间
      */
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date addtime;
 
     /**
@@ -74,6 +81,7 @@ public class Refund implements Serializable {
     /**
      * 删除时间
      */
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date deletetime;
 
     /**
@@ -89,6 +97,7 @@ public class Refund implements Serializable {
     /**
      * 回退金额审核时间
      */
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date cwApptime;
 
     /**
@@ -99,6 +108,7 @@ public class Refund implements Serializable {
     /**
      * 回退金额撤销审核时间
      */
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date cwDropapptime;
 
     /**

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StudentService {
     //查询学员编号
-    Studentstatus selecttudentstsatus(Integer studentId);
+//    Studentstatus selecttudentstsatus(Integer studentId);
     Student selectstudentId(Integer studentId);
     //    新增
     Student addstudent(Student student);
@@ -46,5 +46,9 @@ public interface StudentService {
     Memorandumattachment selectregisterID(Integer registerId);
 
     //修改班级编号
-    Student AddclassesId(Integer classesId,Integer studentId);
+    int AddclassesId(Integer classesId,Integer studentId);
+//    修改学员审核的状态
+Student updatestudentstate(Student student);
+    //根据班级id查询学员信息
+    List<Student> selectByClass(Integer classesId);
 }

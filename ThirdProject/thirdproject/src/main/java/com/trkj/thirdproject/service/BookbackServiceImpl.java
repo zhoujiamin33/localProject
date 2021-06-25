@@ -38,4 +38,10 @@ public class BookbackServiceImpl implements BookbackService {
     public List<Bookback> selectBookBack(String value, String input) {
         return bookbackDao.selectBookBack(value, input);
     }
+
+    @Override
+    public Bookback updateByPrimaryKey(Bookback bookback) {
+        bookbackDao.updateByPrimaryKey(bookback);
+        return bookback;
+    }
 }

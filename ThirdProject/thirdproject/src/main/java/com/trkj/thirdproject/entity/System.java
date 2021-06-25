@@ -113,5 +113,7 @@ public class System implements Serializable {
 
     private List<Emp> emps;
 
+    private String names;
+
     private static final long serialVersionUID = 1L;
 }

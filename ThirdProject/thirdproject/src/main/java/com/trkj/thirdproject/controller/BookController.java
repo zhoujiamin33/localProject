@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Book;
 import com.trkj.thirdproject.service.BookService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/addBook")
+    @LogginAnnotation(message = "新增教材")
     public Book addBook(@RequestBody Book book){
         bookService.addBook(book);
         return book;

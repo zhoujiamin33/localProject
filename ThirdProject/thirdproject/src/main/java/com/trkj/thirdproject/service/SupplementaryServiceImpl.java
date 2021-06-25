@@ -40,4 +40,10 @@ public class SupplementaryServiceImpl implements SupplementaryService {
         supplementaryDao.updateByPrimaryKeySelective(record);
         return record;
     }
+
+    @Override
+    public List<Supplementary> findName_number(String index, String value) {
+        List<Supplementary> supplementaryList=supplementaryDao.findName_number(index, value) ;
+        return supplementaryList;
+    }
 }

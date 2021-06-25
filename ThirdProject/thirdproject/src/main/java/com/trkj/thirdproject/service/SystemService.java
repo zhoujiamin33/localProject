@@ -2,6 +2,7 @@ package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.entity.Emp;
 import com.trkj.thirdproject.entity.System;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,7 @@ public interface SystemService {
     int UpdatePublishSuspend(System system);
 
     List<System>findConditional(String index ,Object value);
+
+    List<System>findSystem(String index , Object value);
+
 }

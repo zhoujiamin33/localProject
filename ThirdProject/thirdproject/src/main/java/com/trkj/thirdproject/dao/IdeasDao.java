@@ -19,7 +19,15 @@ public interface IdeasDao {
 
     int updateByPrimaryKey(Ideas record);
 
+    int updateneirong(Ideas record);
+
     List<Ideas> selectAllfc();
 
     List<Ideas> selectAllsd();
+
+//    List<Ideas> selectAllqb();
+//
+//    List<Ideas> selectAlldhf();
+//
+//    List<Ideas> selectAllyhf();
 }

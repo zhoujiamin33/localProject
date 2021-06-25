@@ -16,7 +16,7 @@ public interface ClassesService {
     //班级表中的多条件查询
     List<Classes> selectByContion(@Param("value")String value, @Param("input") String input);
     //   根据课程编号查询所对应的班级
-    Classes selectcourseId(Integer courseId);
+    List<Classes> selectcourseId(Integer courseId);
     // 修改为已开班
     Classes updateClassesOpen1(Classes classes);
     //修改未开班

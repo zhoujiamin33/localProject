@@ -36,16 +36,26 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student AddclassesId(Integer classesId, Integer studentId) {
-       Student student=studentDao.AddclassesId(classesId, studentId);
+    public int AddclassesId(Integer classesId, Integer studentId) {
+        return  studentDao.AddclassesId(classesId, studentId);
+    }
+
+    @Override
+    public Student updatestudentstate(Student student) {
+        studentDao.updatestudentstate(student);
         return student;
     }
 
     @Override
-    public Studentstatus selecttudentstsatus(Integer studentId) {
-        Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
-        return studentstatus;
+    public List<Student> selectByClass(Integer classesId) {
+        return studentDao.selectByClass(classesId);
     }
+
+//    @Override
+//    public Studentstatus selecttudentstsatus(Integer studentId) {
+//        Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
+//        return studentstatus;
+//    }
 
     //查询学员编号
     @Override

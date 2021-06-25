@@ -56,13 +56,8 @@
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Classtype">
     update ClassType
     set ClassType_Name = #{classtypeName,jdbcType=VARCHAR},
-      AddName = #{addname,jdbcType=VARCHAR},
-      AddTime = #{addtime,jdbcType=TIMESTAMP},
       UpdateName = #{updatename,jdbcType=VARCHAR},
-      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
-      DeleteName = #{deletename,jdbcType=VARCHAR},
-      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
-      TimeLiness = #{timeliness,jdbcType=INTEGER}
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
     where ClassType_Id = #{classtypeId,jdbcType=INTEGER}
   </update>
 </mapper>

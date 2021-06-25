@@ -130,7 +130,7 @@
       #{announcementState,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="Announcement_Id" keyProperty="announcementId" parameterType="com.trkj.thirdproject.entity.Announcement" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="Announcement_Id" keyProperty="aznnouncementId" parameterType="com.trkj.thirdproject.entity.Announcement" useGeneratedKeys="true">
     insert into Announcement
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="announcementtypeId != null">

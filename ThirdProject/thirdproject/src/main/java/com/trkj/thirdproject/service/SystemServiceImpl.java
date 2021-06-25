@@ -64,4 +64,9 @@ public class SystemServiceImpl implements SystemService {
         return dao.findConditional(index,value);
     }
 
+    @Override
+    public List<System> findSystem(String index, Object value) {
+        return dao.findSystem(index,value);
+    }
+
 }

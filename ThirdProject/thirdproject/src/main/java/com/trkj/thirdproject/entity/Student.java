@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -118,5 +119,7 @@ public class Student implements Serializable {
     @JsonFormat(pattern = "YYYY-MM-dd")
     private Date studytime;
 
+    //学生数量
+    private Integer counttotal;
     private static final long serialVersionUID = 1L;
 }

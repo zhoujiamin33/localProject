@@ -2,6 +2,7 @@ package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Supplementary;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 @Mapper
@@ -20,4 +21,6 @@ public interface SupplementaryDao {
 
     //查看补报课程总表
     List<Supplementary> selectall();
+// 模糊查询
+    List<Supplementary> findName_number(@Param("index") String index,@Param("value") String value);
 }

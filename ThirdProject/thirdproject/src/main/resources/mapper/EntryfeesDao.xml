@@ -259,22 +259,31 @@
 
   <!--  多条件查询-->
   <select id="selectBycontion" resultMap="BaseResultMap">
-    select EntryFees
+    select
+     <include refid="Base_Column_List"/>,
+    <include refid="register"/>,
+    <include refid="course"/>
+    from EntryFees entry
+    inner join Register reg on reg.Register_Id=entry.Register_Id
+    inner join Course c on  reg.Course_Id=c.Course_Id
     <where>
-      <if test="ApprovalState==0">
-        ApprovalState = 0
-      </if>
-      <if test="ApprovalState==1">
-        ApprovalState = 1
+      <if test="ApprovalState!=null">
+        <if test="ApprovalState==0">
+          entry.ApprovalState = 0
+        </if>
+        <if test="ApprovalState==1">
+          and entry.ApprovalState = 1
+        </if>
       </if>
       <if test="value2 != null">
-        AddTime >= value2
+        and entry.AddTime &gt; #{value2}
       </if>
       <if test="input != null">
-        AddName like  CONCAT(CONCAT('%',#{input},'%'))
+        and entry.AddName like  CONCAT(CONCAT('%',#{input},'%'))
       </if>
+      and entry.TimeLiness=0
     </where>
-    order by AddTime desc
+    order by entry.AddTime desc
   </select>
 
 
