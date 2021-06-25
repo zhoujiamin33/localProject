@@ -18,5 +18,9 @@ public interface IdeasService {
 
     Ideas updateByPrimaryKey(Ideas ideas);
 
+    Ideas updateneirong(Ideas ideas);
+
     Ideas insert(Ideas ideas);
+
+    int deleteByPrimaryKey(int ideasId);
 }

@@ -269,4 +269,9 @@
       State = 1
     where Ideas_Id = #{ideasId,jdbcType=INTEGER}
   </update>
+  <update id="updateneirong" parameterType="com.trkj.thirdproject.entity.Ideas">
+    update Ideas
+    set Ideas_Name = #{ideasName,jdbcType=VARCHAR}
+    where Ideas_Id = #{ideasId,jdbcType=INTEGER}
+  </update>
 </mapper>

@@ -3,6 +3,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Classes;
 import com.trkj.thirdproject.entity.Deliveryddetails;
 import com.trkj.thirdproject.service.DeliveryDdetailsService;
@@ -27,6 +28,7 @@ public class DeliveryDdetailsController {
     }
 
     @PostMapping("/addDeliveryddetails")
+    @LogginAnnotation(message = "新增教材出库详情")
     public Deliveryddetails insert(@RequestBody Deliveryddetails deliveryddetails){
         deliveryDdetailsService.insert(deliveryddetails);
         return deliveryddetails;
@@ -63,6 +65,7 @@ public class DeliveryDdetailsController {
 //    }
 
     @DeleteMapping("/deldeliveryDdetails/{deliveryddetailsId}")
+    @LogginAnnotation(message = "删除教材出库详情")
     public String deldeliveryDdetails(@PathVariable("deliveryddetailsId") int deliveryddetailsId){
         log.debug("开始删除");
         deliveryDdetailsService.deleteByPrimaryKey(deliveryddetailsId);

@@ -51,10 +51,22 @@ public class IdeasServiceImpl implements IdeasService {
     }
 
     @Override
+    public Ideas updateneirong(Ideas ideas) {
+        ideasDao.updateneirong(ideas);
+        return ideas;
+    }
+
+    @Override
     public Ideas insert(Ideas ideas) {
         ideas.setEmpId(1);
         ideas.setTimeofpublication(new Date());
         ideasDao.insert(ideas);
         return ideas;
+    }
+
+    @Override
+    public int deleteByPrimaryKey(int ideasId) {
+        ideasDao.deleteByPrimaryKey(ideasId);
+        return ideasId;
     }
 }

@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Bookdelivery;
 import com.trkj.thirdproject.entity.Bookstorage;
 import com.trkj.thirdproject.entity.Ideas;
@@ -59,13 +60,31 @@ public class IdeasController {
 //    }
 
     @PutMapping("/updateIdeas")
+    @LogginAnnotation(message = "回复意见")
     public Ideas updateByPrimaryKey(@RequestBody Ideas ideas){
         log.debug("开始修改");
         ideasService.updateByPrimaryKey(ideas);
         return ideas;
     }
 
+    @PutMapping("/updateIdeasneirong")
+    @LogginAnnotation(message = "修改意见内容")
+    public Ideas updateneirong(@RequestBody Ideas ideas){
+        log.debug("开始修改");
+        ideasService.updateneirong(ideas);
+        return ideas;
+    }
+
+    @DeleteMapping("/delIdeas/{ideasId}")
+    @LogginAnnotation(message = "删除待回复的意见")
+    public String delIdeas(@PathVariable("ideasId") int ideasId){
+        log.debug("开始删除");
+        ideasService.deleteByPrimaryKey(ideasId);
+        return "delOk";
+    }
+
     @PostMapping("/addIdeas")
+    @LogginAnnotation(message = "新增意见")
     public Ideas insert(@RequestBody Ideas ideas){
         ideasService.insert(ideas);
         return ideas;

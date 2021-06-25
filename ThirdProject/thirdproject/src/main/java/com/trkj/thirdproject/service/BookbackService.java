@@ -11,7 +11,7 @@ import java.util.List;
 public interface BookbackService {
     List<Bookback> selectAll();
 
-//    int deleteByPrimaryKey(int bookbackId);
+    int deleteByPrimaryKey(int bookbackId);
 
     Bookback insert(Bookback bookback);
 
