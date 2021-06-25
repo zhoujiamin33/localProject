@@ -72,6 +72,7 @@
   <sql id="Book">
     b.Book_Id, b.BookName, b.DeliveryCount, b.BookSprice, b.BookJprice, b.SafeStock, b.Press, b.`State`
   </sql>
+
   <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />,

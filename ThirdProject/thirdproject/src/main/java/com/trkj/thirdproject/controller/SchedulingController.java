@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.controller;
 
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Scheduling;
 import com.trkj.thirdproject.service.SchedulingSevice;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ public class SchedulingController {
     @Autowired
     private SchedulingSevice schedulingSevice;
     @PostMapping("/insertSheduling")
+    @LogginAnnotation(message = "新增排课")
     public Scheduling insert(@RequestBody Scheduling scheduling){
         scheduling= schedulingSevice.insert(scheduling);
         log.debug(scheduling.getCoursecount()+"eee");

@@ -28,4 +28,6 @@ public interface BookstorageService {
     Storageexpenditure updateApproval(Storageexpenditure storageexpenditure);
     //删除
     Storageexpenditure deleteTimeliness(Storageexpenditure storageexpenditure);
+    //多条件查询
+    List<Storageexpenditure> selectBycontionBook(int Approval,String value1,String value2,String input);
 }

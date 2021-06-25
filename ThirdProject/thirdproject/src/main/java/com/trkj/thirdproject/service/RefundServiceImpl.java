@@ -31,7 +31,11 @@ public class RefundServiceImpl implements RefundService {
         log.debug(detailcourseId+"id");
         refund.setDetailcourseId(detailcourseId);
         //退费类型
-        refund.setRefundtype("退学退费");
+        if(refund.getBackId()==null){
+            refund.setRefundtype("退学退费");
+        }else{
+            refund.setRefundtype("停课退费");
+        }
         //新增时间
         refund.setAddtime(new Date());
         //查询剩余的课程,并计算退费金额
@@ -50,5 +54,34 @@ public class RefundServiceImpl implements RefundService {
     @Override
     public List<Refund> selectAllRefund() {
         return refunddao.selectAllRefund();
+    }
+
+    @Override
+    public Refund updateapproval(Refund refund) {
+        refund.setCwAppname("admin");
+        refund.setCwApptime(new Date());
+        refunddao.updateapproval(refund);
+        return refund;
+    }
+
+    @Override
+    public Refund updateRevokeapproval(Refund refund) {
+        refund.setCwDropappname("admin");
+        refund.setCwDropapptime(new Date());
+        refunddao.updateRevokeapproval(refund);
+        return refund;
+    }
+
+    @Override
+    public Refund deleterefund(Refund refund) {
+        refund.setDeletename("admin");
+        refund.setDeletetime(new Date());
+        refunddao.deleterefund(refund);
+        return refund;
+    }
+
+    @Override
+    public List<Refund> selectByContion(int Approval, String value1, String value2, String input) {
+        return refunddao.selectByContion(Approval, value1, value2, input);
     }
 }

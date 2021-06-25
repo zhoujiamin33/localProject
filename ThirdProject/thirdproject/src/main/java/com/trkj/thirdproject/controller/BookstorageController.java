@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Bookstorage;
 import com.trkj.thirdproject.entity.Deliveryddetails;
+import com.trkj.thirdproject.entity.Refund;
 import com.trkj.thirdproject.entity.Storageexpenditure;
 import com.trkj.thirdproject.service.BookstorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -88,5 +89,15 @@ public class BookstorageController {
     public Storageexpenditure deleteTimeliness( @RequestBody Storageexpenditure storageexpenditure){
         storageexpenditure=bookstorageService.deleteTimeliness(storageexpenditure);
         return  storageexpenditure;
+    }
+    @GetMapping("/selectBycontionBook")
+    public PageInfo<Storageexpenditure> selectBycontionBook(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
+        @RequestParam("Approval") int Approval,@RequestParam("value1") String value1, @RequestParam("value2") String value2,
+        @RequestParam("input") String input){
+
+        PageHelper.startPage(currentPage,pagesize);
+        List<Storageexpenditure> entityPage=bookstorageService.selectBycontionBook(Approval, value1, value2, input);
+        PageInfo<Storageexpenditure> entityPageInfo=new PageInfo<>(entityPage);
+        return entityPageInfo;
     }
 }
