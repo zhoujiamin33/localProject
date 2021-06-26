@@ -200,7 +200,41 @@
       <if test="studentId != null">
         Student_Id = #{studentId,jdbcType=INTEGER},
       </if>
-      <if test="classesId != null">
+      <if test="classesId != null ">
+        Classes_Id = #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        Course_Id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="suspendeId != null">
+        Suspende_Id = #{suspendeId,jdbcType=INTEGER},
+      </if>
+      <if test="signuptime != null">
+        SignUpTime = #{signuptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `Status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where StudentStatus_Id = #{studentstatusId,jdbcType=INTEGER}
+  </update>
+<!--  复课状态为0的情况-->
+  <update id="updateByPrimaryKeySelective1" parameterType="com.trkj.thirdproject.entity.Studentstatus">
+    update StudentStatus
+    <set>
+      <if test="studentId != null">
+        Student_Id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classesId == null ">
         Classes_Id = #{classesId,jdbcType=INTEGER},
       </if>
       <if test="courseId != null">

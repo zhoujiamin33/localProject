@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Dropout;
-import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.entity.Studentstatus;
 import com.trkj.thirdproject.service.DropoutService;
 import com.trkj.thirdproject.service.StudentstatusService;
@@ -27,18 +26,18 @@ public class DropoutController {
     @PostMapping("/Adddropout")
     @LogginAnnotation(message = "新增退学")
     public Dropout adddropout(@RequestBody Dropout dropout){
-        dropout.setClassesId(dropout.getClassesId());
-        dropout.setCourseId(dropout.getCourseId());
-        dropout.setStudentId(dropout.getStudentId());
-        dropout.setDropHandler("tsm");
-        dropout.setDropReason(dropout.getDropReason());
-        dropoutService.insertSelective(dropout);
-//        Studentstatus studentstatus=studentstatusService.selectByPrimaryKey(dropout.getStudentId());
-        Studentstatus studentstatus=new Studentstatus();
-        studentstatus.setStudentId(dropout.getStudentId());
-        studentstatus.setStatus(2);//退学审核
-        studentstatusService.updatestustart(studentstatus);
+        dropout=dropoutService.insertSelective(dropout);
+        log.debug(dropout.toString()+"退学");
         return dropout;
+    }
+    @PutMapping("/updatetuixue/{studentstatusId}")
+    public Studentstatus updatetuixue(@PathVariable("studentstatusId") Integer studentstatusId){
+        Studentstatus studentstatus=new Studentstatus();
+        log.debug("sss"+studentstatusId);
+        studentstatus.setStatus(2);//退学审核
+        studentstatus.setStudentstatusId(studentstatusId);
+        studentstatusService.updatestustart(studentstatus);
+        return studentstatus;
     }
 //    查询所有退学记录的学员
     @GetMapping("/finddropout")

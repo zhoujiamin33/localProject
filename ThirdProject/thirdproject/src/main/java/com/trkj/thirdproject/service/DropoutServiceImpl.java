@@ -1,7 +1,9 @@
 package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.DropoutDao;
+import com.trkj.thirdproject.dao.StudentstatusDao;
 import com.trkj.thirdproject.entity.Dropout;
+import com.trkj.thirdproject.entity.Studentstatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,12 @@ import java.util.List;
 public class DropoutServiceImpl implements DropoutService {
     @Autowired
     private DropoutDao dropoutDao;
+    @Autowired
+    private StudentstatusDao studentstatusDao;
     @Override
-    public Dropout insertSelective(Dropout record) {
-        dropoutDao.insertSelective(record);
-        return record;
+    public Dropout insertSelective(Dropout dropout) {
+        dropoutDao.insertSelective(dropout);
+        return dropout;
     }
 //查询所有
     @Override

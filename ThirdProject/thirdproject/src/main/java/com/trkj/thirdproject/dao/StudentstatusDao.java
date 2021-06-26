@@ -18,7 +18,7 @@ public interface StudentstatusDao {
     List<Studentstatus> selectByPrimaryKey(Integer studentId);//根据学员编号查询学员状态表
     //    停课的状态修改
     int updateByPrimaryKeySelective(Studentstatus record);
-
+    int updateByPrimaryKeySelective1(Studentstatus record);
     int updatestustart(Studentstatus record);
 
     int updateByPrimaryKey(Studentstatus record);

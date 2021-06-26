@@ -212,7 +212,7 @@
     inner join Book b on b.Book_Id=cl.User_BookId
     inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
     inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
-    where Classes_Id = #{classesId,jdbcType=INTEGER}
+    where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
     order by cl.AddName desc
   </select>
 

@@ -11,7 +11,7 @@ import java.util.List;
 public interface RefundDao {
     int deleteByPrimaryKey(Integer refundId);
     //新增退费
-    Refund insertRefund(Refund refund);
+    int insertRefund(Refund refund);
 
     int insertSelective(Refund record);
 

@@ -30,6 +30,11 @@ public class StudentstatusServiceImpl implements StudentstatusService {
       studentstatusDao.updateByPrimaryKeySelective(record);
         return record;
     }
+    @Override
+    public Studentstatus updatestustart1(Studentstatus record) {
+        studentstatusDao.updateByPrimaryKeySelective1(record);
+        return record;
+    }
 //查询状态表
     @Override
     public List<Studentstatus> selectByPrimaryKey(Integer studentId) {
