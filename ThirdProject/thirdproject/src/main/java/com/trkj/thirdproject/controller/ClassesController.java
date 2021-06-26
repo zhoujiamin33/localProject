@@ -1,7 +1,11 @@
 package com.trkj.thirdproject.controller;
 
 import ch.qos.logback.classic.sift.AppenderFactoryUsingJoran;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Classes;
+import com.trkj.thirdproject.entity.Classtype;
 import com.trkj.thirdproject.entity.Detailcourse;
 import com.trkj.thirdproject.service.ClassesService;
 import com.trkj.thirdproject.vo.AjaxResponse;
@@ -17,31 +21,42 @@ import java.util.List;
 public class ClassesController {
     @Autowired
     private ClassesService classesService;
+
     @GetMapping("/findAllClass")
-    public List<Classes> findAllClass(){
-        return classesService.findAllclass();
+    public PageInfo<Classes> findAllClass(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Classes> entityPage=classesService.findAllclass();
+        PageInfo<Classes> classtypePageInfo=new PageInfo<>(entityPage);
+        return classtypePageInfo;
     }
     @PostMapping("/insertClass")
+    @LogginAnnotation(message = "新增班级")
     public Classes insertClass(@RequestBody Classes classes){
         classesService.insert(classes);
         return classes;
     }
     @PutMapping("/updateClass")
+    @LogginAnnotation(message = "修改班级")
     public AjaxResponse updateClass(@RequestBody Classes classes){
         classesService.updateByPrimaryKeySelective(classes);
         return AjaxResponse.success("修改成功");
     }
-    @GetMapping("/selectByContion/{value}/{input}")
-    public List<Classes> selectByContion(@PathVariable("value") String value, @PathVariable("input") String input){
-        return classesService.selectByContion(value, input);
+    @GetMapping("/selectByContion")
+    public PageInfo<Classes> selectByContion(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize,@RequestParam("value") String value, @RequestParam("input") String input){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Classes> entityPage=classesService.selectByContion(value, input);
+        PageInfo<Classes> classtypePageInfo=new PageInfo<>(entityPage);
+        return classtypePageInfo;
     }
     // 修改为已开班
     @PutMapping("/updateClassesOpen1")
+    @LogginAnnotation(message = "修改班级为开班状态")
     public Classes updateClassesOpen1( @RequestBody Classes classes){
         return classesService.updateClassesOpen1(classes);
     }
     // 修改为未开班
     @PutMapping("/updateClassesOpen0")
+    @LogginAnnotation(message = "修改班级为未班状态")
     public Classes updateClassesOpen0( @RequestBody Classes classes){
         return classesService.updateClassesOpen0(classes);
     }

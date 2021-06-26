@@ -87,6 +87,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Detailcourse updateByName(Detailcourse detailcourse) {
         log.debug("修改课程详细");
+        detailcourse.setUpdatetime(new Date());
         detailcoursedao.updateByName(detailcourse);
         return detailcourse;
     }

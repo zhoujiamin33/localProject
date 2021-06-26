@@ -33,27 +33,61 @@
     from WarehouseIncome
     where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
   </select>
+
+ <!--  多条件查询-->
+  <select id="selectBycontionBook2" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from WarehouseIncome
+    <where>
+      <if test="Approval!=null">
+        <if test="Approval==0">
+          Approval = 0
+        </if>
+        <if test="Approval==1">
+          and Approval = 1
+        </if>
+      </if>
+      <if test="value2 != null and value1 !=null">
+        and AddTime between #{value1} and #{value2}
+      </if>
+      <if test="input != null">
+        and AddName like  CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+      and TimeLiness=0
+    </where>
+    order  by AddTime desc
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from WarehouseIncome
     where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
   </delete>
+
+
   <!--  修改为审核状态-->
   <update id="updateApproval">
     update WarehouseIncome set Approval=1 ,ApprovalName=#{approvalname,jdbcType=VARCHAR}, ApprovalTime=#{approvaltime,jdbcType=TIMESTAMP}
     where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
   </update>
+
+
   <!--  修改为撤销审核状态-->
   <update id="updateReApproval">
     update WarehouseIncome set Approval=0 ,RevokeAppName=#{revokeappname,jdbcType=VARCHAR},RevokeAppTime=#{revokeapptime,jdbcType=TIMESTAMP}
     where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
   </update>
+
+
   <!--  查询所有教材出库收入-->
   <select id="selectAllincome" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from WarehouseIncome
     where TimeLiness=0
     order by AddTime desc
   </select>
-<!--  新增教材出库收入-->
+
+  <!--  新增教材出库收入-->
   <insert id="insert" keyColumn="WarehouseIncome_Id" keyProperty="warehouseincomeId" parameterType="com.trkj.thirdproject.entity.Warehouseincome" useGeneratedKeys="true">
     insert into WarehouseIncome (Refund_Name, Refund_Date, BookDelivery_Id, Refund_details, Refund_Count,
       TotalMoney, AddName, AddTime)
@@ -61,6 +95,8 @@
       #{refundDetails,jdbcType=VARCHAR}, #{refundCount,jdbcType=INTEGER},
       #{totalmoney,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
   </insert>
+
+
   <insert id="insertSelective" keyColumn="WarehouseIncome_Id" keyProperty="warehouseincomeId" parameterType="com.trkj.thirdproject.entity.Warehouseincome" useGeneratedKeys="true">
     insert into WarehouseIncome
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -176,6 +212,8 @@
       </if>
     </trim>
   </insert>
+
+
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Warehouseincome">
     update WarehouseIncome
     <set>
@@ -236,6 +274,8 @@
     </set>
     where WarehouseIncome_Id = #{warehouseincomeId,jdbcType=INTEGER}
   </update>
+
+
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Warehouseincome">
     update WarehouseIncome
     set Refund_Name = #{refundName,jdbcType=VARCHAR},

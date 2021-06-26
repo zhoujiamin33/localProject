@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Entryfees;
 import com.trkj.thirdproject.entity.Studentoutstanding;
 import com.trkj.thirdproject.service.EntryfeesService;
@@ -34,6 +35,7 @@ public class EntryfeesController {
 
     //    审核、修改报班缴费
     @PutMapping("/updateapproval")
+    @LogginAnnotation(message = "审核报班缴费")
     public Entryfees updateapproval(@RequestBody Entryfees entryfees) {
         entryfeesService.updateapproval(entryfees);
         return entryfees;
@@ -41,6 +43,7 @@ public class EntryfeesController {
 
     //    撤销审核、修改报班缴费
     @PutMapping("/updateRevokeapproval")
+    @LogginAnnotation(message = "撤销审核报班缴费")
     public Entryfees updateRevokeapproval(@RequestBody Entryfees entryfees) {
         entryfeesService.updateRevokeapproval(entryfees);
         return entryfees;
@@ -48,6 +51,7 @@ public class EntryfeesController {
 
     //删除报班缴费、修改时效性
     @PutMapping("/deleteEntryfees")
+    @LogginAnnotation(message = "删除报班缴费")
     public Entryfees deleteEntryfees(@RequestBody Entryfees entryfees) {
         entryfeesService.deleteByPrimaryKey(entryfees);
         return entryfees;
@@ -55,6 +59,7 @@ public class EntryfeesController {
 
     //新增报班缴费数据
     @PostMapping("/insertEntry")
+    @LogginAnnotation(message = "新增报班缴费")
     public Entryfees insretEntry(@RequestBody Entryfees entryfees) {
         entryfeesService.insertentryfees(entryfees);
         return entryfees;
@@ -84,7 +89,7 @@ public class EntryfeesController {
     //多条件查询
     @GetMapping("/selectBycontionEntry")
     public PageInfo<Entryfees> selectBycontion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
-       @PathVariable("ApprovalState") int ApprovalState, @PathVariable("value2") Date value2,@PathVariable("input") Date input) {
+       @RequestParam("ApprovalState") int ApprovalState, @RequestParam("value2") String value2,@RequestParam("input") String  input) {
         log.debug("多条件查询");
         PageHelper.startPage(currentPage, pagesize);
         List<Entryfees> entityPage = entryfeesService.selectBycontion(ApprovalState, value2, input);
@@ -104,6 +109,7 @@ public class EntryfeesController {
     }
 
     @PostMapping("/insertoutstanding")
+    @LogginAnnotation(message = "新增欠费补缴")
     public Studentoutstanding insertoutstanding(@RequestBody Studentoutstanding studentoutstanding) {
         outStandingService.insert(studentoutstanding);
         return studentoutstanding;
@@ -133,6 +139,7 @@ public class EntryfeesController {
 
     //审核
     @PutMapping("/updateApprovalState")
+    @LogginAnnotation(message = "审核欠费补缴")
     public Studentoutstanding updateApprovalState(@RequestBody Studentoutstanding studentoutstanding) {
         outStandingService.updateApprovalState(studentoutstanding);
         return studentoutstanding;
@@ -140,6 +147,7 @@ public class EntryfeesController {
 
     //撤销审核
     @PutMapping("/updateReApprovalState")
+    @LogginAnnotation(message = "撤销审核欠费补缴")
     public Studentoutstanding updateReApprovalState(@RequestBody Studentoutstanding studentoutstanding) {
         outStandingService.updateReApprovalState(studentoutstanding);
         return studentoutstanding;
@@ -147,6 +155,7 @@ public class EntryfeesController {
 
     //删除
     @PutMapping("/deleteoutstanding")
+    @LogginAnnotation(message = "删除欠费补缴")
     public Studentoutstanding deleteoutstanding(@RequestBody Studentoutstanding studentoutstanding) {
         outStandingService.deleteoutstanding(studentoutstanding);
         return studentoutstanding;
@@ -154,6 +163,7 @@ public class EntryfeesController {
 
     //修改补缴管理的累计欠费
     @PutMapping("/updateAccumulated")
+    @LogginAnnotation(message = "修改欠费补缴")
     public Studentoutstanding updateAccumulated(@RequestBody Studentoutstanding studentoutstanding) {
         outStandingService.updateAccumulated(studentoutstanding);
         return studentoutstanding;

@@ -121,5 +121,10 @@ public class BookstorageServiceImpl implements BookstorageService {
         return storageexpenditure;
     }
 
+    @Override
+    public List<Storageexpenditure> selectBycontionBook(int Approval, String value1, String value2, String input) {
+        return storageexpendituredao.selectBycontionBook(Approval, value1, value2, input);
+    }
+
 
 }

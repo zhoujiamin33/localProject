@@ -99,6 +99,9 @@ public class Register implements Serializable {
      */
     private String phone;
 
+//    咨询方式条数
+    private Integer total;
+
     /**
      * 课程详细编号
      */

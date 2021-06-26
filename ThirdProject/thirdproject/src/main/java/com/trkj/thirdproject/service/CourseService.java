@@ -22,7 +22,7 @@ public interface CourseService {
 
     List<Course> selectByCourseTypeId(Integer classtypeId);
 
-//    Course selectByCourseTypeId(Integer classtypeId);
+
     //根据课程id修改开课状态
     Course updateCourseState(Course course);
     //-----------------------------------------------课程详情数据--------------------------------------------------------------

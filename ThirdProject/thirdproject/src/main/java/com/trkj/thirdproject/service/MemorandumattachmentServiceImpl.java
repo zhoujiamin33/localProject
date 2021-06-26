@@ -19,6 +19,12 @@ public class MemorandumattachmentServiceImpl implements MemorandumattachmentServ
     public List<Memorandumattachment> selectMemorandumAttachment() {
         return memorandumattachmentDao.selectMemorandumAttachment();
     }
+    //分页
+    @Override
+    public List<Memorandumattachment> selectAIIMem(){
+        log.debug("开始分页查询");
+        return memorandumattachmentDao.selectAIIMem();
+    }
     // 批量审批修改招生状态
     @Override
     public int PiliangZssp(List<Integer> MemorandumattachmentId, Date JWExamineTime){

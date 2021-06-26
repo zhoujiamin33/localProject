@@ -23,10 +23,6 @@ public interface ClasstypeDao {
     int insert(Classtype classtype);
 
 
-////根据id查询数据
-//    Classtype selectByPrimaryKey(Integer classtypeId);
-
-
     //修改
     int updateByPrimaryKey(Classtype classtype);
     //删除,修改状态

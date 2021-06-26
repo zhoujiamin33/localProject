@@ -1,4 +1,4 @@
-GET http://localhost:8089/threeproject/selectByClass/2
+GET http://localhost:8089/threeproject/ConsultationmodeStatistics
 Accept: application/json
 
 ###

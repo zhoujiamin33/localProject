@@ -68,7 +68,27 @@
     delete from Refund
     where Refund_Id = #{refundId,jdbcType=INTEGER}
   </delete>
-<!--  新增退费-->
+
+  <!--  审核退费-->
+  <update id="updateapproval">
+    update Refund set CW_Approval=1 ,CW_AppName=#{cwAppname,jdbcType=VARCHAR},CW_AppTime=#{cwApptime,jdbcType=TIMESTAMP}
+    where Refund_Id = #{refundId,jdbcType=INTEGER}
+  </update>
+
+
+  <!--  撤销审核退费-->
+  <update id="updateRevokeapproval">
+    update Refund set CW_Approval=0 ,CW_DropAppName=#{cwDropappname,jdbcType=VARCHAR},CW_DropAppTime=#{cwDropapptime,jdbcType=TIMESTAMP}
+    where Refund_Id = #{refundId,jdbcType=INTEGER}
+  </update>
+
+  <!--删除，修改时效性-->
+  <update id="deleterefund">
+    update Refund set TimeLiness=1 ,DeleteName=#{deletename,jdbcType=VARCHAR},DeleteTime=#{deletetime,jdbcType=TIMESTAMP}
+    where Refund_Id = #{refundId,jdbcType=INTEGER}
+  </update>
+
+  <!--  新增退费-->
   <insert id="insertRefund" keyColumn="Refund_Id" keyProperty="refundId" parameterType="com.trkj.thirdproject.entity.Refund" useGeneratedKeys="true">
     insert into Refund (Drop_Id, Back_Id, Suspende_Id, Student_Id,
       Classes_Id, Course_Id, DetailCourse_Id,RefundType, Drop_Money, AddName, AddTime)
@@ -78,13 +98,42 @@
       #{addtime,jdbcType=TIMESTAMP})
   </insert>
 
-<!--  查询退费-->
+
+ <!--  多条件查询-->
+ <select id="selectByContion" resultMap="BaseResultMap">
+   select <include refid="student"/>,
+   <include refid="Base_Column_List"/>
+   from Refund r
+   inner join Student stu on stu.Student_Id=r.Student_Id
+   <where>
+     <if test="Approval!=null">
+       <if test="Approval==0">
+         r.CW_Approval = 0
+       </if>
+       <if test="Approval==1">
+         and r.CW_Approval = 1
+       </if>
+     </if>
+     <if test="value2 != null and value1 !=null">
+       and r.AddTime between #{value1} and #{value2}
+     </if>
+     <if test="input != null">
+       and r.AddName like  CONCAT(CONCAT('%',#{input},'%'))
+     </if>
+     and r.TimeLiness=0
+   </where>
+   order  by AddTime desc
+ </select>
+
+  <!--  查询退费-->
   <select id="selectAllRefund" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>,<include refid="student"/>
     from Refund r
     inner join Student stu on stu.Student_Id=r.Student_Id
+    where r.TimeLiness=0
     order  by AddTime desc
   </select>
+
   <insert id="insertSelective" keyColumn="Refund_Id" keyProperty="refundId" parameterType="com.trkj.thirdproject.entity.Refund" useGeneratedKeys="true">
     insert into Refund
     <trim prefix="(" suffix=")" suffixOverrides=",">

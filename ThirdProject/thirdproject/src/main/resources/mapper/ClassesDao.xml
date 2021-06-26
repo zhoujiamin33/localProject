@@ -1,201 +1,220 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.thirdproject.dao.ClassesDao">
-  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Classes">
-    <id column="Classes_Id" jdbcType="INTEGER" property="classesId" />
-    <result column="Classes_Name" jdbcType="VARCHAR" property="classesName" />
-    <result column="Classes_Number" jdbcType="VARCHAR" property="classesNumber" />
-    <result column="Classes_Open" jdbcType="INTEGER" property="classesOpen" />
-    <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
-    <result column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
-    <result column="Teacher_Id" jdbcType="INTEGER" property="teacherId" />
-    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
-    <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
-    <result column="StartedDate" jdbcType="TIMESTAMP" property="starteddate" />
-    <result column="EndDate" jdbcType="TIMESTAMP" property="enddate" />
-    <result column="LastDate" jdbcType="TIMESTAMP" property="lastdate" />
-    <result column="AddName" jdbcType="VARCHAR" property="addname" />
-    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
-    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
-    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
-    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
-    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    <result column="User_BookId" jdbcType="INTEGER" property="userbookId" />
-    <result column="WhenDetails" jdbcType="INTEGER" property="whendetails"/>
-<!--    课程表-->
-    <association property="course" javaType="com.trkj.thirdproject.entity.Course">
-      <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
-      <result column="Course_Name" jdbcType="VARCHAR" property="courseName" />
-      <result column="Course_State" jdbcType="INTEGER" property="courseState" />
-      <result column="Classhours" jdbcType="INTEGER" property="classhours" />
-      <result column="Course_Money" jdbcType="DECIMAL" property="courseMoney" />
-      <result column="ClassType_Id" jdbcType="INTEGER" property="classtypeId" />
-      <result column="AddName" jdbcType="VARCHAR" property="addname" />
-      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
-      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
-      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
-      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
-      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    </association>
-<!--    员工表-->
-    <association property="emp" javaType="com.trkj.thirdproject.entity.Emp">
-      <id column="Emp_Id" jdbcType="INTEGER" property="empId" />
-      <result column="Position_Id" jdbcType="INTEGER" property="positionId" />
-      <result column="Dept_Id" jdbcType="INTEGER" property="deptId" />
-      <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId" />
-      <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber" />
-      <result column="Emp_Name" jdbcType="VARCHAR" property="empName" />
-      <result column="Emp_Sex" jdbcType="CHAR" property="empSex" />
-      <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone" />
-      <result column="E_mail" jdbcType="VARCHAR" property="eMail" />
-      <result column="Birthday" jdbcType="TIMESTAMP" property="birthday" />
-      <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto" />
-      <result column="Photo" jdbcType="VARCHAR" property="photo" />
-      <result column="Education" jdbcType="VARCHAR" property="education" />
-      <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
-      <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
-      <result column="Address" jdbcType="VARCHAR" property="address" />
-      <result column="WorkersState" jdbcType="INTEGER" property="workersstate" />
-      <result column="Password" jdbcType="VARCHAR" property="password" />
-      <result column="Addname" jdbcType="VARCHAR" property="addname" />
-      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
-      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
-      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
-      <result column="LeaveName" jdbcType="VARCHAR" property="leavename" />
-      <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime" />
-      <result column="EmpState" jdbcType="INTEGER" property="empstate" />
-      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
-      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-      <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
-    </association>
-<!--    教材表-->
-    <association property="book" javaType="com.trkj.thirdproject.entity.Book">
-      <id column="Book_Id" jdbcType="INTEGER" property="bookId" />
-      <result column="BookName" jdbcType="VARCHAR" property="bookname" />
-      <result column="DeliveryCount" jdbcType="INTEGER" property="deliverycount" />
-      <result column="BookSprice" jdbcType="DECIMAL" property="booksprice" />
-      <result column="BookJprice" jdbcType="DECIMAL" property="bookjprice" />
-      <result column="SafeStock" jdbcType="INTEGER" property="safestock" />
-      <result column="Press" jdbcType="VARCHAR" property="press" />
-      <result column="State" jdbcType="INTEGER" property="state" />
-    </association>
-    <association property="classroom" javaType="com.trkj.thirdproject.entity.Classroom">
-      <id column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId" />
-      <result column="ClassRoom_Name" jdbcType="VARCHAR" property="classroomName" />
-      <result column="Cacacity" jdbcType="INTEGER" property="cacacity" />
-      <result column="Place" jdbcType="VARCHAR" property="place" />
-      <result column="AddName" jdbcType="VARCHAR" property="addname" />
-      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
-      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
-      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
-      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
-      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    </association>
-    <association property="detailcourse" javaType="com.trkj.thirdproject.entity.Detailcourse">
-      <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
-      <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
-      <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName" />
-      <result column="Serial" jdbcType="INTEGER" property="serial" />
-      <result column="AddName" jdbcType="VARCHAR" property="addname" />
-      <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
-      <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
-      <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
-      <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
-      <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-      <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-    </association>
+    <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.Classes">
+        <id column="Classes_Id" jdbcType="INTEGER" property="classesId"/>
+        <result column="Classes_Name" jdbcType="VARCHAR" property="classesName"/>
+        <result column="Classes_Number" jdbcType="VARCHAR" property="classesNumber"/>
+        <result column="Classes_Open" jdbcType="INTEGER" property="classesOpen"/>
+        <result column="Course_Id" jdbcType="INTEGER" property="courseId"/>
+        <result column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId"/>
+        <result column="Teacher_Id" jdbcType="INTEGER" property="teacherId"/>
+        <result column="Emp_Id" jdbcType="INTEGER" property="empId"/>
+        <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId"/>
+        <result column="StartedDate" jdbcType="TIMESTAMP" property="starteddate"/>
+        <result column="EndDate" jdbcType="TIMESTAMP" property="enddate"/>
+        <result column="LastDate" jdbcType="TIMESTAMP" property="lastdate"/>
+        <result column="AddName" jdbcType="VARCHAR" property="addname"/>
+        <result column="AddTime" jdbcType="TIMESTAMP" property="addtime"/>
+        <result column="UpdateName" jdbcType="VARCHAR" property="updatename"/>
+        <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="DeleteName" jdbcType="VARCHAR" property="deletename"/>
+        <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime"/>
+        <result column="TimeLiness" jdbcType="INTEGER" property="timeliness"/>
+        <result column="User_BookId" jdbcType="INTEGER" property="userbookId"/>
+        <result column="WhenDetails" jdbcType="INTEGER" property="whendetails"/>
+        <!--    课程表-->
+        <association property="course" javaType="com.trkj.thirdproject.entity.Course">
+            <id column="Course_Id" jdbcType="INTEGER" property="courseId"/>
+            <result column="Course_Name" jdbcType="VARCHAR" property="courseName"/>
+            <result column="Course_State" jdbcType="INTEGER" property="courseState"/>
+            <result column="Classhours" jdbcType="INTEGER" property="classhours"/>
+            <result column="Course_Money" jdbcType="DECIMAL" property="courseMoney"/>
+            <result column="ClassType_Id" jdbcType="INTEGER" property="classtypeId"/>
+            <result column="AddName" jdbcType="VARCHAR" property="addname"/>
+            <result column="AddTime" jdbcType="TIMESTAMP" property="addtime"/>
+            <result column="UpdateName" jdbcType="VARCHAR" property="updatename"/>
+            <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+            <result column="DeleteName" jdbcType="VARCHAR" property="deletename"/>
+            <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime"/>
+            <result column="TimeLiness" jdbcType="INTEGER" property="timeliness"/>
+        </association>
+        <!--    员工表-->
+        <association property="emp" javaType="com.trkj.thirdproject.entity.Emp">
+            <id column="Emp_Id" jdbcType="INTEGER" property="empId"/>
+            <result column="Position_Id" jdbcType="INTEGER" property="positionId"/>
+            <result column="Dept_Id" jdbcType="INTEGER" property="deptId"/>
+            <result column="Enterprise_Id" jdbcType="INTEGER" property="enterpriseId"/>
+            <result column="JobNumber" jdbcType="VARCHAR" property="jobnumber"/>
+            <result column="Emp_Name" jdbcType="VARCHAR" property="empName"/>
+            <result column="Emp_Sex" jdbcType="CHAR" property="empSex"/>
+            <result column="Emp_Phone" jdbcType="VARCHAR" property="empPhone"/>
+            <result column="E_mail" jdbcType="VARCHAR" property="eMail"/>
+            <result column="Birthday" jdbcType="TIMESTAMP" property="birthday"/>
+            <result column="PersonalInformationPhoto" jdbcType="VARCHAR" property="personalinformationphoto"/>
+            <result column="Photo" jdbcType="VARCHAR" property="photo"/>
+            <result column="Education" jdbcType="VARCHAR" property="education"/>
+            <result column="Graduate" jdbcType="VARCHAR" property="graduate"/>
+            <result column="Remarks" jdbcType="VARCHAR" property="remarks"/>
+            <result column="Address" jdbcType="VARCHAR" property="address"/>
+            <result column="WorkersState" jdbcType="INTEGER" property="workersstate"/>
+            <result column="Password" jdbcType="VARCHAR" property="password"/>
+            <result column="Addname" jdbcType="VARCHAR" property="addname"/>
+            <result column="AddTime" jdbcType="TIMESTAMP" property="addtime"/>
+            <result column="UpdateName" jdbcType="VARCHAR" property="updatename"/>
+            <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+            <result column="LeaveName" jdbcType="VARCHAR" property="leavename"/>
+            <result column="LeaveTime" jdbcType="TIMESTAMP" property="leavetime"/>
+            <result column="EmpState" jdbcType="INTEGER" property="empstate"/>
+            <result column="DeleteName" jdbcType="VARCHAR" property="deletename"/>
+            <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime"/>
+            <result column="LoginState" jdbcType="INTEGER" property="loginstate"/>
+        </association>
+        <!--    教材表-->
+        <association property="book" javaType="com.trkj.thirdproject.entity.Book">
+            <id column="Book_Id" jdbcType="INTEGER" property="bookId"/>
+            <result column="BookName" jdbcType="VARCHAR" property="bookname"/>
+            <result column="DeliveryCount" jdbcType="INTEGER" property="deliverycount"/>
+            <result column="BookSprice" jdbcType="DECIMAL" property="booksprice"/>
+            <result column="BookJprice" jdbcType="DECIMAL" property="bookjprice"/>
+            <result column="SafeStock" jdbcType="INTEGER" property="safestock"/>
+            <result column="Press" jdbcType="VARCHAR" property="press"/>
+            <result column="State" jdbcType="INTEGER" property="state"/>
+        </association>
+        <association property="classroom" javaType="com.trkj.thirdproject.entity.Classroom">
+            <id column="ClassRoom_Id" jdbcType="INTEGER" property="classroomId"/>
+            <result column="ClassRoom_Name" jdbcType="VARCHAR" property="classroomName"/>
+            <result column="Cacacity" jdbcType="INTEGER" property="cacacity"/>
+            <result column="Place" jdbcType="VARCHAR" property="place"/>
+            <result column="AddName" jdbcType="VARCHAR" property="addname"/>
+            <result column="AddTime" jdbcType="TIMESTAMP" property="addtime"/>
+            <result column="UpdateName" jdbcType="VARCHAR" property="updatename"/>
+            <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+            <result column="DeleteName" jdbcType="VARCHAR" property="deletename"/>
+            <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime"/>
+            <result column="TimeLiness" jdbcType="INTEGER" property="timeliness"/>
+        </association>
+        <association property="detailcourse" javaType="com.trkj.thirdproject.entity.Detailcourse">
+            <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId"/>
+            <result column="Course_Id" jdbcType="INTEGER" property="courseId"/>
+            <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName"/>
+            <result column="Serial" jdbcType="INTEGER" property="serial"/>
+            <result column="AddName" jdbcType="VARCHAR" property="addname"/>
+            <result column="AddTime" jdbcType="TIMESTAMP" property="addtime"/>
+            <result column="UpdateName" jdbcType="VARCHAR" property="updatename"/>
+            <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+            <result column="DeleteName" jdbcType="VARCHAR" property="deletename"/>
+            <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime"/>
+            <result column="TimeLiness" jdbcType="INTEGER" property="timeliness"/>
+        </association>
 
-  </resultMap>
-  <resultMap id="Detailcourse" type="com.trkj.thirdproject.entity.Detailcourse">
-    <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId" />
-    <result column="Course_Id" jdbcType="INTEGER" property="courseId" />
-    <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName" />
-    <result column="Serial" jdbcType="INTEGER" property="serial" />
-    <result column="AddName" jdbcType="VARCHAR" property="addname" />
-    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
-    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
-    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
-    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
-    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
-    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
-  </resultMap>
-  <sql id="DetailCourse">
+    </resultMap>
+    <resultMap id="Detailcourse" type="com.trkj.thirdproject.entity.Detailcourse">
+        <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId"/>
+        <result column="Course_Id" jdbcType="INTEGER" property="courseId"/>
+        <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName"/>
+        <result column="Serial" jdbcType="INTEGER" property="serial"/>
+        <result column="AddName" jdbcType="VARCHAR" property="addname"/>
+        <result column="AddTime" jdbcType="TIMESTAMP" property="addtime"/>
+        <result column="UpdateName" jdbcType="VARCHAR" property="updatename"/>
+        <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="DeleteName" jdbcType="VARCHAR" property="deletename"/>
+        <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime"/>
+        <result column="TimeLiness" jdbcType="INTEGER" property="timeliness"/>
+    </resultMap>
+    <sql id="DetailCourse">
     d.DetailCourse_Id, d.Course_Id, d.DetailCourse_Name, d.Serial, d.AddName, d.AddTime, d.UpdateName,
     d.UpdateTime, d.DeleteName, d.DeleteTime, d.TimeLiness
   </sql>
-  <sql id="classRoom">
+    <sql id="classRoom">
     cr.ClassRoom_Id, cr.ClassRoom_Name, cr.Cacacity, cr.Place, cr.AddName, cr.AddTime, cr.UpdateName, cr.UpdateTime,
     cr.DeleteName, cr.DeleteTime, cr.TimeLiness
   </sql>
-  <sql id="emp">
+    <sql id="emp">
      e.Emp_Id,  e.Position_Id,  e.Dept_Id,  e.Enterprise_Id,  e.JobNumber,  e.Emp_Name,  e.Emp_Sex,  e.Emp_Phone,
      e.E_mail,  e.Birthday,  e.PersonalInformationPhoto,  e.Photo,  e.Education,  e.Graduate,  e.Remarks,
      e.Address,  e.WorkersState,  e.`Password`,  e.Addname,  e.AddTime,  e.UpdateName,  e.UpdateTime,  e.LeaveName,
      e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState
   </sql>
-  <sql id="Base_Column_List">
+    <sql id="Base_Column_List">
     cl.Classes_Id, cl.Classes_Name, cl.Classes_Open, cl.Course_Id, cl.ClassRoom_Id, cl.Teacher_Id, cl.Emp_Id,
     cl.DetailCourse_Id, cl.StartedDate, cl.EndDate, cl.LastDate, cl.AddName, cl.AddTime, cl.UpdateName, cl.UpdateTime,
     cl.DeleteName, cl.DeleteTime, cl.TimeLiness,cl.Classes_Number,cl.User_BookId,cl.Classes_Open ,cl.WhenDetails
   </sql>
-  <sql id="Base_Column_course">
+    <sql id="Base_Column_course">
     c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
     c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
   </sql>
-  <sql id="book">
+    <sql id="book">
     b.Book_Id, b.BookName, b.DeliveryCount, b.BookSprice, b.BookJprice, b.SafeStock, b.Press, b.`State`
   </sql>
 
 
+    <!--  根据班级id查询当前班级的进度-->
+    <select id="selectnotDetails" resultMap="BaseResultMap">
+        select
+        <include refid="DetailCourse"/>,
+        <include refid="Base_Column_List"/>
+        from DetailCourse d
+        inner join Classes cl on cl.Course_Id=d.Course_Id
+        where cl.Classes_Id=#{classesId,jdbcType=INTEGER} and d.Serial !=#{serial,jdbcType=INTEGER}
+    </select>
 
-  <!--  根据班级id查询当前班级的进度-->
-  <select id="selectnotDetails" resultMap="BaseResultMap">
-  select
-  <include refid="DetailCourse"/>,
-  <include refid="Base_Column_List"/>
-  from DetailCourse d
-  inner join Classes cl on cl.Course_Id=d.Course_Id
-  where cl.Classes_Id=#{classesId,jdbcType=INTEGER} and d.Serial !=#{serial,jdbcType=INTEGER}
-</select>
+    <!--根据课程编号查询所对应的班级-  - xing -  -->
+    <select id="selectcourseId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="Base_Column_course"/>,
+        <include refid="emp"/>,
+        <include refid="classRoom"/>,
+        <include refid="book"/>,
+        <include refid="DetailCourse"/>
+        from Classes cl
+        inner join Course c on cl.Course_Id=c.Course_Id
+        inner join Emp e on e.Emp_Id=cl.Emp_Id
+        inner join Book b on b.Book_Id=cl.User_BookId
+        inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+        inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+        where cl.Course_Id=#{courseId,jdbcType=INTEGER}
+    </select>
 
-  <!--根据课程编号查询所对应的班级-  - xing -  -->
-  <select id="selectcourseId" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />,
-    <include refid="Base_Column_course"/>,
-    <include refid="emp"/>,
-    <include refid="classRoom"/>,
-    <include refid="book"/>,
-    <include refid="DetailCourse"/>
-    from Classes cl
-    inner join Course c on cl.Course_Id=c.Course_Id
-    inner join Emp e on e.Emp_Id=cl.Emp_Id
-    inner join Book b on b.Book_Id=cl.User_BookId
-    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
-    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
-    where cl.Course_Id=#{courseId,jdbcType=INTEGER}
-  </select>
+    <!--  根据id查询班级-->
+    <select id="selectById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="Base_Column_course"/>,
+        <include refid="emp"/>,
+        <include refid="classRoom"/>,
+        <include refid="book"/>,
+        <include refid="DetailCourse"/>
+        from Classes cl
+        inner join Course c on cl.Course_Id=c.Course_Id
+        inner join Emp e on e.Emp_Id=cl.Emp_Id
+        inner join Book b on b.Book_Id=cl.User_BookId
+        inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+        inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+        where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
+    </select>
 
-  <!--  根据id查询班级-->
-  <select id="selectById" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />,
-    <include refid="Base_Column_course"/>,
-    <include refid="emp"/>,
-    <include refid="classRoom"/>,
-    <include refid="book"/>,
-    <include refid="DetailCourse"/>
-    from Classes cl
-    inner join Course c on cl.Course_Id=c.Course_Id
-    inner join Emp e on e.Emp_Id=cl.Emp_Id
-    inner join Book b on b.Book_Id=cl.User_BookId
-    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
-    inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
-    where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
-  </select>
+    <!--  根据班级id查询课程详细-->
+    <select id="selectDetailCourse" resultMap="Detailcourse">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="Base_Column_course"/>,
+        <include refid="emp"/>,
+        <include refid="classRoom"/>,
+        <include refid="book"/>,
+        <include refid="DetailCourse"/>
+        from Classes cl
+        inner join Course c on cl.Course_Id=c.Course_Id
+        inner join Emp e on e.Emp_Id=cl.Emp_Id
+        inner join Book b on b.Book_Id=cl.User_BookId
+        inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+        inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+        where Classes_Id = #{classesId,jdbcType=INTEGER}
+        order by cl.AddName desc
+    </select>
+
 
   <!--  根据班级id查询课程详细-->
   <select id="selectDetailCourse" resultMap="Detailcourse">
@@ -234,226 +253,257 @@
     where cl.Classes_Open=1 order by cl.AddTime desc
   </select>
 
-  <!--  修改为已开班-->
-  <update id="updateClassesOpen1">
+    <!--  查询所有已开班的班级-->
+    <select id="selectOpen" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="Base_Column_course"/>,
+        <include refid="emp"/>,
+        <include refid="classRoom"/>,
+        <include refid="book"/>,
+        <include refid="DetailCourse"/>
+        from Classes cl
+        inner join Course c on cl.Course_Id=c.Course_Id
+        inner join Emp e on e.Emp_Id=cl.Emp_Id
+        inner join Book b on b.Book_Id=cl.User_BookId
+        inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+        inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+        where cl.Classes_Open=1 order by cl.AddTime desc
+    </select>
+
+
+    <!--  修改为已开班-->
+    <update id="updateClassesOpen1">
     update Classes set Classes_Open=1,UpdateName=#{updatename,jdbcType=VARCHAR},
     UpdateTime=#{updatetime,jdbcType=TIMESTAMP},StartedDate=#{starteddate,jdbcType=TIMESTAMP}
     where Classes_Id = #{classesId,jdbcType=INTEGER}
   </update>
 
-  <!--  根据课程id查询课程详细表序列号为第一条的数据，赋值给刚刚开班的班级  -（查询、修改）-->
-  <update id="updateDetails">
+    <!--  根据课程id查询课程详细表序列号为第一条的数据，赋值给刚刚开班的班级  -（查询、修改）-->
+    <update id="updateDetails">
     update Classes set DetailCourse_Id=#{detailcourseId,jdbcType=INTEGER}
     where Classes_Id = #{classesId,jdbcType=INTEGER}
   </update>
 
-  <!--  修改未开班-->
-  <update id="updateClassesOpen0">
+    <!--  修改未开班-->
+    <update id="updateClassesOpen0">
     update Classes set Classes_Open=0,UpdateName=#{updatename,jdbcType=VARCHAR}, UpdateTime=#{updatetime,jdbcType=TIMESTAMP}
     where Classes_Id = #{classesId,jdbcType=INTEGER}
   </update>
 
-  <!--  多条件查询-->
-  <select id="selectByContion" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />,
-    <include refid="Base_Column_course"/>,
-    <include refid="emp"/>,
-    <include refid="classRoom"/>,
-    <include refid="book"/>
-    from Classes cl
-    inner join Course c on cl.Course_Id=c.Course_Id
-    inner join Emp e on e.Emp_Id=cl.Emp_Id
-    inner join Book b on b.Book_Id=cl.User_BookId
-    inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
-    <where>
-      <if test="value=='班级名称' and input!=null">
-        cl.Classes_Name like CONCAT(CONCAT('%',#{input},'%'))
-      </if>
-      <if test="value=='班级编号' and input!=null">
-        cl.Classes_Number like CONCAT(CONCAT('%',#{input},'%'))
-      </if>
-      <if test="value=='上课教师' and input!=null">
-        e.Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
-      </if>
-    </where>
-    order by cl.AddTime desc
-  </select>
+    <!--  多条件查询-->
+    <select id="selectByContion" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="Base_Column_course"/>,
+        <include refid="emp"/>,
+        <include refid="classRoom"/>,
+        <include refid="book"/>
+        from Classes cl
+        inner join Course c on cl.Course_Id=c.Course_Id
+        inner join Emp e on e.Emp_Id=cl.Emp_Id
+        inner join Book b on b.Book_Id=cl.User_BookId
+        inner join ClassRoom cr on cr.ClassRoom_Id=cl.ClassRoom_Id
+        <where>
+            <if test="value==2 and input!=null">
+                cl.Classes_Name like CONCAT(CONCAT('%',#{input},'%'))
+            </if>
+            <if test="value==3 and input!=null">
+                cl.Classes_Number like CONCAT(CONCAT('%',#{input},'%'))
+            </if>
+            <if test="value==4 and input!=null">
+                e.Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
+            </if>
+            <if test="value==0">
+                cl.Classes_Open=0
+            </if>
+            <if test="value==1">
+                cl.Classes_Open=1
+            </if>
+            <if test="value==9">
+                cl.TimeLiness=0
+            </if>
+        </where>
+        order by cl.AddTime desc
+    </select>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from Classes cl
-    where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
-    order by AddTime desc
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from Classes cl
+        where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
+        order by AddTime desc
+    </select>
 
-  <!--  查询所有班级-->
-  <select id="findAllclass"  resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />,
-    <include refid="Base_Column_course"/>,
-    <include refid="emp"/>,
-    <include refid="book"/>
-    from Classes cl
-    inner join Course c on cl.Course_Id=c.Course_Id
-    inner join Emp e on e.Emp_Id=cl.Emp_Id
-    inner join Book b on b.Book_Id=cl.User_BookId
-    where cl.TimeLiness=0
-    order  by cl.AddTime desc
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--  查询所有班级-->
+    <select id="findAllclass" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="Base_Column_course"/>,
+        <include refid="emp"/>,
+        <include refid="book"/>
+        from Classes cl
+        inner join Course c on cl.Course_Id=c.Course_Id
+        inner join Emp e on e.Emp_Id=cl.Emp_Id
+        inner join Book b on b.Book_Id=cl.User_BookId
+        where cl.TimeLiness=0
+        order by cl.AddTime desc
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Classes
     where Classes_Id = #{classesId,jdbcType=INTEGER}
   </delete>
-  <!--  新增班级-->
-  <insert id="insert" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
+    <!--  新增班级-->
+    <insert id="insert" keyColumn="Classes_Id" keyProperty="classesId"
+            parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
     insert into Classes (Classes_Name, Course_Id,Classes_Number,
        Emp_Id, AddName, AddTime,User_BookId)
     values (#{classesName,jdbcType=VARCHAR},#{courseId,jdbcType=INTEGER},#{classesNumber,jdbcType=VARCHAR},
        #{empId,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR},
        #{addtime,jdbcType=TIMESTAMP},#{userbookId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="Classes_Id" keyProperty="classesId" parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
-    insert into Classes
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="classesName != null">
-        Classes_Name,
-      </if>
-      <if test="classesOpen != null">
-        Classes_Open,
-      </if>
-      <if test="courseId != null">
-        Course_Id,
-      </if>
-      <if test="classroomId != null">
-        ClassRoom_Id,
-      </if>
-      <if test="teacherId != null">
-        Teacher_Id,
-      </if>
-      <if test="empId != null">
-        Emp_Id,
-      </if>
-      <if test="detailcourseId != null">
-        DetailCourse_Id,
-      </if>
-      <if test="starteddate != null">
-        StartedDate,
-      </if>
-      <if test="enddate != null">
-        EndDate,
-      </if>
-      <if test="lastdate != null">
-        LastDate,
-      </if>
-      <if test="addname != null">
-        AddName,
-      </if>
-      <if test="addtime != null">
-        AddTime,
-      </if>
-      <if test="updatename != null">
-        UpdateName,
-      </if>
-      <if test="updatetime != null">
-        UpdateTime,
-      </if>
-      <if test="deletename != null">
-        DeleteName,
-      </if>
-      <if test="deletetime != null">
-        DeleteTime,
-      </if>
-      <if test="timeliness != null">
-        TimeLiness,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="classesName != null">
-        #{classesName,jdbcType=VARCHAR},
-      </if>
-      <if test="classesOpen != null">
-        #{classesOpen,jdbcType=INTEGER},
-      </if>
-      <if test="courseId != null">
-        #{courseId,jdbcType=INTEGER},
-      </if>
-      <if test="classroomId != null">
-        #{classroomId,jdbcType=INTEGER},
-      </if>
-      <if test="teacherId != null">
-        #{teacherId,jdbcType=INTEGER},
-      </if>
-      <if test="empId != null">
-        #{empId,jdbcType=INTEGER},
-      </if>
-      <if test="detailcourseId != null">
-        #{detailcourseId,jdbcType=INTEGER},
-      </if>
-      <if test="starteddate != null">
-        #{starteddate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="enddate != null">
-        #{enddate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastdate != null">
-        #{lastdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="addname != null">
-        #{addname,jdbcType=VARCHAR},
-      </if>
-      <if test="addtime != null">
-        #{addtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatename != null">
-        #{updatename,jdbcType=VARCHAR},
-      </if>
-      <if test="updatetime != null">
-        #{updatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deletename != null">
-        #{deletename,jdbcType=VARCHAR},
-      </if>
-      <if test="deletetime != null">
-        #{deletetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="timeliness != null">
-        #{timeliness,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Classes">
-    update Classes
-    <set>
-      <if test="courseId != null">
-        Course_Id = #{courseId,jdbcType=INTEGER},
-      </if>
-      <if test="classroomId != null">
-        ClassRoom_Id = #{classroomId,jdbcType=INTEGER},
-      </if>
-      <if test="teacherId != null">
-        Teacher_Id = #{teacherId,jdbcType=INTEGER},
-      </if>
-      <if test="empId != null">
-        Emp_Id = #{empId,jdbcType=INTEGER},
-      </if>
-      <if test="starteddate != null">
-        StartedDate = #{starteddate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="enddate != null">
-        EndDate = #{enddate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatename != null">
-        UpdateName = #{updatename,jdbcType=VARCHAR},
-      </if>
-      <if test="updatetime != null">
-        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where Classes_Id = #{classesId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Classes">
+    <insert id="insertSelective" keyColumn="Classes_Id" keyProperty="classesId"
+            parameterType="com.trkj.thirdproject.entity.Classes" useGeneratedKeys="true">
+        insert into Classes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="classesName != null">
+                Classes_Name,
+            </if>
+            <if test="classesOpen != null">
+                Classes_Open,
+            </if>
+            <if test="courseId != null">
+                Course_Id,
+            </if>
+            <if test="classroomId != null">
+                ClassRoom_Id,
+            </if>
+            <if test="teacherId != null">
+                Teacher_Id,
+            </if>
+            <if test="empId != null">
+                Emp_Id,
+            </if>
+            <if test="detailcourseId != null">
+                DetailCourse_Id,
+            </if>
+            <if test="starteddate != null">
+                StartedDate,
+            </if>
+            <if test="enddate != null">
+                EndDate,
+            </if>
+            <if test="lastdate != null">
+                LastDate,
+            </if>
+            <if test="addname != null">
+                AddName,
+            </if>
+            <if test="addtime != null">
+                AddTime,
+            </if>
+            <if test="updatename != null">
+                UpdateName,
+            </if>
+            <if test="updatetime != null">
+                UpdateTime,
+            </if>
+            <if test="deletename != null">
+                DeleteName,
+            </if>
+            <if test="deletetime != null">
+                DeleteTime,
+            </if>
+            <if test="timeliness != null">
+                TimeLiness,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="classesName != null">
+                #{classesName,jdbcType=VARCHAR},
+            </if>
+            <if test="classesOpen != null">
+                #{classesOpen,jdbcType=INTEGER},
+            </if>
+            <if test="courseId != null">
+                #{courseId,jdbcType=INTEGER},
+            </if>
+            <if test="classroomId != null">
+                #{classroomId,jdbcType=INTEGER},
+            </if>
+            <if test="teacherId != null">
+                #{teacherId,jdbcType=INTEGER},
+            </if>
+            <if test="empId != null">
+                #{empId,jdbcType=INTEGER},
+            </if>
+            <if test="detailcourseId != null">
+                #{detailcourseId,jdbcType=INTEGER},
+            </if>
+            <if test="starteddate != null">
+                #{starteddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enddate != null">
+                #{enddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastdate != null">
+                #{lastdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="addname != null">
+                #{addname,jdbcType=VARCHAR},
+            </if>
+            <if test="addtime != null">
+                #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatename != null">
+                #{updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deletename != null">
+                #{deletename,jdbcType=VARCHAR},
+            </if>
+            <if test="deletetime != null">
+                #{deletetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="timeliness != null">
+                #{timeliness,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Classes">
+        update Classes
+        <set>
+            <if test="courseId != null">
+                Course_Id = #{courseId,jdbcType=INTEGER},
+            </if>
+            <if test="classroomId != null">
+                ClassRoom_Id = #{classroomId,jdbcType=INTEGER},
+            </if>
+            <if test="teacherId != null">
+                Teacher_Id = #{teacherId,jdbcType=INTEGER},
+            </if>
+            <if test="empId != null">
+                Emp_Id = #{empId,jdbcType=INTEGER},
+            </if>
+            <if test="starteddate != null">
+                StartedDate = #{starteddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enddate != null">
+                EndDate = #{enddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatename != null">
+                UpdateName = #{updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where Classes_Id = #{classesId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Classes">
     update Classes
     set Classes_Name = #{classesName,jdbcType=VARCHAR},
       Classes_Open = #{classesOpen,jdbcType=INTEGER},

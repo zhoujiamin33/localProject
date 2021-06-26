@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface RegisterDao {
@@ -37,6 +38,9 @@ public interface RegisterDao {
     int updatepaystate(Integer registerId );
     //<!--查询出咨询登记为已缴费已就读学员的信息-->
     List<Register> selectPay_AttentState();
+
+    //报表统计中统计每种咨询方式的使用次数
+    List<Register> ConsultationmodeStatistics();
 
 }
 

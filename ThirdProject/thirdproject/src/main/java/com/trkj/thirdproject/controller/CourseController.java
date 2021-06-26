@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Classroom;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Course;
@@ -32,12 +33,14 @@ public class CourseController {
     }
 
     @PostMapping("/addCourse")
+    @LogginAnnotation(message = "新增课程")
     public Course addCourse( @RequestBody Course course){
         log.debug("新增课程");
         course=courseservice.insertCourse(course);
         return course;
     }
     @PutMapping("/updateCourse")
+    @LogginAnnotation(message = "修改课程")
     public Course updateCourse(@RequestBody Course course){
         log.debug("修改课程");
        course= courseservice.updateCourse(course);
@@ -56,6 +59,7 @@ public class CourseController {
         return courseservice.selectByCourseTypeName(courseTypeName);
     }
     @PutMapping("/updateCourseState")
+    @LogginAnnotation(message = "修改课程未开设状态")
     public Course updateCourseState(@RequestBody Course course){
         log.debug("修改课程状态");
         course.setUpdatetime(new Date());
@@ -77,12 +81,14 @@ public class CourseController {
         return classRoomService.findAllRoom();
     }
     @PostMapping("/addClassRoom")
+    @LogginAnnotation(message = "新增教室")
     public Classroom addClassRoom( @RequestBody Classroom classroom){
-        log.debug("新增课程");
+        log.debug("新增");
         classRoomService.insert(classroom);
         return classroom;
     }
     @PutMapping("/updateClassRoom")
+    @LogginAnnotation(message = "修改教室")
     public Classroom updateClassRoom( @RequestBody Classroom classroom){
         log.debug("修改课程");
         classRoomService.updateByKey(classroom);
@@ -103,8 +109,16 @@ public class CourseController {
         return courseservice.selectByCourseKey100(course_id);
     }
     @PostMapping("/addDetails")
+    @LogginAnnotation(message = "新增课程详细")
     public Detailcourse addDetails( @RequestBody Detailcourse detailcourse){
        detailcourse= courseservice.addDetails(detailcourse);
+        return detailcourse;
+    }
+
+    @PutMapping("/updateByName")
+    @LogginAnnotation(message = "修改课程详细")
+    public Detailcourse updateByName( @RequestBody Detailcourse detailcourse){
+        detailcourse=courseservice.updateByName(detailcourse);
         return detailcourse;
     }
 }

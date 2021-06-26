@@ -20,8 +20,7 @@ public interface CourseTypeService {
     //    修改
     Classtype updateType(Classtype classtype);
 
-//    //根据id查询数据
-//    Classtype selectByPrimaryKey(Integer classtypeId);
+
     //删除,修改状态
     int updateCourseType(List<Integer> classtypeId, String deletename, Date deleteTime);
 

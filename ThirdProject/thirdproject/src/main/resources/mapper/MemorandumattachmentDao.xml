@@ -59,8 +59,15 @@
     <include refid="register"></include>
     from MemorandumAttachment m
     inner join Register r on r.Register_Id=m.Register_Id
-    where mem.MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
+    where m.MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
   </select>
+<!--  学员交接分页显示-->
+<select id="selectAIIMem" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List"/>,<include refid="register"/>
+  from MemorandumAttachment m
+  inner join Register reg on reg.Register_Id=m.Register_Id
+
+</select>
 
   <select id="selectMemorandumAttachment" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>,

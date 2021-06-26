@@ -20,7 +20,7 @@ public interface DetailcourseDao {
 
     int updateByPrimaryKey(Detailcourse record);
     int addDetails(Detailcourse detailcourse);
-
+    //修改课程详细
     int updateByName(Detailcourse detailcourse);
 //    根据课程id查询课程详细系列号为100的数据（第一条数据）
     Detailcourse selectByCourseKey100(Integer course_id);

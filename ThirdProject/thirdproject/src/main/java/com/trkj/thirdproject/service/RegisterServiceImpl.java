@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -57,5 +59,11 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public int updatepaystate(Integer registerId) {
         return  registerDao.updatepaystate(registerId);
+    }
+
+    //报表统计中统计每种咨询方式的使用次数
+    @Override
+    public List<Register> ConsultationmodeStatistics(){
+        return registerDao.ConsultationmodeStatistics();
     }
 }

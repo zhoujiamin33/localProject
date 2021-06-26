@@ -31,16 +31,19 @@
     </association>
 
   </resultMap>
+
   <sql id="Base_Column_List">
     d.DetailCourse_Id, d.Course_Id, d.DetailCourse_Name, d.Serial, d.AddName, d.AddTime, d.UpdateName,
     d.UpdateTime, d.DeleteName, d.DeleteTime, d.TimeLiness
   </sql>
+
   <sql id="Course">
       c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
       c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
   </sql>
 
-  <update id="updateByName" parameterType="com.trkj.thirdproject.entity.Detailcourse">
+  <!--  根据课程详细Id修改课程详细-->
+  <update id="updateByName" >
      update DetailCourse set DetailCourse_Name= #{detailcourseName,jdbcType=VARCHAR}, Serial= #{serial,jdbcType=INTEGER}
      where DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER}
   </update>
@@ -51,6 +54,7 @@
     values (#{courseId,jdbcType=INTEGER}, #{detailcourseName,jdbcType=VARCHAR}, #{serial,jdbcType=INTEGER},
     #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
   </insert>
+
 <!--  根据课程id查询课程详细-->
   <select id="selectByCourseKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -59,6 +63,7 @@
     from DetailCourse d inner join Course c on c.Course_Id=d.Course_Id
     where d.TimeLiness = 0 and c.Course_Id = #{courseId,jdbcType=INTEGER}
   </select>
+
   <!--  根据课程id查询课程详细系列号为100的数据（第一条数据）-->
   <select id="selectByCourseKey100" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -67,10 +72,12 @@
     from DetailCourse d inner join Course c on c.Course_Id=d.Course_Id
     where d.TimeLiness = 0 and d.Serial=100  and c.Course_Id = #{courseId,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from DetailCourse
     where DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" keyColumn="DetailCourse_Id" keyProperty="detailcourseId" parameterType="com.trkj.thirdproject.entity.Detailcourse" useGeneratedKeys="true">
     insert into DetailCourse (Course_Id, DetailCourse_Name, Serial,
       AddName, AddTime, UpdateName, 
@@ -81,6 +88,7 @@
       #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, 
       #{timeliness,jdbcType=INTEGER})
   </insert>
+
   <insert id="insertSelective" keyColumn="DetailCourse_Id" keyProperty="detailcourseId" parameterType="com.trkj.thirdproject.entity.Detailcourse" useGeneratedKeys="true">
     insert into DetailCourse
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -148,6 +156,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Detailcourse">
     update DetailCourse
     <set>
@@ -184,6 +193,7 @@
     </set>
     where DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Detailcourse">
     update DetailCourse
     set Course_Id = #{courseId,jdbcType=INTEGER},

@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface RegisterService {
     //咨询登记查询显示
     List<Register> selectRegister();
+
     //新增
     Register insert(Register register);
     //修改
@@ -24,4 +26,7 @@ public interface RegisterService {
     Register selectByregisterId(@PathVariable("registerId") Integer registerId);
     //修改咨询登记的缴费状态
     int updatepaystate(Integer registerId );
+
+    //报表统计中统计每种咨询方式的使用次数
+    List<Register> ConsultationmodeStatistics();
 }
