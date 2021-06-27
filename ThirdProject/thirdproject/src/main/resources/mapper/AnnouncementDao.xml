@@ -118,9 +118,7 @@
     where Announcement_Id = #{announcementId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="Announcement_Id" keyProperty="announcementId" parameterType="com.trkj.thirdproject.entity.Announcement" useGeneratedKeys="true">
-    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="announcementId">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
+
     insert into Announcement (AnnouncementType_Id, Start_Time,
       End_Time, Announcement_Theme, Announcement_Content,
       Announcement_State, AddName, AddTime

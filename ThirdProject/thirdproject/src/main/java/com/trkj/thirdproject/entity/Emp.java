@@ -2,16 +2,19 @@ package com.trkj.thirdproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 /**
  * emp
- * @author 
+ * @author
  */
 @Data
-public class Emp implements Serializable {
+public class Emp implements UserDetails {
     /**
      * 编号
      */
@@ -21,13 +24,11 @@ public class Emp implements Serializable {
     /**
      * 职位编号
      */
-
     private Integer positionId;
 
     /**
      * 部门编号
      */
-
     private Integer deptId;
     /**
      * 职位编号
@@ -169,5 +170,53 @@ public class Emp implements Serializable {
      */
     private Integer loginstate;
 
+    /**
+     * 0无效用户，1是有效用户
+     */
+    private Boolean enabled;
+
+    /**
+     * 账户是否没过期
+     */
+    private Boolean accountNonExpired;
+
+    /**
+     * 是否没被锁定
+     */
+    private Boolean accountNonLocked;
+
+    /**
+     * 密码是否没有过期
+     */
+    private Boolean credentialsNonExpired;
+
+    Collection<? extends GrantedAuthority> authorities;  //用户的权限集合
+
+
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public String getUsername() {
+        return empName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }

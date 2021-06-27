@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.thirdproject.dao.SysMenuDao">
+  <resultMap id="BaseResultMap" type="com.trkj.thirdproject.entity.SysMenu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="menu_pid" jdbcType="INTEGER" property="menuPid" />
+    <result column="menu_pids" jdbcType="VARCHAR" property="menuPids" />
+    <result column="is_leaf" jdbcType="TINYINT" property="isLeaf" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="component_name" jdbcType="VARCHAR" property="componentName" />
+    <result column="component_path" jdbcType="VARCHAR" property="componentPath" />
+    <result column="sort" jdbcType="TINYINT" property="sort" />
+    <result column="level" jdbcType="TINYINT" property="level" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, menu_pid, menu_pids, is_leaf, menu_name, `method`, url, component_name, component_path, 
+    sort, `level`, `status`
+  </sql>
+  <sql id="Base_Column_List_2">
+    s.id, s.menu_pid, s.menu_pids, s.is_leaf, s.menu_name, s.method, s.url, s.component_name, s.component_path,
+    s.sort, s.level, s.status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findMenusByPositionNames" parameterType="collection" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List_2"/>
+    from `sys_menu` s
+    left join Position_menu pm on s.`id`=pm.menu_id
+    left join `Position` p  on p.Position_Id=pm.Position_Id
+    <trim prefix="WHERE p.Position_Name IN">
+      <foreach collection='PositionNames' item='PositionName' open='(' separator=',' close=')'>
+        #{PositionName}
+      </foreach>
+    </trim>
+  </select>
+
+  <select id="findAuthorityByRoleCodes" parameterType="collection"  resultType="java.lang.String">
+    select s.`url`
+    from `sys_menu` s
+    left join Position_menu pm on s.`id`=pm.menu_id
+    left join `Position` p  on p.Position_Id=pm.Position_Id
+    <trim prefix="WHERE p.Position_Name IN">
+      <foreach collection='PositionNames' item='PositionName' open='(' separator=',' close=')'>
+        #{PositionName}
+      </foreach>
+    </trim>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.trkj.thirdproject.entity.SysMenu" useGeneratedKeys="true">
+    insert into sys_menu (menu_pid, menu_pids, is_leaf, 
+      menu_name, `method`, url, 
+      component_name, component_path, sort, 
+      `level`, `status`)
+    values (#{menuPid,jdbcType=INTEGER}, #{menuPids,jdbcType=VARCHAR}, #{isLeaf,jdbcType=TINYINT}, 
+      #{menuName,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{componentName,jdbcType=VARCHAR}, #{componentPath,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT}, 
+      #{level,jdbcType=TINYINT}, #{status,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.trkj.thirdproject.entity.SysMenu" useGeneratedKeys="true">
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuPid != null">
+        menu_pid,
+      </if>
+      <if test="menuPids != null">
+        menu_pids,
+      </if>
+      <if test="isLeaf != null">
+        is_leaf,
+      </if>
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="method != null">
+        `method`,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="componentName != null">
+        component_name,
+      </if>
+      <if test="componentPath != null">
+        component_path,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuPid != null">
+        #{menuPid,jdbcType=INTEGER},
+      </if>
+      <if test="menuPids != null">
+        #{menuPids,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeaf != null">
+        #{isLeaf,jdbcType=TINYINT},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="componentName != null">
+        #{componentName,jdbcType=VARCHAR},
+      </if>
+      <if test="componentPath != null">
+        #{componentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.SysMenu">
+    update sys_menu
+    <set>
+      <if test="menuPid != null">
+        menu_pid = #{menuPid,jdbcType=INTEGER},
+      </if>
+      <if test="menuPids != null">
+        menu_pids = #{menuPids,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeaf != null">
+        is_leaf = #{isLeaf,jdbcType=TINYINT},
+      </if>
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        `method` = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="componentName != null">
+        component_name = #{componentName,jdbcType=VARCHAR},
+      </if>
+      <if test="componentPath != null">
+        component_path = #{componentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="level != null">
+        `level` = #{level,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.SysMenu">
+    update sys_menu
+    set menu_pid = #{menuPid,jdbcType=INTEGER},
+      menu_pids = #{menuPids,jdbcType=VARCHAR},
+      is_leaf = #{isLeaf,jdbcType=TINYINT},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      `method` = #{method,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      component_name = #{componentName,jdbcType=VARCHAR},
+      component_path = #{componentPath,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=TINYINT},
+      `level` = #{level,jdbcType=TINYINT},
+      `status` = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

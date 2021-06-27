@@ -3,6 +3,7 @@ package com.trkj.thirdproject.controller;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Enterprise;
 import com.trkj.thirdproject.service.EnterpriseService;
+import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,10 @@ public class EnterpriseController {
         return enterprise;
     }
     @GetMapping("/findenterprise")
-    public Enterprise findenterprise() {
-        return enterpriseService.seleallenterprise();
+    public AjaxResponse findenterprise() {
+        Enterprise enterprise=enterpriseService.seleallenterprise();
+
+        return AjaxResponse.success(enterprise);
     }
 
 
