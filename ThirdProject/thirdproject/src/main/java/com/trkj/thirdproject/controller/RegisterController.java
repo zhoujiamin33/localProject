@@ -81,6 +81,7 @@ public class RegisterController {
     public AjaxResponse ConsultationmodeStatistics(){
          return AjaxResponse.success(registerService.ConsultationmodeStatistics());
     }
+    //咨询登记审批
     @GetMapping("/findRegisterId/{registerId}")
     public void findregister(@PathVariable("registerId") String registerId) {
         log.debug(registerId);
