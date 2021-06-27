@@ -34,5 +34,5 @@ public interface EmpDao {
 //   未限制
     List<Emp> selectByPrimarywei();
 
-    Emp findByEmpname(String Empname);
+    Emp findByEmpname(String Empname); 
 }
