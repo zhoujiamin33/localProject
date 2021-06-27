@@ -154,21 +154,16 @@ student.setStudentState(1);
 studentService.updatestudentstate(student);
         log.debug("学员表中的班级编号：" + student.toString());
 
-            Register register=studentService.selectRegister(student.getRegisterId());//查询咨询登记查询课程表
-            Studentstatus studentstatus=new Studentstatus();
-            studentstatus.setCourseId(register.getCourseId());//课程编号:显示课程的名称
-            studentstatus.setStudentId(Integer.parseInt(s));
-            studentstatus.setClassesId(student.getClassesId());//班级编号：显示已报班级还是未报班级
+        Register register=studentService.selectRegister(student.getRegisterId());//查询咨询登记查询课程表
+            Studentstatus studentstatus=new Studentstatus();studentstatus.setCourseId(register.getCourseId());//课程编号:显示课程的名称studentstatus.setStudentId(Integer.parseInt(s));studentstatus.setClassesId(student.getClassesId());//班级编号：显示已报班级还是未报班级
         studentstatus.setSignuptime(new Date());
-            studentstatusService.AddStudentstatus(studentstatus);//新增学员状态表
+        studentstatusService.AddStudentstatus(studentstatus);//新增学员状态表
         Memorandumattachment memorandumattachment=studentService.selectregisterID(student.getRegisterId());//学员交接表的教务状态改为1已审核
-memorandumattachment.setJwexaminename("tsm管理员");
-memorandumattachment.setJwexaminetime(new Date());
-memorandumattachment.setJwisexamine(1);
+        memorandumattachment.setJwexaminename("tsm管理员");
+        memorandumattachment.setJwexaminetime(new Date());
+        memorandumattachment.setJwisexamine(1);
 studentService.updateByPrimaryKeySelective(memorandumattachment);
         }
-//        return studentstatus;
-
     }
 //    查询学员
 @GetMapping("/findstudentclasses/{studentId}")
@@ -181,14 +176,9 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
     @LogginAnnotation(message = "选择班级")
     public void addclasses(@RequestBody Studentstatus studentstatus){
 //        List<Studentstatus> studentstatuslist=studentstatusService.selectstu_class(studentstatus.getStudentId());
-
-
            studentstatus.setClassesId(studentstatus.getClassesId());
            studentstatus.setStatus(1);//已分班
            studentstatusService.updateByPrimaryKeySelective(studentstatus);
-
-
-//
 //               studentService.AddclassesId(stustatus.getClassesId(),studentstatus.getStudentId());
 
 

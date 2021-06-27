@@ -31,4 +31,7 @@ public interface PositionDao {
     int delTimeLiness( Integer positionId);
     //    <!--  删除之后显示未过期的职位-->
     List<Position> selectTimeLiness();
+
+    List<String>  findPositionByEmpName(String EmpName);
+
 }

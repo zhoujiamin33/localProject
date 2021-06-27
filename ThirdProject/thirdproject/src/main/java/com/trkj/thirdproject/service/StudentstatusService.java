@@ -12,6 +12,7 @@ public interface StudentstatusService {
     Studentstatus AddStudentstatus(Studentstatus studentstatus);
 //    停课后；学员状态表中显示已停课
 Studentstatus updatestustart(Studentstatus record);
+    Studentstatus updatestustart1(Studentstatus record);
 //查询学员状态表stu
 List<Studentstatus> selectByPrimaryKey(Integer studentId);
     //修改班级编号

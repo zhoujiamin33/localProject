@@ -17,6 +17,12 @@
     Position_Id, Position_Name, JobDescription, AddName, AddTime, UpdateName, UpdateTime, 
     DeleteName, DeleteTime, TimeLiness
   </sql>
+  <select id="findPositionByEmpName" resultType="java.lang.String" parameterType="string">
+    select p.Position_Name from Position p left join Emp_Position ep
+on p.Position_Id=ep.Position_Id left join Emp e
+on ep.Emp_Id=e.Emp_Id
+ where e.Emp_Name=#{EmpName};
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

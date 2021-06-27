@@ -30,6 +30,10 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="LoginState" jdbcType="INTEGER" property="loginstate" />
+    <result column="enabled" jdbcType="INTEGER" property="enabled" />
+    <result column="account_non_expired" jdbcType="BIT" property="accountNonExpired" />
+    <result column="account_non_locked" jdbcType="BIT" property="accountNonLocked" />
+    <result column="credentials_non_expired" jdbcType="BIT" property="credentialsNonExpired" />
     <association property="positionList" javaType="com.trkj.thirdproject.entity.Position">
       <id column="Position_Id" jdbcType="INTEGER" property="positionId" />
       <result column="Position_Name" jdbcType="VARCHAR" property="positionName" />
@@ -59,7 +63,8 @@
     e.Emp_Id,  e.Position_Id,  e.Dept_Id,  e.Enterprise_Id,  e.JobNumber,  e.Emp_Name,  e.Emp_Sex,  e.Emp_Phone,
      e.E_mail,  e.Birthday,  e.PersonalInformationPhoto,  e.Photo,  e.Education,  e.Graduate,  e.Remarks,
      e.Address,  e.WorkersState,  e.`Password`,  e.Addname,  e.AddTime,  e.UpdateName,  e.UpdateTime,  e.LeaveName,
-     e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState
+     e.LeaveTime,  e.EmpState,  e.DeleteName,  e.DeleteTime,  e.LoginState, e.enabled, e.account_non_expired,
+    e.account_non_locked, e.credentials_non_expired
   </sql>
   <sql id="Base_Column_List1">
     d.Dept_Id, d.Dept_Name, d.Dept_SortNumber, d.Superiors_Dept_Id, d.AddName, d.AddTime, d.UpdateName,
@@ -75,6 +80,14 @@
     ent.E_mail, ent.Representative, ent.RegisterTime, ent.RegisterMoney, ent.EmpNumber, ent.Deposit_Bank, ent.Bank_Number,
     ent.EnterPrise_Brief, ent.UpdateName, ent.UpdateTime
   </sql>
+
+  <select id="findByEmpname" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Emp e
+    where e.Emp_Name = #{empName,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
