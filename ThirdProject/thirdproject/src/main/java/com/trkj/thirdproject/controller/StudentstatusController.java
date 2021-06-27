@@ -43,10 +43,10 @@ public List<Classes> findcourseId(@PathVariable("courseId")Integer courseId){
      log.debug(studentstatus.toString());
         return studentstatus;
     }
-@GetMapping("/findstudentstatusId/{studentstatusId}")
-    public Studentstatus findstudentId(@PathVariable("studentstatusId") Integer studentstatusId){
+@GetMapping("/findstudentstatusId")
+    public Studentstatus findstudentId(@RequestParam("studentstatusId") Integer studentstatusId){
         Studentstatus studentstatus=studentstatusService.selectByPrimaryKeyId(studentstatusId);
-        log.debug(studentstatus.toString());
+        log.debug("状态："+studentstatus.toString());
         return studentstatus;
 }
 }

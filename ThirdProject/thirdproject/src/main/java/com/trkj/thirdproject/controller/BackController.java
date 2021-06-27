@@ -25,6 +25,7 @@ public class BackController {
         back=backService.insertSelective(back);
         Studentstatus studentstatus=new Studentstatus();
         if (back.getIntention()==0){
+            log.debug("zt"+studentstatusId);
             studentstatus.setStudentstatusId(studentstatusId);
             studentstatus.setStatus(back.getIntention());
             studentstatus.setClassesId(null);

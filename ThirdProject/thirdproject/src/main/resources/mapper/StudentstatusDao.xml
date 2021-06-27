@@ -102,9 +102,8 @@
 <!--根据状态编号查询-->
   <select id="selectByPrimaryKeyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />,<include refid="Base_Column_student"/>,<include
-          refid="Base_Column_classes"/>,<include refid="Base_Column_course"/>
-    from StudentStatus sta inner join Classes cl on sta.Classes_Id=cl.Classes_Id
+    <include refid="Base_Column_List" />,<include refid="Base_Column_student"/>,<include refid="Base_Column_course"/>
+    from StudentStatus sta
     inner join Student stu on sta.Student_Id=stu.Student_Id
     inner join Course c on sta.Course_Id=c.Course_Id
     where sta.StudentStatus_Id = #{studentStatusId,jdbcType=INTEGER}
