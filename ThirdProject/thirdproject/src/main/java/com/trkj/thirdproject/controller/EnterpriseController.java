@@ -25,7 +25,7 @@ public class EnterpriseController {
     @GetMapping("/findenterprise")
     public AjaxResponse findenterprise() {
         Enterprise enterprise=enterpriseService.seleallenterprise();
-
+log.debug("dd"+enterprise);
         return AjaxResponse.success(enterprise);
     }
 
