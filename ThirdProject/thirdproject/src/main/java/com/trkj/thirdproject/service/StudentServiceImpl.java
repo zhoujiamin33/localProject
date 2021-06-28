@@ -74,10 +74,9 @@ public class StudentServiceImpl implements StudentService {
     }
     //删除
     @Override
-    public void delstuTimeness(String deletename, Date deletetime,Integer studentId) {
-
-        studentDao.delstuTimeness(deletename, deletetime, studentId);
-
+    public Student delstuTimeness(Student student) {
+        studentDao.delstuTimeness(student);
+return student;
     }
     //修改
     @Override

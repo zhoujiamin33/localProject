@@ -22,7 +22,7 @@ public interface StudentDao {
     //新增
     int addstudent(Student student);
     //删除
-    int delstuTimeness(@Param("deletename") String deletename, @Param("deletetime")  Date deletetime, @Param("studentId")  Integer studentId);
+    int delstuTimeness(Student student);
 //    void deletestudent(Integer studentId);
 //    修改
     int updatestudent(Student student);

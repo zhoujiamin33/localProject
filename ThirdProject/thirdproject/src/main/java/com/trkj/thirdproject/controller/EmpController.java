@@ -29,7 +29,7 @@ public class EmpController {
     public List<Emp> findEmp(){
         return empService.selectAllEmp();
     }
-    @PostMapping("/emp")
+    @PostMapping("/addemp")
     @LogginAnnotation(message = "新增员工")
     public Emp addemp(@RequestBody Emp emp){
         log.debug(emp.toString());
@@ -38,14 +38,14 @@ public class EmpController {
         emp=empService.insert(emp);
         return emp;
     }
-    @DeleteMapping("/emp/{empId}")
+    @DeleteMapping("/delemp")
     @LogginAnnotation(message = "删除员工")
-    public String delEmp(@PathVariable("empId") Integer empId){
+    public String delEmp(@RequestParam("empId") Integer empId){
         empService.delectEmp(empId);
         return "删除成功";
     }
     //修改
-    @PutMapping("/emp")
+    @PutMapping("/updateemp")
     @LogginAnnotation(message = "修改员工")
     public Emp updateEmp(@RequestBody Emp emp){
         emp.setUpdatename("tsm管理员");
@@ -63,15 +63,15 @@ public class EmpController {
 
     }
     //批量删除
-    @PutMapping("/deltimelimeness/{empId}")
+    @PutMapping("/deltimelimeness")
     @LogginAnnotation(message = "批量删除员工")
-    public void deltimelimeness(@PathVariable("empId") List<Integer> empId){
+    public void deltimelimeness(@RequestParam("empId") List<Integer> empId){
         String leavename="tsm管理";
         Date leavetime=new Date();
         empService.delstuTimeness(leavename,leavetime,empId);
     }
     //启动和禁用
-    @PutMapping("/updatestate/{workersstate}/{empId}")
+    @PutMapping("/updatestate")
     @LogginAnnotation(message = "开启或禁用")
     public void updatestate(@PathVariable("workersstate") Integer workersstate,@PathVariable("empId") List<Integer> empId){
          empService.updatestate(workersstate, empId);

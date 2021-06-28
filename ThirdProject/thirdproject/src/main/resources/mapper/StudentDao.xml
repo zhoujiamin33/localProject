@@ -241,9 +241,9 @@
   </update>
   <!--  删除后改变时效性-->
   <update id="delstuTimeness" parameterType="com.trkj.thirdproject.entity.Student">
-  update Student set TimeLiness=1 ,DeleteName = #{deletename},
-      DeleteTime = #{deletetime}
-        where Student_Id = #{studentId}
+  update Student set TimeLiness=1 ,DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+        where Student_Id = #{studentId,jdbcType=INTEGER}
 </update>
 <!--  选择班级-->
   <update id="AddclassesId" parameterType="com.trkj.thirdproject.entity.Student">
@@ -252,21 +252,81 @@
 </update>
   <!--  修改，修改时间-->
   <update id="updatestudent"  parameterType="com.trkj.thirdproject.entity.Student" >
-    update Student set Student_Name = #{studentName,jdbcType=VARCHAR},
+    update Student
+    <set>
+    <if test="studentName != null">
+      Student_Name = #{studentName,jdbcType=VARCHAR},
+    </if>
+    <if test="classesId != null">
       Classes_Id = #{classesId,jdbcType=INTEGER},
+    </if>
+    <if test="sourceId != null">
       Source_Id = #{sourceId,jdbcType=INTEGER},
+    </if>
+    <if test="registerId != null">
       Register_Id = #{registerId,jdbcType=INTEGER},
+    </if>
+    <if test="sex != null">
       Sex = #{sex,jdbcType=VARCHAR},
+    </if>
+    <if test="studentPhone != null">
       Student_Phone = #{studentPhone,jdbcType=VARCHAR},
+    </if>
+    <if test="address != null">
       Address = #{address,jdbcType=VARCHAR},
+    </if>
+    <if test="imgaddress != null">
       ImgAddress = #{imgaddress,jdbcType=VARCHAR},
+    </if>
+    <if test="parentname != null">
       ParentName = #{parentname,jdbcType=VARCHAR},
+    </if>
+    <if test="parentphone != null">
       ParentPhone = #{parentphone,jdbcType=VARCHAR},
+    </if>
+    <if test="studentNumber != null">
       Student_Number = #{studentNumber,jdbcType=VARCHAR},
+    </if>
+    <if test="entrance != null">
       Entrance = #{entrance,jdbcType=VARCHAR},
+    </if>
+    <if test="studytime != null">
       StudyTime = #{studytime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="updatename != null">
       UpdateName = #{updatename,jdbcType=VARCHAR},
-      UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null">
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="deletename != null">
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+    </if>
+    <if test="deletetime != null">
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="timeliness != null">
+      TimeLiness = #{timeliness,jdbcType=INTEGER},
+    </if>
+  </set>
     where Student_Id = #{studentId,jdbcType=INTEGER}
   </update>
+<!--  <update id="updatestudent"  parameterType="com.trkj.thirdproject.entity.Student" >-->
+<!--    update Student set Student_Name = #{studentName,jdbcType=VARCHAR},-->
+<!--      Classes_Id = #{classesId,jdbcType=INTEGER},-->
+<!--      Source_Id = #{sourceId,jdbcType=INTEGER},-->
+<!--      Register_Id = #{registerId,jdbcType=INTEGER},-->
+<!--      Sex = #{sex,jdbcType=VARCHAR},-->
+<!--      Student_Phone = #{studentPhone,jdbcType=VARCHAR},-->
+<!--      Address = #{address,jdbcType=VARCHAR},-->
+<!--      ImgAddress = #{imgaddress,jdbcType=VARCHAR},-->
+<!--      ParentName = #{parentname,jdbcType=VARCHAR},-->
+<!--      ParentPhone = #{parentphone,jdbcType=VARCHAR},-->
+<!--      Student_Number = #{studentNumber,jdbcType=VARCHAR},-->
+<!--      Entrance = #{entrance,jdbcType=VARCHAR},-->
+<!--      StudyTime = #{studytime,jdbcType=TIMESTAMP},-->
+<!--      UpdateName = #{updatename,jdbcType=VARCHAR},-->
+<!--      UpdateTime = #{updatetime,jdbcType=TIMESTAMP}-->
+<!--    where Student_Id = #{studentId,jdbcType=INTEGER}-->
+<!--  </update>-->
 </mapper>

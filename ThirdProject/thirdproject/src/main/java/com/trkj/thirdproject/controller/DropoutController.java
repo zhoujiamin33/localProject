@@ -30,13 +30,13 @@ public class DropoutController {
         log.debug(dropout.toString()+"退学");
         return dropout;
     }
-    @PutMapping("/updatetuixue/{studentstatusId}")
-    public Studentstatus updatetuixue(@PathVariable("studentstatusId") Integer studentstatusId){
+    @PutMapping("/updatetuixue")
+    public Studentstatus updatetuixue(@RequestParam("studentstatusId") Integer studentstatusId){
         Studentstatus studentstatus=new Studentstatus();
         log.debug("sss"+studentstatusId);
         studentstatus.setStatus(2);//退学审核
         studentstatus.setStudentstatusId(studentstatusId);
-        studentstatusService.updatestustart(studentstatus);
+        studentstatus=studentstatusService.updatestustart(studentstatus);
         return studentstatus;
     }
 //    查询所有退学记录的学员
@@ -58,9 +58,9 @@ public class DropoutController {
         return dropoutPageInfo;
     }
 //审批状态的修改和时效性的修改
-    @PutMapping("/updatedropoutstate/{dropoutId}")
+    @PutMapping("/updatedropoutstate")
     @LogginAnnotation(message = "批量审核退学")
-    public void updatedropoutstate(@PathVariable("dropoutId")String dropoutId){
+    public void updatedropoutstate(@RequestParam("dropoutId")String dropoutId){
         String[] id=dropoutId.split(",");
         for (String d:id){
             Dropout dropout=dropoutService.selectByPrimaryKey(Integer.parseInt(d));
@@ -71,9 +71,9 @@ public class DropoutController {
 }
 
     }
-    @PutMapping("/deldropouttimeliness/{dropoutId}")
+    @PutMapping("/deldropouttimeliness")
     @LogginAnnotation(message = "批量删除退学")
-    public void deldropouttimeliness(@PathVariable("dropoutId")String dropoutId){
+    public void deldropouttimeliness(@RequestParam("dropoutId")String dropoutId){
         String[] id=dropoutId.split(",");
         for (String d:id){
             Dropout dropout=dropoutService.selectByPrimaryKey(Integer.parseInt(d));

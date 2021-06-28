@@ -13,7 +13,7 @@ public interface StudentService {
     //    新增
     Student addstudent(Student student);
     //删除
-    void delstuTimeness(String deletename, Date deletetime, Integer  studentId);
+    Student delstuTimeness(Student student);
     //    修改
     Student updatestudent(Student student);
     //模糊查询根据姓名和电话
