@@ -48,16 +48,22 @@
      where DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER}
   </update>
 
-<!--  新增课程详细-->
-  <insert id="addDetails" >
+  <!--  批量新增、新增课程详细-->
+  <insert id="batchDetails" >
     insert into DetailCourse (Course_Id, DetailCourse_Name, Serial,AddName, AddTime)
     values (#{courseId,jdbcType=INTEGER}, #{detailcourseName,jdbcType=VARCHAR}, #{serial,jdbcType=INTEGER},
     #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
   </insert>
 
-<!--  根据课程id查询课程详细-->
+  <!--  统计课程详细次数-->
+  <select id="selectdetailscount" resultType="integer">
+    select count(*) as totalcount from   DetailCourse d
+    inner join Course c on c.Course_Id=d.Course_Id
+    where c.Course_Id=#{courseId,jdbcType=INTEGER}
+  </select>
+  <!--  根据课程id查询课程详细-->
   <select id="selectByCourseKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />,
     <include refid="Course"/>
     from DetailCourse d inner join Course c on c.Course_Id=d.Course_Id

@@ -19,7 +19,6 @@ public class ClassRoomServiceImpl implements ClassRoomService {
 
     @Override
     public Classroom insert(Classroom classroom) {
-        classroom.setAddname("Tsm管理员");
         classroom.setAddtime(new Date());
         classdao.insert(classroom);
         return classroom;
@@ -27,7 +26,6 @@ public class ClassRoomServiceImpl implements ClassRoomService {
 
     @Override
     public Classroom updateByKey(Classroom classroom) {
-        classroom.setUpdatename("Tsm管理员");
         classroom.setUpdatetime(new Date());
         classdao.updateByKey(classroom);
         return classroom;

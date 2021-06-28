@@ -23,7 +23,7 @@ public interface RegisterService {
     List<Register> selectAttentState();
 
     //根据id查询咨询登记
-    Register selectByregisterId(@PathVariable("registerId") Integer registerId);
+    Register selectByregisterId(Integer registerId);
     //修改咨询登记的缴费状态
     int updatepaystate(Integer registerId );
 
