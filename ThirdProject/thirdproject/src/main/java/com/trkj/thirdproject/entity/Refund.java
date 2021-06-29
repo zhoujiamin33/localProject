@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Refund
@@ -70,18 +71,22 @@ public class Refund implements Serializable {
     /**
      * 退费办理时间
      */
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date addtime;
 
     /**
      * 删除人
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private String deletename;
 
     /**
      * 删除时间
      */
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date deletetime;
 
     /**
@@ -97,7 +102,8 @@ public class Refund implements Serializable {
     /**
      * 回退金额审核时间
      */
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date cwApptime;
 
     /**
@@ -108,7 +114,8 @@ public class Refund implements Serializable {
     /**
      * 回退金额撤销审核时间
      */
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date cwDropapptime;
 
     /**

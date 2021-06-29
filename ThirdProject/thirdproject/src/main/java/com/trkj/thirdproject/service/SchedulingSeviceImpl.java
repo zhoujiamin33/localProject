@@ -52,7 +52,6 @@ public class SchedulingSeviceImpl implements SchedulingSevice {
          }
          log.debug(list.toString()+"------------------------------------------");
 
-
             //            搜索排课表
          List<Scheduling> schedulinglist=schedulingdao.selectAllScheduling();
          List<String> sclist=new ArrayList<>();
@@ -62,14 +61,10 @@ public class SchedulingSeviceImpl implements SchedulingSevice {
          }
          log.debug(sclist.toString()+"==================================");
 
-
-
             //去掉集合中重复的元素
          List<String> exists=new ArrayList<String>(list);
          exists.removeAll(sclist);
          log.debug(exists.toString()+"/////////////////////////////");
-
-
 
             //给字段赋值
          log.debug(scheduling.getCoursecount()+"");
@@ -79,19 +74,22 @@ public class SchedulingSeviceImpl implements SchedulingSevice {
 
          for(int i=0;i<count;i++){
              scheduling.setAddtime(new Date());
-
              for (int classes:scheduling.getClasslist()){
                  scheduling.setClassesId(classes);
 
-                 for (String schedul:exists){
-                     String[] abc=schedul.split("-");
-                     log.debug(schedul+"fff");
-                     log.debug(Integer.parseInt(abc[0])+"sss"+Integer.parseInt(abc[1])+"sss"+Integer.parseInt(abc[2])+"sss");
-                     scheduling.setPeriodId(Integer.parseInt(abc[0]));
-                     scheduling.setClassroomId(Integer.parseInt(abc[1]));
-                     scheduling.setTeacherId(Integer.parseInt(abc[2]));
-                     exists.remove(schedul);
-                 }
+                 exists.forEach(ex->{
+
+                 });
+
+//                 for (String schedul:exists){
+//                     String[] abc=schedul.split("-");
+//                     log.debug(schedul+"fff");
+//                     log.debug(Integer.parseInt(abc[0])+"sss"+Integer.parseInt(abc[1])+"sss"+Integer.parseInt(abc[2])+"sss");
+//                     scheduling.setPeriodId(Integer.parseInt(abc[0]));
+//                     scheduling.setClassroomId(Integer.parseInt(abc[1]));
+//                     scheduling.setTeacherId(Integer.parseInt(abc[2]));
+//                     exists.remove(schedul);
+//                 }
                  schedulingdao.insert(scheduling);
              }
             break;

@@ -116,4 +116,8 @@ public void updatewxz(@PathVariable("empId")String empId){
         empService.updateEmp(emp);
     }
 }
+    @GetMapping("/selectEmpteacher")
+    public List<Emp> selectEmpteacher(){
+        return empService.selectEmpteacher();
+    }
 }

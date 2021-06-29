@@ -292,7 +292,11 @@ public Student findstudentclasses(@RequestParam("studentId") Integer studentId) 
     }
     //根据班级id查询学员
     @GetMapping("/selectByClass")
-    public List<Student> selectByClass( @RequestParam("classesId") Integer classesId){
+    public List<Student> selectByClass(@RequestParam Integer classesId){
         return studentService.selectByClass(classesId);
+    }
+    @GetMapping("/selectBycount")
+    public int selectBycount(@RequestParam Integer classesId){
+        return studentService.selectBycount(classesId);
     }
 }
