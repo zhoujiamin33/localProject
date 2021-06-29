@@ -81,7 +81,6 @@ return student;
     //修改
     @Override
     public Student updatestudent(Student student) {
-        student.setUpdatename("tsm管理");
         student.setUpdatetime(new Date());
         studentDao.updatestudent(student);
         return student;

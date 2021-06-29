@@ -72,7 +72,7 @@ public class ClassesController {
     }
     //    根据id查询班级信息
     @GetMapping("/selectById")
-    public  Classes selectById( @PathVariable Integer classesId){
+    public  Classes selectById( @RequestParam Integer classesId){
         return classesService.selectById(classesId);
     }
     //给班级赋值课程详细编号

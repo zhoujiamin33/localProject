@@ -101,7 +101,6 @@ public class StudentController {
     @LogginAnnotation(message = "新增学员交接")
     public void addmentid(@RequestBody Memorandumattachment record) {
 //        显示所有登记记录信息
-        record.setZsexaminename("tsm管理员");
         studentService.insertSelective(record);
 
     }
@@ -251,11 +250,10 @@ public Student findstudentclasses(@RequestParam("studentId") Integer studentId) 
         String[] id=supplementaryId.split(",");
         for (String s:id){
         Supplementary supplementary=new Supplementary();
-        supplementary.setUpdatename("tsm");
         supplementary.setUpdatetime(new Date());
         supplementary.setState(1);
         supplementary.setSupplementaryId(Integer.parseInt(s));
-        supplementary=supplementaryService.updateByPrimaryKeySelective(supplementary);
+        supplementaryService.updateByPrimaryKeySelective(supplementary);
 
         }
     }
@@ -266,11 +264,10 @@ public Student findstudentclasses(@RequestParam("studentId") Integer studentId) 
         String[] id=supplementaryId.split(",");
         for (String s:id){
             Supplementary supplementary=new Supplementary();
-            supplementary.setUpdatename("tsm");
             supplementary.setUpdatetime(new Date());
             supplementary.setState(0);
             supplementary.setSupplementaryId(Integer.parseInt(s));
-            supplementary=supplementaryService.updateByPrimaryKeySelective(supplementary);
+            supplementaryService.updateByPrimaryKeySelective(supplementary);
 
         }
     }
@@ -281,18 +278,17 @@ public Student findstudentclasses(@RequestParam("studentId") Integer studentId) 
         String[] id=supplementaryId.split(",");
         for (String s:id){
             Supplementary supplementary=new Supplementary();
-            supplementary.setDeletename("tsm");
             supplementary.setDeletetime(new Date());
             supplementary.setTimeliness(1);
             supplementary.setSupplementaryId(Integer.parseInt(s));
-            supplementary=supplementaryService.updateByPrimaryKeySelective(supplementary);
+            supplementaryService.updateByPrimaryKeySelective(supplementary);
         }
 
 
     }
     //根据班级id查询学员
     @GetMapping("/selectByClass")
-    public List<Student> selectByClass( @RequestParam("classesId") Integer classesId){
+    public List<Student> selectByClass(@RequestParam("classesId") Integer classesId){
         return studentService.selectByClass(classesId);
     }
 }
