@@ -72,10 +72,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //如果URL等于"/login"此时任何用户可以访问，如果是"/login/**",
                 // 则表示URL等于/login或是以/login开头的，任何用户都可以访问请求。
                 //这里这样配置的目的是在于我们自己定义登录验证的地址，而没有用spring security默认的验证地址
+                .antMatchers("/login","/captchaImage").anonymous()
                 .antMatchers("/find**").anonymous()
                 .antMatchers("/Find**").anonymous()
                 .antMatchers("/select**").anonymous()
-                .antMatchers("/login","/captchaImage").anonymous()
                 .antMatchers("/common/download**").anonymous()
                 .antMatchers("/common/download/resource**").anonymous()
                 .antMatchers("/swagger-ui/**").anonymous()
