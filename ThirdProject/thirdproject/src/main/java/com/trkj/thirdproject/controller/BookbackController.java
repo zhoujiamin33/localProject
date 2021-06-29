@@ -29,9 +29,9 @@ public class BookbackController {
         return classtypePageInfo;
     }
 
-    @DeleteMapping("/delBookback/{bookbackId}")
+    @DeleteMapping("/delBookback")
     @LogginAnnotation(message = "删除退回订单")
-    public String delBookback(@PathVariable("bookbackId") int bookbackId){
+    public String delBookback(@RequestParam int bookbackId){
         log.debug("开始删除");
         bookbackService.deleteByPrimaryKey(bookbackId);
         return "delOk";
@@ -52,8 +52,12 @@ public class BookbackController {
         return bookback;
     }
 
-    @GetMapping("/selectBookback/{value}/{input}")
-    public List<Bookback> selectBookback(@PathVariable("value") String value, @PathVariable("input") String input){
-        return bookbackService.selectBookBack(value, input);
+
+    @GetMapping("/selectBookback")
+    public PageInfo<Bookback> selectBookback(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize, @RequestParam("value") String value, @RequestParam("input") String input){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Bookback> entityPage=bookbackService.selectBookBack(value, input);
+        PageInfo<Bookback> classtypePageInfo=new PageInfo<>(entityPage);
+        return classtypePageInfo;
     }
 }

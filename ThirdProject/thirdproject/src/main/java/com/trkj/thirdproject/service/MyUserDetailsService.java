@@ -61,8 +61,8 @@ public class MyUserDetailsService implements UserDetailsService {
                 String.join(",",authorities)
         ));
 
-        log.info("用户查询完成，返回user,其权限为:"+myUserDetails.getAuthorities());
-        log.info("用户查询完成，返回user,其权限为:"+myUserDetails.toString());
+//        log.info("用户查询完成，返回user,其权限为:"+myUserDetails.getAuthorities());
+//        log.info("用户查询完成，返回user,其权限为:"+myUserDetails.toString());
         return myUserDetails;
     }
 }

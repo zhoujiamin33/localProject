@@ -158,6 +158,7 @@
     delete from DeliveryDdetails
     where DeliveryDdetails_Id = #{deliveryddetailsId,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" keyColumn="DeliveryDdetails_Id" keyProperty="deliveryddetailsId" parameterType="com.trkj.thirdproject.entity.Deliveryddetails" useGeneratedKeys="true">
     insert into DeliveryDdetails (Student_Id, Emp_Id, BookDelivery_Id,
       Book_Id, DeliveryCount, ReceivableMoney

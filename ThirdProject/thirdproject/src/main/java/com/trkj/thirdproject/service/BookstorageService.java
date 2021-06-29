@@ -16,7 +16,7 @@ public interface BookstorageService {
 
     Bookstorage updateByPrimaryKey(Bookstorage bookstorage);
 
-    int deleteByPrimaryKey(int mbookstorageId);
+    Bookstorage deleteByPrimaryKey(Bookstorage bookstorage);
     //=========================================教材入库支出（财务部）================================================================
     //新增教材入库
     Storageexpenditure insertStorageexpenditure(Storageexpenditure storageexpenditure);

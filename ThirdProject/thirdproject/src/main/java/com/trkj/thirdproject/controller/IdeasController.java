@@ -3,8 +3,6 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
-import com.trkj.thirdproject.entity.Bookdelivery;
-import com.trkj.thirdproject.entity.Bookstorage;
 import com.trkj.thirdproject.entity.Ideas;
 import com.trkj.thirdproject.service.IdeasService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,16 +17,16 @@ public class IdeasController {
     @Autowired
     private IdeasService ideasService;
 
-    @GetMapping("/IdeasfindPagesd")
-    public PageInfo<Ideas> IdeasfindPagesd(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+    @GetMapping("/findIdeasPagesd")
+    public PageInfo<Ideas> findIdeasPagesd(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         PageHelper.startPage(currentPage,pagesize);
         List<Ideas> entityPage=ideasService.selectAllsd();
         PageInfo<Ideas> classtypePageInfo=new PageInfo<>(entityPage);
         return classtypePageInfo;
     }
 
-    @GetMapping("/IdeasfindPagefc")
-    public PageInfo<Ideas> IdeasfindPagefc(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+    @GetMapping("/findIdeasPagefc")
+    public PageInfo<Ideas> findIdeasPagefc(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         PageHelper.startPage(currentPage,pagesize);
         List<Ideas> entityPage=ideasService.selectAllfc();
         PageInfo<Ideas> classtypePageInfo=new PageInfo<>(entityPage);
@@ -60,7 +58,7 @@ public class IdeasController {
 //    }
 
     @PutMapping("/updateIdeas")
-    @LogginAnnotation(message = "回复意见")
+    @LogginAnnotation(message = "回复收到的意见")
     public Ideas updateByPrimaryKey(@RequestBody Ideas ideas){
         log.debug("开始修改");
         ideasService.updateByPrimaryKey(ideas);
@@ -75,9 +73,9 @@ public class IdeasController {
         return ideas;
     }
 
-    @DeleteMapping("/delIdeas/{ideasId}")
+    @DeleteMapping("/delIdeas")
     @LogginAnnotation(message = "删除待回复的意见")
-    public String delIdeas(@PathVariable("ideasId") int ideasId){
+    public String delIdeas(@RequestParam int ideasId){
         log.debug("开始删除");
         ideasService.deleteByPrimaryKey(ideasId);
         return "delOk";

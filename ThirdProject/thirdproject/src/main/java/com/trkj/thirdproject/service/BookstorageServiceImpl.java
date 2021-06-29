@@ -66,11 +66,13 @@ public class BookstorageServiceImpl implements BookstorageService {
     }
 
     @Override
-    public int deleteByPrimaryKey(int mbookstorageId) {
-        bookstorageDao.deleteByPrimaryKey(mbookstorageId);
-        return mbookstorageId;
+    public Bookstorage deleteByPrimaryKey(Bookstorage bookstorage) {
+        bookstorageDao.deleteByPrimaryKey(bookstorage);
+        return bookstorage;
     }
-//================================================教材入库支出============================================================
+
+
+    //================================================教材入库支出============================================================
     @Override
     public Storageexpenditure insertStorageexpenditure(Storageexpenditure storageexpenditure) {
         storageexpenditure.setAddtime(new Date());

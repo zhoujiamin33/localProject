@@ -35,4 +35,10 @@ public class BookServiceImpl implements BookService {
     public Book selectbooksprice(String bookname) {
         return bookDao.selectbooksprice(bookname);
     }
+
+    @Override
+    public Book updateBook(Book book) {
+        bookDao.updateBook(book);
+        return book;
+    }
 }

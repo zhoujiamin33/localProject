@@ -26,6 +26,13 @@
     from Book
     where BookName = #{bookname,jdbcType=VARCHAR}
   </select>
+
+  <update id="updateBook" parameterType="com.trkj.thirdproject.entity.Book">
+    update Book
+    set DeliveryCount = #{deliverycount,jdbcType=INTEGER}
+    where Book_Id = #{bookId,jdbcType=INTEGER}
+  </update>
+
   <select id="selectAllBook" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from Book
