@@ -410,6 +410,7 @@
         and WorkersState like CONCAT(CONCAT('%',#{value},'%'))
       </if>
     </where>
+    order by  e.Emp_Id desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Emp

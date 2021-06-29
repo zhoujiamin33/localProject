@@ -33,14 +33,12 @@ public class EmpController {
     @LogginAnnotation(message = "新增员工")
     public Emp addemp(@RequestBody Emp emp){
         log.debug(emp.toString());
-        emp.setAddname("tsm管理员");
-        emp.setAddtime(new Date());
         emp=empService.insert(emp);
         return emp;
     }
-    @DeleteMapping("/delemp")
+    @PutMapping("/delemp")
     @LogginAnnotation(message = "删除员工")
-    public String delEmp(@RequestParam("empId") Integer empId){
+    public String delEmp(@RequestParam Integer empId){
         empService.delectEmp(empId);
         return "删除成功";
     }
@@ -48,8 +46,7 @@ public class EmpController {
     @PutMapping("/updateemp")
     @LogginAnnotation(message = "修改员工")
     public Emp updateEmp(@RequestBody Emp emp){
-        emp.setUpdatename("tsm管理员");
-        emp.setUpdatetime(new Date());
+
         emp=empService.updateEmp(emp);
         return emp;
     }
