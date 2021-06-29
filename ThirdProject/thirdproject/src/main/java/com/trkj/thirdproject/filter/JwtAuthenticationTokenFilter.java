@@ -53,7 +53,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String jwtToken = request.getHeader(header);
-        log.debug(jwtToken.toString());
+        log.debug(jwtToken);
         Enumeration en= request.getHeaderNames();
         while (en.hasMoreElements()){
             log.info("header ="+en.nextElement());
