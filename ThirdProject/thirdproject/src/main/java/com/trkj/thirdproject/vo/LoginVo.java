@@ -7,8 +7,9 @@ import lombok.Data;
  *
  */
 @Data
-public class LoginVo
-{
+public class LoginVo {
+
+    private int id;
     /**
      * 用户名
      */
