@@ -73,4 +73,8 @@ public class SysMenu implements Serializable {
 
     /** 侧边栏子菜单 */
     private List<SysMenu> asideChildren = new ArrayList<SysMenu>();
+
+    public void setAsideChildren(List<SysMenu> asideChildren) {
+        this.asideChildren = asideChildren;
+    }
 }
