@@ -1,5 +1,7 @@
 package com.trkj.thirdproject.controller;
 
+import com.trkj.thirdproject.dao.EmpDao;
+import com.trkj.thirdproject.entity.Emp;
 import com.trkj.thirdproject.entity.SysMenu;
 import com.trkj.thirdproject.service.JwtAuthService;
 import com.trkj.thirdproject.service.PermissionService;
@@ -8,10 +10,12 @@ import com.trkj.thirdproject.vo.LoginVo;
 import com.trkj.thirdproject.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
@@ -19,6 +23,8 @@ import java.util.List;
 public class LoginController {
     @Autowired
     private JwtAuthService jwtAuthService;
+    @Resource
+    private EmpDao empDao;
     @Autowired
     private PermissionService permissionService;
     @PostMapping("/login")
@@ -26,11 +32,20 @@ public class LoginController {
         log.debug("开始验证,{}",loginVo);
         String token=jwtAuthService.login(loginVo.getUsername(),loginVo.getPassword());
         List<SysMenu> menus=permissionService.getMenuByUname(loginVo.getUsername());
+        Emp emp = empDao.findByEmpname(loginVo.getUsername());
         UserVo vo=new UserVo();
+        vo.setId(emp.getEmpId());
         vo.setUsername(loginVo.getUsername());
         vo.setMenus(menus);
         vo.setValidate(true);
         vo.setToken(token);
         return AjaxResponse.success(vo);
+    }
+    @PostMapping("/signout")
+    public AjaxResponse signout(){
+        log.debug("开始退出操作");
+        AjaxResponse ajaxResponse=AjaxResponse.success("已退出");
+        SecurityContextHolder.clearContext();
+        return ajaxResponse;
     }
 }

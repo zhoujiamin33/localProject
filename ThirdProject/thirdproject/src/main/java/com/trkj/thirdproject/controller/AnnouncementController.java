@@ -52,7 +52,7 @@ public class AnnouncementController {
         return service.AnnState(announcement);
     }
     //可以不用，用findVariedAnn
-    @GetMapping("/findPageAnn")
+    @GetMapping("/selectPageAnn")
     public PageInfo<Announcement> findPages(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize){
         log.debug("开始分页！");
         PageHelper.startPage(currentPage,pagesize);
