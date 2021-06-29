@@ -15,4 +15,6 @@ public interface SupplementaryService {
     Supplementary updateByPrimaryKeySelective(Supplementary record);
     // 模糊查询
     List<Supplementary> findName_number(String index, String value);
+    //根据补报编号查询补报信息
+    Supplementary selectBysuppId(Integer supplementary);
 }

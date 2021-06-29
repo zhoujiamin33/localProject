@@ -23,15 +23,15 @@ public class StudentstatusController {
     private ClassesService classesService;
 
 //    后台查询咨询登记，新增学员交接，查询学员交接，修改学员交接中审核状态，新增学生档案
-//    根据学员编号查询
-    @GetMapping("/findstuclass/{studentId}")
-    public List<Studentstatus> findstuclass(@PathVariable("studentId") Integer studentId){
+//    根据学员编号查询findstuclass
+    @GetMapping("/findstuclass")
+    public List<Studentstatus> findstuclass(@RequestParam("studentId") Integer studentId){
         List<Studentstatus> studentstatuseslist=studentstatusService.selectstu_class(studentId);
         return studentstatuseslist;
     }
 //    //   <!--根据课程编号查询所对应的班级-->
-@GetMapping("/findcourseId/{courseId}")
-public List<Classes> findcourseId(@PathVariable("courseId")Integer courseId){
+@GetMapping("/findcourseId")
+public List<Classes> findcourseId(@RequestParam("courseId")Integer courseId){
     List<Classes> classesList=classesService.selectcourseId(courseId);
         return classesList;
 }
@@ -43,10 +43,10 @@ public List<Classes> findcourseId(@PathVariable("courseId")Integer courseId){
      log.debug(studentstatus.toString());
         return studentstatus;
     }
-@GetMapping("/findstudentstatusId/{studentstatusId}")
-    public Studentstatus findstudentId(@PathVariable("studentstatusId") Integer studentstatusId){
+@GetMapping("/findstudentstatusId")
+    public Studentstatus findstudentId(@RequestParam("studentstatusId") Integer studentstatusId){
         Studentstatus studentstatus=studentstatusService.selectByPrimaryKeyId(studentstatusId);
-        log.debug(studentstatus.toString());
+        log.debug("状态："+studentstatus.toString());
         return studentstatus;
 }
 }

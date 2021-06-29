@@ -66,6 +66,8 @@ public class Detailcourse implements Serializable {
     private Integer timeliness;
 
     private  Course course;
+    //详细课程条数
+    private Integer totalcount;
 
     private static final long serialVersionUID = 1L;
 }

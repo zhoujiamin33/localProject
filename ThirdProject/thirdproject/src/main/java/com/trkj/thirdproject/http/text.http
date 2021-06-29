@@ -1,3 +1,11 @@
+GET http://localhost:8089/threeproject/selectdetailscount/2
+Accept: application/json
+
+###
+GET http://localhost:8089/threeproject/selectByCourseId/2
+Accept: application/json
+
+###
 GET http://localhost:8089/threeproject/ConsultationmodeStatistics
 Accept: application/json
 

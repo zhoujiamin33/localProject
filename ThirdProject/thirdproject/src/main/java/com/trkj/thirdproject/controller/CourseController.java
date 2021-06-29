@@ -8,6 +8,7 @@ import com.trkj.thirdproject.entity.Course;
 import com.trkj.thirdproject.entity.Detailcourse;
 import com.trkj.thirdproject.service.ClassRoomService;
 import com.trkj.thirdproject.service.CourseService;
+import com.trkj.thirdproject.vo.CourseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,19 +48,20 @@ public class CourseController {
         return course;
     }
     //根据id查询课程
-    @GetMapping("/selectByCourseId/{courseId}")
-    public Course selectByCourseId(@PathVariable("courseId") Integer courseId){
+    @GetMapping("/selectByCourseId")
+    public Course selectByCourseId( @RequestParam Integer courseId){
         log.debug("根据id查询课程");
         return courseservice.selectByPrimaryKey(courseId);
     }
-    //根据课类名称查询课程
-    @GetMapping("/selectByCourseTypeId/{courseTypeName}")
-    public List<Course> selectByCourseTypeId(@PathVariable("courseTypeName") String  courseTypeName){
+    //    根据课类名称查询课程
+    @GetMapping("/selectByCourseTypeName")
+    public List<Course> selectByCourseTypeName(@PathVariable("courseTypeName") String courseTypeName){
         log.debug("根据课类名称查询课程");
         return courseservice.selectByCourseTypeName(courseTypeName);
     }
+
     @PutMapping("/updateCourseState")
-    @LogginAnnotation(message = "修改课程未开设状态")
+    @LogginAnnotation(message = "修改课程为开设状态")
     public Course updateCourseState(@RequestBody Course course){
         log.debug("修改课程状态");
         course.setUpdatetime(new Date());
@@ -104,14 +106,14 @@ public class CourseController {
         PageInfo<Detailcourse> detailcoursePageInfo=new PageInfo<>(entityPage);
         return detailcoursePageInfo;
     }
-    @GetMapping("/selectByCourseKey100/{courseid}")
+    @GetMapping("/selectByCourseKey100")
     public Detailcourse selectByCourseKey100( @PathVariable("courseid") Integer course_id){
         return courseservice.selectByCourseKey100(course_id);
     }
     @PostMapping("/addDetails")
     @LogginAnnotation(message = "新增课程详细")
     public Detailcourse addDetails( @RequestBody Detailcourse detailcourse){
-       detailcourse= courseservice.addDetails(detailcourse);
+        detailcourse= courseservice.batchDetails(detailcourse);
         return detailcourse;
     }
 
@@ -120,5 +122,11 @@ public class CourseController {
     public Detailcourse updateByName( @RequestBody Detailcourse detailcourse){
         detailcourse=courseservice.updateByName(detailcourse);
         return detailcourse;
+    }
+
+    //统计课程详细条数
+    @GetMapping("/selectdetailscount")
+    public void selectdetailscount(@RequestParam("courseId") Integer courseId){
+        courseservice.selectdetailscount(courseId);
     }
 }

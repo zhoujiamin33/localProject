@@ -30,16 +30,15 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course insertCourse(Course course) {
-        course.setAddname("Tsm管理员");
         course.setAddtime(new Date());
         coursedao.insertCourse(course);
         log.debug("111111"+course);
         return course;
     }
 
+
     @Override
     public Course updateCourse(Course course) {
-        course.setUpdatename("Tsm管理员");
         course.setUpdatetime(new Date());
         log.debug("课程修改成功！");
         coursedao.updateCourse(course);
@@ -75,14 +74,9 @@ public class CourseServiceImpl implements CourseService {
         log.debug("查询课程详细");
         return detailcoursedao.selectByCourseKey(course_id);
     }
-    @Override
-    public Detailcourse addDetails(Detailcourse detailcourse) {
 
-        detailcourse.setAddtime(new Date());
-        log.debug("课程详细名："+detailcourse.getDetailcourseName());
-        detailcoursedao.addDetails(detailcourse);
-        return detailcourse;
-    }
+
+
 
     @Override
     public Detailcourse updateByName(Detailcourse detailcourse) {
@@ -95,5 +89,29 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Detailcourse selectByCourseKey100(Integer course_id) {
         return detailcoursedao.selectByCourseKey100(course_id);
+    }
+
+    @Override
+    public int selectdetailscount(Integer courseId) {
+        log.debug(courseId+"课程Id");
+        return detailcoursedao.selectdetailscount(courseId);
+    }
+
+    //批量新增课程详细
+    @Override
+    public Detailcourse batchDetails(Detailcourse detailcourse) {
+        Course course=coursedao.selectByPrimaryKey(detailcourse.getCourseId());
+        Integer details=detailcoursedao.selectdetailscount(detailcourse.getCourseId());
+        log.debug(details+"bbbbbbbbbbb");
+        int shengyu=course.getClasshours()-details;
+        log.debug(shengyu+"shengyu");
+        for (int i=1;i<=shengyu;i++){
+            detailcourse.setAddtime(new Date());
+            String coursename=course.getCourseName();
+            detailcourse.setDetailcourseName(coursename+"第"+i+"课时");
+            log.debug("课程详细名："+detailcourse.getDetailcourseName());
+            detailcoursedao.batchDetails(detailcourse);
+        }
+        return detailcourse;
     }
 }

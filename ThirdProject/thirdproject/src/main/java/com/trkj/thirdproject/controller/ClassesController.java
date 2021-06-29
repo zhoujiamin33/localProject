@@ -67,17 +67,17 @@ public class ClassesController {
     }
     //根据班级id查询班级详细课程进度
     @GetMapping("/selectDetailCourse")
-    public Detailcourse selectDetailCourse(Integer ClassId){
+    public Detailcourse selectDetailCourse( @PathVariable Integer ClassId){
         return classesService.selectDetailCourse(ClassId);
     }
     //    根据id查询班级信息
-    @GetMapping("/selectById/{classesId}")
-    public  Classes selectById( @PathVariable("classesId") Integer classesId){
+    @GetMapping("/selectById")
+    public  Classes selectById( @PathVariable Integer classesId){
         return classesService.selectById(classesId);
     }
     //给班级赋值课程详细编号
     @PutMapping("/updateDetails")
-    public Classes updateDetails( @RequestBody Classes classes){
+    public Classes updateDetails(@RequestBody Classes classes){
         return classesService.updateDetails(classes);
     }
     @GetMapping("/selectnotDetails/{classesId}/{serial}")
