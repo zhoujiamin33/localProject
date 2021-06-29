@@ -21,8 +21,9 @@ public class BackController {
     private StudentstatusService studentstatusService;
     @PostMapping("/Addback")
 //    新增复课数据同时，查询停课中的数据并得出缺课课时，更改学员状态为3、如果复课中的复课意向为0的话就选择班级，如果复课意向为1的话就已分班状态
-    public Back Addback(@RequestBody Back back, @RequestParam("studentstatusId") Integer studentstatusId){
+    public Back Addback(@RequestBody Back back, @RequestParam Integer studentstatusId){
         back=backService.insertSelective(back);
+        log.debug("新增停课"+back.toString());
         Studentstatus studentstatus=new Studentstatus();
         if (back.getIntention()==0){
             log.debug("zt"+studentstatusId);
@@ -35,7 +36,7 @@ public class BackController {
             studentstatus.setStatus(back.getIntention());
             studentstatusService.updatestustart(studentstatus);
         }
-
+log.debug("修改停课状态"+studentstatus.toString());
         return back;
     }
 }

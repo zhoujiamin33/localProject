@@ -86,10 +86,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         AntPathMatcher matcher=new AntPathMatcher();
         log.debug("matcher.match={}",matcher.match("/swagger-ui/**", request.getServletPath()));
         boolean flag=matcher.match("/login", request.getServletPath())||
-                matcher.match("/swagger-ui/**", request.getServletPath())||
-                matcher.match("/select**", request.getServletPath())||
                 matcher.match("/find**", request.getServletPath())||
-                matcher.match("/Find**", request.getServletPath());
+                matcher.match("/Find**", request.getServletPath())||
+                matcher.match("/select**", request.getServletPath())||
+                matcher.match("/swagger-ui/**", request.getServletPath());
         log.debug("flag={}",flag);
         return flag;
 

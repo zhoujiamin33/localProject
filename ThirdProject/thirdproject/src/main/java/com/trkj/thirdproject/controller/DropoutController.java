@@ -25,20 +25,26 @@ public class DropoutController {
 //    根据学员编号修改状态表中的状态，再新增退学表中的数据
     @PostMapping("/Adddropout")
     @LogginAnnotation(message = "新增退学")
-    public Dropout adddropout(@RequestBody Dropout dropout){
+    public Dropout adddropout(@RequestBody Dropout dropout,@RequestParam Integer studentstatusId){
         dropout=dropoutService.insertSelective(dropout);
         log.debug(dropout.toString()+"退学");
-        return dropout;
-    }
-    @PutMapping("/updatetuixue")
-    public Studentstatus updatetuixue(@RequestParam("studentstatusId") Integer studentstatusId){
         Studentstatus studentstatus=new Studentstatus();
         log.debug("sss"+studentstatusId);
         studentstatus.setStatus(2);//退学审核
         studentstatus.setStudentstatusId(studentstatusId);
         studentstatus=studentstatusService.updatestustart(studentstatus);
-        return studentstatus;
+        log.debug("修改退学状态"+studentstatus.toString());
+        return dropout;
     }
+//    @PutMapping("/updatetuixue")
+//    public Studentstatus updatetuixue(@RequestParam("studentstatusId") Integer studentstatusId){
+//        Studentstatus studentstatus=new Studentstatus();
+//        log.debug("sss"+studentstatusId);
+//        studentstatus.setStatus(2);//退学审核
+//        studentstatus.setStudentstatusId(studentstatusId);
+//        studentstatus=studentstatusService.updatestustart(studentstatus);
+//        return studentstatus;
+//    }
 //    查询所有退学记录的学员
     @GetMapping("/finddropout")
     public PageInfo<Dropout> finddropout(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){

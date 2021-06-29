@@ -18,7 +18,7 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public Emp insert(Emp record) {
         record.setEnterpriseId(1);//公司编号固定
-        record.setJobnumber("zz"+ record.getAddtime().getTime());
+//        record.setJobnumber("zz"+ record.getAddtime().getTime());
         empDao.insertSelective(record);
         return record;
     }
@@ -35,7 +35,6 @@ empDao.deleteByPrimaryKey(EmpId);
 
     @Override
     public Emp updateEmp(Emp emp) {
-        emp.setUpdatename("tsm管理员");
         emp.setUpdatetime(new Date());
         empDao.updateByPrimaryKeySelective(emp);
         return emp ;
@@ -71,6 +70,11 @@ empDao.deleteByPrimaryKey(EmpId);
     public List<Emp> selectByPrimarywei() {
         List<Emp> empList=empDao.selectByPrimarywei();
         return empList;
+    }
+
+    @Override
+    public List<Emp> selectEmpteacher() {
+        return empDao.selectEmpteacher();
     }
 
 }

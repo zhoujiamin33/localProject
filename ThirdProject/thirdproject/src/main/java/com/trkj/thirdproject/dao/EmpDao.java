@@ -34,5 +34,7 @@ public interface EmpDao {
 //   未限制
     List<Emp> selectByPrimarywei();
 
-    Emp findByEmpname(String Empname); 
+    Emp findByEmpname(String Empname);
+    //查询为教师的员工
+    List<Emp> selectEmpteacher();
 }

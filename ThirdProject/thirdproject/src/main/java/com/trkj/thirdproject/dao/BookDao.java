@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Book;
+import com.trkj.thirdproject.entity.Bookstorage;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface BookDao {
     List<Book> selectAllBook();
 
     Book selectbooksprice(String bookname);
+
+    int updateBook(Book record);
 }

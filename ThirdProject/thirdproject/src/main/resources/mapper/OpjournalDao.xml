@@ -57,6 +57,7 @@
     select
     <include refid="Base_Column_List" />,<include refid="emp"/>
     from OpJournal o inner join Emp e on o.Emp_Id=e.Emp_Id
+    order by  o.OpJournal_Id desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from OpJournal

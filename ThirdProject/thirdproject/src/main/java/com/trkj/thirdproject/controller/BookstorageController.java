@@ -1,13 +1,9 @@
 package com.trkj.thirdproject.controller;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
-import com.trkj.thirdproject.entity.Bookstorage;
-import com.trkj.thirdproject.entity.Deliveryddetails;
-import com.trkj.thirdproject.entity.Refund;
-import com.trkj.thirdproject.entity.Storageexpenditure;
+import com.trkj.thirdproject.entity.*;
 import com.trkj.thirdproject.service.BookstorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,17 +40,20 @@ public class BookstorageController {
         return bookstorage;
     }
 
-    @GetMapping("/selectBookstorage/{value}/{input}")
-    public List<Bookstorage> selectBookstorage(@PathVariable("value") String value, @PathVariable("input") String input){
-        return bookstorageService.selectBookstorage(value, input);
+    @GetMapping("/selectBookstorage")
+    public PageInfo<Bookstorage> selectByContion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize, @RequestParam("value") String value, @RequestParam("input") String input){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Bookstorage> entityPage=bookstorageService.selectBookstorage(value, input);
+        PageInfo<Bookstorage> classtypePageInfo=new PageInfo<>(entityPage);
+        return classtypePageInfo;
     }
 
-    @DeleteMapping("/delBookstorage/{mbookstorageId}")
+    @PutMapping("/deleteByPrimaryKey")
     @LogginAnnotation(message = "删除教材入库")
-    public String delBookstorage(@PathVariable("mbookstorageId") int mbookstorageId){
-        log.debug("开始删除");
-        bookstorageService.deleteByPrimaryKey(mbookstorageId);
-        return "delOk";
+    public Bookstorage deleteByPrimaryKey(@RequestBody Bookstorage bookstorage){
+        log.debug("开始修改");
+        bookstorageService.deleteByPrimaryKey(bookstorage);
+        return bookstorage;
     }
     //=====================================教材入库支出=======================================================================
 //    新增教材入库支出

@@ -81,6 +81,7 @@
     from BookStorage bs
      inner join Emp e on bs.Emp_Id=e.Emp_Id
      inner join Book b on bs.Book_Id=b.Book_Id
+     where TimeLiness=0
   </select>
   <!--  多条件查询-->
   <select id="selectBookStorage" resultMap="BaseResultMap">
@@ -101,10 +102,12 @@
     </where>
     order by bs.StorageTime desc
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from BookStorage
+  <update id="deleteByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Bookstorage">
+    update BookStorage
+    set TimeLiness=1
     where MBookStorage_Id = #{mbookstorageId,jdbcType=INTEGER}
-  </delete>
+  </update>
+
   <insert id="insert" keyColumn="MBookStorage_Id" keyProperty="mbookstorageId" parameterType="com.trkj.thirdproject.entity.Bookstorage" useGeneratedKeys="true">
     insert into BookStorage (Emp_Id, Book_Id, StorageCount,
       StorageTime, TotalPrice, DeleteName, 

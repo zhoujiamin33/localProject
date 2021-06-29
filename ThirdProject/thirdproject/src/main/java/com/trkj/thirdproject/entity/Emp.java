@@ -119,7 +119,8 @@ public class Emp implements UserDetails {
     /**
      * 增加人
      */
-    private String addname;
+    public String addname;
+//    private String addname;
 
     /**
      * 增加时间
@@ -130,7 +131,8 @@ public class Emp implements UserDetails {
     /**
      * 最后修改人
      */
-    private String updatename;
+    public String updatename;
+//    private String updatename;
 
     /**
      * 最后修改时间

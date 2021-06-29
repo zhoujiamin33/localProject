@@ -25,7 +25,7 @@ public class StudentstatusController {
 //    后台查询咨询登记，新增学员交接，查询学员交接，修改学员交接中审核状态，新增学生档案
 //    根据学员编号查询findstuclass
     @GetMapping("/findstuclass")
-    public List<Studentstatus> findstuclass(@RequestParam("studentId") Integer studentId){
+    public List<Studentstatus> findstuclass(@RequestParam Integer studentId){
         List<Studentstatus> studentstatuseslist=studentstatusService.selectstu_class(studentId);
         return studentstatuseslist;
     }

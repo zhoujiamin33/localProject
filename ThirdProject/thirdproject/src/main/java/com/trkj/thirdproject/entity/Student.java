@@ -100,7 +100,7 @@ public class Student implements Serializable {
     /**
      * 删除人
      */
-    private String deletename;
+    public String deletename;
 
     /**
      * 删除时间

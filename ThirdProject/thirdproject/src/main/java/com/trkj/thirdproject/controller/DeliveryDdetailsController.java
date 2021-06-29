@@ -4,6 +4,7 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
+import com.trkj.thirdproject.entity.Bookstorage;
 import com.trkj.thirdproject.entity.Classes;
 import com.trkj.thirdproject.entity.Deliveryddetails;
 import com.trkj.thirdproject.service.DeliveryDdetailsService;
@@ -34,9 +35,12 @@ public class DeliveryDdetailsController {
         return deliveryddetails;
     }
 
-    @GetMapping("/selectBookdelivery/{value}/{input}")
-    public List<Deliveryddetails> selectBookdelivery(@PathVariable("value") String value, @PathVariable("input") String input){
-        return deliveryDdetailsService.selectBookdelivery(value, input);
+    @GetMapping("/selectBookdelivery")
+    public PageInfo<Deliveryddetails> selectByContion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize, @RequestParam("value") String value, @RequestParam("input") String input){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Deliveryddetails> entityPage=deliveryDdetailsService.selectBookdelivery(value, input);
+        PageInfo<Deliveryddetails> classtypePageInfo=new PageInfo<>(entityPage);
+        return classtypePageInfo;
     }
 
 //    @PostMapping("/addDeliveryddetails")
@@ -64,9 +68,9 @@ public class DeliveryDdetailsController {
 //        return 1;
 //    }
 
-    @DeleteMapping("/deldeliveryDdetails/{deliveryddetailsId}")
+    @DeleteMapping("/deldeliveryDdetails")
     @LogginAnnotation(message = "删除教材出库详情")
-    public String deldeliveryDdetails(@PathVariable("deliveryddetailsId") int deliveryddetailsId){
+    public String deldeliveryDdetails(@RequestParam Integer deliveryddetailsId){
         log.debug("开始删除");
         deliveryDdetailsService.deleteByPrimaryKey(deliveryddetailsId);
         return "delOk";

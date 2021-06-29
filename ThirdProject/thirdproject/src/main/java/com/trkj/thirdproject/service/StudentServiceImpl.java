@@ -51,6 +51,12 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.selectByClass(classesId);
     }
 
+    @Override
+    public int selectBycount(Integer classesId) {
+        return studentDao.selectBycount(classesId);
+    }
+
+
 //    @Override
 //    public Studentstatus selecttudentstsatus(Integer studentId) {
 //        Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
@@ -81,7 +87,6 @@ return student;
     //修改
     @Override
     public Student updatestudent(Student student) {
-        student.setUpdatename("tsm管理");
         student.setUpdatetime(new Date());
         studentDao.updatestudent(student);
         return student;

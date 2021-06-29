@@ -35,7 +35,7 @@ public class TrainingperiodController {
         return trainingperiod;
     }
     @DeleteMapping("/trainingperiod")
-    public String delTrainingperiod(@PathVariable("periodId") int periodId){
+    public String delTrainingperiod(@RequestParam int periodId){
         log.debug("开始删除");
         trainingperiodService.delTrainingperiod(periodId);
         return "delOk";

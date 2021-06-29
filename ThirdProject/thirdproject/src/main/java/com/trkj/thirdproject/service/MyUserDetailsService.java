@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private SysMenuDao sysMenuDao;
     @Override
-    @Cacheable(value = "emp",key = "#empName", unless="#result == null")
+//    @Cacheable(value = "emp",key = "#empName", unless="#result == null")
     public Emp loadUserByUsername(String Empname) throws UsernameNotFoundException {
        log.debug("开始加载基础用户信息");
         //加载基础用户信息
@@ -60,8 +61,8 @@ public class MyUserDetailsService implements UserDetailsService {
                 String.join(",",authorities)
         ));
 
-        log.info("用户查询完成，返回user,其权限为:"+myUserDetails.getAuthorities());
-        log.info("用户查询完成，返回user,其权限为:"+myUserDetails.toString());
+//        log.info("用户查询完成，返回user,其权限为:"+myUserDetails.getAuthorities());
+//        log.info("用户查询完成，返回user,其权限为:"+myUserDetails.toString());
         return myUserDetails;
     }
 }

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +54,7 @@ public class SchedulingSeviceImpl implements SchedulingSevice {
          log.debug(list.toString()+"------------------------------------------");
 
 
+
             //            搜索排课表
          List<Scheduling> schedulinglist=schedulingdao.selectAllScheduling();
          List<String> sclist=new ArrayList<>();
@@ -62,15 +64,17 @@ public class SchedulingSeviceImpl implements SchedulingSevice {
          }
          log.debug(sclist.toString()+"==================================");
 
-
-
             //去掉集合中重复的元素
          List<String> exists=new ArrayList<String>(list);
          exists.removeAll(sclist);
          log.debug(exists.toString()+"/////////////////////////////");
 
-
-
+//         定义一个时段集合：
+            List<Integer> keduan=new ArrayList<>();
+//            教师集合
+            List<Integer> teacher=new ArrayList<>();
+//            教室集合
+            List<Integer> room=new ArrayList<>();
             //给字段赋值
          log.debug(scheduling.getCoursecount()+"");
          log.debug(scheduling.getClasslist()+"");
@@ -79,18 +83,16 @@ public class SchedulingSeviceImpl implements SchedulingSevice {
 
          for(int i=0;i<count;i++){
              scheduling.setAddtime(new Date());
-
              for (int classes:scheduling.getClasslist()){
                  scheduling.setClassesId(classes);
-
+//
                  for (String schedul:exists){
                      String[] abc=schedul.split("-");
                      log.debug(schedul+"fff");
                      log.debug(Integer.parseInt(abc[0])+"sss"+Integer.parseInt(abc[1])+"sss"+Integer.parseInt(abc[2])+"sss");
-                     scheduling.setPeriodId(Integer.parseInt(abc[0]));
-                     scheduling.setClassroomId(Integer.parseInt(abc[1]));
-                     scheduling.setTeacherId(Integer.parseInt(abc[2]));
-                     exists.remove(schedul);
+                     keduan.add(Integer.parseInt(abc[0]));
+                     teacher.add(Integer.parseInt(abc[1]));
+                     room.add(Integer.parseInt(abc[2]));
                  }
                  schedulingdao.insert(scheduling);
              }
