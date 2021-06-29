@@ -28,7 +28,7 @@ public class Detailcourse implements Serializable {
     /**
      * 课程序列号
      */
-    private Integer serial;
+    private String  serial;
 
     /**
      * 新增人员
@@ -66,6 +66,8 @@ public class Detailcourse implements Serializable {
     private Integer timeliness;
 
     private  Course course;
+    //详细课程条数
+    private Integer totalcount;
 
     private static final long serialVersionUID = 1L;
 }

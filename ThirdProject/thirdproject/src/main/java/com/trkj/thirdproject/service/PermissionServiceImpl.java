@@ -4,11 +4,12 @@ import com.trkj.thirdproject.dao.PositionDao;
 import com.trkj.thirdproject.dao.SysMenuDao;
 import com.trkj.thirdproject.entity.SysMenu;
 import com.trkj.thirdproject.util.MenuUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 public class PermissionServiceImpl implements PermissionService {
     @Autowired

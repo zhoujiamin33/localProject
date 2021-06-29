@@ -16,6 +16,8 @@
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
     <result column="State" jdbcType="INTEGER" property="state" />
     <result column="student_Id" jdbcType="INTEGER" property="studentId" />
+
+
     <!--    课程总表-->
     <association property="course" javaType="com.trkj.thirdproject.entity.Course">
       <id column="Course_Id" jdbcType="INTEGER" property="courseId" />
@@ -32,6 +34,8 @@
       <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
       <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
     </association>
+
+
 <!--    学生-->
     <association property="student" javaType="com.trkj.thirdproject.entity.Student">
       <id column="Student_Id" jdbcType="INTEGER" property="studentId" />
@@ -70,6 +74,7 @@
     stu.Student_Phone, stu.Address, stu.ImgAddress, stu.ParentName, stu.ParentPhone, stu.Student_Number, stu.Entrance,
     stu.UpdateName, stu.UpdateTime, stu.DeleteName, stu.DeleteTime, stu.TimeLiness, stu.StudyTime
   </sql>
+
   <select id="findName_number" resultMap="BaseResultMap">
     select  <include refid="Base_Column_List"/>,<include refid="course"/>,<include refid="student"/>
     from Supplementary s inner join Course c on s.Course_Id=c.Course_Id
@@ -86,18 +91,41 @@
     </if>
     order by s.Supplementary_Id desc
   </select>
+
+<!--&lt;!&ndash;  根据补报Id查询课程详细&ndash;&gt;-->
+<!--  <select id="selectCourse" resultMap="BaseResultMap">-->
+<!--    select <include refid="course"/>,<include refid="Base_Column_List"/>-->
+<!--    from Supplementary s-->
+<!--    inner join Course c on s.Course_Id=c.Course_Id-->
+<!--    inner join Student stu on s.Student_Id=stu.Student_Id-->
+<!--    where s.Supplementary_Id = #{supplementaryId,jdbcType=INTEGER} -->
+<!--  </select>-->
+
+<!--  根据补报编号查询补报信息-->
+  <select id="selectBysuppId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>,<include refid="course"/>
+    from Supplementary s
+    inner join Course c on s.Course_Id=c.Course_Id
+    inner join Student stu on s.Student_Id=stu.Student_Id
+    where s.Supplementary_Id = #{supplementaryId,jdbcType=INTEGER}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from Supplementary s
     where s.Supplementary_Id = #{supplementaryId,jdbcType=INTEGER}
   </select>
+
+
   <select id="selectall" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="course"/>,<include refid="student"/>
-    from Supplementary s inner join Course c on s.Course_Id=c.Course_Id
+    from Supplementary s
+    inner join Course c on s.Course_Id=c.Course_Id
     inner join Student stu on s.Student_Id=stu.Student_Id
     where  s.TimeLiness=0
+    order by AddTime desc
   </select>
 
   <!--  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
@@ -106,6 +134,8 @@
   <!--    from Supplementary s-->
   <!--    where s.Supplementary_Id = #{supplementaryId,jdbcType=INTEGER}-->
   <!--  </select>-->
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Supplementary
     where Supplementary_Id = #{supplementaryId,jdbcType=INTEGER}
@@ -122,6 +152,8 @@
       #{deletetime,jdbcType=TIMESTAMP}, #{entryperson,jdbcType=VARCHAR}, #{timeliness,jdbcType=INTEGER}
       )
   </insert>
+
+
   <!--  新增补报课程表-->
   <insert id="insertSelective" keyColumn="Supplementary_Id" keyProperty="supplementaryId" parameterType="com.trkj.thirdproject.entity.Supplementary" useGeneratedKeys="true">
     insert into Supplementary
@@ -208,6 +240,8 @@
       </if>
     </trim>
   </insert>
+
+
   <update id="updateByPrimaryKeySelective" parameterType="com.trkj.thirdproject.entity.Supplementary">
     update Supplementary
     <set>
@@ -253,6 +287,8 @@
     </set>
     where Supplementary_Id = #{supplementaryId,jdbcType=INTEGER}
   </update>
+
+
   <update id="updateByPrimaryKey" parameterType="com.trkj.thirdproject.entity.Supplementary">
     update Supplementary
     set Supplementary_Name = #{supplementaryName,jdbcType=VARCHAR},

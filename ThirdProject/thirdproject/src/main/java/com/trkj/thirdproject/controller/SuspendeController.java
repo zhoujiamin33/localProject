@@ -22,9 +22,9 @@ public class SuspendeController {
 private SuspendeService suspendeService;
     @Autowired
     private StudentstatusService studentstatusService;
-    @PostMapping("/addsupende/{studentstatusId}")
+    @PostMapping("/addsupende")
     @LogginAnnotation(message = "停课")
-    public Suspende addsupende(@PathVariable("studentstatusId") Integer studentstatusId,@RequestBody Suspende suspende){
+    public Suspende addsupende(@RequestParam("studentstatusId") Integer studentstatusId,@RequestBody Suspende suspende){
         suspende= suspendeService.insertSelective(suspende);
         Studentstatus studentstatus=new Studentstatus();
         studentstatus.setSuspendeId(suspende.getSuspendeId());
@@ -46,8 +46,8 @@ private SuspendeService suspendeService;
         return suspendeInfo;
     }
 //    根据学员编号修改学员状态表
-@PutMapping("/updatesuspendestate/{studentId}")
-    public void updatesuspendestate(@PathVariable("studentId")Integer studentId){
+@PutMapping("/updatesuspendestate")
+    public void updatesuspendestate(@RequestParam("studentId")Integer studentId){
     List<Studentstatus> studentstatus=studentstatusService.selectByPrimaryKey(studentId);
     for(Studentstatus stustate:studentstatus){
 
@@ -59,9 +59,9 @@ private SuspendeService suspendeService;
 
 }
 //    修改状态或者是删除修改时效性
-    @PutMapping("/updateapproval/{suspendeId}")
+    @PutMapping("/updateapprovalsu")
     @LogginAnnotation(message = "批量审核停课")
-    public void updateapproval(@PathVariable("suspendeId")String suspendeId){
+    public void updateapproval(@RequestParam("suspendeId")String suspendeId){
        String[] id=suspendeId.split(",");
         for (String s:id){
             Suspende suspende=suspendeService.selectByPrimaryKey(Integer.parseInt(s));

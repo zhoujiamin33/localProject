@@ -22,7 +22,7 @@ public class DeptController {
         return deptService.findallDept();
     }
     //新增
-    @PostMapping("/dept")
+    @PostMapping("/adddept")
     @LogginAnnotation(message = "新增部门")
     public Dept adddept(@RequestBody Dept dept){
         log.debug(dept.toString());
@@ -30,7 +30,7 @@ public class DeptController {
         return dept;
     }
     //修改
-    @PutMapping("/dept")
+    @PutMapping("/updatedept")
     @LogginAnnotation(message = "修改部门")
     public Dept updatedept(@RequestBody Dept dept){
         deptService.updatedept(dept);
@@ -38,9 +38,9 @@ public class DeptController {
     }
 
     //删除
-    @PutMapping("/dept/{deptId}")
+    @PutMapping("/deldept")
     @LogginAnnotation(message = "删除部门")
-    public void deldept(@PathVariable("deptId") Integer deptId){
+    public void deldept(@RequestParam("deptId") Integer deptId){
         log.debug("删除成功");
 
       String Deletename="tsm管理员";

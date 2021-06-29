@@ -23,4 +23,8 @@ public interface SupplementaryDao {
     List<Supplementary> selectall();
 // 模糊查询
     List<Supplementary> findName_number(@Param("index") String index,@Param("value") String value);
+    //根据补报编号查询补报信息
+    Supplementary selectBysuppId(Integer supplementary);
+
+
 }

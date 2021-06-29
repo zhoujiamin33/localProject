@@ -27,7 +27,7 @@ public class SemesterController {
         semester=semesterService.addSemester(semester);
         return semester;
     }
-    @PutMapping("/Semester")
+    @PutMapping("/updateSemester")
     public Semester updateSemester(@RequestBody Semester semester){
         log.debug("开始修改");
         log.debug(semester.toString());

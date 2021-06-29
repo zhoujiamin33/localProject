@@ -25,4 +25,7 @@ public interface EmpService {
     List<Emp> selectByPrimary();
     //   未限制
     List<Emp> selectByPrimarywei();
+
+    //查询为教师的员工
+    List<Emp> selectEmpteacher();
 }

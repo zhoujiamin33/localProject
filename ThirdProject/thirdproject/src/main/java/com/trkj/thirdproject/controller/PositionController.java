@@ -20,13 +20,13 @@ public class PositionController {
     public List<Position> findallposition(){
         return positionService.selectAllposition();
     }
-    @PostMapping("/position")
+    @PostMapping("/addposition")
     @LogginAnnotation(message = "新增职位")
     public Position addposition(@RequestBody Position position){
         position=positionService.addposition(position);
         return position;
     }
-    @PutMapping("/position")
+    @PutMapping("/updateposition")
     @LogginAnnotation(message = "修改职位")
     public Position updateposition(@RequestBody Position position){
         position=positionService.updateposition(position);

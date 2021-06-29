@@ -81,6 +81,13 @@
     ent.EnterPrise_Brief, ent.UpdateName, ent.UpdateTime
   </sql>
 
+<!--  查看职位为教师的员工-->
+  <select id="selectEmpteacher" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>,<include refid="Base_Column_List2"/>
+    from Emp e
+    inner join `Position` p on e.Position_Id=p.Position_Id
+    where p.Position_Id=10
+  </select>
   <select id="findByEmpname" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

@@ -46,4 +46,9 @@ public class SupplementaryServiceImpl implements SupplementaryService {
         List<Supplementary> supplementaryList=supplementaryDao.findName_number(index, value) ;
         return supplementaryList;
     }
+
+    @Override
+    public Supplementary selectBysuppId(Integer supplementary) {
+       return supplementaryDao.selectBysuppId(supplementary);
+    }
 }

@@ -13,7 +13,7 @@ public interface StudentService {
     //    新增
     Student addstudent(Student student);
     //删除
-    void delstuTimeness(String deletename, Date deletetime, Integer  studentId);
+    Student delstuTimeness(Student student);
     //    修改
     Student updatestudent(Student student);
     //模糊查询根据姓名和电话
@@ -51,4 +51,6 @@ public interface StudentService {
 Student updatestudentstate(Student student);
     //根据班级id查询学员信息
     List<Student> selectByClass(Integer classesId);
+    //查询班级有多少学生
+    int selectBycount(Integer classesId);
 }

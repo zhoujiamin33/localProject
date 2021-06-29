@@ -28,7 +28,6 @@ public class ClassesServiceImpl implements ClassesService {
         DateFormat dateFormat = new SimpleDateFormat("yyMMddss");
         String result = number+ dateFormat.format(new Date())+classes.toString().length();
         classes.setClassesNumber(result);
-        classes.setAddname("admin");
         classes.setAddtime(new Date());
         classesdao.insert(classes);
         log.debug(result);

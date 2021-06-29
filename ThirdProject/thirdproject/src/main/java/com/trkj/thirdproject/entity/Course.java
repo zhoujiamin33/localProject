@@ -57,7 +57,7 @@ public class Course implements Serializable {
     /**
      * 最后修改人员
      */
-    private String updatename;
+    public String updatename;
 
     /**
      * 最后修改时间

@@ -51,6 +51,12 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.selectByClass(classesId);
     }
 
+    @Override
+    public int selectBycount(Integer classesId) {
+        return studentDao.selectBycount(classesId);
+    }
+
+
 //    @Override
 //    public Studentstatus selecttudentstsatus(Integer studentId) {
 //        Studentstatus studentstatus=studentstatusDao.selectByPrimaryKey(studentId);
@@ -74,10 +80,9 @@ public class StudentServiceImpl implements StudentService {
     }
     //删除
     @Override
-    public void delstuTimeness(String deletename, Date deletetime,Integer studentId) {
-
-        studentDao.delstuTimeness(deletename, deletetime, studentId);
-
+    public Student delstuTimeness(Student student) {
+        studentDao.delstuTimeness(student);
+return student;
     }
     //修改
     @Override

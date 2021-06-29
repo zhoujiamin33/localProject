@@ -27,7 +27,7 @@ public class SessionController {
         session=sessionService.addSession(session);
         return session;
     }
-    @PutMapping("/Session")
+    @PutMapping("/updateSession")
     public Session updateSession(@RequestBody Session session){
         log.debug("开始修改");
         log.debug(session.toString());
