@@ -121,8 +121,8 @@ public class StudentController {
 
 
     //学员表中查看详情获取咨询登记记录中:
-    @GetMapping("/findregisterId/{registerId}")
-    public void findregister(@PathVariable("registerId") String registerId) {
+    @GetMapping("/findregisterId")
+    public void findregister(@RequestParam("registerId") String registerId) {
         log.debug(registerId);
         String[] id = registerId.split(",");
 
@@ -151,7 +151,7 @@ public class StudentController {
 
     //学员表查询学员编号
     @GetMapping("/findstudentId")
-    public void findstudentId(@PathVariable("studentId") String studentId) {
+    public void findstudentId(@RequestParam("studentId") String studentId) {
         String[] stu=studentId.split(",");
         for (String s:stu){
         Student student = studentService.selectstudentId(Integer.parseInt(s));
@@ -171,8 +171,8 @@ studentService.updateByPrimaryKeySelective(memorandumattachment);
         }
     }
 //    查询学员
-@GetMapping("/findstudentclasses/{studentId}")
-public Student findstudentclasses(@PathVariable("studentId") Integer studentId) {
+@GetMapping("/findstudentclasses")
+public Student findstudentclasses(@RequestParam("studentId") Integer studentId) {
     Student student= studentService.selectstudentId(studentId);
     return student;
 }
@@ -192,8 +192,8 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
 
     }
 //    根据课程编号查询所有
-    @GetMapping("/findclasstypeId/{classtypeId}")
-    public  List<Course> findclasstypeId(@PathVariable("classtypeId")Integer classtypeId){
+    @GetMapping("/findclasstypeId")
+    public  List<Course> findclasstypeId(@RequestParam("classtypeId")Integer classtypeId){
         List<Course> course= courseService.selectByCourseTypeId(classtypeId);
         log.debug("类别："+course);
         return course;
@@ -238,7 +238,7 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
 //    审核修改审核状态
     @PutMapping("/updatesupplementarystate")
     @LogginAnnotation(message = "审核补报")
-    public void updatesupplementarystate(@PathVariable("supplementaryId")String supplementaryId ){
+    public void updatesupplementarystate(@RequestParam("supplementaryId")String supplementaryId ){
         String[] id=supplementaryId.split(",");
         for (String s:id){
         Supplementary supplementary=new Supplementary();
@@ -253,7 +253,7 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
 //    取消补报
     @PutMapping("/updatesupplementarystate0")
     @LogginAnnotation(message = "取消补报")
-    public void updatesupplementarystate0(@PathVariable("supplementaryId")String supplementaryId ){
+    public void updatesupplementarystate0(@RequestParam("supplementaryId")String supplementaryId ){
         String[] id=supplementaryId.split(",");
         for (String s:id){
             Supplementary supplementary=new Supplementary();
@@ -268,7 +268,7 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
 //    删除时效性
     @PutMapping("/updatesupplementaryTimeliness")
     @LogginAnnotation(message = "删除补报")
-    public void updatesupplementaryTimel(@PathVariable("supplementaryId")String supplementaryId ){
+    public void updatesupplementaryTimel(@RequestParam("supplementaryId")String supplementaryId ){
         String[] id=supplementaryId.split(",");
         for (String s:id){
             Supplementary supplementary=new Supplementary();
@@ -282,8 +282,8 @@ public Student findstudentclasses(@PathVariable("studentId") Integer studentId) 
 
     }
     //根据班级id查询学员
-    @GetMapping("/selectByClass/{classesId}")
-    public List<Student> selectByClass( @PathVariable("classesId") Integer classesId){
+    @GetMapping("/selectByClass")
+    public List<Student> selectByClass( @RequestParam("classesId") Integer classesId){
         return studentService.selectByClass(classesId);
     }
 }
