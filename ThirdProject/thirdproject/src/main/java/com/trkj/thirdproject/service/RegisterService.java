@@ -1,6 +1,8 @@
 package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.entity.Register;
+import com.trkj.thirdproject.entity.Source;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
@@ -29,4 +31,12 @@ public interface RegisterService {
 
     //报表统计中统计每种咨询方式的使用次数
     List<Register> ConsultationmodeStatistics();
+
+    //咨询登记分页
+    List<Register> selectAIIRegister();
+
+
+    //咨询登记模糊查询
+    List<Register> selectRegisterlivery(@Param("value")String value, @Param("input") String input);
+
 }

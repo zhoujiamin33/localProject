@@ -2,6 +2,7 @@ package com.trkj.thirdproject.controller;
 
 import com.trkj.thirdproject.entity.Returnvisit;
 import com.trkj.thirdproject.service.ReturnvisitService;
+import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,8 @@ public class ReturnvisitController {
     @Autowired
     private ReturnvisitService returnvisitService;
 
-    @GetMapping("/findAllReturnvisit/{registerId}")
-    public List<Returnvisit> findAllReturnvisit(@PathVariable("registerId") Integer registerId){
+    @GetMapping("/findAllReturnvisit")
+    public List<Returnvisit> findAllReturnvisit(@RequestParam Integer registerId){
        List<Returnvisit> returnvisitList= returnvisitService.selectReturnvisit(registerId);
        return returnvisitList;
     }
@@ -26,9 +27,14 @@ public class ReturnvisitController {
         return returnvisit;
     }
 
-    @PutMapping("/DelRet/{returnvisitId}")
-    public int delstuRetTime(@PathVariable("returnvisitId") List<Integer>returnvisitId){
+    @PutMapping("/DelRet")
+    public int delstuRetTime(@RequestParam("returnvisitId") List<Integer>returnvisitId){
         log.debug("启用批量删除");
         return returnvisitService.delstuRetTime(returnvisitId);
+    }
+
+    @GetMapping("/Numberofreturnvisits")
+    public AjaxResponse Numberofreturnvisits(){
+        return AjaxResponse.success(returnvisitService.Numberofreturnvisits());
     }
 }

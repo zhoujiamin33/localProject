@@ -2,7 +2,9 @@ package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.RegisterDao;
 import com.trkj.thirdproject.entity.Register;
+import com.trkj.thirdproject.entity.Source;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -15,7 +17,7 @@ import java.util.Map;
 @Service
 @Slf4j
 public class RegisterServiceImpl implements RegisterService {
-    @Resource
+    @Autowired
     private RegisterDao registerDao;
     @Override
 
@@ -66,4 +68,18 @@ public class RegisterServiceImpl implements RegisterService {
     public List<Register> ConsultationmodeStatistics(){
         return registerDao.ConsultationmodeStatistics();
     }
+
+    //咨询登记分页显示
+    @Override
+    public List<Register> selectAIIRegister() {
+        log.debug("开始查询所有学期");
+        return registerDao.selectAIIRegister();
+    }
+
+//    咨询登记模糊查询
+    @Override
+    public List<Register> selectRegisterlivery(String value, String input) {
+        return registerDao.selectRegisterlivery(value,input);
+}
+
 }

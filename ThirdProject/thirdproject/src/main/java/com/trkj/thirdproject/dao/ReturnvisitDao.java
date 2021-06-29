@@ -1,5 +1,6 @@
 package com.trkj.thirdproject.dao;
 
+import com.trkj.thirdproject.entity.Register;
 import com.trkj.thirdproject.entity.Returnvisit;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,4 +24,7 @@ public interface ReturnvisitDao {
     int updateByPrimaryKeySelective(Returnvisit record);
 
     int updateByPrimaryKey(Returnvisit record);
+
+    //回访次数
+    List<Returnvisit> Numberofreturnvisits();
 }

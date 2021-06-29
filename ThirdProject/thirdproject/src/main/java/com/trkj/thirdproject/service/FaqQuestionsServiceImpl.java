@@ -2,6 +2,7 @@ package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.FaqQuestionsDao;
 import com.trkj.thirdproject.entity.FaqQuestions;
+import com.trkj.thirdproject.entity.Source;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,11 @@ public class FaqQuestionsServiceImpl implements FaqQuestionsService {
             faqQuestionsDao.delstuFaqTime(unitid,deletename,deletetime);
         }
         return 1;
+    }
+
+//    FAQ模糊查询
+    @Override
+    public List<FaqQuestions> selectFaqFuzzyquery(String value, String input) {
+      return faqQuestionsDao.selectFaqFuzzyquery(value,input);
     }
 }

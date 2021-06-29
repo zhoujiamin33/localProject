@@ -29,6 +29,18 @@
     where Source_Id = #{sourceId,jdbcType=INTEGER}
   </select>
 
+<!--  模糊查询-->
+  <select id="selectSourceFuzzyquery" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from Source
+  <where>
+    <if test="value=='生源渠道' and input!=null">
+      Source_Name like CONCAT(CONCAT('%',#{input},'%'))
+    </if>
+  </where>
+  order by AddTime desc
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Source
@@ -117,7 +129,7 @@
       </if>
     </trim>
   </insert>
-  <!--  查询所有值-->
+  <!--  分页-->
   <select id="selectAIISources" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from Source

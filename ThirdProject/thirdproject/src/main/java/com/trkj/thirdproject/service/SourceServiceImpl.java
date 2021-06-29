@@ -13,9 +13,10 @@ import java.util.List;
 public class SourceServiceImpl implements SourceService {
     @Autowired
     private SourceDao sourceDao;
+    //分页
     @Override
     public List<Source> selectAIISources() {
-        log.debug("开始查询所有学期");
+        log.debug("开始分页查询生源渠道信息");
         return sourceDao.selectAIISources();
     }
 
@@ -36,5 +37,11 @@ public class SourceServiceImpl implements SourceService {
     @Override
     public void aelSource(int sourceId) {
 
+    }
+
+    //模糊查询
+    @Override
+    public List<Source> selectSourceFuzzyquery(String value, String input) {
+        return sourceDao.selectSourceFuzzyquery(value,input);
     }
 }

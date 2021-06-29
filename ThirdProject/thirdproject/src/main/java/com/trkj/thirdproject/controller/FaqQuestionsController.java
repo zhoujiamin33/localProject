@@ -3,6 +3,7 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.FaqQuestions;
+import com.trkj.thirdproject.entity.Source;
 import com.trkj.thirdproject.service.FaqQuestionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,8 @@ public class FaqQuestionsController {
         log.debug("FAQ开始修改");
         faqQuestions=faqQuestionsService.updateFaqQuestions(faqQuestions);
         return faqQuestions;
-    }    //分页
+    }
+    //分页
     @GetMapping("/findPageFaq")
     public PageInfo<FaqQuestions> findPageFaq(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         PageHelper.startPage(currentPage,pagesize);
@@ -56,4 +58,12 @@ public class FaqQuestionsController {
         return classtypePageInfo;
     }
 
+//    FAQ模糊查询
+    @GetMapping("/selectFaqFuzzyquery")
+    public PageInfo<FaqQuestions> selectFaqFuzzyquery(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize, @RequestParam("value") String value, @RequestParam("input") String input){
+        PageHelper.startPage(currentPage,pagesize);
+        List<FaqQuestions> entityPage=faqQuestionsService.selectFaqFuzzyquery(value, input);
+        PageInfo<FaqQuestions> faqQuestionsPageInfo=new PageInfo<>(entityPage);
+        return faqQuestionsPageInfo;
+}
 }

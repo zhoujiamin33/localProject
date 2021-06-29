@@ -30,9 +30,21 @@ public class MemorandumattachmentController {
         return classtypePageInfo;
     }
 
-    @PutMapping("/Spzszt/{memorandumattachmentId}")
-    public int PiliangZssp(@PathVariable("memorandumattachmentId") List<Integer>memorandumattachmentId){
+//    @DeleteMapping("/delAuthorByroleid")
+//    public AjaxResponse delAuthorByroleid(@RequestParam("roleid") int roleid,@RequestParam("Authors")String SAuthors) {
+//        sysRoleMenuDao.deleteByPrimaryKey(roleid);
+//        // log.debug(SAuthors+"---------------");
+//        String [] strs=SAuthors.split("&");
+//        List<Integer> Authors=new ArrayList<>();
+//        for(int i=0,len=strs.length;i<len;i++){
+//            String[] a=strs[i].split("=");
+//            //log.debug(a[1]);
+//            Authors.add(Integer.valueOf(a[1]));
+//        }
+    @DeleteMapping("/Spzszt")
+    public int PiliangZssp(@RequestParam("memorandumattachmentId") List<Integer> memorandumattachmentId){
         log.debug("学员交接进行招生审批");
+        log.debug(memorandumattachmentId.toString()+"-------------=====");
         Date jwexaminetime=new Date();
         return memorandumattachmentService.PiliangZssp(memorandumattachmentId,jwexaminetime);
     }

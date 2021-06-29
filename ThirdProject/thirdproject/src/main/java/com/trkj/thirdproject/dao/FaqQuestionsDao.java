@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.FaqQuestions;
+import com.trkj.thirdproject.entity.Source;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,4 +27,8 @@ public interface FaqQuestionsDao {
     int updateByPrimaryKey(FaqQuestions record);
 
     List<FaqQuestions> selectAIIFaqQuestions();
+
+//    FAQ模糊查询
+    List<FaqQuestions> selectFaqFuzzyquery(@Param("value")String value, @Param("input") String input);
+
 }

@@ -113,8 +113,8 @@
   </sql>
 
   <sql id="course" >
-     c.Course_Id, c.Course_Name, c.Course_State, c.Classhours, c.Course_Money, c.ClassType_Id, c.AddName,
-    c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
+     co.Course_Id, co.Course_Name, co.Course_State, co.Classhours, co.Course_Money, co.ClassType_Id, co.AddName,
+    co.AddTime, co.UpdateName, co.UpdateTime, co.DeleteName, co.DeleteTime, co.TimeLiness
   </sql>
   <sql id="emp">
      e.Emp_Id, e.Position_Id, e.Dept_Id, e.Enterprise_Id, e.JobNumber, e.Emp_Name, e.Emp_Sex, e.Emp_Phone,
@@ -133,7 +133,7 @@
     <include refid="course"/>,
     <include refid="source"/>
     from Register reg
-    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Course co on co.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
     where  reg.AttentState=0
   </select>
@@ -152,7 +152,7 @@
     <include refid="source"/>,
     <include refid="emp"/>
     from Register reg
-    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Course co on co.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
     inner join Emp e on reg.Emp_Id=e.Emp_Id
     where  reg.Register_Id=#{registerId,jdbcType=INTEGER}
@@ -165,7 +165,7 @@
     <include refid="source"/>,
     <include refid="emp"/>
     from Register reg
-    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Course co on co.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
     inner join Emp e on  e.Emp_Id=reg.Emp_Id
     where reg.TimeLiness=0
@@ -178,7 +178,7 @@
     <include refid="course"/>,
     <include refid="source"/>
     from Register reg
-    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Course co on co.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
     where reg.TimeLiness=0 and reg.AttentState=0 and  reg.PayState=2
   </select>
@@ -191,14 +191,52 @@
     <include refid="source"/>,
     <include refid="emp"/>
     from Register reg
-    inner join Course c on c.Course_Id=reg.Course_Id
+    inner join Course co on co.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
     inner join Emp e on  e.Emp_Id=reg.Emp_Id
     where reg.Register_Id = #{registerId,jdbcType=INTEGER}
   </select>
 
+  <select id="selectAIIRegister" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>,
+    <include refid="course"/>,
+    <include refid="source"/>,
+    <include refid="emp"/>
+    from Register reg
+    inner join Course co on co.Course_Id=reg.Course_Id
+    inner join Source s on s.Source_Id=reg.Source_Id
+    inner join Emp e on  e.Emp_Id=reg.Emp_Id
+  </select>
 
-<!--  -->
+  <!--  咨询登记多条件查询-->
+  <select id="selectRegisterlivery" resultMap="BaseResultMap">
+  select
+    <include refid="Base_Column_List" />,
+    <include refid="course"/>,
+    <include refid="source"/>,
+    <include refid="emp"/>
+    from Register reg
+    inner join Course co on co.Course_Id=reg.Course_Id
+    inner join Source s on s.Source_Id=reg.Source_Id
+    inner join Emp e on  e.Emp_Id=reg.Emp_Id
+  <where>
+    <if test="value=='咨询人' and input!=null">
+      reg.ConsultAnt like CONCAT(CONCAT('%',#{input},'%'))
+    </if>
+    <if test="value=='电话号码' and input!=null">
+      reg.phone like CONCAT(CONCAT('%',#{input},'%'))
+    </if>
+    <if test="value=='接待人' and input!=null">
+      e.Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
+    </if>
+  </where>
+  order by reg.AddTime desc
+  </select>
+
+
+
+  <!--  -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Register
     where Register_Id = #{registerId,jdbcType=INTEGER}
@@ -213,6 +251,9 @@
       #{consultcontent,jdbcType=VARCHAR},  #{phone,jdbcType=VARCHAR},#{courseId,jdbcType=INTEGER})
   </insert>
 
+
+
+<!--  报表统计统计咨询方式-->
   <select id="ConsultationmodeStatistics" resultType="java.util.Map">
     select Consultationmode,count(1) as total from Register where TimeLiness=0 group by Consultationmode;
   </select>

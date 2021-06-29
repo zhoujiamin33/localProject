@@ -102,6 +102,8 @@ public class Register implements Serializable {
 //    咨询方式条数
     private Integer total;
 
+    //回访次数
+    private Integer total1;
     /**
      * 课程详细编号
      */

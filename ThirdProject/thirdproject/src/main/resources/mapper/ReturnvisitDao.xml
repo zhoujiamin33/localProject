@@ -55,6 +55,11 @@
 
     where ret.Register_Id = #{registerId,jdbcType=INTEGER} and ret.TimeLiness=0
   </select>
+
+  <!--  回复次数-->
+  <select id="Numberofreturnvisits" resultType="java.util.Map">
+    select Register_Id,count(1) as total from ReturnVisit where TimeLiness=0 group by Register_Id;
+  </select>
 <!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
 <!--    select -->
 <!--    <include refid="Base_Column_List" />-->

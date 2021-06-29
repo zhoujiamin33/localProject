@@ -41,7 +41,16 @@ public class SourceController {
     public PageInfo<Source> findPageFaq(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         PageHelper.startPage(currentPage,pagesize);
         List<Source> entityPage=sourceService.selectAIISources();
-        PageInfo<Source> classtypePageInfo=new PageInfo<>(entityPage);
-        return classtypePageInfo;
+        PageInfo<Source> sourcePageInfo=new PageInfo<>(entityPage);
+        return sourcePageInfo;
+    }
+
+    //模糊查询
+    @GetMapping("/selectSourceFuzzyquery")
+    public PageInfo<Source> selectSourceFuzzyquery(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize, @RequestParam("value") String value, @RequestParam("input") String input){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Source> entityPage=sourceService.selectSourceFuzzyquery(value, input);
+        PageInfo<Source> sourcePageInfo=new PageInfo<>(entityPage);
+        return sourcePageInfo;
     }
 }

@@ -1,10 +1,9 @@
 package com.trkj.thirdproject.controller;
 
-import com.trkj.thirdproject.entity.Course;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.trkj.thirdproject.entity.*;
 
-import com.trkj.thirdproject.entity.Memorandumattachment;
-import com.trkj.thirdproject.entity.Register;
-import com.trkj.thirdproject.entity.Student;
 import com.trkj.thirdproject.service.CourseService;
 import com.trkj.thirdproject.service.RegisterService;
 import com.trkj.thirdproject.service.StudentService;
@@ -66,14 +65,14 @@ public class RegisterController {
         return registerService.selectAttentState();
     }
     //根据id查询咨询登记
-    @GetMapping("/selectByregisterId/{registerId}")
-    public Register selectByregisterId(@PathVariable("registerId") int registerId){
+    @GetMapping("/selectByregisterId")
+    public Register selectByregisterId(@RequestParam("registerId") int registerId){
 //        log.debug("查询有意向");
         return  registerService.selectByregisterId(registerId);
     }
     //修改咨询登记表的缴费状态
-    @PutMapping("/updatepaystate/{registerId}")
-    public int updatepaystate(@PathVariable("registerId") Integer  registerId){
+    @PutMapping("/updatepaystate")
+    public int updatepaystate(@RequestParam("registerId") Integer  registerId){
         return  registerService.updatepaystate(registerId);
     }
     //报表统计中统计每种咨询方式的使用次数
@@ -82,8 +81,8 @@ public class RegisterController {
          return AjaxResponse.success(registerService.ConsultationmodeStatistics());
     }
     //咨询登记审批
-    @GetMapping("/findRegisterId/{registerId}")
-    public void findregister(@PathVariable("registerId") String registerId) {
+    @GetMapping("/findRegisterId")
+    public void findregister(@RequestParam("registerId") String registerId) {
         log.debug(registerId);
         String[] id = registerId.split(",");
         for (String s : id) {
@@ -108,5 +107,23 @@ public class RegisterController {
             log.debug(student.toString());
             studentService.addstudent(student);
         }
+    }
+
+    //咨询登记分页显示
+    @GetMapping("/findPageRegister")
+    public PageInfo<Register> findPageRegister(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Register> entityPage=registerService.selectAIIRegister();
+        PageInfo<Register> registerPageInfo=new PageInfo<>(entityPage);
+        return registerPageInfo;
+    }
+
+    //咨询登记模糊查询
+    @GetMapping("/selectRegisterlivery")
+    public PageInfo<Register> selectRegisterlivery(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize, @RequestParam("value") String value, @RequestParam("input") String input){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Register> entityPage=registerService.selectRegisterlivery(value, input);
+        PageInfo<Register> registerPageInfo=new PageInfo<>(entityPage);
+        return registerPageInfo;
     }
 }

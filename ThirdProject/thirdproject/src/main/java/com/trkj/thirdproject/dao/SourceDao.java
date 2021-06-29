@@ -2,6 +2,7 @@ package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Source;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public interface SourceDao {
     int updateByPrimaryKeySelective(Source record);
 
     int updateByPrimaryKey(Source record);
-//<!--  查询所有值-->
+//<!--  分页-->
     List<Source> selectAIISources();
+//    模糊查询
+    List<Source> selectSourceFuzzyquery(@Param("value")String value, @Param("input") String input);
+
 }
