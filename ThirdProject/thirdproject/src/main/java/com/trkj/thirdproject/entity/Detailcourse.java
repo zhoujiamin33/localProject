@@ -28,7 +28,7 @@ public class Detailcourse implements Serializable {
     /**
      * 课程序列号
      */
-    private Integer serial;
+    private String  serial;
 
     /**
      * 新增人员

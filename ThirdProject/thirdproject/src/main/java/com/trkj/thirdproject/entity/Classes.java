@@ -2,6 +2,7 @@ package com.trkj.thirdproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -67,30 +68,34 @@ public class Classes implements Serializable {
     /**
      * 培训开始时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date starteddate;
 
     /**
      * 培训计划结束日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date enddate;
 
     /**
      * 培训最终结束日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date lastdate;
 
     /**
      * 新增人员
      */
-    private String addname;
+    public String addname;
 
     /**
      * 新增时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date addtime;
 
     /**
@@ -101,7 +106,8 @@ public class Classes implements Serializable {
     /**
      * 最后修改时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date updatetime;
 
     /**
@@ -113,7 +119,8 @@ public class Classes implements Serializable {
     /**
      * 最后删除时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date deletetime;
 
     /**
@@ -125,6 +132,9 @@ public class Classes implements Serializable {
      */
     private Book book;
     private Integer userbookId;
+
+    //学生数量
+    private Integer counttotal;
 
     private static final long serialVersionUID = 1L;
 }

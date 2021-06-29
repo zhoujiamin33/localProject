@@ -73,4 +73,9 @@ empDao.deleteByPrimaryKey(EmpId);
         return empList;
     }
 
+    @Override
+    public List<Emp> selectEmpteacher() {
+        return empDao.selectEmpteacher();
+    }
+
 }
