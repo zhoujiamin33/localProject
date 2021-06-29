@@ -52,8 +52,8 @@ public class RegisterController {
         return register;
     }
     //批量删除
-    @PutMapping("/DelReg/{registerId}")
-    public int delstuRegTime(@PathVariable("registerId") List<Integer>registerId){
+    @PutMapping("/DelReg")
+    public int delstuRegTime(@RequestParam("registerId") List<Integer>registerId){
         log.debug("启用");
         String lastupdatename="阿文";
         Date lastupdatetime=new Date();

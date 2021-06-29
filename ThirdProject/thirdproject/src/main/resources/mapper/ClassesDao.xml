@@ -196,9 +196,6 @@
         where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
     </select>
 
-    <!--  根据班级id查询课程详细-->
-
-
 
   <!--  根据班级id查询课程详细-->
   <select id="selectDetailCourse" resultMap="Detailcourse">

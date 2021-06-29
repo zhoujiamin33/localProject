@@ -31,6 +31,7 @@ public class LoginController {
         vo.setMenus(menus);
         vo.setValidate(true);
         vo.setToken(token);
+        //log.debug(menus.toString()+"---------------------");
         return AjaxResponse.success(vo);
     }
 }

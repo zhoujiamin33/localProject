@@ -73,7 +73,7 @@ public class EntryfeesController {
     }
 
     //根据id查询返回实体类
-    @GetMapping("/selectByfeeidtoentry/{feesId}")
+    @GetMapping("/selectByfeeidtoentry")
     public Entryfees selectByfeeidtoentry(@PathVariable("feesId") Integer feesId) {
         Entryfees entryfees = entryfeesService.selectByfeeid(feesId);
         return entryfees;
@@ -116,12 +116,12 @@ public class EntryfeesController {
     }
 
     //欠费补缴界面下拉框选择查询
-    @GetMapping("/selectBycontion/{select}/{input}")
+    @GetMapping("/selectBycontion")
     public List<Studentoutstanding> selectBycontion(@RequestParam("select") String select, @RequestParam("input") String input) {
         return outStandingService.selectBycontion(select, input);
     }
     //补缴管理界面
-    @GetMapping("/selectByContionout/{Approval}/{value1}/{value2}")
+    @GetMapping("/selectByContionout")
     public List<Studentoutstanding> selectByContionout(@PathVariable("Approval") String Approval,
         @PathVariable("value1") String value1,@PathVariable("value2")   String value2){
         return outStandingService.selectByContionout(Approval,value1,value2);

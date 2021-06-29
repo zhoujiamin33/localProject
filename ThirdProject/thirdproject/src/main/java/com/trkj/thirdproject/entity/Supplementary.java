@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class Supplementary implements Serializable {
     /**
-     * 课程编号
+     * 补报编号
      */
     private Integer supplementaryId;
 
@@ -86,6 +86,8 @@ public class Supplementary implements Serializable {
      */
     private Student student;
     private Integer studentId;
+
+
 
     private static final long serialVersionUID = 1L;
 }

@@ -212,6 +212,7 @@
       #{consultationmode,jdbcType=VARCHAR}, #{attentstate,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{empId,jdbcType=INTEGER},
       #{consultcontent,jdbcType=VARCHAR},  #{phone,jdbcType=VARCHAR},#{courseId,jdbcType=INTEGER})
   </insert>
+
   <select id="ConsultationmodeStatistics" resultType="java.util.Map">
     select Consultationmode,count(1) as total from Register where TimeLiness=0 group by Consultationmode;
   </select>

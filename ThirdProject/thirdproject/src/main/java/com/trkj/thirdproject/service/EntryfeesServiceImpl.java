@@ -24,7 +24,6 @@ public class EntryfeesServiceImpl implements EntryfeesService {
 
     @Override
     public Entryfees insertentryfees(Entryfees entryfees) {
-        entryfees.setAddname("Tsm管理员");
         entryfees.setAddtime(new Date());
         String number = "B";
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");

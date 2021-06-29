@@ -87,7 +87,7 @@ public class JwtAuthService {
                         , "账户已过期");
             }
             if(e instanceof BadCredentialsException){
-                throw new CustomError(CustomErrorType.ACCOUNT_ERROR
+                throw new CustomError (CustomErrorType.ACCOUNT_ERROR
                         , "账户异常,"+e.getMessage());
             }
            /* throw new CustomError(CustomErrorType.USER_INPUT_ERROR
