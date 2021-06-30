@@ -124,10 +124,10 @@ public class EntryfeesController {
     }
 
     //欠费补缴界面下拉框选择查询
-    @GetMapping("/selectBycontion")
-    public List<Studentoutstanding> selectBycontion(@RequestParam("select") String select, @RequestParam("input") String input) {
-        return outStandingService.selectBycontion(select, input);
-    }
+//    @GetMapping("/selectBycontion")
+//    public List<Studentoutstanding> selectBycontion(@RequestParam("select") String select, @RequestParam("input") String input) {
+//        return outStandingService.selectBycontion(select, input);
+//    }
     //补缴管理界面
     @GetMapping("/selectByContionout")
     public List<Studentoutstanding> selectByContionout(@PathVariable("Approval") String Approval,

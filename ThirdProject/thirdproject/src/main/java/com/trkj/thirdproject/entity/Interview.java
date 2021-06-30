@@ -18,16 +18,19 @@ public class Interview implements Serializable {
     /**
      * 班级编号
      */
+    private Classes classes;
     private Integer classesId;
 
     /**
      * 被访谈学员
      */
+    private Student student;
     private Integer studentId;
 
     /**
      * 访谈人
      */
+    private Emp emp;
     private Integer empId;
 
     /**

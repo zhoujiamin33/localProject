@@ -62,7 +62,7 @@ public class Logging {
 //        if (name1.equals("del")) {
             String value = myLog.message();
             Opjournal opjournal=new Opjournal();
-//            opjournal.setEmpId(1);
+            opjournal.setEmpId(6);
             opjournal.setOpcontent(value);   //保存获取的操作
             opjournalService.addopjournal(opjournal);
 //            log.debug("开始删除");

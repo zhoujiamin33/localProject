@@ -138,7 +138,7 @@ on ep.Emp_Id=e.Emp_Id
   <!--删除后时效性为已过期1-->
   <update id="delTimeLiness"  parameterType="com.trkj.thirdproject.entity.Dept" >
      update `Position`
-    set TimeLiness =1
+    set TimeLiness =1, DeleteName=#{deletetime,jdbcType=TIMESTAMP}
           where Position_Id = #{positionId,jdbcType=INTEGER}
   </update>
   <!--  删除之后显示未过期的职位-->
@@ -175,6 +175,6 @@ on ep.Emp_Id=e.Emp_Id
       </if>
 and TimeLiness=0
     </where>
-
+    order by Position_Id  desc
   </select>
 </mapper>
