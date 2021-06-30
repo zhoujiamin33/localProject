@@ -98,7 +98,7 @@
             <id column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId"/>
             <result column="Course_Id" jdbcType="INTEGER" property="courseId"/>
             <result column="DetailCourse_Name" jdbcType="VARCHAR" property="detailcourseName"/>
-            <result column="Serial" jdbcType="INTEGER" property="serial"/>
+            <result column="Serial" jdbcType="VARCHAR" property="serial"/>
             <result column="AddName" jdbcType="VARCHAR" property="addname"/>
             <result column="AddTime" jdbcType="TIMESTAMP" property="addtime"/>
             <result column="UpdateName" jdbcType="VARCHAR" property="updatename"/>
@@ -148,6 +148,16 @@
     b.Book_Id, b.BookName, b.DeliveryCount, b.BookSprice, b.BookJprice, b.SafeStock, b.Press, b.`State`
   </sql>
 
+
+    <!--  查询序列号大于传进来的班级-->
+    <select id="selectSerial" resultMap="BaseResultMap">
+        select
+        <include refid="DetailCourse"/>,
+        <include refid="Base_Column_List"/>
+        from DetailCourse d
+        inner join Classes cl on cl.Course_Id=d.Course_Id
+        where cl.Classes_Id=#{classesId,jdbcType=INTEGER} and d.Serial &gt; #{serial}
+    </select>
 
 
     <!--  根据班级id查询当前班级的进度-->

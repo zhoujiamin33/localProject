@@ -127,7 +127,7 @@
     s.DeleteName, s.DeleteTime, s.IsExamine, s.LastExamineTime, s.LastExamineName, s.LastRevokeTime,
     s.LastRevokeName
   </sql>
-<!--查询咨询登记表中咨询状态为有意向的-->
+<!--查询咨询登记表中咨询状态为有意向的、未过期的、未缴费的-->
   <select id="selectAttentState" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>,
     <include refid="course"/>,
@@ -135,7 +135,7 @@
     from Register reg
     inner join Course co on co.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
-    where  reg.AttentState=0
+    where  reg.AttentState=0 and reg.PayState=0 and reg.TimeLiness=0
   </select>
 
   <!--修改咨询登记的缴费状态-->

@@ -41,4 +41,5 @@ public interface ClassesDao {
     //根据班级id查询课程详细序列号不存在的课程详细序列号(剩余课程进度)
     List<Detailcourse> selectnotDetails(@Param("classesId") Integer classesid , @Param("serial") Integer serial);
 
+    List<Detailcourse> selectSerial(Integer classId,String serial);
 }

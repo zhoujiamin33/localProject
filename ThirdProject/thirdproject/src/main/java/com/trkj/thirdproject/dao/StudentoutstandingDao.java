@@ -25,7 +25,7 @@ public interface StudentoutstandingDao {
     List<Studentoutstanding> selectoutonentry();
 
 //    欠费补缴多条件查询
-    List<Studentoutstanding> selectBycontion(String select,String input);
+    List<Studentoutstanding> selectBycontion(String select);
     //补缴管理多条件查询
     List<Studentoutstanding> selectByContionout(@Param("Approval") String Approval, @Param("value1") String  value1, @Param("value2") String value2);
 //    审核欠费补缴
