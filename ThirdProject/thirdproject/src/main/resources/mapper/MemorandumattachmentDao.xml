@@ -56,18 +56,37 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,
-    <include refid="register"></include>
+    <include refid="register"/>
     from MemorandumAttachment m
-    inner join Register r on r.Register_Id=m.Register_Id
+    inner join Register reg on reg.Register_Id=m.Register_Id
     where m.MemorandumAttachment_Id = #{memorandumattachmentId,jdbcType=INTEGER}
   </select>
-<!--  学员交接分页显示-->
-<select id="selectAIIMem" resultMap="BaseResultMap">
-  select <include refid="Base_Column_List"/>,<include refid="register"/>
-  from MemorandumAttachment m
-  inner join Register reg on reg.Register_Id=m.Register_Id
+  <!--  学员交接分页显示-->
+  <select id="selectAIIMem" resultMap="BaseResultMap">
+     select <include refid="Base_Column_List"/>,<include refid="register"/>
+     from MemorandumAttachment m
+     inner join Register reg on reg.Register_Id=m.Register_Id
+  </select>
 
-</select>
+<!--  学员交接模糊查询-->
+  <select id="selectMemlivery" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="register"/>
+    from MemorandumAttachment m
+    inner join Register reg on reg.Register_Id=m.Register_Id
+    <where>
+      <if test="value=='咨询登记ID' and input!=null">
+        reg.Register_Id like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+      <if test="value=='招生审核状态' and input!=null">
+        m.JWIsExamine like CONCAT(CONCAT('%',#{input},'%'))
+      </if>
+
+    </where>
+    order by reg.AddTime desc
+  </select>
+
 
   <select id="selectMemorandumAttachment" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>,

@@ -3,6 +3,7 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Memorandumattachment;
+import com.trkj.thirdproject.entity.Register;
 import com.trkj.thirdproject.service.MemorandumattachmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,15 @@ public class MemorandumattachmentController {
         return classtypePageInfo;
     }
 
-//    @DeleteMapping("/delAuthorByroleid")
+    //学员交接模糊查询
+    @GetMapping("/selectMemlivery")
+    public PageInfo<Memorandumattachment> selectMemlivery(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize, @RequestParam("value") String value, @RequestParam("input") String input){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Memorandumattachment> entityPage=memorandumattachmentService.selectMemlivery(value, input);
+        PageInfo<Memorandumattachment> memorandumattachmentPageInfo=new PageInfo<>(entityPage);
+        return memorandumattachmentPageInfo;
+    }
+ //    @DeleteMapping("/delAuthorByroleid")
 //    public AjaxResponse delAuthorByroleid(@RequestParam("roleid") int roleid,@RequestParam("Authors")String SAuthors) {
 //        sysRoleMenuDao.deleteByPrimaryKey(roleid);
 //        // log.debug(SAuthors+"---------------");

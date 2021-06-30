@@ -1,6 +1,7 @@
 package com.trkj.thirdproject.dao;
 
 import com.trkj.thirdproject.entity.Memorandumattachment;
+import com.trkj.thirdproject.entity.Register;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,6 +20,9 @@ public interface MemorandumattachmentDao {
     List<Memorandumattachment> selectMemorandumAttachment();
 //    分页显示
     List<Memorandumattachment> selectAIIMem();
+    //模糊查询
+    List<Memorandumattachment> selectMemlivery(@Param("value")String value, @Param("input") String input);
+
 
     int PiliangZssp(@Param("memorandumattachmentId" ) int MemorandumAttachment_Id, @Param("jwexaminetime") Date JWExamineTime);
 

@@ -2,6 +2,7 @@ package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.MemorandumattachmentDao;
 import com.trkj.thirdproject.entity.Memorandumattachment;
+import com.trkj.thirdproject.entity.Register;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,11 @@ public class MemorandumattachmentServiceImpl implements MemorandumattachmentServ
         }
         return 1;
     }
+    //学院交接分页显示
+    @Override
+    public List<Memorandumattachment> selectMemlivery(String value, String input) {
+        return memorandumattachmentDao.selectMemlivery(value,input);
+    }
+
 
 }
