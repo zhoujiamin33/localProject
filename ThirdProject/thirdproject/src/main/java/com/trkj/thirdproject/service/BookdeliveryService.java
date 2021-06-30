@@ -20,5 +20,5 @@ public interface BookdeliveryService {
     //查询所有出库收入
     List<Warehouseincome> selectAllincome();
     //多条件查询
-    List<Warehouseincome> selectBycontionBook2(int Approval, String value1,String value2, String input);
+    List<Warehouseincome> selectBycontionBook2(String startTime,String endTime);
 }

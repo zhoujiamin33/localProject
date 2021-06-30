@@ -106,19 +106,9 @@
    from Refund r
    inner join Student stu on stu.Student_Id=r.Student_Id
    <where>
-     <if test="Approval!=null">
-       <if test="Approval==0">
-         r.CW_Approval = 0
-       </if>
-       <if test="Approval==1">
-         and r.CW_Approval = 1
-       </if>
-     </if>
-     <if test="value2 != null and value1 !=null">
-       and r.AddTime between #{value1} and #{value2}
-     </if>
-     <if test="input != null">
-       and r.AddName like  CONCAT(CONCAT('%',#{input},'%'))
+
+     <if test="startTime != null and endTime !=null">
+       and r.AddTime between #{startTime} and #{endTime}
      </if>
      and r.TimeLiness=0
    </where>

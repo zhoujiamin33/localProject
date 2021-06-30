@@ -131,8 +131,12 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_Classes"/>,
+    <include refid="Base_Column_course"/>
     from Suspende su
+    inner join Classes cl on su.Classes_Id=cl.Classes_Id
+    inner join Course c on su.Course_Id=c.Course_Id
     where su.Suspende_Id = #{suspendeId,jdbcType=INTEGER} and su.TimeLiness=0
   </select>
   <select id="findName_number" resultMap="BaseResultMap">

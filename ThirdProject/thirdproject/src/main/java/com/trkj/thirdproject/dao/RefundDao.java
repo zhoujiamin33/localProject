@@ -31,5 +31,5 @@ public interface RefundDao {
     //删除
     int deleterefund(Refund refund);
     //多条件查询
-    List<Refund> selectByContion(@Param("Approval")int Approval,@Param("value1")String value1,@Param("value2")String value2,@Param("input")String input);
+    List<Refund> selectByContion(@Param("startTime")String startTime,@Param("endTime")String endTime);
 }

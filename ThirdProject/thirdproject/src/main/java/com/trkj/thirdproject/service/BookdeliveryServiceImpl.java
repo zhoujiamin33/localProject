@@ -88,7 +88,7 @@ public class BookdeliveryServiceImpl implements BookdeliveryService {
     }
 
     @Override
-    public List<Warehouseincome> selectBycontionBook2(int Approval, String value1, String value2, String input) {
-        return warehouseincomedao.selectBycontionBook2(Approval, value1, value2, input);
+    public List<Warehouseincome> selectBycontionBook2(String startTime, String endTime) {
+        return warehouseincomedao.selectBycontionBook2(startTime, endTime);
     }
 }

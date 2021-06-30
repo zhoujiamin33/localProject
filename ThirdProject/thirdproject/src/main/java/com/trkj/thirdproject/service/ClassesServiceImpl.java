@@ -91,5 +91,11 @@ public class ClassesServiceImpl implements ClassesService {
         return classesdao.selectnotDetails(classesid, serial);
     }
 
+    @Override
+    public List<Detailcourse> selectSerial(Integer classId, String serial) {
+      return   classesdao.selectSerial(classId,serial);
+
+    }
+
 
 }
