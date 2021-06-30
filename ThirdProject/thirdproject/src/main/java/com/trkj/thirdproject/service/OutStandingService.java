@@ -13,7 +13,7 @@ public interface OutStandingService {
     //新增报班缴费
     Studentoutstanding insert(Studentoutstanding studentoutstanding);
     //    多条件查询
-    List<Studentoutstanding> selectBycontion(String select,String input);
+    List<Studentoutstanding> selectBycontion(String select);
     //查询所有欠费补缴数据
     List<Studentoutstanding> selectoutstanding();
     //    审核欠费补缴

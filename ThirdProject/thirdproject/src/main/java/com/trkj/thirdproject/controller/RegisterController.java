@@ -66,7 +66,7 @@ public class RegisterController {
     }
     //根据id查询咨询登记
     @GetMapping("/selectByregisterId")
-    public Register selectByregisterId(@RequestParam("registerId") int registerId){
+    public Register selectByregisterId(@RequestParam Integer registerId){
 //        log.debug("查询有意向");
         return  registerService.selectByregisterId(registerId);
     }

@@ -18,8 +18,7 @@ public interface EntryfeesDao {
 
     List<Entryfees> selectKey();
     //多条件查询
-    List<Entryfees> selectBycontion(@Param("ApprovalState") int ApprovalState,@Param("value2") String value2,
-     @Param("input") String input);
+    List<Entryfees> selectBycontion(@Param("ApprovalState") int ApprovalState,@Param("startTime") String startTime,@Param("endTime") String endTime);
 
     int updateByPrimaryKey(Entryfees record);
 

@@ -29,5 +29,5 @@ public interface BookstorageService {
     //删除
     Storageexpenditure deleteTimeliness(Storageexpenditure storageexpenditure);
     //多条件查询
-    List<Storageexpenditure> selectBycontionBook(int Approval,String value1,String value2,String input);
+    List<Storageexpenditure> selectBycontionBook(String startTime,String endTime);
 }

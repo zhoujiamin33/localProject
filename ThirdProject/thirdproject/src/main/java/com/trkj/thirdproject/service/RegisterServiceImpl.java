@@ -72,7 +72,7 @@ public class RegisterServiceImpl implements RegisterService {
     //咨询登记分页显示
     @Override
     public List<Register> selectAIIRegister() {
-        log.debug("开始查询所有学期");
+        log.debug("开始查询所有咨询登记");
         return registerDao.selectAIIRegister();
     }
 

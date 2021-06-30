@@ -28,6 +28,5 @@ public interface StorageexpenditureDao {
     //删除
     int deleteTimeliness(Storageexpenditure storageexpenditure);
     //多条件查询
-    List<Storageexpenditure> selectBycontionBook(@Param("Approval")int Approval,@Param("value1")String value1,
-                                                 @Param("value2")String value2,@Param("input")String input);
+    List<Storageexpenditure> selectBycontionBook(@Param("startTime")String startTime,@Param("endTime")String endTime);
 }

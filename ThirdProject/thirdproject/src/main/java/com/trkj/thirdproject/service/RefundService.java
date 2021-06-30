@@ -17,5 +17,5 @@ public interface RefundService {
     //删除
     Refund deleterefund(Refund refund);
     //多条件查询
-    List<Refund> selectByContion(int Approval,String value1, String value2, String input);
+    List<Refund> selectByContion(String startTime, String endTime);
 }

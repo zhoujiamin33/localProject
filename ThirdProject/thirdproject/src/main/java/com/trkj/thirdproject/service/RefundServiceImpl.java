@@ -43,12 +43,15 @@ public class RefundServiceImpl implements RefundService {
             int totalHours=classes.getCourse().getClasshours();
             BigDecimal Hoursmoney=classes.getCourse().getCourseMoney();
             BigDecimal allsprice= Hoursmoney.multiply(new BigDecimal(totalHours-yishang));
+            log.debug(yishang+"已上");
+            log.debug(totalHours+"总课时");
             refund.setDropMoney(allsprice);
             log.debug(allsprice+"allsprice");
             log.debug("新增退费完成"+"-----------------------------------------");
         }else {
             refund.setRefundtype("停课退费");
             Suspende suspende=suspendedao.selectByPrimaryKey(refund.getSuspendeId());
+            log.debug(suspende.getClasses().getWhendetails()+"xzdsdawddsa");
             int yishang=suspende.getClasses().getWhendetails();
             Classes classes=classesdao.selectById(dropout.getClassesId());
             int total=classes.getCourse().getClasshours();
@@ -93,7 +96,7 @@ public class RefundServiceImpl implements RefundService {
     }
 
     @Override
-    public List<Refund> selectByContion(int Approval, String value1, String value2, String input) {
-        return refunddao.selectByContion(Approval, value1, value2, input);
+    public List<Refund> selectByContion(String startTime, String endTime) {
+        return refunddao.selectByContion(startTime, endTime);
     }
 }

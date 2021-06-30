@@ -91,11 +91,10 @@ public class BookstorageController {
     }
     @GetMapping("/selectBycontionBook")
     public PageInfo<Storageexpenditure> selectBycontionBook(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
-        @RequestParam("Approval") int Approval,@RequestParam("value1") String value1, @RequestParam("value2") String value2,
-        @RequestParam("input") String input){
+       @RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime){
 
         PageHelper.startPage(currentPage,pagesize);
-        List<Storageexpenditure> entityPage=bookstorageService.selectBycontionBook(Approval, value1, value2, input);
+        List<Storageexpenditure> entityPage=bookstorageService.selectBycontionBook(startTime,endTime);
         PageInfo<Storageexpenditure> entityPageInfo=new PageInfo<>(entityPage);
         return entityPageInfo;
     }

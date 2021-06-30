@@ -125,7 +125,7 @@
     inner join Course c on s.Course_Id=c.Course_Id
     inner join Student stu on s.Student_Id=stu.Student_Id
     where  s.TimeLiness=0
-    order by AddTime desc
+    order by s.AddTime desc
   </select>
 
   <!--  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->

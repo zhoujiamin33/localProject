@@ -35,8 +35,8 @@ public class OutStandingServiceImpl implements OutStandingService {
     }
 
     @Override
-    public List<Studentoutstanding> selectBycontion(String select, String input) {
-        return outstandingdao.selectBycontion(select, input);
+    public List<Studentoutstanding> selectBycontion(String select) {
+        return outstandingdao.selectBycontion(select);
     }
 
     @Override
@@ -48,7 +48,6 @@ public class OutStandingServiceImpl implements OutStandingService {
     public Studentoutstanding updateApprovalState(Studentoutstanding studentoutstanding) {
         studentoutstanding.setApprovaltime(new Date());
         outstandingdao.updateApprovalState(studentoutstanding);
-
         return studentoutstanding;
     }
 

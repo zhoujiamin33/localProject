@@ -267,19 +267,14 @@
     inner join Register reg on reg.Register_Id=entry.Register_Id
     inner join Course c on  reg.Course_Id=c.Course_Id
     <where>
-      <if test="ApprovalState!=null">
-        <if test="ApprovalState==0">
-          entry.ApprovalState = 0
-        </if>
-        <if test="ApprovalState==1">
-          and entry.ApprovalState = 1
-        </if>
+      <if test="ApprovalState==0">
+        entry.ApprovalState = 0
       </if>
-      <if test="value2 != null">
-        and entry.AddTime &gt; #{value2}
+      <if test="ApprovalState==1">
+        and entry.ApprovalState = 1
       </if>
-      <if test="input != null">
-        and entry.AddName like  CONCAT(CONCAT('%',#{input},'%'))
+      <if test="startTime != null and endTime!=null">
+        and entry.AddTime between #{startTime} and #{endTime}
       </if>
       and entry.TimeLiness=0
     </where>
