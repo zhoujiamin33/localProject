@@ -5,8 +5,10 @@ import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Entryfees;
 import com.trkj.thirdproject.entity.Studentoutstanding;
+import com.trkj.thirdproject.entity.Supplementary;
 import com.trkj.thirdproject.service.EntryfeesService;
 import com.trkj.thirdproject.service.OutStandingService;
+import com.trkj.thirdproject.service.SupplementaryService;
 import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -24,6 +26,8 @@ public class EntryfeesController {
     private EntryfeesService entryfeesService;
     @Autowired
     private OutStandingService outStandingService;
+    @Autowired
+    private SupplementaryService supplementaryService;
 
     @GetMapping("/findEntryFees")
     public PageInfo<Entryfees> findEntryFees(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize) {
@@ -57,24 +61,28 @@ public class EntryfeesController {
         return entryfees;
     }
 
-    //新增报班缴费数据
+    //新增报班缴费数据@
     @PostMapping("/insertEntry")
     @LogginAnnotation(message = "新增报班缴费")
-    public Entryfees insretEntry(@RequestBody Entryfees entryfees) {
+    public Entryfees insretEntry(@RequestBody Entryfees entryfees,@RequestParam("supplementaryId")Integer supplementaryId) {
+        Supplementary supplementary=supplementaryService.selectBysuppId(supplementaryId);
+        entryfees.setFeesReceivable(supplementary.getCourse().getCourseMoney());
+        entryfees.setFeesType(supplementary.getPayment());
+        entryfees.setReceipts(supplementary.getCourse().getCourseMoney());
         entryfeesService.insertentryfees(entryfees);
         return entryfees;
     }
 
     //根据id查询返回AjaxResponse
-    @GetMapping("/selectByfeeid/{feesId}")
-    public AjaxResponse selectByfeeid(@PathVariable("feesId") Integer feesId) {
+    @GetMapping("/selectByfeeid")
+    public AjaxResponse selectByfeeid(@RequestParam("feesId") Integer feesId) {
         entryfeesService.selectByfeeid(feesId);
         return AjaxResponse.success("查询成功");
     }
 
     //根据id查询返回实体类
     @GetMapping("/selectByfeeidtoentry")
-    public Entryfees selectByfeeidtoentry(@PathVariable("feesId") Integer feesId) {
+    public Entryfees selectByfeeidtoentry(@RequestParam("feesId") Integer feesId) {
         Entryfees entryfees = entryfeesService.selectByfeeid(feesId);
         return entryfees;
     }

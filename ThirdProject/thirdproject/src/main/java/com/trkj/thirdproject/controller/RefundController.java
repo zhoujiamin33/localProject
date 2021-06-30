@@ -3,8 +3,10 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
+import com.trkj.thirdproject.entity.Dropout;
 import com.trkj.thirdproject.entity.Entryfees;
 import com.trkj.thirdproject.entity.Refund;
+import com.trkj.thirdproject.service.DropoutService;
 import com.trkj.thirdproject.service.RefundService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.util.List;
 public class RefundController {
     @Autowired
     private RefundService refundservice;
+    @Autowired
+    private DropoutService dropoutService;
     @PostMapping("/insertRefund")
     @LogginAnnotation(message = "新增退费")
     public Refund  insertRefund(@RequestBody Refund refund){

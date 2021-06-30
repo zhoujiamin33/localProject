@@ -21,4 +21,6 @@ public interface SysMenuDao {
     int updateByPrimaryKey(SysMenu record);
     List<String> findAuthorityByRoleCodes(@Param("PositionNames") List<String> PositionNames);
     List<SysMenu> findMenusByPositionNames(@Param("PositionNames") List<String> PositionNames);
+// 查询
+List<SysMenu> selectAllmenu();
 }

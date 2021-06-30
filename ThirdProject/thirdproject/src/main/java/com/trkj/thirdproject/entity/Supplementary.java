@@ -47,7 +47,8 @@ public class Supplementary implements Serializable {
     /**
      * 最后修改人员
      */
-    private String updatename;
+    public String updatename;
+//    private String updatename;
 
     /**
      * 最后修改时间
@@ -58,7 +59,8 @@ public class Supplementary implements Serializable {
     /**
      * 最后删除人员
      */
-    private String deletename;
+    public String deletename;
+//    private String deletename;
 
     /**
      * 最后删除时间

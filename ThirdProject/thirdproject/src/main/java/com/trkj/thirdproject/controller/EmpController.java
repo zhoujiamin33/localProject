@@ -70,7 +70,7 @@ public class EmpController {
     //启动和禁用
     @PutMapping("/updatestate")
     @LogginAnnotation(message = "开启或禁用")
-    public void updatestate(@PathVariable("workersstate") Integer workersstate,@PathVariable("empId") List<Integer> empId){
+    public void updatestate(@RequestParam("workersstate") Integer workersstate,@RequestParam("empId") List<Integer> empId){
          empService.updatestate(workersstate, empId);
     }
 //    已限制
@@ -88,8 +88,8 @@ public class EmpController {
         return empList;
     }
 //    新增已限制1
-    @PutMapping("/updateyxz/{empId}")
-    public void updateyxz(@PathVariable("empId")String empId){
+    @DeleteMapping("/updateyxz")
+    public void updateyxz(@RequestParam String empId){
         String[] e=empId.split(",");
         for (String Ids:e){
             Emp emp=new Emp();
@@ -102,8 +102,8 @@ public class EmpController {
 
     }
 //    取消限制未限制0
-@PutMapping("/updatewxz/{empId}")
-public void updatewxz(@PathVariable("empId")String empId){
+@DeleteMapping("/updatewxz")
+public void updatewxz(@RequestParam String empId){
     String[] e=empId.split(",");
     for (String Ids:e){
         Emp emp=new Emp();

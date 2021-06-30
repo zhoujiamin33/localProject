@@ -128,9 +128,12 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from DropOut dro
-    where dro.Drop_Id = #{dropId,jdbcType=INTEGER}
+    <include refid="Base_Column_List" />,<include refid="Base_Column_Classes" />,<include refid="Base_Column_student" />,<include
+          refid="Base_Column_course"/>
+    from DropOut dro inner join Student stu on dro.Student_Id=stu.Student_Id
+    inner join Classes cl on dro.Classes_Id=cl.Classes_Id
+    inner join Course c on dro.Course_Id=c.Course_Id
+    where dro.TimeLiness=0 and dro.Drop_Id = #{dropId,jdbcType=INTEGER}
   </select>
 <!--  查询所有-->
 <!--  <select id="selectAlldropout" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
