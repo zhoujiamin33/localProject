@@ -42,4 +42,9 @@ public interface ClassesDao {
     List<Detailcourse> selectnotDetails(@Param("classesId") Integer classesid , @Param("serial") Integer serial);
 
     List<Detailcourse> selectSerial(Integer classId,String serial);
+
+    //上课、修改课程详细
+    Classes classbegin(Classes classes);
+    //根据班级和课程详细查询课程详细id
+    Detailcourse selectDetailsByserial(@Param("classesId") Integer classesId,@Param("serial") String serial);
 }

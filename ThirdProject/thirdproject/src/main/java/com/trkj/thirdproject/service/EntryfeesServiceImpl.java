@@ -75,7 +75,7 @@ public class EntryfeesServiceImpl implements EntryfeesService {
     }
 
     @Override
-    public List<Entryfees> selectBycontion( int ApprovalState, String startTime,String endTime) {
+    public List<Entryfees> selectBycontion( String ApprovalState, String startTime,String endTime) {
         return entryfeesdao.selectBycontion(ApprovalState, startTime,endTime);
     }
 }

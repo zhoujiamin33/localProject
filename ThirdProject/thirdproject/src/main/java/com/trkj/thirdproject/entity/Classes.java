@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * classes
@@ -135,6 +136,7 @@ public class Classes implements Serializable {
 
     //学生数量
     private Integer counttotal;
+    private List<Integer> seriallist;
 
     private static final long serialVersionUID = 1L;
 }

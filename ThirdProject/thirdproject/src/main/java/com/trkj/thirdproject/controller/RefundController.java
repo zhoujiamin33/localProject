@@ -56,7 +56,7 @@ public class RefundController {
     //多条件查询
     @GetMapping("/selectByContionRefund")
     public PageInfo<Refund> selectByContion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
-        @RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime){
+        @RequestParam(value = "startTime",required = false) String startTime, @RequestParam(value = "endTime",required = false) String endTime){
         PageHelper.startPage(currentPage, pagesize);
         List<Refund> entityPage = refundservice.selectByContion(startTime, endTime);
         PageInfo<Refund> entryfeesPageInfo = new PageInfo<>(entityPage);

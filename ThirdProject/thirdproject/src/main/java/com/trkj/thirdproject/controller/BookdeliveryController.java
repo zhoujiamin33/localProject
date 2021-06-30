@@ -59,7 +59,10 @@ public class BookdeliveryController {
         return incomePageinfo;
     }
     @GetMapping("/selectBycontionBook2")
-    public PageInfo<Warehouseincome> selectBycontionBook2(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,@RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime){
+    public PageInfo<Warehouseincome> selectBycontionBook2(@RequestParam("currentPage") int currentPage,
+                                                          @RequestParam("pagesize") int pagesize,
+                                                          @RequestParam(value = "startTime",required = false) String startTime,
+                                                          @RequestParam(required = false,value = "endTime") String endTime){
         PageHelper.startPage(currentPage,pagesize);
         List<Warehouseincome> entityPage=bookdeliveryService.selectBycontionBook2(startTime, endTime);
         PageInfo<Warehouseincome> entityPageInfo=new PageInfo<>(entityPage);

@@ -9,6 +9,7 @@ import com.trkj.thirdproject.service.RegisterService;
 import com.trkj.thirdproject.service.StudentService;
 import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -71,7 +72,7 @@ public class RegisterController {
         return  registerService.selectByregisterId(registerId);
     }
     //修改咨询登记表的缴费状态
-    @PutMapping("/updatepaystate")
+    @DeleteMapping("/updatepaystate")
     public int updatepaystate(@RequestParam("registerId") Integer  registerId){
         return  registerService.updatepaystate(registerId);
     }

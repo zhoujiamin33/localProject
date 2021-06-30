@@ -97,10 +97,13 @@ public class EntryfeesController {
     //多条件查询
     @GetMapping("/selectBycontionEntry")
     public PageInfo<Entryfees> selectBycontion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
-       @RequestParam("ApprovalState") int ApprovalState, @RequestParam("value2") String value2,@RequestParam("input") String  input) {
+
+       @RequestParam(value = "ApprovalState",required = false) String ApprovalState, @RequestParam(value = "startTime",required = false) String startTime,
+                                               @RequestParam(value = "endTime",required = false) String  endTime) {
+
         log.debug("多条件查询");
         PageHelper.startPage(currentPage, pagesize);
-        List<Entryfees> entityPage = entryfeesService.selectBycontion(ApprovalState, value2, input);
+        List<Entryfees> entityPage = entryfeesService.selectBycontion(ApprovalState, startTime, endTime);
         PageInfo<Entryfees> entryfeesPageInfo = new PageInfo<>(entityPage);
         return entryfeesPageInfo;
 
@@ -129,10 +132,30 @@ public class EntryfeesController {
 //        return outStandingService.selectBycontion(select, input);
 //    }
     //补缴管理界面
+//    @GetMapping("/selectByContionout")
+//    public List<Studentoutstanding> selectByContionout(@PathVariable("Approval") String Approval,
+//        @PathVariable("value1") String value1,@PathVariable("value2")   String value2){
+//        return outStandingService.selectByContionout(Approval,value1,value2);
+    @GetMapping("/selectBycontion")
+    public PageInfo<Studentoutstanding> selectBycontion(@RequestParam("currentPage") int currentPage,
+                                                    @RequestParam(value = "pagesize",required = false) int pagesize,
+                                                    @RequestParam(value = "select",required = false) String select) {
+        PageHelper.startPage(currentPage, pagesize);
+        List<Studentoutstanding> entityPage = outStandingService.selectBycontion(select);
+        PageInfo<Studentoutstanding> outstandingPageInfo = new PageInfo<>(entityPage);
+        return outstandingPageInfo;
+    }
+    //补缴管理界面
     @GetMapping("/selectByContionout")
-    public List<Studentoutstanding> selectByContionout(@PathVariable("Approval") String Approval,
-        @PathVariable("value1") String value1,@PathVariable("value2")   String value2){
-        return outStandingService.selectByContionout(Approval,value1,value2);
+    public PageInfo<Studentoutstanding> selectByContionout(@RequestParam("currentPage") int currentPage,
+                                                           @RequestParam("pagesize") int pagesize,
+                                                           @RequestParam(value = "Approval",required = false) String Approval,
+        @RequestParam(value = "value1",required = false) String value1,@PathVariable(value = "value2",required = false)   String value2){
+        PageHelper.startPage(currentPage, pagesize);
+        List<Studentoutstanding> entityPage = outStandingService.selectByContionout(Approval, value1, value2);
+        PageInfo<Studentoutstanding> outstandingPageInfo = new PageInfo<>(entityPage);
+        return outstandingPageInfo;
+
     }
 
 
