@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,12 @@ public class SystemController {
     @GetMapping("/findAllSysType")
     public List<Systemtype> findAllSysType(){
         return systemTypeService.findAllSysType();
+    }
+    //首页查询规章制度类型
+    @GetMapping("/findIdSystem")
+    public List<System> findIdSystem(@RequestParam("id")  int id){
+        log.debug(id+"");
+        return systemService.findIdSystem(id);
     }
 
     @GetMapping("/findAllSystem")
@@ -49,13 +56,20 @@ public class SystemController {
         systemService.insert(system);
         return system;
     }
-    @PostMapping("/AddSystemSelect/{id}/{empId}")
-    public Integer AddSystemSelect(@PathVariable("id") int SystemId, @PathVariable("empId") List<Integer> empIds){
-        log.debug("传："+empIds);
-        for (int EmpId:empIds){
-            systemService.AddSystemSelect(SystemId,EmpId);
+    @DeleteMapping("/AddSystemSelect")
+    public Integer AddSystemSelect(@RequestParam("id") int SystemId, @RequestParam("yesemp") String eids){
+        String[] str= eids.split("&");
+        log.info(eids);
+        int i=0;
+        for(String s:str){
+            String[] ss=s.split("=");
+            for (String sss:ss){
+                if(i != Integer.parseInt(sss)){
+                    systemService.AddSystemSelect(SystemId,Integer.parseInt(sss));
+                }
+            }
+            i++;
         }
-        log.debug("传："+SystemId);
         return SystemId;
     }
     @GetMapping("/selectEmp")

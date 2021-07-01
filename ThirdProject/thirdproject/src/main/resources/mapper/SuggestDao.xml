@@ -64,6 +64,7 @@
     from Suggest s inner join Dept d on s.Dept_Id=d.Dept_Id
     where s.TimeLiness=0
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Suggest
     where Suggest_Id = #{suggestId,jdbcType=INTEGER}

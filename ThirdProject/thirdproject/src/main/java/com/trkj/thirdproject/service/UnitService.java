@@ -9,6 +9,6 @@ public interface UnitService {
     List<Unit>findAllUnit();
     int UnitAdd(Unit unit);
     int UpdateUnit(Unit unit);
-    int delUnit(List<Integer> multipleSelection, String nu, Date tm);
+    int delUnit(int id, String nu, Date tm);
     int fandUnitTypeId(int id);
 }

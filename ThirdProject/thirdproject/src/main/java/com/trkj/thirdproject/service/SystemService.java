@@ -9,6 +9,8 @@ import java.util.List;
 public interface SystemService {
     List<System> findAllSystem();
 
+    List<System> findIdSystem(int id);
+
     System insert(System record);
 
     List<Emp> selectEmp();

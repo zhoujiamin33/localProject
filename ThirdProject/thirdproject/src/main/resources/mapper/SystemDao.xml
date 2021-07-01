@@ -137,6 +137,13 @@
     where m.TimeLiness=0
   </select>
 
+  <select id="findIdSystem" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List_1"/>,<include refid="Base_Column_List_2"/>,st.SystemType_Name
+    FROM  `System` m LEFT JOIN SystemSelect t on
+    m.System_Id=t.System_Id LEFT JOIN Emp e on t.Emp_Id=e.Emp_Id left join  SystemType st on m.SystemType_Id=st.SystemType_Id
+    where m.TimeLiness=0 and e.Emp_Id= #{empId,jdbcType=INTEGER}
+  </select>
+
   <select id="findSystem" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List_1"/>
     FROM  `System` m

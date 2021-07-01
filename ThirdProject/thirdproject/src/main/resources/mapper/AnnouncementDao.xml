@@ -77,7 +77,7 @@
         and an.Announcement_Theme like CONCAT('%',concat(#{name},'%')) or
         an.Announcement_Content like CONCAT('%',concat(#{name},'%'))
       </if>
-    </where>
+    </where> ORDER BY an.Announcement_Id desc
   </select>
 
   <select id="selectEmp"  resultType="com.trkj.thirdproject.entity.Emp">
@@ -98,6 +98,7 @@
         an.Announcement_Content like CONCAT('%',concat(#{name},'%'))
       </if>
     </where>
+    ORDER BY an.Announcement_Id desc
   </select>
 
   <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
@@ -113,6 +114,15 @@
     Emp e on ans.Emp_Id=e.Emp_Id
     where an.TimeLiness=0
   </select>
+
+  <select id="findIdAnn" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List_1"/>,<include refid="Base_Column_List_2"/>
+    FROM  Announcement an LEFT JOIN AnnouncementSelect ans on
+    an.Announcement_Id=ans.Announcement_Id LEFT JOIN
+    Emp e on ans.Emp_Id=e.Emp_Id
+    where an.TimeLiness=0 and e.Emp_Id= #{empId,jdbcType=INTEGER}  ORDER BY an.Announcement_Id desc
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Announcement
     where Announcement_Id = #{announcementId,jdbcType=INTEGER}
@@ -121,11 +131,10 @@
 
     insert into Announcement (AnnouncementType_Id, Start_Time,
       End_Time, Announcement_Theme, Announcement_Content,
-      Announcement_State, AddName, AddTime
-      )
+       AddName, AddTime )
     values (#{announcementtypeId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP},
       #{endTime,jdbcType=TIMESTAMP}, #{announcementTheme,jdbcType=VARCHAR}, #{announcementContent,jdbcType=VARCHAR},
-      #{announcementState,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}
+       #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" keyColumn="Announcement_Id" keyProperty="aznnouncementId" parameterType="com.trkj.thirdproject.entity.Announcement" useGeneratedKeys="true">

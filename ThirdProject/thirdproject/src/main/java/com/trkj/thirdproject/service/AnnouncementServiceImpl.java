@@ -25,7 +25,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @Override
     public Announcement AddAnn(Announcement announcement) {
         announcement.setAddtime(new Date());
-        dao.insertSelective(announcement);
+        dao.insert(announcement);
         announcement.setAnnouncementState(0);
         return announcement;
     }
@@ -63,5 +63,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @Override
     public List<Announcement> selectAnns(String name) {
         return dao.selectAnns(name);
+    }
+
+    @Override
+    public List<Announcement> findIdAnn(int id) {
+        return dao.findIdAnn(id);
     }
 }

@@ -16,7 +16,7 @@ public class UnitTypeController {
     private UnitTypeService unitTypeService;
     @Autowired
     private UnitService unitService;
-    @GetMapping("/UnitTypeShowAll")
+    @GetMapping("/selectUnitTypeAll")
     public List<Unittype> findUnitType(){
         log.debug("开始显示UnitType");
         return unitTypeService.selectAllUnitType();
@@ -32,7 +32,7 @@ public class UnitTypeController {
         unitTypeService.UnitTypeUpdate(unittype);
         return unittype;
     }
-    @DeleteMapping("/UnitTypeDelete/{unittypeId}")
+    @DeleteMapping("/UnitTypeDelete")
     public String UnitTypeDelete(@PathVariable("unittypeId") int unittypeId){
         log.debug("开始删除！");
         unitTypeService.UnitTypeDelete(unittypeId);
@@ -43,10 +43,9 @@ public class UnitTypeController {
         unitTypeService.updateTimeLiness(unittype);
         return unittype;
     }
-    @GetMapping("/findUnitType/{unittypeId}")
-    public int findUnitType(@PathVariable("unittypeId") int id){
-        int i=unitService.fandUnitTypeId(id);
-        log.debug(String.valueOf(i));
+    @GetMapping("/findUnitType")
+    public int findUnitType(@RequestParam("unittypeId") int id){
+        log.debug(id+"");
         return unitService.fandUnitTypeId(id);
     }
 }

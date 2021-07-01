@@ -3,12 +3,14 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Announcement;
+import com.trkj.thirdproject.entity.System;
 import com.trkj.thirdproject.service.AnnouncementService;
 import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +30,26 @@ public class AnnouncementController {
         service.AddAnn(announcement);
         return announcement;
     }
+
+    @DeleteMapping("/AddAnnSelect")
+    public int AddAnnSelect(@RequestParam("id")int aid, @RequestParam("yesemp")String eids){
+        log.debug("开始添加可查看人");
+        String[] str= eids.split("&");
+        log.info(eids);
+        int i=0;
+        for(String s:str){
+            String[] ss=s.split("=");
+            for (String sss:ss){
+                if(i != Integer.parseInt(sss)){
+                    service.AddAnnSelect(aid,Integer.parseInt(sss));
+                }
+            }
+            i++;
+        }
+
+        return aid;
+    }
+
     @PutMapping("/AnnUpdate")
     public Announcement AnnUpdate(@RequestBody Announcement announcement){
 
@@ -61,14 +83,6 @@ public class AnnouncementController {
         log.debug(listann.toString());
         return unitPageInfo;
     }
-    @PostMapping("/AddAnnSelect/{aid}/{eids}")
-    public int AddAnnSelect(@PathVariable("aid")int aid,@PathVariable("eids") List<Integer> eids){
-        log.debug("开始添加可查看人");
-        for (int eid : eids){
-            service.AddAnnSelect(aid,eid);
-        }
-        return aid;
-    }
     @GetMapping("/findVariedAnn")
     public PageInfo<Announcement> findVariedAnn(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize,@RequestParam("AnnSearch")String name){
         log.debug("开始查询分页！");
@@ -85,7 +99,11 @@ public class AnnouncementController {
         PageInfo<Announcement> AnnPageInfo=new PageInfo<>(listann);
         return AnnPageInfo;
     }
-
+    //首页查询公告类型
+    @GetMapping("/findIdAnn")
+    public List<Announcement> findIdAnn(@RequestParam("id")  int id){
+        return service.findIdAnn(id);
+    }
 
 
 }

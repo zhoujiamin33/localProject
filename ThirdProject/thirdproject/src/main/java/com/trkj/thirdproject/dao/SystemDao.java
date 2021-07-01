@@ -27,6 +27,9 @@ public interface SystemDao {
 
     List<System> findAllSystem();
 
+    //根据用户id显示
+    List<System> findIdSystem( int id);
+
     int UpdatePublishSuspend(System system);
 
     List<System>findConditional(@Param("index") String index , @Param("value") Object value);

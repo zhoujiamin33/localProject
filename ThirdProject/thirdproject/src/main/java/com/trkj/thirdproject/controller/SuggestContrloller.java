@@ -21,11 +21,12 @@ public class SuggestContrloller {
         suggestService.findAllSuggest();
         return suggest;
     }
+
     @GetMapping("/findPageSuggest")
-    public PageInfo<Suggest> findPageSuggest(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize){
+    public PageInfo<Suggest> findPageSuggest(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pagesize,@RequestParam("SuSearch")String name){
         log.debug("开始分页！");
         PageHelper.startPage(currentPage,pagesize);
-        List<Suggest> suggestList=suggestService.findAllSuggest();
+        List<Suggest> suggestList=suggestService.findNameSuggest(name);
         PageInfo<Suggest> suggestPageInfo=new PageInfo<>(suggestList);
         log.debug(suggestList.toString());
         return suggestPageInfo;

@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class UserVo {
+    private int pon;
     private int id;
     private String username;
     private String password;

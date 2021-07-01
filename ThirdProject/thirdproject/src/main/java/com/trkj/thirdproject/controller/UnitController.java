@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.entity.Unit;
 import com.trkj.thirdproject.service.UnitService;
+import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,13 +35,26 @@ public class UnitController {
         unitService.UpdateUnit(unit);
         return unit;
     }
-    @PutMapping("/delUnit/{multipleSelection}/{nu}")
-    public List<Integer> delUnit(@PathVariable("multipleSelection") List<Integer> multipleSelection,@PathVariable("nu")String nu){
+//    /{multipleSelection}/{nu}
+    @DeleteMapping("/delUnit")
+    public AjaxResponse delUnit(@RequestParam("multipleSelection") String multipleSelection, @RequestParam("nu")String nu){
         log.debug("开始删除！");
-        log.debug(multipleSelection.toString());
-        unitService.delUnit(multipleSelection,nu,new Date());
+        String[] str= multipleSelection.split("&");
+        log.info(multipleSelection);
+        int i=0;
+        for(String s:str){
+            String[] ss=s.split("=");
+            for (String sss:ss){
+                if(i != Integer.parseInt(sss)){
+                    unitService.delUnit(Integer.parseInt(sss),nu,new Date());
+                }
+            }
+            i++;
+        }
+        log.debug(multipleSelection);
+//        unitService.delUnit(multipleSelection,nu,new Date());
 
-        return multipleSelection;
+        return AjaxResponse.success(multipleSelection);
     }
     @GetMapping("/findPageUnit")
     public PageInfo<Unit> findPage(@RequestParam("currentPage")int currentPage,@RequestParam("pagesize")int pagesize){

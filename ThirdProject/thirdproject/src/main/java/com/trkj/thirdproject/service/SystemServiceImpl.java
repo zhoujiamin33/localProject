@@ -27,6 +27,11 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
+    public List<System> findIdSystem(int id) {
+        return dao.findIdSystem(id);
+    }
+
+    @Override
     public System insert(System record) {
         dao.insert(record);
         return record;

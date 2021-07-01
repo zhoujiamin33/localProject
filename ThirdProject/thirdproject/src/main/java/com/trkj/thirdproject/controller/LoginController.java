@@ -34,6 +34,7 @@ public class LoginController {
         List<SysMenu> menus=permissionService.getMenuByUname(loginVo.getUsername());
         Emp emp = empDao.findByEmpname(loginVo.getUsername());
         UserVo vo=new UserVo();
+        vo.setPon(emp.getDeptId());
         vo.setId(emp.getEmpId());
         vo.setUsername(loginVo.getUsername());
         vo.setMenus(menus);

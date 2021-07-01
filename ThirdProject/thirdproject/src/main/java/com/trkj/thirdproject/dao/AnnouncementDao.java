@@ -23,6 +23,8 @@ public interface AnnouncementDao {
     int updateByPrimaryKey(Announcement record);
 
     List<Announcement> findAllAnn();
+    //首页查询
+    List<Announcement> findIdAnn(int id);
 
     int delAnn(Announcement announcement);
 

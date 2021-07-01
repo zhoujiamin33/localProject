@@ -15,5 +15,6 @@ public interface AnnouncementService {
     int AddAnnSelect(int aid,int empId);
     List<Announcement> findVaried(String name);
     List<Announcement> selectAnns(String name);
+    List<Announcement> findIdAnn(int id);
 
 }

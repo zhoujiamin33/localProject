@@ -35,12 +35,8 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public int delUnit(List<Integer> unitId,String deleteName, Date deleteTime) {
-        log.debug(unitId.toString());
-        for (int unitid : unitId){
-            log.debug(unitId+"删除值的ID"+deleteName);
-            unitDao.delUnit(unitid,deleteName,deleteTime);
-        }
+    public int delUnit(int unitId,String deleteName, Date deleteTime) {
+            unitDao.delUnit(unitId,deleteName,deleteTime);
         return 1;
     }
 
