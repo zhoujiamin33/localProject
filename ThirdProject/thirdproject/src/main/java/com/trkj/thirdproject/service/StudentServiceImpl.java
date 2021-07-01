@@ -97,6 +97,12 @@ return student;
         return studentDao.slectName(index, value);
     }
 
+    //查询所有学生
+    @Override
+    public List<Student> selectAllStudent() {
+        return studentDao.selectAllStudent();
+    }
+
 //    @Override
 //    public List<Student> slectPhone(String studentPhone) {
 //        return studentDao.slectPhone(studentPhone);

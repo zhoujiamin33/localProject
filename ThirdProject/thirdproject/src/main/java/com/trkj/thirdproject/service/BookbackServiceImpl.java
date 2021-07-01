@@ -28,7 +28,6 @@ public class BookbackServiceImpl implements BookbackService {
 
     @Override
     public Bookback insert(Bookback bookback) {
-        bookback.setEmpId(1);
         bookback.setStoragetime(new Date());
         bookbackDao.insert(bookback);
         return bookback;

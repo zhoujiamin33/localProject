@@ -43,6 +43,15 @@ public class StudentController {
         return studentPageInfo;
     }
 
+    //查询所有学生
+    @GetMapping("/selectAllStudent")
+    public List<Student> selectAllStudent(){
+        log.debug("Controller方法调用");
+        List<Student> studentLis=studentService.selectAllStudent();
+        log.debug("ttt"+studentLis.toString());
+        return studentLis;
+    }
+
     //查询班级表中的值
     @GetMapping("/findClassId")
     public Classes findClassId(@RequestParam("classesId") Integer classesId){

@@ -14,4 +14,8 @@ public interface BookService {
     Book selectbooksprice(String bookname);
 
     Book updateBook(Book book);
+
+    int deleteBook(Integer bookId);
+
+    Book updateByPrimaryKey(Book book);
 }

@@ -24,8 +24,6 @@ public class DeliveryDdetailsServiceImpl implements DeliveryDdetailsService {
 
     @Override
     public Deliveryddetails insert(Deliveryddetails deliveryddetails) {
-        deliveryddetails.setEmpId(1);
-        deliveryddetails.setStudentId(1);
         log.debug(deliveryddetails+"");
         deliveryddetailsDao.insert(deliveryddetails);
         return deliveryddetails;

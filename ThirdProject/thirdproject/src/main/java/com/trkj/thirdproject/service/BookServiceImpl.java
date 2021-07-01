@@ -41,4 +41,17 @@ public class BookServiceImpl implements BookService {
         bookDao.updateBook(book);
         return book;
     }
+
+    @Override
+    public int deleteBook(Integer bookId) {
+        return bookDao.deleteBook(bookId);
+    }
+
+    @Override
+    public Book updateByPrimaryKey(Book book) {
+        bookDao.updateByPrimaryKey(book);
+        return book;
+    }
+
+
 }
