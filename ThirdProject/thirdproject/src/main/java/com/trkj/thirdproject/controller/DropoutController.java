@@ -6,6 +6,7 @@ import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Dropout;
 import com.trkj.thirdproject.entity.Studentstatus;
 import com.trkj.thirdproject.service.DropoutService;
+import com.trkj.thirdproject.service.RefundService;
 import com.trkj.thirdproject.service.StudentstatusService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class DropoutController {
     private DropoutService dropoutService;
     @Autowired
     private StudentstatusService studentstatusService;
+    @Autowired
+    private RefundService refundService;
 //    根据学员编号修改状态表中的状态，再新增退学表中的数据
     @PostMapping("/Adddropout")
     @LogginAnnotation(message = "新增退学")
@@ -64,26 +67,28 @@ public class DropoutController {
         return dropoutPageInfo;
     }
 //审批状态的修改和时效性的修改
-    @PutMapping("/updatedropoutstate")
+    @DeleteMapping("/updatedropoutstate")
     @LogginAnnotation(message = "批量审核退学")
-    public void updatedropoutstate(@RequestParam("dropoutId")String dropoutId){
+    public void updatedropoutstate(@RequestParam("dropoutId") String dropoutId,@RequestParam("jwappname") String jwappname){
         String[] id=dropoutId.split(",");
         for (String d:id){
             Dropout dropout=dropoutService.selectByPrimaryKey(Integer.parseInt(d));
-            dropout.setJwAppname("tsm");
+//            dropout.setJwAppname("tsm");
             dropout.setJwApptime(new Date());
             dropout.setJwApproval(1);
+            dropout.setJwAppname(jwappname);
             dropoutService.updateByPrimaryKeySelective(dropout);
+
 }
 
     }
-    @PutMapping("/deldropouttimeliness")
+    @DeleteMapping("/deldropouttimeliness")
     @LogginAnnotation(message = "批量删除退学")
-    public void deldropouttimeliness(@RequestParam("dropoutId")String dropoutId){
+    public void deldropouttimeliness(@RequestParam String dropoutId){
         String[] id=dropoutId.split(",");
         for (String d:id){
             Dropout dropout=dropoutService.selectByPrimaryKey(Integer.parseInt(d));
-            dropout.setDeletename("tsm");
+//            dropout.setDeletename("tsm");
             dropout.setDeletetime(new Date());
             dropout.setTimeliness(1);
             dropoutService.updateByPrimaryKeySelective(dropout);

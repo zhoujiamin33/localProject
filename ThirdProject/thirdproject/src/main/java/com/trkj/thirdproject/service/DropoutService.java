@@ -16,4 +16,5 @@ Dropout updateByPrimaryKeySelective(Dropout record);
 //根据退学编号查询
 Dropout selectByPrimaryKey(Integer dropId);
 
+
 }

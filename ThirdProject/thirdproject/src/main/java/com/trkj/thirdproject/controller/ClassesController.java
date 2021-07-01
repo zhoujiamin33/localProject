@@ -42,7 +42,9 @@ public class ClassesController {
         return AjaxResponse.success("修改成功");
     }
     @GetMapping("/selectByContion")
-    public PageInfo<Classes> selectByContion(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize,@RequestParam("value") String value, @RequestParam("input") String input){
+    public PageInfo<Classes> selectByContion(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize,
+                                             @RequestParam(value = "value",required = false) String value,
+                                             @RequestParam(value = "input",required = false) String input){
         PageHelper.startPage(currentPage,pagesize);
         List<Classes> entityPage=classesService.selectByContion(value, input);
         PageInfo<Classes> classtypePageInfo=new PageInfo<>(entityPage);
@@ -83,5 +85,12 @@ public class ClassesController {
     @GetMapping("/selectnotDetails/{classesId}/{serial}")
     public List<Detailcourse> selectnotDetails(@PathVariable("classesId") Integer classesId ,@PathVariable("serial") Integer serial){
         return classesService.selectnotDetails(classesId ,serial);
+    }
+
+    //上课
+    @PutMapping("/classbegin")
+    public Classes classbegin(@RequestBody Classes classes){
+        classesService.classbegin(classes);
+        return classes;
     }
 }

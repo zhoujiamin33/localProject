@@ -5,8 +5,10 @@ import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.Entryfees;
 import com.trkj.thirdproject.entity.Studentoutstanding;
+import com.trkj.thirdproject.entity.Supplementary;
 import com.trkj.thirdproject.service.EntryfeesService;
 import com.trkj.thirdproject.service.OutStandingService;
+import com.trkj.thirdproject.service.SupplementaryService;
 import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -24,6 +26,8 @@ public class EntryfeesController {
     private EntryfeesService entryfeesService;
     @Autowired
     private OutStandingService outStandingService;
+    @Autowired
+    private SupplementaryService supplementaryService;
 
     @GetMapping("/findEntryFees")
     public PageInfo<Entryfees> findEntryFees(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize) {
@@ -57,24 +61,28 @@ public class EntryfeesController {
         return entryfees;
     }
 
-    //新增报班缴费数据
+    //新增报班缴费数据@
     @PostMapping("/insertEntry")
     @LogginAnnotation(message = "新增报班缴费")
-    public Entryfees insretEntry(@RequestBody Entryfees entryfees) {
+    public Entryfees insretEntry(@RequestBody Entryfees entryfees,@RequestParam("supplementaryId")Integer supplementaryId) {
+        Supplementary supplementary=supplementaryService.selectBysuppId(supplementaryId);
+        entryfees.setFeesReceivable(supplementary.getCourse().getCourseMoney());
+        entryfees.setFeesType(supplementary.getPayment());
+        entryfees.setReceipts(supplementary.getCourse().getCourseMoney());
         entryfeesService.insertentryfees(entryfees);
         return entryfees;
     }
 
     //根据id查询返回AjaxResponse
     @GetMapping("/selectByfeeid")
-    public AjaxResponse selectByfeeid(@RequestParam Integer feesId) {
+    public AjaxResponse selectByfeeid(@RequestParam("feesId") Integer feesId) {
         entryfeesService.selectByfeeid(feesId);
         return AjaxResponse.success("查询成功");
     }
 
-    //根据id查询返回实体类  selectByfeeidtoentry
+    //根据id查询返回实体类
     @GetMapping("/selectByfeeidtoentry")
-    public Entryfees selectByfeeidtoentry(@RequestParam Integer feesId) {
+    public Entryfees selectByfeeidtoentry(@RequestParam("feesId") Integer feesId) {
         Entryfees entryfees = entryfeesService.selectByfeeid(feesId);
         return entryfees;
     }
@@ -89,7 +97,10 @@ public class EntryfeesController {
     //多条件查询
     @GetMapping("/selectBycontionEntry")
     public PageInfo<Entryfees> selectBycontion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
-       @RequestParam("ApprovalState") int ApprovalState, @RequestParam("startTime") String startTime,@RequestParam("endTime") String  endTime) {
+
+       @RequestParam(value = "ApprovalState",required = false) String ApprovalState, @RequestParam(value = "startTime",required = false) String startTime,
+                                               @RequestParam(value = "endTime",required = false) String  endTime) {
+
         log.debug("多条件查询");
         PageHelper.startPage(currentPage, pagesize);
         List<Entryfees> entityPage = entryfeesService.selectBycontion(ApprovalState, startTime, endTime);
@@ -101,8 +112,7 @@ public class EntryfeesController {
     //--------------------------------------------------欠费补缴-----------------------------------------------------------------------
     //在报班缴费中查询缴费方式未预交费的数据
     @GetMapping("/findAlloutstanding")
-    public PageInfo<Studentoutstanding> findAlloutstanding(@RequestParam("currentPage") int currentPage,
-                                                           @RequestParam("pagesize") int pagesize) {
+    public PageInfo<Studentoutstanding> findAlloutstanding(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize) {
         PageHelper.startPage(currentPage, pagesize);
         List<Studentoutstanding> entityPage = outStandingService.selectoutonentry();
         PageInfo<Studentoutstanding> outonentryPageInfo = new PageInfo<>(entityPage);
@@ -117,10 +127,19 @@ public class EntryfeesController {
     }
 
     //欠费补缴界面下拉框选择查询
+//    @GetMapping("/selectBycontion")
+//    public List<Studentoutstanding> selectBycontion(@RequestParam("select") String select, @RequestParam("input") String input) {
+//        return outStandingService.selectBycontion(select, input);
+//    }
+    //补缴管理界面
+//    @GetMapping("/selectByContionout")
+//    public List<Studentoutstanding> selectByContionout(@PathVariable("Approval") String Approval,
+//        @PathVariable("value1") String value1,@PathVariable("value2")   String value2){
+//        return outStandingService.selectByContionout(Approval,value1,value2);
     @GetMapping("/selectBycontion")
     public PageInfo<Studentoutstanding> selectBycontion(@RequestParam("currentPage") int currentPage,
-                                                    @RequestParam("pagesize") int pagesize,
-                                                    @RequestParam("select") String select) {
+                                                    @RequestParam(value = "pagesize",required = false) int pagesize,
+                                                    @RequestParam(value = "select",required = false) String select) {
         PageHelper.startPage(currentPage, pagesize);
         List<Studentoutstanding> entityPage = outStandingService.selectBycontion(select);
         PageInfo<Studentoutstanding> outstandingPageInfo = new PageInfo<>(entityPage);
@@ -130,13 +149,13 @@ public class EntryfeesController {
     @GetMapping("/selectByContionout")
     public PageInfo<Studentoutstanding> selectByContionout(@RequestParam("currentPage") int currentPage,
                                                            @RequestParam("pagesize") int pagesize,
-                                                           @PathVariable("Approval") String Approval,
-        @PathVariable("value1") String value1,@PathVariable("value2")   String value2){
+                                                           @RequestParam(value = "Approval",required = false) String Approval,
+        @RequestParam(value = "value1",required = false) String value1,@PathVariable(value = "value2",required = false)   String value2){
         PageHelper.startPage(currentPage, pagesize);
         List<Studentoutstanding> entityPage = outStandingService.selectByContionout(Approval, value1, value2);
         PageInfo<Studentoutstanding> outstandingPageInfo = new PageInfo<>(entityPage);
         return outstandingPageInfo;
-//        return outStandingService.selectByContionout(Approval,value1,value2);
+
     }
 
 
@@ -148,6 +167,7 @@ public class EntryfeesController {
         PageInfo<Studentoutstanding> outStandingPageInfo = new PageInfo<>(entityPage);
         return outStandingPageInfo;
     }
+
     //审核
     @PutMapping("/updateApprovalState")
     @LogginAnnotation(message = "审核欠费补缴")

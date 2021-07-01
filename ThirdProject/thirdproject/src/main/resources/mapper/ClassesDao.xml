@@ -206,6 +206,15 @@
         where cl.Classes_Id = #{classesId,jdbcType=INTEGER}
     </select>
 
+<!--    根据班级和课程详细查询课程详细id-->
+    <select id="selectDetailsByserial" resultMap="Detailcourse">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="DetailCourse"/>
+        from Classes cl
+        inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
+        where cl.Classes_Id = #{classesId,jdbcType=INTEGER} and  d.Serial=#{serial,jdbcType=VARCHAR}
+    </select>
 
     <!--  根据班级id查询课程详细-->
     <select id="selectDetailCourse" resultMap="Detailcourse">
@@ -243,8 +252,13 @@
         inner join DetailCourse d on d.DetailCourse_Id=cl.DetailCourse_Id
         where cl.Classes_Open=1 order by cl.AddTime desc
     </select>
-
-
+    <!--    上课、修改课程详细-->
+    <update id="classbegin">
+        update Classes set UpdateName=#{updatename,jdbcType=VARCHAR},
+        UpdateTime=#{updatetime,jdbcType=TIMESTAMP},DetailCourse_Id=#{detailcourseId,jdbcType=TIMESTAMP},WhenDetails=#{whendetails,jdbcType=INTEGER}
+        where Classes_Id = #{classesId,jdbcType=INTEGER}
+    </update>
+    
     <!--  修改为已开班-->
     <update id="updateClassesOpen1">
     update Classes set Classes_Open=1,UpdateName=#{updatename,jdbcType=VARCHAR},

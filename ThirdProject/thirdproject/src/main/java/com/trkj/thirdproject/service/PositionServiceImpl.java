@@ -45,8 +45,8 @@ public class PositionServiceImpl implements PositionService {
     }
     //删除后为已过期
     @Override
-    public int delTimeLiness( Integer positionId) {
-        return positionDao.delTimeLiness(positionId);
+    public int delTimeLiness(String deletename, Integer positionId) {
+        return positionDao.delTimeLiness(deletename,positionId);
     }
     //    <!--  删除之后显示未过期的职位-->
     @Override

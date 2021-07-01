@@ -22,6 +22,7 @@
   <select id="findallDept" resultMap="BaseResultMap">
   select <include refid="Base_Column_List"/>
   from Dept where TimeLiness=0
+  order by Dept_Id desc
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

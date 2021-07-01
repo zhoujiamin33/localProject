@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
 import com.trkj.thirdproject.entity.*;
 import com.trkj.thirdproject.service.*;
+import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,9 +51,9 @@ public class StudentController {
         return classes;
     }
     //删除学员
-    @PutMapping("/delstudent")
+    @DeleteMapping("/delstudent")
     @LogginAnnotation(message = "批量删除学员")
-    public void deletestudent(@RequestParam("studentId") String studentId,@RequestParam("deletename")String deletename) {
+    public void deletestudent(@RequestParam("studentId") String studentId, @RequestParam("deletename") String deletename) {
         String[] stuid=studentId.split(",");
         for (String id:stuid){
             Student student=new Student();
@@ -150,7 +151,7 @@ public class StudentController {
 
     //学员表查询学员编号
     @GetMapping("/findstudentId")
-    public void findstudentId(@RequestParam("studentId") String studentId) {
+    public void findstudentId(@RequestParam("studentId") String studentId,@RequestParam("jwexaminename") String jwexaminename) {
         String[] stu=studentId.split(",");
         for (String s:stu){
         Student student = studentService.selectstudentId(Integer.parseInt(s));
@@ -161,9 +162,10 @@ studentService.updatestudentstate(student);
         Register register=studentService.selectRegister(student.getRegisterId());//查询咨询登记查询课程表
             Studentstatus studentstatus=new Studentstatus();studentstatus.setCourseId(register.getCourseId());//课程编号:显示课程的名称studentstatus.setStudentId(Integer.parseInt(s));studentstatus.setClassesId(student.getClassesId());//班级编号：显示已报班级还是未报班级
         studentstatus.setSignuptime(new Date());
+        studentstatus.setStudentId(Integer.parseInt(s));
         studentstatusService.AddStudentstatus(studentstatus);//新增学员状态表
         Memorandumattachment memorandumattachment=studentService.selectregisterID(student.getRegisterId());//学员交接表的教务状态改为1已审核
-        memorandumattachment.setJwexaminename("tsm管理员");
+        memorandumattachment.setJwexaminename(jwexaminename);
         memorandumattachment.setJwexaminetime(new Date());
         memorandumattachment.setJwisexamine(1);
 studentService.updateByPrimaryKeySelective(memorandumattachment);
@@ -244,42 +246,44 @@ public Student findstudentclasses(@RequestParam("studentId") Integer studentId) 
         return supplementaryService.selectBysuppId(supplementaryId);
     }
 //    审核修改审核状态
-    @PutMapping("/updatesupplementarystate")
+    @DeleteMapping("/updatesupplementarystate")
     @LogginAnnotation(message = "审核补报")
-    public void updatesupplementarystate(@RequestParam("supplementaryId")String supplementaryId ){
+    public void updatesupplementarystate(@RequestParam("supplementaryId")String supplementaryId ,@RequestParam("updatename") String updatename){
         String[] id=supplementaryId.split(",");
         for (String s:id){
         Supplementary supplementary=new Supplementary();
         supplementary.setUpdatetime(new Date());
         supplementary.setState(1);
+        supplementary.setUpdatename(updatename);
         supplementary.setSupplementaryId(Integer.parseInt(s));
         supplementaryService.updateByPrimaryKeySelective(supplementary);
-
         }
     }
 //    取消补报
-    @PutMapping("/updatesupplementarystate0")
+    @DeleteMapping("/updatesupplementarystate0")
     @LogginAnnotation(message = "取消补报")
-    public void updatesupplementarystate0(@RequestParam("supplementaryId")String supplementaryId ){
+    public void updatesupplementarystate0(@RequestParam("supplementaryId")String supplementaryId ,@RequestParam("deletename") String deletename){
         String[] id=supplementaryId.split(",");
         for (String s:id){
             Supplementary supplementary=new Supplementary();
-            supplementary.setUpdatetime(new Date());
+            supplementary.setDeletetime(new Date());
             supplementary.setState(0);
+            supplementary.setDeletename(deletename);
             supplementary.setSupplementaryId(Integer.parseInt(s));
             supplementaryService.updateByPrimaryKeySelective(supplementary);
 
         }
     }
 //    删除时效性
-    @PutMapping("/updatesupplementaryTimeliness")
+    @DeleteMapping("/updatesupplementaryTimeliness")
     @LogginAnnotation(message = "删除补报")
-    public void updatesupplementaryTimel(@RequestParam("supplementaryId")String supplementaryId ){
+    public void updatesupplementaryTimel(@RequestParam("supplementaryId") String supplementaryId,@RequestParam("deletename") String deletename){
         String[] id=supplementaryId.split(",");
         for (String s:id){
             Supplementary supplementary=new Supplementary();
             supplementary.setDeletetime(new Date());
             supplementary.setTimeliness(1);
+            supplementary.setDeletename(deletename);
             supplementary.setSupplementaryId(Integer.parseInt(s));
             supplementaryService.updateByPrimaryKeySelective(supplementary);
         }

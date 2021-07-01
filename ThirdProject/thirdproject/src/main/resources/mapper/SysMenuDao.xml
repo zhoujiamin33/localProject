@@ -29,7 +29,12 @@
     from sys_menu
     where id = #{id,jdbcType=INTEGER}
   </select>
-
+<!--查询-->
+  <select id="selectAllmenu" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu
+  </select>
   <select id="findMenusByPositionNames" parameterType="collection" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List_2"/>
     from `sys_menu` s

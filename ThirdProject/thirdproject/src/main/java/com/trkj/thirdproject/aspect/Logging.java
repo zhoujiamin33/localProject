@@ -43,30 +43,30 @@ public class Logging {
         LogginAnnotation myLog = method.getAnnotation(LogginAnnotation.class);
         log.debug("ddg"+myLog);
 //
-        if (name1.equals("add")) {
+//        if (name1.equals("add")) {
+//            String value = myLog.message();
+//            Opjournal opjournal=new Opjournal();
+////            opjournal.setEmpId(1);
+//            opjournal.setOpcontent(value);   //保存获取的操作
+//            opjournalService.addopjournal(opjournal);
+//            log.debug("开始新增");
+//        }
+//        if (name1.equals("upd")) {
+//            String value = myLog.message();
+//            Opjournal opjournal=new Opjournal();
+////            opjournal.setEmpId(1);
+//            opjournal.setOpcontent(value);   //保存获取的操作
+//            opjournalService.addopjournal(opjournal);
+//            log.debug("开始修改");
+//        }
+//        if (name1.equals("del")) {
             String value = myLog.message();
             Opjournal opjournal=new Opjournal();
-            opjournal.setEmpId(1);
+            opjournal.setEmpId(6);
             opjournal.setOpcontent(value);   //保存获取的操作
             opjournalService.addopjournal(opjournal);
-            log.debug("开始新增");
-        }
-        if (name1.equals("upd")) {
-            String value = myLog.message();
-            Opjournal opjournal=new Opjournal();
-            opjournal.setEmpId(1);
-            opjournal.setOpcontent(value);   //保存获取的操作
-            opjournalService.addopjournal(opjournal);
-            log.debug("开始修改");
-        }
-        if (name1.equals("del")) {
-            String value = myLog.message();
-            Opjournal opjournal=new Opjournal();
-            opjournal.setEmpId(1);
-            opjournal.setOpcontent(value);   //保存获取的操作
-            opjournalService.addopjournal(opjournal);
-            log.debug("开始删除");
-        }
+//            log.debug("开始删除");
+//        }
 
 
         log.debug("<<<<<<<<<<<<<<<<<<<<<<<<完成{}类的{}方法的执行"
