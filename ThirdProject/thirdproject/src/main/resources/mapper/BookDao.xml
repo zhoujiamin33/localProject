@@ -26,7 +26,10 @@
     from Book
     where BookName = #{bookname,jdbcType=VARCHAR}
   </select>
-
+  <delete id="deleteBook" parameterType="java.lang.Integer">
+    delete from Book
+    where Book_Id = #{bookId,jdbcType=INTEGER}
+  </delete>
   <update id="updateBook" parameterType="com.trkj.thirdproject.entity.Book">
     update Book
     set DeliveryCount = #{deliverycount,jdbcType=INTEGER}
@@ -130,8 +133,7 @@
       BookSprice = #{booksprice,jdbcType=DECIMAL},
       BookJprice = #{bookjprice,jdbcType=DECIMAL},
       SafeStock = #{safestock,jdbcType=INTEGER},
-      Press = #{press,jdbcType=VARCHAR},
-      `State` = #{state,jdbcType=INTEGER},
+      Press = #{press,jdbcType=VARCHAR}
     where Book_Id = #{bookId,jdbcType=INTEGER}
   </update>
 </mapper>

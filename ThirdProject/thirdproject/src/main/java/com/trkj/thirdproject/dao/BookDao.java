@@ -24,6 +24,8 @@ public interface BookDao {
 
     List<Book> selectAllBook();
 
+    int deleteBook(Integer bookId);
+
     Book selectbooksprice(String bookname);
 
     int updateBook(Book record);

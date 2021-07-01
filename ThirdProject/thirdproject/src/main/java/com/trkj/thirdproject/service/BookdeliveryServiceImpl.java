@@ -34,8 +34,6 @@ public class BookdeliveryServiceImpl implements BookdeliveryService {
 
     @Override
     public Bookdelivery insert(Bookdelivery bookdelivery) {
-        bookdelivery.setEmpId(1);
-        bookdelivery.setStudentId(1);
         bookdelivery.setDeliverytime(new Date());
         log.debug(bookdelivery+"");
         bookdeliveryDao.insert(bookdelivery);

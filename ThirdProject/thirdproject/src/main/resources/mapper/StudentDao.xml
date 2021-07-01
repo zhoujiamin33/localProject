@@ -134,6 +134,13 @@
    and stu.Student_Id = #{studentId,jdbcType=INTEGER}
   </select>
 
+  <select id="selectAllStudent" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from Student stu
+    where stu.TimeLiness=0
+  </select>
+
   <!--  根据班级id查询学员信息-->
   <select id="selectBycount" resultType="integer">
     select <include refid="Base_Column_List"/>,<include refid="Base_Column_Classes"/> from Student stu

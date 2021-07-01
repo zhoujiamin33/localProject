@@ -16,6 +16,7 @@ public interface StudentDao {
 
     Student selectByPrimaryKey(Integer studentId);
 
+    List<Student> selectAllStudent();
 
     int updateByPrimaryKey(Student record);
     List<Student> selectAllstudent();
