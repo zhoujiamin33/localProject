@@ -44,10 +44,10 @@ public class PositionController {
         return positionPageInfo;
     }
     //删除后为已过期
-    @PutMapping("/delTimeLiness/{positionId}")
+    @PutMapping("/delTimeLiness")
     @LogginAnnotation(message = "删除职位")
-    public int delTimeLiness(@PathVariable("positionId") Integer positionId){
-        return positionService.delTimeLiness(positionId);
+    public int delTimeLiness(@RequestParam("deletename")String deletename,@RequestParam("positionId") Integer positionId){
+        return positionService.delTimeLiness(deletename,positionId);
     }
     //    <!--  删除之后显示未过期的职位  //分页-->
   @GetMapping("/selTimeLiness")

@@ -42,6 +42,8 @@
       c.AddTime, c.UpdateName, c.UpdateTime, c.DeleteName, c.DeleteTime, c.TimeLiness
   </sql>
 
+
+
   <!--  根据课程详细Id修改课程详细-->
   <update id="updateByName" >
      update DetailCourse set DetailCourse_Name= #{detailcourseName,jdbcType=VARCHAR}, Serial= #{serial,jdbcType=INTEGER}

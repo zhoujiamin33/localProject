@@ -3,8 +3,10 @@ package com.trkj.thirdproject.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.thirdproject.aspect.aop.LogginAnnotation;
+import com.trkj.thirdproject.entity.Dropout;
 import com.trkj.thirdproject.entity.Entryfees;
 import com.trkj.thirdproject.entity.Refund;
+import com.trkj.thirdproject.service.DropoutService;
 import com.trkj.thirdproject.service.RefundService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.util.List;
 public class RefundController {
     @Autowired
     private RefundService refundservice;
+    @Autowired
+    private DropoutService dropoutService;
     @PostMapping("/insertRefund")
     @LogginAnnotation(message = "新增退费")
     public Refund  insertRefund(@RequestBody Refund refund){
@@ -52,9 +56,9 @@ public class RefundController {
     //多条件查询
     @GetMapping("/selectByContionRefund")
     public PageInfo<Refund> selectByContion(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
-        @RequestParam("Approval") int Approval,@RequestParam("value1") String value1, @RequestParam("value2") String value2,@RequestParam("input") String input){
+        @RequestParam(value = "startTime",required = false) String startTime, @RequestParam(value = "endTime",required = false) String endTime){
         PageHelper.startPage(currentPage, pagesize);
-        List<Refund> entityPage = refundservice.selectByContion(Approval, value1, value2, input);
+        List<Refund> entityPage = refundservice.selectByContion(startTime, endTime);
         PageInfo<Refund> entryfeesPageInfo = new PageInfo<>(entityPage);
         return entryfeesPageInfo;
     }

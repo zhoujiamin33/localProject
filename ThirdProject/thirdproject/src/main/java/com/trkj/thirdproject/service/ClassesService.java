@@ -32,4 +32,9 @@ public interface ClassesService {
     //根据班级id查询课程详细序列号不存在的课程详细序列号(剩余课程进度)
     List<Detailcourse> selectnotDetails(Integer classesid ,Integer serial);
 
+    List<Detailcourse> selectSerial(Integer classId,String serial);
+    //上课、修改课程详细
+    Classes classbegin(Classes classes);
+    //根据班级和课程详细查询课程详细id
+    Detailcourse selectDetailsByserial( Integer classId, String serial);
 }

@@ -27,4 +27,6 @@ public interface DetailcourseDao {
     Detailcourse selectByCourseKey100(Integer course_id);
     //统计课程详细条数
     int selectdetailscount(Integer courseId);
+
+
 }

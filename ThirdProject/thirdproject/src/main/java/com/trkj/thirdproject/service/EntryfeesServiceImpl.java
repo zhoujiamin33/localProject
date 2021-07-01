@@ -1,7 +1,9 @@
 package com.trkj.thirdproject.service;
 
 import com.trkj.thirdproject.dao.EntryfeesDao;
+import com.trkj.thirdproject.dao.SupplementaryDao;
 import com.trkj.thirdproject.entity.Entryfees;
+import com.trkj.thirdproject.entity.Supplementary;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import java.util.List;
 public class EntryfeesServiceImpl implements EntryfeesService {
     @Resource
     private EntryfeesDao entryfeesdao;
+    @Resource
+    private SupplementaryDao supplementaryDao;
     @Override
     public List<Entryfees> selectKey() {
         return entryfeesdao.selectKey();
@@ -71,7 +75,7 @@ public class EntryfeesServiceImpl implements EntryfeesService {
     }
 
     @Override
-    public List<Entryfees> selectBycontion( int ApprovalState, String value2,String input) {
-        return entryfeesdao.selectBycontion(ApprovalState, value2,input);
+    public List<Entryfees> selectBycontion( String ApprovalState, String startTime,String endTime) {
+        return entryfeesdao.selectBycontion(ApprovalState, startTime,endTime);
     }
 }

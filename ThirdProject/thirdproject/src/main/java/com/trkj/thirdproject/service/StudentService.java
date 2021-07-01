@@ -20,6 +20,8 @@ public interface StudentService {
     List<Student> slectName(String index,String value);
 //    List<Student> slectPhone(String studentPhone);
 
+    //查询所有学生
+    List<Student> selectAllStudent();
 
 //    //查询所有值（生源渠道）
 //    List<Source> selectalls();

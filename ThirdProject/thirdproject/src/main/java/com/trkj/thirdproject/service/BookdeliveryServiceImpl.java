@@ -34,8 +34,6 @@ public class BookdeliveryServiceImpl implements BookdeliveryService {
 
     @Override
     public Bookdelivery insert(Bookdelivery bookdelivery) {
-        bookdelivery.setEmpId(1);
-        bookdelivery.setStudentId(1);
         bookdelivery.setDeliverytime(new Date());
         log.debug(bookdelivery+"");
         bookdeliveryDao.insert(bookdelivery);
@@ -88,7 +86,7 @@ public class BookdeliveryServiceImpl implements BookdeliveryService {
     }
 
     @Override
-    public List<Warehouseincome> selectBycontionBook2(int Approval, String value1, String value2, String input) {
-        return warehouseincomedao.selectBycontionBook2(Approval, value1, value2, input);
+    public List<Warehouseincome> selectBycontionBook2(String startTime, String endTime) {
+        return warehouseincomedao.selectBycontionBook2(startTime, endTime);
     }
 }

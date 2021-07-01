@@ -59,29 +59,29 @@ private SuspendeService suspendeService;
 
 }
 //    修改状态或者是删除修改时效性
-    @PutMapping("/updateapprovalsu")
+    @DeleteMapping("/updateapprovalsu")
     @LogginAnnotation(message = "批量审核停课")
-    public void updateapproval(@RequestParam("suspendeId")String suspendeId){
+    public void updateapproval(@RequestParam("suspendeId")String suspendeId,@RequestParam("suspendeSappname")String suspendeSappname){
        String[] id=suspendeId.split(",");
         for (String s:id){
             Suspende suspende=suspendeService.selectByPrimaryKey(Integer.parseInt(s));
             suspende.setSuspendeApproval(1);//审批状态已审核
             suspende.setSuspendeSapptime(new Date());//审批时间
-            suspende.setSuspendeSappname("tsm管理员");
+            suspende.setSuspendeSappname(suspendeSappname);
             suspendeService.updateByPrimaryKeySelective(suspende);
         }
 
 
     }
-    @PutMapping("/delsuspend/{suspendeId}")
+    @DeleteMapping("/delsuspend")
     @LogginAnnotation(message = "批量删除停课")
-    public void delsuspend(@PathVariable("suspendeId") String suspendeId){
+    public void delsuspend(@RequestParam("suspendeId") String suspendeId,@RequestParam("deletename")String deletename){
         String[] id=suspendeId.split(",");
         for (String s:id){
             Suspende suspende=suspendeService.selectByPrimaryKey(Integer.parseInt(s));
             suspende.setTimeliness(1);//时效性为1
             suspende.setDeletetime(new Date());//删除时间
-            suspende.setDeletename("tsm管理员");
+            suspende.setDeletename(deletename);
             suspendeService.updateByPrimaryKeySelective(suspende);
         }
 

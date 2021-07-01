@@ -40,12 +40,10 @@ public class DeptController {
     //删除
     @PutMapping("/deldept")
     @LogginAnnotation(message = "删除部门")
-    public void deldept(@RequestParam("deptId") Integer deptId){
+    public void deldept(@RequestParam("deptId") Integer deptId,@RequestParam("deletename") String deletename){
         log.debug("删除成功");
-
-      String Deletename="tsm管理员";
       Date Deletetime=new Date();
-        deptService.updatetimeliness(Deletename,Deletetime,deptId);
+        deptService.updatetimeliness(deletename,Deletetime,deptId);
     }
 
 }

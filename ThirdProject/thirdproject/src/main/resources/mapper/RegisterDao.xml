@@ -127,7 +127,7 @@
     s.DeleteName, s.DeleteTime, s.IsExamine, s.LastExamineTime, s.LastExamineName, s.LastRevokeTime,
     s.LastRevokeName
   </sql>
-<!--查询咨询登记表中咨询状态为有意向的-->
+<!--查询咨询登记表中咨询状态为有意向的、未过期的、未缴费的-->
   <select id="selectAttentState" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>,
     <include refid="course"/>,
@@ -135,7 +135,7 @@
     from Register reg
     inner join Course co on co.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
-    where  reg.AttentState=0
+    where  reg.AttentState=0 and reg.PayState=0 and reg.TimeLiness=0
   </select>
 
   <!--修改咨询登记的缴费状态-->
@@ -207,6 +207,8 @@
     inner join Course co on co.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
     inner join Emp e on  e.Emp_Id=reg.Emp_Id
+    where reg.TimeLiness=0
+    order by reg.Register_Id desc
   </select>
 
   <!--  咨询登记多条件查询-->
@@ -220,6 +222,7 @@
     inner join Course co on co.Course_Id=reg.Course_Id
     inner join Source s on s.Source_Id=reg.Source_Id
     inner join Emp e on  e.Emp_Id=reg.Emp_Id
+    where reg.TimeLiness=0
   <where>
     <if test="value=='咨询人' and input!=null">
       reg.ConsultAnt like CONCAT(CONCAT('%',#{input},'%'))
@@ -231,7 +234,7 @@
       e.Emp_Name like CONCAT(CONCAT('%',#{input},'%'))
     </if>
   </where>
-  order by reg.AddTime desc
+    order by reg.AddTime desc
   </select>
 
 
@@ -382,8 +385,9 @@
 
   <!--删除后改变时效性-->
 <update id="delstuRegTime" parameterType="com.trkj.thirdproject.entity.Register">
-   update Register set TimeLiness=1 ,LastUpdateName = #{lastupdatename},
-   LastUpdateTime = #{lastupdatetime}
+   update Register set
+    DeleteName=#{deletename,jdbcType=VARCHAR},
+    TimeLiness=1
    where Register_Id = #{registerId}
 </update>
 
@@ -457,19 +461,10 @@
       Source_Id = #{sourceId,jdbcType=INTEGER},
       Consultationmode = #{consultationmode,jdbcType=VARCHAR},
       AttentState = #{attentstate,jdbcType=INTEGER},
-      PayState = #{paystate,jdbcType=INTEGER},
-      TimeLiness = #{timeliness,jdbcType=INTEGER},
-      AddName = #{addname,jdbcType=VARCHAR},
-      AddTime = #{addtime,jdbcType=TIMESTAMP},
       ConsultContent = #{consultcontent,jdbcType=VARCHAR},
-      LastUpdateName = #{lastupdatename,jdbcType=VARCHAR},
-      LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
-      DeleteName = #{deletename,jdbcType=VARCHAR},
-      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
       phone = #{phone,jdbcType=VARCHAR},
       DetailCourse_Id = #{detailcourseId,jdbcType=INTEGER},
-      Course_Id = #{courseId,jdbcType=INTEGER},
-      Emp_Id = #{empId,jdbcType=INTEGER}
+      Course_Id = #{courseId,jdbcType=INTEGER}
     where Register_Id = #{registerId,jdbcType=INTEGER}
   </update>
 </mapper>

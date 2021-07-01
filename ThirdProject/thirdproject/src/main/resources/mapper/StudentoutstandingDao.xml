@@ -68,6 +68,7 @@
                 <result column="DetailCourse_Id" jdbcType="INTEGER" property="detailcourseId"/>
                 <result column="Course_Id" jdbcType="INTEGER" property="courseId"/>
                 <result column="Emp_Id" jdbcType="INTEGER" property="empId"/>
+
             </association>
 
         </collection>
@@ -84,10 +85,17 @@
     entry.UpdateName, entry.UpdateTime, entry.DeleteName, entry.DeleteTime, entry.TimeLiness,entry.ApprovalState,entry.Fees_Accumulated
   </sql>
 
+
     <sql id="register">
     reg.Register_Id, reg.ConsultAnt, reg.Sex, reg.Source_Id, reg.PlanReturnVisit, reg.Consultationmode,reg.AttentState, reg.PayState,
     reg.TimeLiness, reg.AddName, reg.AddTime, reg.ConsultContent, reg.LastUpdateName, reg.LastUpdateTime, reg.DeleteName,
     reg.DeleteTime, reg.phone, reg.DetailCourse_Id, reg.Course_Id, reg.Emp_Id,reg.phone
+  </sql>
+
+    <sql id="student">
+    stu.Student_Id, stu.Student_Name, stu.Student_State, stu.Classes_Id, stu.Source_Id, stu.Register_Id, stu.Sex,
+    stu.Student_Phone, stu.Address, stu.ImgAddress, stu.ParentName, stu.ParentPhone, stu.Student_Number, stu.Entrance,
+    stu.UpdateName, stu.UpdateTime, stu.DeleteName, stu.DeleteTime, stu.TimeLiness, stu.StudyTime
   </sql>
     <!--修改补缴管理的累计欠费-->
     <update id="updateAccumulated">
@@ -122,11 +130,14 @@
         inner join Register reg on entry.Register_Id=reg.Register_Id
         inner join EntryFees entry on entry.Fees_Id=s.Fees_Id
         <where>
-            <if test="select='单据号' and input!=null">
-                s.outstanding_Name like CONCAT(CONCAT('%',#{input},'%'))
+            <if test="select='1' ">
+
             </if>
-            <if test="select='姓名' and input!=null">
-                s.outstanding_Name like CONCAT(CONCAT('%',#{input},'%'))
+            <if test="select='3' ">
+                s.Accumulated==0
+            </if>
+            <if test="select='2' ">
+                s.Accumulated>0
             </if>
         </where>
         order by AddTime desc
@@ -157,7 +168,7 @@
         <include refid="register"/>
         from EntryFees entry
         inner join Register reg on entry.Register_Id=reg.Register_Id
-        where entry.Fees_Type=1 and entry.TimeLiness=0 and entry.Fees_Accumulated &gt;0
+        where entry.Fees_Type=1 and entry.TimeLiness=0
         order by entry.AddTime desc
     </select>
 

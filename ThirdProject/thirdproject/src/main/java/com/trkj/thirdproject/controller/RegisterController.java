@@ -9,6 +9,7 @@ import com.trkj.thirdproject.service.RegisterService;
 import com.trkj.thirdproject.service.StudentService;
 import com.trkj.thirdproject.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -51,12 +52,10 @@ public class RegisterController {
         return register;
     }
     //批量删除
-    @PutMapping("/DelReg")
+    @DeleteMapping ("/DelReg")
     public int delstuRegTime(@RequestParam("registerId") List<Integer>registerId){
         log.debug("启用");
-        String lastupdatename="阿文";
-        Date lastupdatetime=new Date();
-        return registerService.delstuRegTime(registerId,lastupdatename,lastupdatetime);
+        return registerService.delstuRegTime(registerId);
     }
     //查询咨询登记表中咨询状态为有意向的数据
     @GetMapping("/selectAttentState")
@@ -66,12 +65,12 @@ public class RegisterController {
     }
     //根据id查询咨询登记
     @GetMapping("/selectByregisterId")
-    public Register selectByregisterId(@RequestParam("registerId") int registerId){
+    public Register selectByregisterId(@RequestParam Integer registerId){
 //        log.debug("查询有意向");
         return  registerService.selectByregisterId(registerId);
     }
     //修改咨询登记表的缴费状态
-    @PutMapping("/updatepaystate")
+    @DeleteMapping("/updatepaystate")
     public int updatepaystate(@RequestParam("registerId") Integer  registerId){
         return  registerService.updatepaystate(registerId);
     }

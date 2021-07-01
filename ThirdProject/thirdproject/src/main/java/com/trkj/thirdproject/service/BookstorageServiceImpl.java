@@ -38,7 +38,6 @@ public class BookstorageServiceImpl implements BookstorageService {
 
     @Override
     public Bookstorage addBookstorage(Bookstorage bookstorage) {
-        bookstorage.setEmpId(1);
         //得到此书的所有数据信息
         Book book = bookDao.selectByPrimaryKey(bookstorage.getBookId());
         //得到此书的进价
@@ -53,7 +52,6 @@ public class BookstorageServiceImpl implements BookstorageService {
 
     @Override
     public Bookstorage updateByPrimaryKey(Bookstorage bookstorage) {
-        bookstorage.setEmpId(1);
         //得到此书的所有数据信息
         Book book = bookDao.selectByPrimaryKey(bookstorage.getBookId());
         //得到此书的进价
@@ -124,8 +122,8 @@ public class BookstorageServiceImpl implements BookstorageService {
     }
 
     @Override
-    public List<Storageexpenditure> selectBycontionBook(int Approval, String value1, String value2, String input) {
-        return storageexpendituredao.selectBycontionBook(Approval, value1, value2, input);
+    public List<Storageexpenditure> selectBycontionBook(String startTime, String endTime) {
+        return storageexpendituredao.selectBycontionBook(startTime, endTime);
     }
 
 
