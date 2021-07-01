@@ -33,16 +33,17 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public Register updateRegister(Register register){
-        register.setPlanreturnvisit(new Date());
         registerDao.updateByPrimaryKey(register);
-
+        register.setLastupdatetime(new Date());
         return register;
     }
     //咨询登记批量删除修改时效性
     @Override
-    public int delstuRegTime(List<Integer>RegisterId, String lastupdatename, Date lastupdatetime){
+    public int delstuRegTime(List<Integer>RegisterId){
+        Register register=new Register();
         for (int unitid :RegisterId){
-            registerDao.delstuRegTime(unitid,lastupdatename,lastupdatetime);
+            register.setDeletetime(new Date());
+            registerDao.delstuRegTime(unitid);
         }
         return 1;
     }

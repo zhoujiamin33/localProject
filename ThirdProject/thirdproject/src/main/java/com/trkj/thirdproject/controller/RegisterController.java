@@ -51,12 +51,10 @@ public class RegisterController {
         return register;
     }
     //批量删除
-    @PutMapping("/DelReg")
+    @DeleteMapping ("/DelReg")
     public int delstuRegTime(@RequestParam("registerId") List<Integer>registerId){
         log.debug("启用");
-        String lastupdatename="阿文";
-        Date lastupdatetime=new Date();
-        return registerService.delstuRegTime(registerId,lastupdatename,lastupdatetime);
+        return registerService.delstuRegTime(registerId);
     }
     //查询咨询登记表中咨询状态为有意向的数据
     @GetMapping("/selectAttentState")

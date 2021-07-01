@@ -33,10 +33,9 @@ public class FaqQuestionsController {
     }
 
     //批量删除
-    @PutMapping("/DelFaq/{faqId}")
-    public int delstuFaqTime(@PathVariable("faqId") List<Integer>faqId){
+    @DeleteMapping("/DelFaq")
+    public int delstuFaqTime(@RequestParam("faqId") List<Integer>faqId){
         log.debug("启用FAQ批量删除");
-
         String deletename="阿狸";
         Date deletetime=new Date();
         return faqQuestionsService.delstuFaqTime(faqId,deletename,deletetime);

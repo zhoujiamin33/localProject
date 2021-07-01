@@ -30,7 +30,7 @@ public interface RegisterDao {
     Register selectByregisterId(Integer registerId);
 
     //删除
-    int delstuRegTime(@Param("registerId" ) int Register_Id, @Param( "lastupdatename") String LastUpdateName, @Param("lastupdatetime")Date LastUpdateTime);
+    int delstuRegTime(@Param("registerId" ) int Register_Id);
 
     //查询咨询登记表中咨询状态为有意向的数据
     List<Register> selectAttentState();

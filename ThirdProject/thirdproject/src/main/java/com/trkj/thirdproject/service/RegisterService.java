@@ -19,7 +19,7 @@ public interface RegisterService {
     Register updateRegister(Register register);
 
     //删除
-    int delstuRegTime(List<Integer>RegisterId, String nu, Date tm);
+    int delstuRegTime(List<Integer>RegisterId);
 
     //查询咨询登记表中咨询状态为有意向的数据
     List<Register> selectAttentState();

@@ -27,7 +27,7 @@ public class ReturnvisitController {
         return returnvisit;
     }
 
-    @PutMapping("/DelRet")
+    @DeleteMapping("/DelRet")
     public int delstuRetTime(@RequestParam("returnvisitId") List<Integer>returnvisitId){
         log.debug("启用批量删除");
         return returnvisitService.delstuRetTime(returnvisitId);

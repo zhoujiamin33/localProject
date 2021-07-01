@@ -87,11 +87,12 @@ public class Register implements Serializable {
     /**
      * 删除咨询登记人员
      */
-    private String deletename;
+    public String deletename;
 
     /**
      * 删除咨询登记时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date deletetime;
 
     /**
